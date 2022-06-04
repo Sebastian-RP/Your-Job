@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const { Company, User, conn } = require("./db.js");
 const app = express();
 
 //Middlewares
@@ -30,4 +31,7 @@ app.use((err, req, res, next) => {
 
 app.listen(3001, () => {
   console.log("Server listening on port 3001!");
+  conn.sync({ force: true });
+  Company.belongsToMany(User, { through: "CompanyUser" });
+  User.belongsToMany(Company, { through: "CompanyUser" });
 });
