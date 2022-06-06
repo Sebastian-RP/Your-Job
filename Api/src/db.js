@@ -52,8 +52,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { User, Company, CompanyPost } = sequelize.models; // acá van los modelos, con la primera letra en mayúscula
 
 //acá van las conexiones entre los modelos
-Company.hasMany(User); //uno a muchos
-User.belongsTo(Company); 
+Company.belongsToMany(User, { through: "CompanyUser" }); 
+User.belongsToMany(Company, { through: "CompanyUser" });
 
 Company.hasMany(CompanyPost);
 CompanyPost.belongsTo(Company);
