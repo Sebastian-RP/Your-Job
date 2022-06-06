@@ -1,8 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { skeletonReducer } from "../Slices/TestSlice";
+import { skeletonSlice } from "../Slices/TestSlice";
 
 export default configureStore({
-  reducer: {
-    skeleton: skeletonReducer,
-  },
+  reducer: skeletonSlice,
 });
