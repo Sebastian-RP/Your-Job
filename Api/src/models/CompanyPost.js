@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('company_post', {
+    sequelize.define('companyPost', {
         technologies:{
             type: DataTypes.ARRAY(DataTypes.STRING)
         },
@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
         typeof_contract:{
             type: DataTypes.ENUM(["por labor", "temporal", "termino fijo", "termino indefinido"])
         },
-        company: { 
+        companyId: { 
             type: DataTypes.INTEGER //con el id podemos consultar el nombre de la empresa 
         },
         descripcion: {
