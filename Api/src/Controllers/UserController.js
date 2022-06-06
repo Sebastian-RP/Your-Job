@@ -1,4 +1,4 @@
-const { User } = require("../db.js")
+const { User, Technology } = require("../db.js")
 
 const createUser = async ( 
     email,
@@ -24,6 +24,10 @@ const createUser = async (
                 url,
                 cv
             });
+            let userTechnologies = await Technology.findAll({
+                where: {name : technologies}
+              })
+              await newUser.addTechnology(userTechnologies)
             return "Account created"
         }   catch (error) {
             console.error("Error in createUser:", error.message);

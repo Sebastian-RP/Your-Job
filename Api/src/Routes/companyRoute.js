@@ -3,7 +3,7 @@ const { createCompany } = require("../Controllers/CompanyController.js");
 
 const router = Router();
 
-router.post("/loginCompany", async (req, res) => {
+router.post("/login", async (req, res) => {
   const {
     email,
     name,
