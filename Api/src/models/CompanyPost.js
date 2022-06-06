@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     sequelize.define('companyPost', {
-        technologies:{
+        technologiesId:{
             type: DataTypes.ARRAY(DataTypes.STRING)
         },
         experience:{
