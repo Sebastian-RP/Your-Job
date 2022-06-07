@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import SearchBar from "./Components/SearchBar/SearchBar";
 import Users from "./Pages/Users/Users";
+import Login from "./Pages/Login/Login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           </div>
         }
       />
+      <Route path={"/login"} element={<Login />} />
       <Route path={"/users/:user"} element={<Users />} />
     </Routes>
   );
