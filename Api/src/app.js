@@ -36,4 +36,6 @@ app.use((err, req, res, next) => {
 //   User.belongsToMany(Company, { through: "CompanyUser" });
 // });
 
+app.use(require("./Routes/index"));
+
 module.exports = app;
