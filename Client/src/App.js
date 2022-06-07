@@ -1,22 +1,21 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
+import SearchBar from "./Components/SearchBar/SearchBar";
+import Users from "./Pages/Users/Users";
 
 function App() {
-  const state = useSelector((state) => state);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          {console.log(state)}
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route
+        path={"/"}
+        element={
+          <div className="App">
+            <SearchBar />
+          </div>
+        }
+      />
+      <Route path={"/users/:user"} element={<Users />} />
+    </Routes>
   );
 }
 

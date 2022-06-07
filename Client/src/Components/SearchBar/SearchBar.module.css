@@ -1,0 +1,82 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: calc(50vw - 185px);
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.input {
+  display: flex;
+  min-height: 40px;
+  width: 340px;
+  border: 1px solid #999;
+  border-right: 0px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding-left: 15px;
+  outline: none;
+  font-size: 1.1em;
+  box-sizing: border-box;
+}
+
+.input:focus + .button,
+.input:focus {
+  border: 1px solid #555;
+}
+
+.input:focus {
+  border-right: 0px;
+}
+.button {
+  min-width: max-content;
+  width: 50px;
+  border: 1px solid #999;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.button:hover {
+  cursor: pointer;
+}
+.button__glass {
+  font-size: 1.3em;
+  color: #222;
+}
+
+.suggestion__container {
+  width: 340px;
+  box-sizing: border-box;
+  margin: 5px 0px;
+  padding: 0;
+  min-height: max-content;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  border-radius: 5px;
+}
+.suggestion__item {
+  height: 50px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #aaa;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.suggestion__item:hover,
+.suggestion__itemSelected {
+  background-color: #3d89fa;
+}
+
+@media screen and (max-width: 425px) {
+  .input {
+    width: 250px;
+  }
+}
