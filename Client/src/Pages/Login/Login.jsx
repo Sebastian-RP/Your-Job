@@ -7,24 +7,31 @@ export default function Login() {
   const { logout } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
   console.log(user);
+
   return (
     <form className={style.container}>
       <div className={style.login}>
         <div>
-          <button
-            onClick={() => {
-              loginWithRedirect();
-            }}
-          >
-            auth
-          </button>
-          <button
-            onClick={() => {
-              logout();
-            }}
-          >
-            logout
-          </button>
+          {isAuthenticated ? (
+            <button
+              onClick={() =>
+                logout({
+                  federated: true,
+                })
+              }
+            >
+              logout
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                loginWithRedirect();
+              }}
+            >
+              auth
+            </button>
+          )}
+
           <div>
             {isLoading
               ? "Loading..."

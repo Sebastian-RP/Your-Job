@@ -10,17 +10,17 @@ import { Auth0Provider } from "@auth0/auth0-react";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={Store}>
-    <Auth0Provider
-      domain="dev-zgaxo6rs.us.auth0.com"
-      clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
-      redirectUri="http://localhost:3000/search"
-    >
-      <Router>
-        <React.StrictMode>
+    <Router>
+      <React.StrictMode>
+        <Auth0Provider
+          domain="dev-zgaxo6rs.us.auth0.com"
+          clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
+          redirectUri="http://localhost:3000/search"
+        >
           <App />
-        </React.StrictMode>
-      </Router>
-    </Auth0Provider>
+        </Auth0Provider>
+      </React.StrictMode>
+    </Router>
   </Provider>
 );
 
