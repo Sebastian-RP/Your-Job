@@ -8,14 +8,14 @@ function App() {
   return (
     <Routes>
       <Route
-        path={"/"}
+        path={"/search"}
         element={
           <div className="App">
             <SearchBar />
           </div>
         }
       />
-      <Route path={"/login"} element={<Login />} />
+      <Route path={"/"} element={<Login />} />
       <Route path={"/users/:user"} element={<Users />} />
     </Routes>
   );

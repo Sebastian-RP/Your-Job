@@ -1,11 +1,22 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import style from "./Login.module.css";
 
 export default function Login() {
+  const { loginWithRedirect } = useAuth0();
   return (
     <form className={style.container}>
       <div className={style.login}>
-        <div className={style.logintext}>Login to your Account</div>
+        <div>
+          <button
+            onClick={() => {
+              loginWithRedirect();
+            }}
+          >
+            auth
+          </button>
+        </div>
+        {/* <div className={style.logintext}>Login to your Account</div>
         <br />
         <div className={style.input_container}>
           <input type="text" placeholder="E-mail" className={style.input} />
@@ -16,7 +27,7 @@ export default function Login() {
 
         <div>
           Don't have an account? <Link to="/register  ">Register</Link>{" "}
-        </div>
+        </div> */}
       </div>
     </form>
   );
