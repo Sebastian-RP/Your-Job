@@ -4,6 +4,9 @@ import style from "./Login.module.css";
 
 export default function Login() {
   const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  console.log(user);
   return (
     <form className={style.container}>
       <div className={style.login}>
@@ -15,6 +18,24 @@ export default function Login() {
           >
             auth
           </button>
+          <button
+            onClick={() => {
+              logout();
+            }}
+          >
+            logout
+          </button>
+          <div>
+            {isLoading
+              ? "Loading..."
+              : isAuthenticated && (
+                  <div>
+                    <img src={user.picture} alt={user.name} />
+                    <h2>{user.name}</h2>
+                    <p> {user.email} </p>
+                  </div>
+                )}
+          </div>
         </div>
         {/* <div className={style.logintext}>Login to your Account</div>
         <br />
