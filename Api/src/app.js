@@ -29,12 +29,10 @@ app.use((err, req, res, next) => {
   res.status(status).send(message);
 });
 
-// app.listen(3001, () => {
-//   console.log("Server listening on port 3001!");
-//   conn.sync({ force: true });
-//   Company.belongsToMany(User, { through: "CompanyUser" });
-//   User.belongsToMany(Company, { through: "CompanyUser" });
-// });
+app.listen(3001, () => {
+  console.log("Server listening on port 3001!");
+  conn.sync({ force: true });
+});
 
 app.use(require("./Routes/index"));
 
