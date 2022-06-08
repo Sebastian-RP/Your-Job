@@ -5,7 +5,7 @@ export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
 }
 
-export function userInfo() {
+export function getUserInfo() {
   return {
     type: GET_USER_INFO,
     payload: {
