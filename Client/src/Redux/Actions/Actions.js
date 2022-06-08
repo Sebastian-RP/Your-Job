@@ -1,7 +1,6 @@
 import axios from "axios";
 import { db } from "../../Components/Firebase/credenciales.js";
 import { collection, getDocs, query, where } from "firebase/firestore";
-
 export const GET_ALL_EMPLOYEES = "GET_ALL_EMPLOYEES";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
@@ -34,4 +33,18 @@ export async function getAllProducts() {
     products.push(producto);
   }
   return { type: GET_ALL_PRODUCTS, payload: products };
+}
+
+export function getAllTechnologies() {
+  return async function (dispatch) {
+    try {
+      const technologies = await axios.get("http://localhost:3001/technology");
+      return dispatch({
+        type: GET_ALL_TECHNOLOGIES,
+        payload: technologies.data,
+      });
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  };
 }
