@@ -7,7 +7,7 @@ const Products = () => {
     const dispatch = useDispatch();
     const [products, setProducts] = useState(null)
     useEffect(() => {
-        dispatch(getAllProducts())
+        getAllProducts()
     }, [])
 
     return (
