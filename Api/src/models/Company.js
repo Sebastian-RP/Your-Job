@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        url:{
+        url:{ //link del perfil de la empresa
             type: DataTypes.STRING,
             validate:{
                 isUrl: true
