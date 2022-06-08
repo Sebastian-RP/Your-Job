@@ -1,9 +1,12 @@
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: calc(50vw - 185px);
-  box-sizing: border-box;
+
+.form ul {
+  position: absolute;
+  top: 60px;
+}
+
+.form ul li {
+  background-color: rgba(34, 34, 34, 0.479);
+  color: azure;
 }
 
 .container {

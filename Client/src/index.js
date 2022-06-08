@@ -8,7 +8,7 @@ import Store from "./Redux/Stores/Store.js";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { CarritoContextProvider } from "./Context/carritoContext";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
