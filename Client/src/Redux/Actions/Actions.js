@@ -34,6 +34,5 @@ export async function getAllProducts() {
     producto.prices = priceSnaps.docs[0].data();
     products.push(producto);
   }
-  console.log(products)
   return { type: GET_ALL_PRODUCTS, payload: products };
 }
