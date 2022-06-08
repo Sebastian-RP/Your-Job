@@ -35,10 +35,7 @@ app.listen(3001, () => {
   console.log("Server listening on port 3001!");
   conn.sync({ force: true });
 });
-<<<<<<< HEAD
 
 app.use(require("./Routes/index"));
 
-=======
->>>>>>> 0645fde9 (Refact(App.js and routes.js): Refact of routes and app.js)
 module.exports = app;
