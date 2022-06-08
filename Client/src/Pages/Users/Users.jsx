@@ -8,17 +8,21 @@ export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
   // al hacer el login ya deberia de pasar la informacion al reducer.
   const dispatch = useDispatch();
+  const { user } = useParams();
   useEffect(() => {
-    dispatch(getUserInfo());
+    getUserInfo(user).then((action) => {
+      dispatch(action);
+    });
+    //eslint-disable-next-line
   }, []);
   //----------------------------------
   const selector = useSelector((state) => state.user);
-  const { user } = useParams();
+  console.log(selector);
   return (
     <div className={style.containerPerfil}>
       <div className={style.header}>
         <div className={style.picture}>
-          <img src={selector.image} alt="perfil-picture" />
+          <img src={selector.image} alt="perfil" />
           <h2>{user}</h2>
         </div>
         <div>
@@ -42,14 +46,12 @@ export default function Users() {
           <hr />
           <div>
             <ul>
-              {selector.technologies.map((data, index) => {
-                return (
-                  <li key={index}>{data}</li>
-                ) 
+              {selector.technologies?.map((data, index) => {
+                return <li key={index}>{data}</li>;
               })}
             </ul>
           </div>
-          <div style={{textAlign:'right'}}>
+          <div style={{ textAlign: "right" }}>
             <a href={selector.CVurl}>download CV</a>
           </div>
         </div>
