@@ -1,4 +1,3 @@
-
 const { User, Technology } = require("../db.js");
 const createUser = async (email, name, employment_status, age, image, description, technologies, nationality, url, cv) => {
   technologies = technologies.split(",");
@@ -29,7 +28,13 @@ const findUser = async (user) => {
   return result || {};
 };
 
+const getUsers = async () => {
+  const users = await User.findAll();
+  return users
+};
+
 module.exports = {
   createUser,
   findUser,
+  getUsers,
 };
