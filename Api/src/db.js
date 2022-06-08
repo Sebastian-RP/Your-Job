@@ -59,8 +59,8 @@ User.belongsTo(Company);
 Company.hasMany(CompanyPost);
 CompanyPost.belongsTo(Company);
 
-Technology.belongsToMany(CompanyPost, {through: "technologyPost"});
-CompanyPost.belongsToMany(Technology, {through: "technologyPost"});
+Technology.belongsToMany(CompanyPost, { through: "technologyPost" });
+CompanyPost.belongsToMany(Technology, { through: "technologyPost" });
 
 module.exports = {
   Op,
