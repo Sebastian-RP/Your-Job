@@ -16,13 +16,12 @@ export default function Users() {
     //eslint-disable-next-line
   }, []);
   //----------------------------------
-  const selector = useSelector((state) => state.user);
-  console.log(selector);
+  const userData = useSelector((state) => state.user);
   return (
     <div className={style.containerPerfil}>
       <div className={style.header}>
         <div className={style.picture}>
-          <img src={selector.image} alt="perfil" />
+          <img src={userData?.image} alt="perfil" />
           <h2>{user}</h2>
         </div>
         <div>
@@ -35,24 +34,24 @@ export default function Users() {
       <div className={style.perfilInfo}>
         <div className={style.about}>
           <h2>About</h2>
-          <p>Email: {selector.email}</p>
-          <p>Status: {selector.employment_status}</p>
-          <p>Age: {selector.age}</p>
-          <p>Nationality: {selector.nationality}</p>
+          <p>Email: {userData?.email}</p>
+          <p>Status: {userData?.employment_status}</p>
+          <p>Age: {userData?.age}</p>
+          <p>Nationality: {userData?.nationality}</p>
         </div>
         <div className={style.info}>
           <h2>info</h2>
-          <p>{selector.description}</p>
+          <p>{userData?.description}</p>
           <hr />
           <div>
             <ul>
-              {selector.technologies?.map((data, index) => {
+              {userData?.technologies?.map((data, index) => {
                 return <li key={index}>{data}</li>;
               })}
             </ul>
           </div>
           <div style={{ textAlign: "right" }}>
-            <a href={selector.CVurl}>download CV</a>
+            <a href={userData?.CVurl}>download CV</a>
           </div>
         </div>
       </div>
