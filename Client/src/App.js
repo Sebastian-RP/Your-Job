@@ -6,8 +6,8 @@ import Login from "./Pages/Login/Login";
 import Onboarding from "./Pages/Onboarding/Onboarding";
 import Checkout from "./Pages/CheckOut/Checkout";
 import Products from "./Pages/Products/Products";
-import RegisterCompany from "./Components/register/RegisterCompany";
 import RegisterUser from "./Components/register/RegisterUser";
+import RegisterCompany from "./Components/register/RegisterCompany";
 
 function App() {
   return (
