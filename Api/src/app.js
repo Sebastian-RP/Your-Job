@@ -36,6 +36,6 @@ app.listen(3001, () => {
   conn.sync({ force: true });
 });
 
-app.use(require("./Routes/index"));
+// app.use(require("./Routes/index"));
 
 module.exports = app;
