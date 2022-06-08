@@ -43,7 +43,9 @@ export default function Users() {
           <div>
             <ul>
               {selector.technologies.map((data, index) => {
-                return <li key={index}>{data}</li>;
+                return (
+                  <li key={index}>{data}</li>
+                ) 
               })}
             </ul>
           </div>
