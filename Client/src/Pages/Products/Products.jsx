@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../Redux/Actions/Actions";
 
 const Products = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [products, setProducts] = useState(null);
   useEffect(() => {
     getAllProducts().then((data) => {
