@@ -8,17 +8,20 @@ export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
   // al hacer el login ya deberia de pasar la informacion al reducer.
   const dispatch = useDispatch();
+  const { user } = useParams();
   useEffect(() => {
-    dispatch(getUserInfo());
+    getUserInfo(user).then((action) => {
+      dispatch(action);
+    });
+    //eslint-disable-next-line
   }, []);
   //----------------------------------
-  const selector = useSelector((state) => state.user);
-  const { user } = useParams();
+  const userData = useSelector((state) => state.user);
   return (
     <div className={style.containerPerfil}>
       <div className={style.header}>
         <div className={style.picture}>
-          <img src={selector.image} alt="perfil-picture" />
+          <img src={userData?.image} alt="perfil" />
           <h2>{user}</h2>
         </div>
         <div>
@@ -31,26 +34,24 @@ export default function Users() {
       <div className={style.perfilInfo}>
         <div className={style.about}>
           <h2>About</h2>
-          <p>Email: {selector.email}</p>
-          <p>Status: {selector.employment_status}</p>
-          <p>Age: {selector.age}</p>
-          <p>Nationality: {selector.nationality}</p>
+          <p>Email: {userData?.email}</p>
+          <p>Status: {userData?.employment_status}</p>
+          <p>Age: {userData?.age}</p>
+          <p>Nationality: {userData?.nationality}</p>
         </div>
         <div className={style.info}>
           <h2>info</h2>
-          <p>{selector.description}</p>
+          <p>{userData?.description}</p>
           <hr />
           <div>
             <ul>
-              {selector.technologies.map((data, index) => {
-                return (
-                  <li key={index}>{data}</li>
-                ) 
+              {userData?.technologies?.map((data, index) => {
+                return <li key={index}>{data}</li>;
               })}
             </ul>
           </div>
-          <div style={{textAlign:'right'}}>
-            <a href={selector.CVurl}>download CV</a>
+          <div style={{ textAlign: "right" }}>
+            <a href={userData?.CVurl}>download CV</a>
           </div>
         </div>
       </div>
