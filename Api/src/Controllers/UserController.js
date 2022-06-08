@@ -1,7 +1,11 @@
 const { User, Technology } = require("../db.js");
+const { getTechnologies } = require("../Controllers/TechnologyController.js");
+
 const createUser = async (email, name, employment_status, age, image, description, technologies, nationality, url, cv) => {
   technologies = technologies.split(",");
   try {
+    await getTechnologies();
+
     const newUser = await User.create({
       email,
       name,
