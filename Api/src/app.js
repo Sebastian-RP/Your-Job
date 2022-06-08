@@ -2,9 +2,9 @@ const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const { Company, User, conn } = require("./db.js");
+const { conn } = require("./db.js");
 const app = express();
-
+const routes = require("./routes.js");
 //Middlewares
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
@@ -18,6 +18,8 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
+
+app.use("/", routes);
 
 // // Error catching endware.
 
@@ -33,7 +35,10 @@ app.listen(3001, () => {
   console.log("Server listening on port 3001!");
   conn.sync({ force: true });
 });
+<<<<<<< HEAD
 
 app.use(require("./Routes/index"));
 
+=======
+>>>>>>> 0645fde9 (Refact(App.js and routes.js): Refact of routes and app.js)
 module.exports = app;
