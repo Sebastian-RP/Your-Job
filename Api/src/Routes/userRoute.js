@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { createUser, findUser } = require("../Controllers/UserController.js");
+const { createUser, findUser, getUsers } = require("../Controllers/UserController.js");
 
 const router = Router();
 
@@ -12,6 +12,9 @@ router.post("/login", async (req, res) => {
 router.get("/:user", async (req, res) => {
   const { user } = req.params;
   res.send(await findUser(user));
+});
+router.get("/", async (req, res) => {
+  res.send(await getUsers());
 });
 
 module.exports = router;
