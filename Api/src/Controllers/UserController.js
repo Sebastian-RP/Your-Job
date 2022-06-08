@@ -26,8 +26,8 @@ const createUser = async (
             });
             let userTechnologies = await Technology.findAll({
                 where: {name : technologies}
-              })
-              await newUser.addTechnology(userTechnologies)
+            })
+            await newUser.addTechnology(userTechnologies)
             return "Account created"
         }   catch (error) {
             console.error("Error in createUser:", error.message);

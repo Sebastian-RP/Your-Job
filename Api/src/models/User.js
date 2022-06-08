@@ -44,7 +44,7 @@ module.exports = (sequelize) => {
         nationality:{
             type: DataTypes.STRING
         },
-        url:{
+        url:{ //link del perfil de la persona
             type: DataTypes.STRING,
             validate:{
                 isUrl: true

@@ -3,7 +3,6 @@ const { Router } = require("express");
 const userRoutes = require("./Routes/userRoute.js");
 const companyRoutes = require("./Routes/companyRoute.js");
 const technologyRoutes = require("./Routes/technologyRoute.js");
-const CreatePost = require("./Routes/CompanyPost.js");
 const companyPostRoutes = require("./Routes/companyPostRoute.js");
 
 const router = Router();
@@ -11,7 +10,6 @@ const router = Router();
 router.use("/users", userRoutes);
 router.use("/company", companyRoutes);
 router.use("/technology", technologyRoutes);
-router.use("/create", CreatePost);
 router.use("/companyPost", companyPostRoutes);
 
 router.use("*", (req, res) => {
