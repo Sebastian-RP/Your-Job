@@ -1,6 +1,7 @@
-import { GET_ALL_EMPLOYEES } from "../Actions/Actions";
+import { GET_ALL_EMPLOYEES, GET_USER_INFO} from "../Actions/Actions";
 
 const initialState = {
+  user: [],
   employees: [],
   companies: [],
 };
@@ -12,6 +13,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         employees: action.payload,
       };
+    case GET_USER_INFO:
+      return {
+        ...state,
+        user: action.payload
+      }
 
     default:
       return { ...state };

@@ -13,6 +13,8 @@ export default function Users() {
         <div className={style.picture}>
           <img src={image} alt="perfil-picture" />
           <h2>{user}</h2>
+        </div>
+        <div>
         <Link to={"/"}>Go to home</Link>
         </div>
       </div>
@@ -22,6 +24,7 @@ export default function Users() {
       <div className={style.perfilInfo}>
           <div className={style.about}>
             <h2>About</h2>
+            
           </div>
           <div className={style.info}>
             <h2>info</h2>
