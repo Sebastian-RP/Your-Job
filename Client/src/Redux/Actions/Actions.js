@@ -1,8 +1,6 @@
-import { db } from "../../Components/Firebase/credenciales.js";
-import { collection, getDocs } from "firebase/firestore";
 import axios from "axios";
-import {db} from "../../Components/Firebase/credenciales.js";
-import {collection, getDocs, query, where} from "firebase/firestore";
+import { db } from "../../Components/Firebase/credenciales.js";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 export const GET_ALL_EMPLOYEES = "GET_ALL_EMPLOYEES";
 export const GET_USER_INFO = "GET_USER_INFO";
@@ -25,10 +23,10 @@ export async function getUserInfo(userName) {
 
 export async function getAllProducts() {
   const collectionRef = collection(db, "products");
-  const filtradoActivos = query(collectionRef, where( "active", "==", true));
+  const filtradoActivos = query(collectionRef, where("active", "==", true));
   const snaps = await getDocs(filtradoActivos);
-  const products = []
-  for await(const snap of snaps.docs){
+  const products = [];
+  for await (const snap of snaps.docs) {
     const producto = snap.data();
     producto.id = snap.id;
     const priceSnaps = await getDocs(collection(snap.ref, "prices"));
