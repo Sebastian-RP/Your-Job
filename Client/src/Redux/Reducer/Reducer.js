@@ -1,5 +1,5 @@
-import { GET_ALL_EMPLOYEES, GET_ALL_PRODUCTS } from "../Actions/Actions";
-
+import { GET_ALL_EMPLOYEES } from "../Actions/Actions";
+import {GET_ALL_PRODUCTS} from "../Actions/Actions";
 const initialState = {
   employees: [],
   companies: [],
