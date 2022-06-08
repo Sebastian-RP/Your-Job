@@ -2,8 +2,9 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     sequelize.define('companyPost', {
-        technologiesId:{
-            type: DataTypes.ARRAY(DataTypes.STRING)
+        titlePost:{
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         experience:{
             type: DataTypes.ENUM(["trainig", "junior", "semi-senior", "senior"]) //concordar los termino a usar
@@ -25,7 +26,10 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER
         },
         modality:{
-            type: DataTypes.ENUM("remoto", "presencial")
-        }
+            type: DataTypes.ENUM(["remoto", "presencial"])
+        },
+        technologiesId:{
+            type: DataTypes.ARRAY(DataTypes.STRING)
+        },
     })
 }
