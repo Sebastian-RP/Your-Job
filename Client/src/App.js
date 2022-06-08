@@ -23,7 +23,6 @@ function App() {
       <Route path={"/onboarding"} element={<Onboarding />} />
       <Route path={"/checkout/:user"} element={<Checkout />} />
       <Route path={"/products"} element={<Products />} />
-
     </Routes>
   );
 }
