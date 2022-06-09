@@ -1,9 +1,11 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
-export default function Onboarding2() {
+export default function Onboarding() {
   const navigate = useNavigate();
+  const search = useLocation().search;
+  const state = new URLSearchParams(search).get("state");
 
   return (
     <Card className="text-center">
@@ -14,7 +16,7 @@ export default function Onboarding2() {
         <Button
           variant="primary"
           onClick={() => {
-            navigate("/register/user");
+            navigate(`/register/user/${state}`);
           }}
         >
           User
@@ -24,7 +26,7 @@ export default function Onboarding2() {
         <Button
           variant="primary"
           onClick={() => {
-            navigate("/register/company");
+            navigate(`/register/company/${state}`);
           }}
         >
           Company
