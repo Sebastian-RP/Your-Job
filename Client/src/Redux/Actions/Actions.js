@@ -1,6 +1,6 @@
-import axios from "axios";
 import { db } from "../../Components/Firebase/credenciales.js";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import axios from "axios";
+import {collection, getDocs, query, where} from "firebase/firestore";
 
 export const GET_ALL_EMPLOYEES = "GET_ALL_EMPLOYEES";
 export const GET_USER_INFO = "GET_USER_INFO";
