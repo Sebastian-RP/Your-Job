@@ -33,13 +33,14 @@ const Products = () => {
             <button onClick={()=>navigate('/carrito')}>Carrito {carrito.length}</button>
             <button className={style.Button} onClick={()=> navigate('/home')}>Back</button>
         </div>
+        <h1>Servicios premium</h1>
       {products ? (
-        products.map((e) => {
+        products.map((e, index) => {
           return (
             <Link to={`/product/${e.id}`}>
-              <div className={style.StyledProducts}>
-                <h1>{e.name}</h1>
-                <h2>{e.description}</h2>
+              <div className={style.StyledProducts} key={index}>
+                <h3>{e.name}</h3>
+                <p>{e.description}</p>
                 <p>
                   ${e.prices.unit_amount / 100} {e.prices.currency}
                 </p>

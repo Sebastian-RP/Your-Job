@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { db } from '../../Components/Firebase/credenciales'
-import {doc, collection, getDoc} from 'firebase/firestore'
+import {doc, collection, getDoc, getDocs} from 'firebase/firestore'
 import { useCarritoContext } from '../../Context/carritoContext'
 import style from "./Product.module.css";
 
@@ -11,7 +11,11 @@ async function getProduct(id){
     const docRef = doc(colectionRef, id)
     const snapDoc = await getDoc(docRef)
     const product = snapDoc.data()
-    console.log(product)
+
+    const priceSnaps = await getDocs(collection(snapDoc.ref, "prices"));
+    product.prices = priceSnaps.docs[0].data();
+    product.priceId = priceSnaps.docs[0].id;
+
     return product
 }
 
@@ -24,15 +28,21 @@ const Product = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        getProduct(id).then((product) => {
-            setProductInfo(product)
-        })
+        getProduct(id).then(function (product) {
+                setProductInfo(product)
+            })
     }, [id])
 
     const addToCarrito = () => {
-        console.log(carrito)
-        carrito ? setCarrito([...carrito, productInfo]): carrito.push(productInfo)
-        navigate('/carrito')
+        if(carrito){
+            if(carrito.name === productInfo.name){
+                alert("El elemento ya se encuentra en el carrito")
+            } else{
+                alert("Elemento añadido al carrito de compras")
+                console.log([...new Set([...carrito, productInfo])])
+                setCarrito([...new Set([...carrito, productInfo])])
+            }
+        }
     }
 
   return (
@@ -42,7 +52,7 @@ const Product = () => {
         <h2>{productInfo? productInfo.name : 'Cargando...'}</h2>
         <p>{productInfo? productInfo.description : 'Cargando...'}</p>
         <div className={style.DivButtons} >
-            <button className={style.Button} onClick={addToCarrito}>Añadir a Carrito</button>
+            <button className={style.Button} onClick={addToCarrito} disabled={!productInfo}>Añadir a Carrito</button>
             <button className={style.Button}>Comprar Ahora</button>
         </div>
     </div>

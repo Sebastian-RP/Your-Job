@@ -34,6 +34,7 @@ export async function getAllProducts() {
     producto.id = snap.id;
     const priceSnaps = await getDocs(collection(snap.ref, "prices"));
     producto.prices = priceSnaps.docs[0].data();
+    producto.priceId = priceSnaps.docs[0].id;
     products.push(producto);
   }
   return { type: GET_ALL_PRODUCTS, payload: products };
