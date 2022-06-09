@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAllUsers } from "../../Redux/Actions/Actions";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./SearchBar.module.css";
 
 function inputHandler(e, setUsersFiltered, users, setSelected, setFocus) {
@@ -15,11 +17,6 @@ function inputHandler(e, setUsersFiltered, users, setSelected, setFocus) {
       })
     );
   }
-}
-
-function focusOut(e, setUsersFiltered) {
-  e.stopPropagation();
-  setUsersFiltered([]);
 }
 
 function keyDownHandler(e, setSelected, selected, usersFiltered) {
@@ -44,18 +41,24 @@ function submitHandler(e, userSelected, navigate) {
 }
 
 export default function SearchBar() {
-  const [users] = useState(["Jose", "Jose2", "Jos3", "Jos5"]);
+  let usersList = useSelector((state) => state.users);
+  usersList = usersList.map((user) => user.name);
+  const [users, setUsers] = useState(usersList);
+  if (users.length < usersList.length) {
+    setUsers(usersList);
+  }
   const [usersFiltered, setUsersFiltered] = useState([]);
   const [focus, setFocus] = useState(false);
+  const dispatch = useDispatch();
   window.onclick = (e) => {
     if (!e.target.className.split("_").includes("SearchBar")) {
       setFocus(false);
     }
   };
   useEffect(() => {
-    // console.log("Mounted");
+    getAllUsers().then((data) => dispatch(data));
+    // eslint-disable-next-line
   }, []);
-
   const [selected, setSelected] = useState(-1);
   const navigate = useNavigate();
 
@@ -64,7 +67,6 @@ export default function SearchBar() {
       <div className={style.container}>
         <input
           onChange={(e) => inputHandler(e, setUsersFiltered, users, setSelected, setFocus)}
-          // onBlur={(e) => focusOut(e, setUsersFiltered)}
           onFocus={(e) => inputHandler(e, setUsersFiltered, users, setSelected, setFocus)}
           onKeyDown={(e) => keyDownHandler(e, setSelected, selected, usersFiltered)}
           className={style.input}
