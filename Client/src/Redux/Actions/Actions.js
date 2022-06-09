@@ -110,10 +110,6 @@ export function getAllPost() {
   return async function (dispatch) {
     try {
       const posts = await axios.get("http://localhost:3001/companyPost");
-<<<<<<< HEAD
-=======
-      console.log(posts.data);
->>>>>>> 8ada2392677b8e964fceb62af5067af09f4e8091
       return dispatch({
         type: GET_ALL_POST,
         payload: posts.data,
