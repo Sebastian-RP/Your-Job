@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const { conn } = require("./db.js");
 const app = express();
 const routes = require("./routes.js");
+
+const { executeComand } = require("./config/addData.js");
 //Middlewares
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
@@ -31,9 +33,13 @@ app.use((err, req, res, next) => {
   res.status(status).send(message);
 });
 
+const deleteDB = true;
+
 app.listen(3001, () => {
   console.log("Server listening on port 3001!");
-  conn.sync({ force: true });
+  conn.sync({ force: deleteDB });
+
+  executeComand(deleteDB); //llena la Bd si deleteDB= true
 });
 
 // app.use(require("./Routes/index"));
