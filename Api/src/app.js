@@ -21,7 +21,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use("/", routes);
 
 // // Error catching endware.
