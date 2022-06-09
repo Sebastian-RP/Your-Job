@@ -27,7 +27,7 @@ const Products = () => {
     <div>{products? products.map(e =>{
         return(
             <Link to={`/product/${e.id}`}>
-                <div style={style.StyledProducts} >
+                <div className={style.StyledProducts} >
                     <h1>{e.name}</h1>
                     <h2>{e.description}</h2>
                     <p>${e.prices.unit_amount /100} {e.prices.currency}</p>

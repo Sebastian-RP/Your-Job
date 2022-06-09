@@ -11,7 +11,7 @@ const Carrito = () => {
 
     return (
         <div>
-            <button style={style.Button} onClick={()=> navigate('/products')}>Back</button>
+            <button className={style.Button} onClick={()=> navigate('/products')}>Back</button>
 
             {carrito? carrito.map(producto =>(
             <p>{producto.name}</p>

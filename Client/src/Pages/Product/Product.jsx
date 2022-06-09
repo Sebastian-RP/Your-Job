@@ -36,14 +36,14 @@ const Product = () => {
     }
 
   return (
-    <div style={style.StyledProducts} >
-        <button style={style.Button} onClick={()=> navigate('/products')}>Back</button>
+    <div className={style.StyledProducts} >
+        <button className={style.Button} onClick={()=> navigate('/products')}>Back</button>
         <h1>Detalles del Producto ID: {id}</h1>
         <h2>{productInfo? productInfo.name : 'Cargando...'}</h2>
         <p>{productInfo? productInfo.description : 'Cargando...'}</p>
-        <div style={style.DivButtons} >
-            <button style={style.Button} onClick={addToCarrito}>Añadir a Carrito</button>
-            <button style={style.Button}>Comprar Ahora</button>
+        <div className={style.DivButtons} >
+            <button className={style.Button} onClick={addToCarrito}>Añadir a Carrito</button>
+            <button className={style.Button}>Comprar Ahora</button>
         </div>
     </div>
   )
