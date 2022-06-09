@@ -5,6 +5,9 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 export const GET_ALL_EMPLOYEES = "GET_ALL_EMPLOYEES";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export const GET_ALL_TECHNOLOGIES = "GET_ALL_TECHNOLOGIES";
+export const GET_ALL_USERS = "GET_ALL_USERS";
+
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
 }
@@ -34,4 +37,23 @@ export async function getAllProducts() {
     products.push(producto);
   }
   return { type: GET_ALL_PRODUCTS, payload: products };
+}
+
+export function getAllTechnologies() {
+  return async function (dispatch) {
+    try {
+      const technologies = await axios.get("http://localhost:3001/technology");
+      return dispatch({
+        type: GET_ALL_TECHNOLOGIES,
+        payload: technologies.data,
+      });
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  };
+}
+
+export async function getAllUsers() {
+  const usersList = await axios.get("http://localhost:3001/users");
+  return { type: GET_ALL_USERS, payload: usersList.data };
 }

@@ -39,9 +39,6 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.TEXT,
     },
-    technologies: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-    },
     nationality: {
       type: DataTypes.STRING,
     },

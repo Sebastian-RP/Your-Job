@@ -1,24 +1,41 @@
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../Redux/Actions/Actions";
+import style from "./Products.module.css";
+import { Link } from "react-router-dom";
 
 const Products = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const productsList = useSelector((state) => state.products);
+
   const [products, setProducts] = useState(null);
+
   useEffect(() => {
-    getAllProducts().then((data) => {
-      setProducts(data.payload);
+    getAllProducts().then((action) => {
+      dispatch(action);
     });
+    setProducts(productsList);
+    // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    setProducts(productsList);
+  }, [productsList]);
+
   return (
     <div>
       {products ? (
-        products.map((e, index) => {
+        products.map((e) => {
           return (
-            <div key={`${e.name}_${index}`}>
-              <h1>{e.description}</h1>
-              <h2>{e.name}</h2>
-            </div>
+            <Link to={`/product/${e.id}`}>
+              <div className={style.StyledProducts}>
+                <h1>{e.name}</h1>
+                <h2>{e.description}</h2>
+                <p>
+                  ${e.prices.unit_amount / 100} {e.prices.currency}
+                </p>
+              </div>
+            </Link>
           );
         })
       ) : (
