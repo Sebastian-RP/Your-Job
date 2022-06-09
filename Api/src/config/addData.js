@@ -8,7 +8,7 @@ const executeComand = (DbEmpty) => {
             return;
           }
             console.error(`stderr: ${stderr}`); 
-            console.log(`stdout: ${stdout}`);
+            console.log(`stdout: Datos estaticos cargados a la base de datos`);
         });
     }
 }
