@@ -6,6 +6,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Button from "react-bootstrap/Button";
 import style from "./register.module.css";
+import { useParams } from "react-router-dom";
 
 export default function RegisterUser() {
   const countries = [
@@ -206,6 +207,7 @@ export default function RegisterUser() {
     "Zambia",
     "Zimbabwe",
   ];
+  const { state } = useParams();
   const tecnologias = [
     "Javascript",
     "React",
@@ -223,7 +225,6 @@ export default function RegisterUser() {
     name: "",
     email: "",
     age: 0,
-    image: null,
     linkedin: "",
     desc: "",
     cv: null,
@@ -257,6 +258,14 @@ export default function RegisterUser() {
     dispatch(getAllTechnologies());
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    window.location.replace(
+      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${state}`
+    );
+  };
+
   return (
     <Card className="text-center">
       Please fill out the following form with your information
@@ -269,9 +278,6 @@ export default function RegisterUser() {
         <br />
         <label>Age:</label>{" "}
         <input type={"number"} name="age" onChange={(e) => handleChange(e)} />
-        <br />
-        <label>Profile Image:</label>{" "}
-        <input type={"file"} name="image" onChange={(e) => handleChange(e)} />
         <br />
         <label>
           Technologies:
@@ -328,11 +334,7 @@ export default function RegisterUser() {
       </form>
       <br />
       <div>
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={() => console.log(input.image)}
-        >
+        <Button variant="primary" size="lg" onClick={(e) => handleSubmit(e)}>
           Submit
         </Button>
       </div>
