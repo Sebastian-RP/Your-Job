@@ -1,7 +1,7 @@
 const { User, Technology } = require("../db.js");
 const { getTechnologies } = require("../Controllers/TechnologyController.js");
 
-const createUser = async (email, name, employment_status, age, image, description, technologies, nationality, url, cv) => {
+const createUser = async (email, name, employment_status, age, image, description, technologiesName, nationality, url, cv) => {
   try {
     await getTechnologies();
 
@@ -12,13 +12,13 @@ const createUser = async (email, name, employment_status, age, image, descriptio
       age,
       image,
       description,
-      technologies,
+      technologiesName,
       nationality,
       url,
       cv,
     });
     let userTechnologies = await Technology.findAll({
-      where: { name: technologies },
+      where: { name: technologiesName },
     });
     await newUser.addTechnology(userTechnologies);
     return "Account created";
