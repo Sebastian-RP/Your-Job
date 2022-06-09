@@ -62,7 +62,7 @@ export async function getAllUsers() {
 export function getAllPost() {
   return async function (dispatch) {
     try {
-      const posts = await axios.get("http://localhost:3001/post");
+      const posts = await axios.get("http://localhost:3001/companyPost");
       console.log(posts.data)
       return dispatch({
         type: GET_ALL_POST,

@@ -3,7 +3,7 @@ const { getCompanyPosts, createPost } = require("../Controllers/companyPostContr
 
 const router = Router();
 
-router.get("/post", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     res.status(200).send(await getCompanyPosts());
   } catch (e) {
@@ -11,7 +11,7 @@ router.get("/post", async (req, res) => {
   }
 });
 
-router.post("/post", async(req, res) => {
+router.post("/", async(req, res) => {
   const { titlePost, experience, typeof_contract, descripcion, min_salary, max_salary, modality, technologiesId } = req.body;
   
   try {
