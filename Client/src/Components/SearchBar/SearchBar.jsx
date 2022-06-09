@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./SearchBar.module.css";
 
-function inputHandler(e, setUsersFiltered, users, setSelected) {
+function inputHandler(e, setUsersFiltered, users, setSelected, setFocus) {
   let inputValue = e.target.value;
   setSelected(-1);
+  setFocus(true);
   if (inputValue.length === 0) {
     setUsersFiltered([]);
   } else {
@@ -16,7 +17,8 @@ function inputHandler(e, setUsersFiltered, users, setSelected) {
   }
 }
 
-function focusOut(setUsersFiltered) {
+function focusOut(e, setUsersFiltered) {
+  e.stopPropagation();
   setUsersFiltered([]);
 }
 
@@ -37,13 +39,23 @@ function keyDownHandler(e, setSelected, selected, usersFiltered) {
 }
 function submitHandler(e, userSelected, navigate) {
   e.preventDefault();
-  let inputTextValue = e.target[0].value;
+  let inputTextValue = e.target[0]?.value || e.target.innerText;
   navigate(`/users/${userSelected ? userSelected : inputTextValue}`);
 }
 
 export default function SearchBar() {
-  const [users] = useState(["Jose Samuel", "Sebas 1", "Sebas 2"]);
+  const [users] = useState(["Jose", "Jose2", "Jos3", "Jos5"]);
   const [usersFiltered, setUsersFiltered] = useState([]);
+  const [focus, setFocus] = useState(false);
+  window.onclick = (e) => {
+    if (!e.target.className.split("_").includes("SearchBar")) {
+      setFocus(false);
+    }
+  };
+  useEffect(() => {
+    // console.log("Mounted");
+  }, []);
+
   const [selected, setSelected] = useState(-1);
   const navigate = useNavigate();
 
@@ -51,9 +63,9 @@ export default function SearchBar() {
     <form className={style.form} onSubmit={(e) => submitHandler(e, usersFiltered[selected], navigate)}>
       <div className={style.container}>
         <input
-          onChange={(e) => inputHandler(e, setUsersFiltered, users, setSelected)}
-          onBlur={() => focusOut(setUsersFiltered)}
-          onFocus={(e) => inputHandler(e, setUsersFiltered, users, setSelected)}
+          onChange={(e) => inputHandler(e, setUsersFiltered, users, setSelected, setFocus)}
+          // onBlur={(e) => focusOut(e, setUsersFiltered)}
+          onFocus={(e) => inputHandler(e, setUsersFiltered, users, setSelected, setFocus)}
           onKeyDown={(e) => keyDownHandler(e, setSelected, selected, usersFiltered)}
           className={style.input}
           type="text"
@@ -65,11 +77,15 @@ export default function SearchBar() {
           <i className={"fa-solid fa-magnifying-glass " + style.button__glass}></i>
         </button>
       </div>
-      {usersFiltered.length > 0 ? (
+      {usersFiltered.length > 0 && focus ? (
         <ul className={style.suggestion__container}>
           {usersFiltered.map((user, index) => {
             return (
-              <li key={user + "_" + index} className={`${style.suggestion__item} ${selected === index ? style.suggestion__itemSelected : ""}`}>
+              <li
+                key={user + "_" + index}
+                onClick={(e) => submitHandler(e, usersFiltered[selected], navigate)}
+                className={`${style.suggestion__item} ${selected === index ? style.suggestion__itemSelected : ""}`}
+              >
                 {user}
               </li>
             );

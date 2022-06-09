@@ -1,22 +1,24 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import SearchBar from "./Components/SearchBar/SearchBar";
 import Users from "./Pages/Users/Users";
 import Login from "./Pages/Login/Login";
 import Onboarding from "./Pages/Onboarding/Onboarding";
 import Checkout from "./Pages/CheckOut/Checkout";
 import Products from "./Pages/Products/Products";
-import RegisterCompany from "./Components/register/RegisterCompany";
+import Product from "./Pages/Product/Product";
+import Carrito from "./Pages/Carrito/Carrito";
 import RegisterUser from "./Components/register/RegisterUser";
+import RegisterCompany from "./Components/register/RegisterCompany";
+import Home from "./Pages/Home/home";
 
 function App() {
   return (
     <Routes>
       <Route
-        path={"/search"}
+        path={"/home"}
         element={
           <div className="App">
-            <SearchBar />
+            <Home />
           </div>
         }
       />
@@ -27,6 +29,9 @@ function App() {
       <Route path={"/register/company"} element={<RegisterCompany />} />
       <Route path={"/checkout/:user"} element={<Checkout />} />
       <Route path={"/products"} element={<Products />} />
+      <Route path={"/carrito"} element={<Carrito />} />
+      <Route path={"/product/:id"} element={<Product />} />
+
     </Routes>
   );
 }

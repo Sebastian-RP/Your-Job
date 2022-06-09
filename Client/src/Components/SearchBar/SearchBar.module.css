@@ -2,14 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: calc(50vw - 185px);
   box-sizing: border-box;
 }
 
 .container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 }
 
 .input {
@@ -55,9 +53,12 @@
   margin: 5px 0px;
   padding: 0;
   min-height: max-content;
-  border: 1px solid #aaa;
+  border: 1px solid #555;
   border-bottom: none;
   border-radius: 5px;
+  position: absolute;
+  background-color: #fff;
+  top: 67px;
 }
 .suggestion__item {
   height: 50px;
@@ -65,9 +66,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #555;
   font-size: 1.2em;
   cursor: pointer;
+}
+.suggestion__item:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .suggestion__item:hover,
