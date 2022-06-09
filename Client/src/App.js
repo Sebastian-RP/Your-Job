@@ -31,7 +31,6 @@ function App() {
       <Route path={"/products"} element={<Products />} />
       <Route path={"/carrito"} element={<Carrito />} />
       <Route path={"/product/:id"} element={<Product />} />
-
     </Routes>
   );
 }
