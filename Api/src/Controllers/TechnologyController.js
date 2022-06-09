@@ -4,15 +4,15 @@ const tecnologias = ["Javascript", "React", "Redux", "HTML5", "CSS3", "Boostrap"
 
 const getTechnologies = async () => {
   try {
-    for (let i = 0; i < tecnologias.length; i++) {
-      let [techX, created] = await Technology.findOrCreate({
-        //findOrcreate, si agregamos una tecnologia existente no la duplique
-        where: { name: tecnologias[i].trim() },
-        default: {
-          name: tecnologias[i].trim(),
-        },
-      });
-    }
+    // for (let i = 0; i < tecnologias.length; i++) {
+    //   let [techX, created] = await Technology.findOrCreate({
+    //     //findOrcreate, si agregamos una tecnologia existente no la duplique
+    //     where: { name: tecnologias[i].trim() },
+    //     default: {
+    //       name: tecnologias[i].trim(),
+    //     },
+    //   });
+    // }
 
     let technologies = await Technology.findAll();
 

@@ -2,9 +2,12 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     sequelize.define('companyPost', {
-        titlePost:{
+        titlePost: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
+        },
+        technologiesId:{
+            type: DataTypes.ARRAY(DataTypes.INTEGER)
         },
         experience:{
             type: DataTypes.ENUM(["trainig", "junior", "semi-senior", "senior"]) //concordar los termino a usar
@@ -16,7 +19,7 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER //con el id podemos consultar el nombre de la empresa 
         },
         descripcion: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         min_salary: {

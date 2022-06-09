@@ -8,6 +8,7 @@ const {
 const router = Router();
 
 router.post("/login", async (req, res) => {
+
   const {
     email,
     name,
@@ -15,7 +16,7 @@ router.post("/login", async (req, res) => {
     age,
     image,
     description,
-    technologies,
+    technologiesName,
     nationality,
     url,
     cv,
@@ -27,11 +28,12 @@ router.post("/login", async (req, res) => {
     age,
     image,
     description,
-    technologies,
+    technologiesName,
     nationality,
     url,
     cv
   );
+
   return res.status(200).send(newUser);
 });
 
