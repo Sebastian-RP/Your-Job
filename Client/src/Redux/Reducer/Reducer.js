@@ -1,9 +1,11 @@
+
 import {
   GET_ALL_EMPLOYEES,
   GET_USER_INFO,
   GET_ALL_PRODUCTS,
   GET_ALL_TECHNOLOGIES,
-} from "../Actions/Actions";
+} from "../Actions/Actions.js";
+
 
 const initialState = {
   user: [],
