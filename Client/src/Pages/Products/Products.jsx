@@ -3,19 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../Redux/Actions/Actions";
 import style from "./Products.module.css";
 import { Link } from "react-router-dom";
+import {useCarritoContext } from '../../Context/carritoContext'
+import { useNavigate } from 'react-router-dom'
+
 
 const Products = () => {
   const dispatch = useDispatch();
   const productsList = useSelector((state) => state.products);
 
   const [products, setProducts] = useState(null);
+  const {carrito} = useCarritoContext()
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     getAllProducts().then((action) => {
       dispatch(action);
     });
     setProducts(productsList);
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -24,6 +29,10 @@ const Products = () => {
 
   return (
     <div>
+        <div>
+            <button onClick={()=>navigate('/carrito')}>Carrito {carrito.length}</button>
+            <button className={style.Button} onClick={()=> navigate('/home')}>Back</button>
+        </div>
       {products ? (
         products.map((e) => {
           return (

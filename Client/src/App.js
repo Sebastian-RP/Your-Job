@@ -27,7 +27,7 @@ function App() {
       <Route path={"/onboarding"} element={<Onboarding />} />
       <Route path={"/register/user"} element={<RegisterUser />} />
       <Route path={"/register/company"} element={<RegisterCompany />} />
-      <Route path={"/checkout/:user"} element={<Checkout />} />
+      <Route path={"/checkout"} element={<Checkout />} />
       <Route path={"/products"} element={<Products />} />
       <Route path={"/carrito"} element={<Carrito />} />
       <Route path={"/product/:id"} element={<Product />} />
