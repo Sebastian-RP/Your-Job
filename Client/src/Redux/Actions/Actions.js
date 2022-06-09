@@ -59,6 +59,29 @@ export async function getAllUsers() {
   return { type: GET_ALL_USERS, payload: usersList.data };
 }
 
+
+export function createUser(user) {
+  return async function (dispatch) {
+    console.log(user);
+    try {
+      const newUser = await axios.post("http://localhost:3001/users/login", {
+        email: user.email,
+        name: user.name,
+        employment_status: user.employment_status,
+        age: user.age,
+        description: user.description,
+        technologies: user.technologies,
+        nationality: user.nationality,
+        url: user.url,
+        cv: user.cv,
+      });
+      return;
+    } catch (e) {
+      console.error("Error: " + e.message)
+    }
+  }
+}
+
 export function getAllPost() {
   return async function (dispatch) {
     try {
