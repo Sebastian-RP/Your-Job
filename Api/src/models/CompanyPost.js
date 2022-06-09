@@ -29,7 +29,10 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER
         },
         modality:{
-            type: DataTypes.ENUM("remoto", "presencial")
-        }
+            type: DataTypes.ENUM(["remoto", "presencial"])
+        },
+        technologiesId:{
+            type: DataTypes.ARRAY(DataTypes.STRING)
+        },
     })
 }

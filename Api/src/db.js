@@ -59,6 +59,9 @@ User.belongsTo(Company);
 Company.hasMany(CompanyPost);
 CompanyPost.belongsTo(Company);
 
+Technology.belongsToMany(User, {through: "UserTechnologies"});
+User.belongsToMany(Technology, {through: "UserTechnologies"});
+
 Technology.belongsToMany(CompanyPost, { through: "technologyPost" });
 CompanyPost.belongsToMany(Technology, { through: "technologyPost" });
 
