@@ -32,8 +32,8 @@ const findUser = async (user) => {
 };
 
 const getUsers = async () => {
-  const users = await User.findAll();
-  return users
+  const users = await User.findAll({ include: Technology });
+  return users;
 };
 
 module.exports = {
