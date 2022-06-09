@@ -24,7 +24,7 @@ export default function Home() {
             <div>
                 <img src={user.picture} alt="picture" />
             </div>
-            <h1>Soy el home</h1>
+            <h1>{user.name}</h1>
             </div>
             </>:logout({returnTo: window.location.origin})}
         </div>
