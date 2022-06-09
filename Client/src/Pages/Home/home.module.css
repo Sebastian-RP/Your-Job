@@ -19,3 +19,7 @@
     margin: 2px 10px;
 }
 
+.accordion-body {
+    padding: 5px;
+    background-color:aqua;
+}
