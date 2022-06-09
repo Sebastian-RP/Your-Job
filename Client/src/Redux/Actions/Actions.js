@@ -1,6 +1,6 @@
 import { db } from "../../Components/Firebase/credenciales.js";
 import axios from "axios";
-import {collection, getDocs, query, where} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 export const GET_ALL_EMPLOYEES = "GET_ALL_EMPLOYEES";
 export const GET_USER_INFO = "GET_USER_INFO";
@@ -59,7 +59,6 @@ export async function getAllUsers() {
   return { type: GET_ALL_USERS, payload: usersList.data };
 }
 
-
 export function createUser(user) {
   return async function (dispatch) {
     console.log(user);
@@ -70,23 +69,47 @@ export function createUser(user) {
         employment_status: user.employment_status,
         age: user.age,
         description: user.description,
-        technologies: user.technologies,
+        technologiesName: user.technologies,
         nationality: user.nationality,
         url: user.url,
         cv: user.cv,
       });
       return;
     } catch (e) {
-      console.error("Error: " + e.message)
+      console.error("Error: " + e.message);
     }
-  }
+  };
+}
+
+export function createCompany(company) {
+  return async function (dispatch) {
+    console.log(company);
+    try {
+      const newCompany = await axios.post(
+        "http://localhost:3001/company/login",
+        {
+          email: company.email,
+          name: company.name,
+          phone: company.phone,
+          propietary_name: company.propietary_name,
+          address: company.address,
+          url: company.url,
+          nationality: company.nationality,
+          description: company.description,
+        }
+      );
+      return;
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  };
 }
 
 export function getAllPost() {
   return async function (dispatch) {
     try {
       const posts = await axios.get("http://localhost:3001/companyPost");
-      console.log(posts.data)
+      console.log(posts.data);
       return dispatch({
         type: GET_ALL_POST,
         payload: posts.data,
