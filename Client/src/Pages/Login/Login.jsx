@@ -6,7 +6,7 @@ export default function Login() {
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user);
+  
 
   return (
     <form className={style.container}>
