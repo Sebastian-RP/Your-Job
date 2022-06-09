@@ -25,7 +25,7 @@ export default function Users() {
           <h2>{user}</h2>
         </div>
         <div>
-          <Link to={"/"}>Go to home</Link>
+          <Link to={"/home"}>Go to home</Link>
         </div>
       </div>
       <div className={style.suggestions}>
