@@ -15,12 +15,13 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={Store}>
     <Router>
+
         <React.StrictMode>
       <CarritoContextProvider>
           <Auth0Provider
             domain="dev-zgaxo6rs.us.auth0.com"
             clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
-            redirectUri="http://localhost:3000/search"
+            redirectUri="http://localhost:3000/home"
           >
             <App />
           </Auth0Provider>

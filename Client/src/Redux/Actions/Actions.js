@@ -6,6 +6,7 @@ export const GET_USER_INFO = "GET_USER_INFO";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_ALL_TECHNOLOGIES = "GET_ALL_TECHNOLOGIES";
 
+
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
 }
