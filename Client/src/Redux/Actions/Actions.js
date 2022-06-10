@@ -106,7 +106,6 @@ export function createCompany(company) {
 }
 
 export function getAllPost() {
-  console.log('hola')
   return async function (dispatch) {
     try {
       const posts = await axios.get("http://localhost:3001/companyPost");
