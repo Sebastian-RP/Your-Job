@@ -1,7 +1,18 @@
 const { User, Technology } = require("../db.js");
 const { getTechnologies } = require("../Controllers/TechnologyController.js");
 
-const createUser = async (email, name, employment_status, age, image, description, technologiesName, nationality, url, cv) => {
+const createUser = async (
+  email,
+  name,
+  employment_status,
+  age,
+  image,
+  description,
+  technologiesName,
+  nationality,
+  url,
+  cv
+) => {
   try {
     await getTechnologies();
 
@@ -36,8 +47,16 @@ const getUsers = async () => {
   return users;
 };
 
+const updateUser = async (id, changes) => {
+  let user = await User.findByPk(id);
+  console.log(changes);
+  await user.update(changes);
+  return user;
+};
+
 module.exports = {
   createUser,
   findUser,
   getUsers,
+  updateUser,
 };

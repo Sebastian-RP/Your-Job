@@ -24,7 +24,9 @@ function keyDownHandler(e, setSelected, selected, usersFiltered) {
     if (selected + 1 >= usersFiltered.length) {
       setSelected(0);
     } else {
-      setSelected(selected + 1 <= usersFiltered.length - 1 ? selected + 1 : selected);
+      setSelected(
+        selected + 1 <= usersFiltered.length - 1 ? selected + 1 : selected
+      );
     }
   } else if (e.code === "ArrowUp") {
     if (selected - 1 < 0) {
@@ -63,12 +65,21 @@ export default function SearchBar() {
   const navigate = useNavigate();
 
   return (
-    <form className={style.form} onSubmit={(e) => submitHandler(e, usersFiltered[selected], navigate)}>
+    <form
+      className={style.form}
+      onSubmit={(e) => submitHandler(e, usersFiltered[selected], navigate)}
+    >
       <div className={style.container}>
         <input
-          onChange={(e) => inputHandler(e, setUsersFiltered, users, setSelected, setFocus)}
-          onFocus={(e) => inputHandler(e, setUsersFiltered, users, setSelected, setFocus)}
-          onKeyDown={(e) => keyDownHandler(e, setSelected, selected, usersFiltered)}
+          onChange={(e) =>
+            inputHandler(e, setUsersFiltered, users, setSelected, setFocus)
+          }
+          onFocus={(e) =>
+            inputHandler(e, setUsersFiltered, users, setSelected, setFocus)
+          }
+          onKeyDown={(e) =>
+            keyDownHandler(e, setSelected, selected, usersFiltered)
+          }
           className={style.input}
           type="text"
           name=""
@@ -76,7 +87,9 @@ export default function SearchBar() {
           placeholder={"Type the name of the user or company"}
         />
         <button className={style.button}>
-          <i className={"fa-solid fa-magnifying-glass " + style.button__glass}></i>
+          <i
+            className={"fa-solid fa-magnifying-glass " + style.button__glass}
+          ></i>
         </button>
       </div>
       {usersFiltered.length > 0 && focus ? (
@@ -85,8 +98,12 @@ export default function SearchBar() {
             return (
               <li
                 key={user + "_" + index}
-                onClick={(e) => submitHandler(e, usersFiltered[selected], navigate)}
-                className={`${style.suggestion__item} ${selected === index ? style.suggestion__itemSelected : ""}`}
+                onClick={(e) =>
+                  submitHandler(e, usersFiltered[selected], navigate)
+                }
+                className={`${style.suggestion__item} ${
+                  selected === index ? style.suggestion__itemSelected : ""
+                }`}
               >
                 {user}
               </li>

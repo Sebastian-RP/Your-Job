@@ -12,4 +12,17 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 }
+.Products{
+    background-color: grey;
+    width: 20%;
+    margin: 25px;
+}
 
+.Contenedor{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
+}
