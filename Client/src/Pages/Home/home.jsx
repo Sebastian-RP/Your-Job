@@ -3,10 +3,23 @@ import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
-import { getAllCompanies, getAllPost } from "../../Redux/Actions/Actions";
+import {
+  getAllCompanies,
+  getAllPost,
+  getAllTechnologies,
+} from "../../Redux/Actions/Actions";
 import { useEffect } from "react";
 
-const tecnologias = ["Javascript", "React", "Redux", "HTML5", "CSS3", "Boostrap", "Jquery", "Java"];
+const tecnologias = [
+  "Javascript",
+  "React",
+  "Redux",
+  "HTML5",
+  "CSS3",
+  "Boostrap",
+  "Jquery",
+  "Java",
+];
 
 export default function Home() {
   const { logout, user, isAuthenticated, isLoading } = useAuth0();
@@ -19,6 +32,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
+    dispatch(getAllTechnologies());
   }, [dispatch]);
   if (isLoading) {
     return <div>LOADING...</div>;
@@ -68,9 +82,11 @@ export default function Home() {
               </Accordion>
             </div>
             <div className={style.infoPost}>
-              <div style={{ display: "flex", alignItems: "flex-end" }} className={style.image}>
-                <img src={user.picture} alt="picture" />
-
+              <div
+                style={{ display: "flex", alignItems: "flex-end" }}
+                className={style.image}
+              >
+                <img src={user.picture} alt="profile_picture" />
 
                 <h3>{user.name}</h3>
               </div>
@@ -78,7 +94,13 @@ export default function Home() {
                 <h3>suggestions</h3>
                 <>
                   {suggestions.map((data, index) => (
-                    <Card bg="secondary" key={index} text="light" style={{ width: "18rem" }} className="mb-2">
+                    <Card
+                      bg="secondary"
+                      key={index}
+                      text="light"
+                      style={{ width: "18rem" }}
+                      className="mb-2"
+                    >
                       <Card.Header>
                         <strong>Email:</strong> {data.email}
                         <br />
@@ -117,8 +139,10 @@ export default function Home() {
                             <>
                               {data.technologiesId.map((data, i) => {
                                 let tech = allTechnologies.find(
+                                  // eslint-disable-next-line
                                   (t) => t.id == data
                                 );
+
                                 return <li key={i}>{tech.name}</li>;
                               })}
                             </>
