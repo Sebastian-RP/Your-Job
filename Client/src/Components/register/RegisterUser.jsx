@@ -7,6 +7,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Button from "react-bootstrap/Button";
 import { Widget } from "@uploadcare/react-widget";
 import { useParams } from "react-router-dom";
+import style from  './register.module.css';
 
 export default function RegisterUser() {
   const countries = [
@@ -283,24 +284,20 @@ export default function RegisterUser() {
   };
 
   return (
-    <Card className="text-center">
-      Please fill out the following form with your information
-      <form>
-        <label>Full name:</label>{" "}
-        <input name="name" onChange={(e) => handleChange(e)} />
+    <div className={style.containerRegisterUser}>
+      <h2> Please fill out the following form with your information</h2>
+    <Card className="text-center"
+    style={{width:'40%', padding:'20px', }}
+    >
+     
+      <form className={style.containeForm}>
+        <input name="name" onChange={(e) => handleChange(e)} placeholder='Full name' autoComplete="off"/>
         <br />
-        <label>Email: </label>
-        <input name="email" onChange={(e) => handleChange(e)} />
+        <input name="email" onChange={(e) => handleChange(e)} placeholder='Email' autoComplete="off"/>
         <br />
-        <label>Age:</label>{" "}
-        <input type={"number"} name="age" onChange={(e) => handleChange(e)} />
+        <input type={"number"} name="age" onChange={(e) => handleChange(e)} placeholder='Age' autoComplete="off"/>
         <br />
-        <label>
-          Technologies:
-          {selectedTechs.map((tech, index) => (
-            <span key={index}> {tech} </span>
-          ))}
-        </label>
+        <div className={style.containerTechnologies}>   
         <DropdownButton id="dropdown-basic-button" title="Select Technologies">
           {technologies &&
             technologies.map((tech, index) => {
@@ -315,9 +312,20 @@ export default function RegisterUser() {
                 </Dropdown.Item>
               );
             })}
-        </DropdownButton>
+        </DropdownButton>     
+        <label>
+          Technologies:
+        </label>
+          <ul>
+
+          {selectedTechs.map((tech, index) => (
+            <li key={index}> {tech} </li>
+          ))}
+          </ul>
+        
+        </div>
         <br />
-        <label>Country of Origin: {country}</label>
+        <div style={{display:'flex', width: '100%', justifyContent:'center',gap:'10px'}}>
         <DropdownButton
           id="dropdown-basic-button"
           title="Select Country"
@@ -338,14 +346,19 @@ export default function RegisterUser() {
             })}
           </div>
         </DropdownButton>
+        <label>Country of Origin: {country}</label>
+        </div>
         <br />
         <br />
-        <label>Linkedin Profile:</label>{" "}
-        <input name="linkedin" onChange={(e) => handleChange(e)} />
+        <input name="linkedin" onChange={(e) => handleChange(e)} placeholder='Linkedin Profile' autoComplete="off"/>
         <br />
-        <label>Description:</label>{" "}
-        <textarea name="desc" onChange={(e) => handleChange(e)} />
         <br />
+        <textarea name="desc" onChange={(e) => handleChange(e)} placeholder='Description' 
+        cols='40'
+        />
+        <br />
+        <div className={style.containerCheck}>
+
         <div>
           <label>Are you employed?</label>
           <input
@@ -354,7 +367,6 @@ export default function RegisterUser() {
             id=""
             onClick={() => setEmploy(!employ)}
           />
-
           <br />
           <input
             type="text"
@@ -362,9 +374,11 @@ export default function RegisterUser() {
             placeholder="Place of employment"
             style={{ display: employ ? "" : "none" }}
             onChange={(e) => handleChange(e)}
+            autoComplete="off"
           />
         </div>
-        <br />
+        <div>
+
         <label>CV:</label>{" "}
         <Widget
           publicKey="de7dc23d760e287d1cb0"
@@ -373,14 +387,17 @@ export default function RegisterUser() {
             setUuid(file.uuid);
           }}
         />
+        </div>
+        </div>
         {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
       </form>
       <br />
       <div>
-        <Button variant="primary" size="lg" onClick={(e) => handleSubmit(e)}>
+        <Button variant="primary" size="small" onClick={(e) => handleSubmit(e)}>
           Submit
         </Button>
       </div>
     </Card>
+    </div>
   );
 }
