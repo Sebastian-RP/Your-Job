@@ -13,6 +13,7 @@ export default function Home() {
 
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
+  const allTechnologies = [...selector.technologies];
   const companies = [...selector.companies];
   const suggestions = companies.slice(0, 2);
   useEffect(() => {
@@ -70,6 +71,7 @@ export default function Home() {
               <div style={{ display: "flex", alignItems: "flex-end" }} className={style.image}>
                 <img src={user.picture} alt="picture" />
 
+
                 <h3>{user.name}</h3>
               </div>
               <div className={style.columnInfoRight}>
@@ -93,6 +95,7 @@ export default function Home() {
               </div>
               <div className={style.columnPost}>
                 {selector.posts?.map((data, index) => {
+                  // console.log(data);
                   return (
                     <div className={style.cardPost} key={index}>
                       <Card>
@@ -113,7 +116,10 @@ export default function Home() {
                             <strong>Technologies:</strong>
                             <>
                               {data.technologiesId.map((data, i) => {
-                                return <li key={i}>{data}</li>;
+                                let tech = allTechnologies.find(
+                                  (t) => t.id == data
+                                );
+                                return <li key={i}>{tech.name}</li>;
                               })}
                             </>
                           </Card.Text>

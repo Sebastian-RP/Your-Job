@@ -229,8 +229,9 @@ export default function RegisterUser() {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    setTechnologies(allTechnologies.filter((t) => !selectedTechs.includes(t.name)));
+    setTechnologies(
+      allTechnologies.filter((t) => !selectedTechs.includes(t.name))
+    );
     // eslint-disable-next-line
   }, [selectedTechs]);
 
@@ -298,14 +299,33 @@ export default function RegisterUser() {
       <h2> Please fill out the following form with your information</h2>
       <Card className="text-center" style={{ width: "40%", padding: "20px" }}>
         <form className={style.containeForm}>
-          <input name="name" onChange={(e) => handleChange(e)} placeholder="Full name" autoComplete="off" />
+          <input
+            name="name"
+            onChange={(e) => handleChange(e)}
+            placeholder="Full name"
+            autoComplete="off"
+          />
           <br />
-          <input name="email" onChange={(e) => handleChange(e)} placeholder="Email" autoComplete="off" />
+          <input
+            name="email"
+            onChange={(e) => handleChange(e)}
+            placeholder="Email"
+            autoComplete="off"
+          />
           <br />
-          <input type={"number"} name="age" onChange={(e) => handleChange(e)} placeholder="Age" autoComplete="off" />
+          <input
+            type={"number"}
+            name="age"
+            onChange={(e) => handleChange(e)}
+            placeholder="Age"
+            autoComplete="off"
+          />
           <br />
           <div className={style.containerTechnologies}>
-            <DropdownButton id="dropdown-basic-button" title="Select Technologies">
+            <DropdownButton
+              id="dropdown-basic-button"
+              title="Select Technologies"
+            >
               {technologies &&
                 technologies.map((tech, index) => {
                   return (
@@ -375,6 +395,12 @@ export default function RegisterUser() {
             <div>
               <label>Are you employed?</label>
               <input type="checkbox" name="employment" id="" onClick={() => setEmploy(!employ)} />
+              <input
+                type="checkbox"
+                name="employment"
+                id=""
+                onClick={() => setEmploy(!employ)}
+              />
               <br />
               <input
                 type="text"
@@ -401,6 +427,11 @@ export default function RegisterUser() {
         <br />
         <div>
           <Button variant="primary" size="small" onClick={(e) => handleSubmit(e)}>
+          <Button
+            variant="primary"
+            size="small"
+            onClick={(e) => handleSubmit(e)}
+          >
             Submit
           </Button>
         </div>
