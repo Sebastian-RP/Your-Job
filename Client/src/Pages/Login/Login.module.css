@@ -33,3 +33,9 @@
   background-color: lightslategray;
   color: azure;
 }
+
+.logout {
+  position: absolute;
+  top: 20px;
+  right:20px;
+}

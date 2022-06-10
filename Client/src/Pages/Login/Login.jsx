@@ -18,13 +18,14 @@ export default function Login() {
         <div>
           {isAuthenticated ? (
             <button
+              className={style.logout}
               onClick={() =>
                 logout({
                   federated: true,
                 })
               }
             >
-              logout
+              log out
             </button>
           ) : (
             <button
