@@ -228,7 +228,7 @@ export default function RegisterUser() {
     dispatch(getAllTechnologies());
     // eslint-disable-next-line
   }, []);
-
+  useEffect(() => {
     setTechnologies(
       allTechnologies.filter((t) => !selectedTechs.includes(t.name))
     );
@@ -426,7 +426,7 @@ export default function RegisterUser() {
         </form>
         <br />
         <div>
-          <Button variant="primary" size="small" onClick={(e) => handleSubmit(e)}>
+         
           <Button
             variant="primary"
             size="small"
