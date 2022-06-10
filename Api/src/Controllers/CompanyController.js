@@ -1,4 +1,5 @@
-const { Company } = require("../db.js");
+const { Company, User } = require("../db.js");
+// const User = require("../models/User.js");
 
 const createCompany = async (
   email,
@@ -36,7 +37,24 @@ const getCompanies = async () => {
   return companies;
 };
 
+const findCompany = async (id) => {
+  const company = await Company.findByPk(id);
+  return company;
+};
+
+const getEmployees = async (ids) => {
+  const employees = [];
+  for (let i = 0; i < ids.length; i++) {
+    const element = ids[i];
+    let employee = await User.findByPk(element);
+    employees.push(employee);
+  }
+  return employees;
+};
+
 module.exports = {
   createCompany,
   getCompanies,
+  getEmployees,
+  findCompany,
 };

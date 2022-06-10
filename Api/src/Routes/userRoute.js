@@ -3,12 +3,12 @@ const {
   createUser,
   findUser,
   getUsers,
+  updateUser,
 } = require("../Controllers/UserController.js");
 
 const router = Router();
 
 router.post("/login", async (req, res) => {
-
   const {
     email,
     name,
@@ -43,6 +43,12 @@ router.get("/:user", async (req, res) => {
 });
 router.get("/", async (req, res) => {
   res.send(await getUsers());
+});
+
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+  res.send(updateUser(id, changes));
 });
 
 module.exports = router;
