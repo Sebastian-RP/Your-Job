@@ -229,7 +229,6 @@ export default function RegisterUser() {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
     setTechnologies(
       allTechnologies.filter((t) => !selectedTechs.includes(t.name))
     );
@@ -292,9 +291,7 @@ export default function RegisterUser() {
 
     dispatch(createUser(newUser));
 
-    window.location.replace(
-      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${state}`
-    );
+    window.location.replace(`https://dev-zgaxo6rs.us.auth0.com/continue?state=${state}`);
   };
 
   return (
@@ -369,11 +366,7 @@ export default function RegisterUser() {
               gap: "10px",
             }}
           >
-            <DropdownButton
-              id="dropdown-basic-button"
-              title="Select Country"
-              style={{ height: "10px" }}
-            >
+            <DropdownButton id="dropdown-basic-button" title="Select Country" style={{ height: "10px" }}>
               <div style={{ height: "150px", overflowY: "scroll" }}>
                 {countries.map((country, index) => {
                   return (
@@ -393,24 +386,15 @@ export default function RegisterUser() {
           </div>
           <br />
           <br />
-          <input
-            name="linkedin"
-            onChange={(e) => handleChange(e)}
-            placeholder="Linkedin Profile"
-            autoComplete="off"
-          />
+          <input name="linkedin" onChange={(e) => handleChange(e)} placeholder="Linkedin Profile" autoComplete="off" />
           <br />
           <br />
-          <textarea
-            name="desc"
-            onChange={(e) => handleChange(e)}
-            placeholder="Description"
-            cols="40"
-          />
+          <textarea name="desc" onChange={(e) => handleChange(e)} placeholder="Description" cols="40" />
           <br />
           <div className={style.containerCheck}>
             <div>
               <label>Are you employed?</label>
+              <input type="checkbox" name="employment" id="" onClick={() => setEmploy(!employ)} />
               <input
                 type="checkbox"
                 name="employment"
@@ -442,6 +426,7 @@ export default function RegisterUser() {
         </form>
         <br />
         <div>
+          <Button variant="primary" size="small" onClick={(e) => handleSubmit(e)}>
           <Button
             variant="primary"
             size="small"
