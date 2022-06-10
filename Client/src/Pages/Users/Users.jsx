@@ -43,7 +43,7 @@ export default function Users() {
           Technologies:
           <ul>
             {
-              userData.technologiesName.map((d,i) => {
+              userData.technologiesName?.map((d,i) => {
                 return (
                   <li key={i}>{d}</li>
                 )
@@ -55,13 +55,7 @@ export default function Users() {
           <h2>info</h2>
           <p>{userData?.description}</p>
           <hr />
-          <div>
-            <ul>
-              {userData?.technologies?.map((data, index) => {
-                return <li key={index}>{data}</li>;
-              })}
-            </ul>
-          </div>
+          
           <div style={{ textAlign: "right" }}>
             <a href={userData.cv}>download CV</a>
           </div>
