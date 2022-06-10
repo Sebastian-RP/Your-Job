@@ -17,11 +17,13 @@ export default function Users() {
   }, []);
   //----------------------------------
   const userData = useSelector((state) => state.user);
+
+  
   return (
     <div className={style.containerPerfil}>
       <div className={style.header}>
         <div className={style.picture}>
-          <img src={userData?.image} alt="perfil" />
+          <img src={userData.image} alt="perfil" />
           <h2>{user}</h2>
         </div>
         <div>
@@ -38,20 +40,24 @@ export default function Users() {
           <p>Status: {userData?.employment_status}</p>
           <p>Age: {userData?.age}</p>
           <p>Nationality: {userData?.nationality}</p>
+          Technologies:
+          <ul>
+            {
+              userData.technologiesName?.map((d,i) => {
+                return (
+                  <li key={i}>{d}</li>
+                )
+              })
+            }
+          </ul>
         </div>
         <div className={style.info}>
           <h2>info</h2>
           <p>{userData?.description}</p>
           <hr />
-          <div>
-            <ul>
-              {userData?.technologies?.map((data, index) => {
-                return <li key={index}>{data}</li>;
-              })}
-            </ul>
-          </div>
+          
           <div style={{ textAlign: "right" }}>
-            <a href={userData?.CVurl}>download CV</a>
+            <a href={userData.cv}>download CV</a>
           </div>
         </div>
       </div>
