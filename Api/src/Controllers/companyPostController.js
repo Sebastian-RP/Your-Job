@@ -1,8 +1,14 @@
-const { CompanyPost } = require("../db.js");
+const { CompanyPost, Company } = require("../db.js");
 
 const getCompanyPosts = async () => {
   try {
-    const PostCreated = await CompanyPost.findAll();
+    const PostCreated = await CompanyPost.findAll({
+      include: {
+        model: Company,
+        attributes: ["id", "email", "name", "phone", "address", "url", "image", "nationality"],
+      }
+    });
+
     return PostCreated;
   } catch (error) {
     console.error("Error in getCompanyPosts:", error.message);
