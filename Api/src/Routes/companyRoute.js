@@ -52,4 +52,6 @@ router.post("/login", async (req, res) => {
   return res.status(200).send(newCompany);
 });
 
+
+
 module.exports = router;
