@@ -1,26 +1,31 @@
 // import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import style from "./Login.module.css";
+import image from '../../image/img.png';
 
 export default function Login() {
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
   
-
   return (
-    <form className={style.container}>
+    <div className={style.containerLogin}>
+      <h1>YourJob</h1>
       <div className={style.login}>
+        <div className={style.image}>
+          <img src={image} alt="" />
+        </div>
         <div>
           {isAuthenticated ? (
             <button
+              className={style.logout}
               onClick={() =>
                 logout({
                   federated: true,
                 })
               }
             >
-              logout
+              log out
             </button>
           ) : (
             <button
@@ -28,7 +33,7 @@ export default function Login() {
                 loginWithRedirect();
               }}
             >
-              auth
+              Log in
             </button>
           )}
 
@@ -44,19 +49,8 @@ export default function Login() {
                 )}
           </div>
         </div>
-        {/* <div className={style.logintext}>Login to your Account</div>
-        <br />
-        <div className={style.input_container}>
-          <input type="text" placeholder="E-mail" className={style.input} />
-          <br />
-          <input type="text" placeholder="Password" className={style.input} />
-        </div>
-        <button>Login</button>
-
-        <div>
-          Don't have an account? <Link to="/register  ">Register</Link>{" "}
-        </div> */}
+        
       </div>
-    </form>
+      </div>
   );
 }

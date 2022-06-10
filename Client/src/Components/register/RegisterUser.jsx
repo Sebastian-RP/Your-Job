@@ -229,7 +229,9 @@ export default function RegisterUser() {
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
-    setTechnologies(allTechnologies.filter((t) => !selectedTechs.includes(t.name)));
+    setTechnologies(
+      allTechnologies.filter((t) => !selectedTechs.includes(t.name))
+    );
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
@@ -399,7 +401,12 @@ export default function RegisterUser() {
         </form>
         <br />
         <div>
-          <Button variant="primary" size="small" onClick={(e) => handleSubmit(e)}>
+         
+          <Button
+            variant="primary"
+            size="small"
+            onClick={(e) => handleSubmit(e)}
+          >
             Submit
           </Button>
         </div>
