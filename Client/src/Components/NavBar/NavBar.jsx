@@ -14,12 +14,12 @@ export default function Navbar() {
         <div className={style.containerNavbar}>
             <h1>YourJob</h1>
             <SearchBar />
+            <div>
+                <Button variant="success" onClick={ () => navigate('/carrito')}>Carrito {carrito.length}</Button>
+                <Button variant="success" onClick={ () => navigate('/products')}>Premium</Button>
             <Button variant="danger" 
             onClick={() => logout({returnTo: window.location.origin})}
             >LogOut</Button>
-            <div>
-                <button onClick={ () => navigate('/carrito')}>Carrito {carrito.length}</button>
-                <button onClick={ () => navigate('/products')}>Premium</button>
             </div>
         </div>
     )
