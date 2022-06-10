@@ -4,17 +4,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
 import { getAllCompanies, getAllPost } from "../../Redux/Actions/Actions";
+import { useEffect } from "react";
 
-const tecnologias = [
-  "Javascript",
-  "React",
-  "Redux",
-  "HTML5",
-  "CSS3",
-  "Boostrap",
-  "Jquery",
-  "Java",
-];
+const tecnologias = ["Javascript", "React", "Redux", "HTML5", "CSS3", "Boostrap", "Jquery", "Java"];
 
 export default function Home() {
   const { logout, user, isAuthenticated, isLoading } = useAuth0();
@@ -22,14 +14,15 @@ export default function Home() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const companies = [...selector.companies];
-  const suggestions = companies.slice(0,2);
-  if (isLoading) {
+  const suggestions = companies.slice(0, 2);
+  useEffect(() => {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
-
+  }, [dispatch]);
+  if (isLoading) {
     return <div>LOADING...</div>;
   }
-  console.log(suggestions)
+  console.log(suggestions);
   return (
     <div className={style.containerHome}>
       {isAuthenticated ? (
@@ -75,10 +68,7 @@ export default function Home() {
               </Accordion>
             </div>
             <div className={style.infoPost}>
-              <div
-                style={{ display: "flex", alignItems: "flex-end" }}
-                className={style.image}
-              >
+              <div style={{ display: "flex", alignItems: "flex-end" }} className={style.image}>
                 <img src={user.picture} alt="picture" />
 
                 <h3>{user.name}</h3>
@@ -87,24 +77,15 @@ export default function Home() {
                 <h3>suggestions</h3>
                 <>
                   {suggestions.map((data, index) => (
-                    <Card
-                      bg="secondary"
-                      key={index}
-                      text="light"
-                      style={{ width: "18rem" }}
-                      className="mb-2"
-                    >
+                    <Card bg="secondary" key={index} text="light" style={{ width: "18rem" }} className="mb-2">
                       <Card.Header>
-                       <strong>Email:</strong>  {data.email}
-                       <br />
-                       <strong>Phone:</strong>  {data.phone}
-                      
+                        <strong>Email:</strong> {data.email}
+                        <br />
+                        <strong>Phone:</strong> {data.phone}
                       </Card.Header>
                       <Card.Body>
                         <Card.Title> {data.name} </Card.Title>
-                        <Card.Text>
-                          {data.description}
-                        </Card.Text>
+                        <Card.Text>{data.description}</Card.Text>
                       </Card.Body>
                     </Card>
                   ))}

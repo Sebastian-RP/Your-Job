@@ -60,7 +60,7 @@
   background-color: #fff;
   top: 67px;
   z-index: 3;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 .suggestion__item {
   height: 50px;
