@@ -76,7 +76,7 @@ export function createUser(user) {
         url: user.url,
         cv: user.cv,
       });
-      return;
+      return newUser;
     } catch (e) {
       console.error("Error: " + e.message);
     }
@@ -100,7 +100,7 @@ export function createCompany(company) {
           description: company.description,
         }
       );
-      return;
+      return newCompany;
     } catch (e) {
       console.error("Error: " + e.message);
     }
