@@ -3,7 +3,12 @@ import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
-import { getAllCompanies, getAllPost } from "../../Redux/Actions/Actions";
+import {
+  getAllCompanies,
+  getAllPost,
+  getAllTechnologies,
+} from "../../Redux/Actions/Actions";
+import { useEffect } from "react";
 
 const tecnologias = [
   "Javascript",
@@ -21,15 +26,23 @@ export default function Home() {
 
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
+  const allTechnologies = [...selector.technologies];
   const companies = [...selector.companies];
-  const suggestions = companies.slice(0,2);
-  if (isLoading) {
+  const suggestions = companies.slice(0, 2);
+
+  useEffect(() => {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
+    dispatch(getAllTechnologies());
+    // eslint-disable-next-line
+  }, []);
 
+  if (isLoading) {
     return <div>LOADING...</div>;
   }
-  console.log(suggestions)
+
+  // console.log(suggestions);
+  console.log(allTechnologies);
   return (
     <div className={style.containerHome}>
       {isAuthenticated ? (
@@ -79,7 +92,7 @@ export default function Home() {
                 style={{ display: "flex", alignItems: "flex-end" }}
                 className={style.image}
               >
-                <img src={user.picture} alt="picture" />
+                <img src={user.picture} alt="profilepic" />
 
                 <h3>{user.name}</h3>
               </div>
@@ -95,16 +108,13 @@ export default function Home() {
                       className="mb-2"
                     >
                       <Card.Header>
-                       <strong>Email:</strong>  {data.email}
-                       <br />
-                       <strong>Phone:</strong>  {data.phone}
-                      
+                        <strong>Email:</strong> {data.email}
+                        <br />
+                        <strong>Phone:</strong> {data.phone}
                       </Card.Header>
                       <Card.Body>
                         <Card.Title> {data.name} </Card.Title>
-                        <Card.Text>
-                          {data.description}
-                        </Card.Text>
+                        <Card.Text>{data.description}</Card.Text>
                       </Card.Body>
                     </Card>
                   ))}
@@ -113,6 +123,7 @@ export default function Home() {
               </div>
               <div className={style.columnPost}>
                 {selector.posts?.map((data, index) => {
+                  // console.log(data);
                   return (
                     <div className={style.cardPost} key={index}>
                       <Card>
@@ -133,7 +144,10 @@ export default function Home() {
                             <strong>Technologies:</strong>
                             <>
                               {data.technologiesId.map((data, i) => {
-                                return <li key={i}>{data}</li>;
+                                let tech = allTechnologies.find(
+                                  (t) => t.id == data
+                                );
+                                return <li key={i}>{tech.name}</li>;
                               })}
                             </>
                           </Card.Text>
