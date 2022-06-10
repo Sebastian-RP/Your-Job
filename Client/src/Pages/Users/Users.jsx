@@ -18,7 +18,7 @@ export default function Users() {
   //----------------------------------
   const userData = useSelector((state) => state.user);
 
-  console.log(userData)
+  
   return (
     <div className={style.containerPerfil}>
       <div className={style.header}>
