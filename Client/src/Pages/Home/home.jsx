@@ -29,7 +29,7 @@ export default function Home() {
 
     return <div>LOADING...</div>;
   }
-  console.log(suggestions)
+
   return (
     <div className={style.containerHome}>
       {isAuthenticated ? (

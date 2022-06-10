@@ -3,6 +3,7 @@ import style from "./perfil.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { getUserInfo } from "../../Redux/Actions/Actions";
+import image from './perfilPicture.png';
 
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -23,7 +24,7 @@ export default function Users() {
     <div className={style.containerPerfil}>
       <div className={style.header}>
         <div className={style.picture}>
-          <img src={userData.image} alt="perfil" />
+          <img src={image} alt="perfil" />
           <h2>{user}</h2>
         </div>
         <div>
