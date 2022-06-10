@@ -209,7 +209,8 @@ export default function RegisterUser() {
     "Zimbabwe",
   ];
   const { state } = useParams();
-  const technologies = useSelector((state) => state.technologies);
+  const allTechnologies = useSelector((state) => state.technologies);
+  const [technologies, setTechnologies] = useState([]);
   const [employ, setEmploy] = useState(false);
   const [selectedTechs, setSelected] = useState([]);
   const [country, setCountry] = useState("");
@@ -223,6 +224,20 @@ export default function RegisterUser() {
     employ: "",
   });
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllTechnologies());
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    setTechnologies(allTechnologies.filter((t) => !selectedTechs.includes(t.name)));
+    // eslint-disable-next-line
+  }, [selectedTechs]);
+
+  useEffect(() => {
+    setTechnologies(allTechnologies);
+    // eslint-disable-next-line
+  }, [allTechnologies]);
 
   const handleChange = (e) => {
     setInput({
@@ -232,25 +247,21 @@ export default function RegisterUser() {
   };
 
   const addTechs = (tech) => {
-    if (selectedTechs.includes(tech)) {
-      let aux = selectedTechs.filter((element) => element !== tech);
-      setSelected(aux);
-    } else {
-      let aux = selectedTechs.filter((element) => element === tech);
-      aux.push(tech);
-      setSelected(aux);
-    }
+    let aux = selectedTechs.filter((element) => element === element);
+    aux.push(tech);
+    setSelected(aux);
     console.log(selectedTechs);
+  };
+
+  const removeTech = (tech) => {
+    let aux = selectedTechs.filter((element) => element !== tech);
+    setSelected(aux);
+    console.log(aux);
   };
 
   const addCountry = (country) => {
     setCountry(country);
   };
-
-  useEffect(() => {
-    dispatch(getAllTechnologies());
-    // eslint-disable-next-line
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -312,12 +323,29 @@ export default function RegisterUser() {
             <label>Technologies:</label>
             <ul>
               {selectedTechs.map((tech, index) => (
-                <li key={index}> {tech} </li>
+                <div key={index}>
+                  <li
+                    onClick={() => {
+                      console.log(tech);
+                      removeTech(tech);
+                    }}
+                  >
+                    {" "}
+                    {tech}{" "}
+                  </li>
+                </div>
               ))}
             </ul>
           </div>
           <br />
-          <div style={{ display: "flex", width: "100%", justifyContent: "center", gap: "10px" }}>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "center",
+              gap: "10px",
+            }}
+          >
             <DropdownButton id="dropdown-basic-button" title="Select Country" style={{ height: "10px" }}>
               <div style={{ height: "150px", overflowY: "scroll" }}>
                 {countries.map((country, index) => {
