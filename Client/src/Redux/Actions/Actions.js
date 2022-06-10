@@ -8,6 +8,7 @@ export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_ALL_TECHNOLOGIES = "GET_ALL_TECHNOLOGIES";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ALL_POST = "GET_ALL_POST";
+export const GET_ALL_COMPANIES = "GET_ALL_COMPANIES";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -113,6 +114,20 @@ export function getAllPost() {
       return dispatch({
         type: GET_ALL_POST,
         payload: posts.data,
+      });
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  };
+}
+
+export  function getAllCompanies() {
+  return async function (dispatch) {
+    try {
+      const companies = await axios.get("http://localhost:3001/company");
+      return dispatch({
+        type: GET_ALL_COMPANIES,
+        payload: companies.data,
       });
     } catch (e) {
       console.error("Error: " + e.message);

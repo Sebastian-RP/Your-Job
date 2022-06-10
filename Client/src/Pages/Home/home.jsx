@@ -3,7 +3,7 @@ import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
-import { getAllPost } from "../../Redux/Actions/Actions";
+import { getAllCompanies, getAllPost } from "../../Redux/Actions/Actions";
 
 const tecnologias = [
   "Javascript",
@@ -16,44 +16,19 @@ const tecnologias = [
   "Java",
 ];
 
-const dataPost = [
-  {
-    nameCompany: "BE-MASTER",
-    TitlePost: "Desarrollador Full-Stack",
-    experience: "junior",
-    typeof_contract: "temporal",
-    descripcion:
-      "se nesesita desarrollador web full-stack para copiar y pegar un archivo",
-    min_salary: "1000 USB",
-    max_salary: "2000 USB",
-    modality: "remoto",
-    technologiesId: ["javascript", "redux", "php"],
-  },
-  {
-    nameCompany: "Facebook",
-    TitlePost: "Desarrollador Front-end",
-    experience: "junior",
-    typeof_contract: "temporal",
-    descripcion:
-      "se nesesita desarrollador web Front-end para barrer la oficina",
-    min_salary: "500 USB",
-    max_salary: "1000 USB",
-    modality: "remoto",
-    technologiesId: ["javascript", "redux", "php", "Css", "Less"],
-  },
-];
 
 export default function Home() {
   const { logout, user, isAuthenticated, isLoading } = useAuth0();
 
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state.posts);
-
+  const selector = useSelector((state) => state);
+  const companies = [...selector.companies];
   if (isLoading) {
-    dispatch(getAllPost());
+    dispatch(getAllPost())
+    dispatch(getAllCompanies())
+    
     return <div>LOADING...</div>;
   }
-
   return (
     <div className={style.containerHome}>
       {isAuthenticated ? (
@@ -78,7 +53,16 @@ export default function Home() {
                 </Accordion.Item>
                 <Accordion.Item eventKey="2">
                   <Accordion.Header>Company</Accordion.Header>
-                  <Accordion.Body>hola</Accordion.Body>
+                  <div style={{maxHeight: '300px', overflowY: 'scroll'}}>
+
+                  {companies.map((d, i) => {
+                    return (
+                      <Accordion.Body style={{ padding: "2px"}} key={i}>
+                        {d.name}
+                      </Accordion.Body>
+                    );
+                  })}
+                  </div>
                 </Accordion.Item>
                 <Accordion.Item eventKey="3">
                   <Accordion.Header>Work contract</Accordion.Header>
@@ -104,7 +88,7 @@ export default function Home() {
                 <div className={style.columInfo}></div>
               </div>
               <div className={style.columnPost}>
-                {selector?.map((data, index) => {
+                {selector.posts?.map((data, index) => {
                   return (
                     <div className={style.cardPost} key={index}>
                       <Card>
