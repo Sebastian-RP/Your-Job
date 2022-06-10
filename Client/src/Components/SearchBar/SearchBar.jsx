@@ -43,7 +43,7 @@ function submitHandler(e, userSelected, navigate) {
 }
 
 export default function SearchBar() {
-  let usersList = useSelector((state) => state.users);
+  let usersList = useSelector((state) => [...state.users, ...state.companies]);
   usersList = usersList.map((user) => user.name);
   const [users, setUsers] = useState(usersList);
   if (users.length < usersList.length) {
