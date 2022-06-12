@@ -37,12 +37,12 @@ const Products = () => {
       {products ? (
         products.map((e, index) => {
           return (
-            <Link to={`/product/${e.id}`}>
+            <Link to={`/product/${e.id}`} className={style.Links}>
               <div className={style.StyledProducts} key={index}>
                 <h3>{e.name}</h3>
                 <p>{e.description}</p>
                 <p>
-                  ${e.prices.unit_amount / 100} {e.prices.currency}
+                  Plan mensual de ${e.prices.unit_amount / 100} {e.prices.currency} 
                 </p>
               </div>
             </Link>
