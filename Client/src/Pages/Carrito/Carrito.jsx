@@ -9,12 +9,12 @@ import createCheckoutSession from '../../Components/Firebase/createACheckoutSess
 const Carrito = () => {
     const {carrito} = useCarritoContext()
     const navigate = useNavigate()
-    const { user, isAuthenticated, isLoading } = useAuth0(); 
+    const { user, isAuthenticated } = useAuth0(); 
 
 
     const autenticate = async () => {
         if(isAuthenticated && carrito.length > 0){
-            const result = await loginEmail("test@test.com","123456")
+            const result = await loginEmail(user.email,"123456")
             createCheckoutSession(result.user.uid, carrito)
             navigate('/checkout')
         }
@@ -27,8 +27,9 @@ const Carrito = () => {
     }
 
     return (
-        <div>
+        <div className={style.Body}>
             <button className={style.Button} onClick={()=> navigate(-1)}>Back</button>
+            <h1>Elementos en carrito:</h1>
             <div className={style.Contenedor}>
                 {carrito? carrito.map((producto, index) =>(
                     <div className={style.Products} key={index}>
@@ -37,7 +38,7 @@ const Carrito = () => {
                 )): <p>...Loading</p>}
             </div>
 
-        <button className={style.Button} onClick={autenticate}>Comprar</button>
+            <button className={style.Button} onClick={autenticate}>Comprar</button>
         </div>
     )
 }

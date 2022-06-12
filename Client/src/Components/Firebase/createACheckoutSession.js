@@ -7,8 +7,8 @@ async function createCheckoutSession(uid, cart){
 
     const {id} = await addDoc(collectionRef,{
         mode:"subscription",
-        success_url: 'http://localhost:3000/products',
-        cancel_url: 'http://localhost:3000/products',
+        success_url: 'http://localhost:3000/home',
+        cancel_url: 'http://localhost:3000/home',
         collect_shipping_address: true,
         line_items: cart.map(item => {
             return{

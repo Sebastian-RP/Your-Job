@@ -13,16 +13,36 @@
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 }
 .Products{
-    background-color: grey;
     width: 20%;
     margin: 25px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    text-decoration: none;
+    color: black;
+    background: #8FBC8F;
 }
 
 .Contenedor{
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    width: 90vw;
+    margin: 50px;
     align-items: center;
     text-align: center;
     justify-items: center;
+}
+
+.Body{
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    margin: 50px;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
+    border: solid 1px black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    background: #198754;
 }
