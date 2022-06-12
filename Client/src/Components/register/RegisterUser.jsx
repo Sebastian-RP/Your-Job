@@ -247,14 +247,14 @@ export default function RegisterUser() {
   };
 
   const addTechs = (tech) => {
-    let aux = selectedTechs.filter((element) => element === element);
-    aux.push(tech);
-    setSelected(aux);
-    console.log(selectedTechs);
+    if (!selectedTechs.includes(tech)) {
+      let aux = [tech]
+      setSelected(selectedTechs.concat(aux));
+    }
   };
 
   const removeTech = (tech) => {
-    let aux = selectedTechs.filter((element) => element !== tech);
+    let aux = selectedTechs.filter(element => element !== tech);
     setSelected(aux);
     console.log(aux);
   };
@@ -322,16 +322,14 @@ export default function RegisterUser() {
             </DropdownButton>
             <label>Technologies:</label>
             <ul>
-              {selectedTechs.map((tech, index) => (
+              {selectedTechs?.map((tech, index) => (
                 <div key={index}>
                   <li
                     onClick={() => {
-                      console.log(tech);
                       removeTech(tech);
                     }}
                   >
-                    {" "}
-                    {tech}{" "}
+                    {` ${tech} `}
                   </li>
                 </div>
               ))}
@@ -375,7 +373,6 @@ export default function RegisterUser() {
             <div>
               <label>Are you employed?</label>
               <input type="checkbox" name="employment" id="" onClick={() => setEmploy(!employ)} />
-              <input type="checkbox" name="employment" id="" onClick={() => setEmploy(!employ)} />
               <br />
               <input
                 type="text"
@@ -401,7 +398,7 @@ export default function RegisterUser() {
         </form>
         <br />
         <div>
-         
+
           <Button
             variant="primary"
             size="small"
