@@ -11,7 +11,6 @@ async function getProduct(id){
     const docRef = doc(colectionRef, id)
     const snapDoc = await getDoc(docRef)
     const product = snapDoc.data()
-
     const priceSnaps = await getDocs(collection(snapDoc.ref, "prices"));
     product.prices = priceSnaps.docs[0].data();
     product.priceId = priceSnaps.docs[0].id;
@@ -35,27 +34,27 @@ const Product = () => {
 
     const addToCarrito = () => {
         if(carrito){
-            if(carrito.name === productInfo.name){
+            let repetido = carrito.filter(e => e.name == productInfo.name)
+            if(repetido.length > 0){
                 alert("El elemento ya se encuentra en el carrito")
             } else{
                 alert("Elemento añadido al carrito de compras")
-                console.log([...new Set([...carrito, productInfo])])
                 setCarrito([...new Set([...carrito, productInfo])])
             }
-        }
+        }   
     }
 
   return (
-    <div className={style.StyledProducts} >
-        <button className={style.Button} onClick={()=> navigate('/products')}>Back</button>
-        <h1>Detalles del Producto ID: {id}</h1>
-        <h2>{productInfo? productInfo.name : 'Cargando...'}</h2>
-        <p>{productInfo? productInfo.description : 'Cargando...'}</p>
-        <div className={style.DivButtons} >
-            <button className={style.Button} onClick={addToCarrito} disabled={!productInfo}>Añadir a Carrito</button>
-            <button className={style.Button}>Comprar Ahora</button>
-        </div>
-    </div>
+        <div className={style.StyledProducts} >
+            <button className={style.Button} onClick={()=> navigate('/products')}>Back</button>
+            <h1>{productInfo? productInfo.name : 'Cargando...'}</h1>
+            <h2>Detalles del Producto ID: {id}</h2>
+            <p>{productInfo? productInfo.description : 'Cargando...'}</p>
+            <div className={style.DivButtons} >
+                <button className={style.Button} onClick={addToCarrito} disabled={!productInfo}>Añadir a Carrito</button>
+                {/* <button className={style.Button}>Comprar Ahora</button> */}
+            </div>
+        </div>  
   )
 }
 
