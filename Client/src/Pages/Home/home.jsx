@@ -16,14 +16,12 @@ export default function Home() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isLoading) {
-      companies.forEach((comp) => {
-        // eslint-disable-next-line
-        if (comp.email == user.email) {
-          setIsUser(false);
-        }
-      });
-    }
+    companies.forEach((comp) => {
+      // eslint-disable-next-line
+      if (comp.email == user.email) {
+        setIsUser(false);
+      }
+    });
     // eslint-disable-next-line
   }, [isLoading]);
 
