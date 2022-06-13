@@ -251,7 +251,6 @@ export default function RegisterUser() {
       let aux = [tech]
       setSelected(selectedTechs.concat(aux));
     }
-    console.log(selectedTechs)
   };
 
   const removeTech = (tech) => {
