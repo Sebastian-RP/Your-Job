@@ -8,35 +8,53 @@ import {
   getAllPost,
   getAllTechnologies,
 } from "../../Redux/Actions/Actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const tecnologias = [
-  "Javascript",
-  "React",
-  "Redux",
-  "HTML5",
-  "CSS3",
-  "Boostrap",
-  "Jquery",
-  "Java",
-];
+const Modality = ["remoto", "presencial"];
+const Experience = ["trainig", "junior", "semi-senior", "senior"];
 
 export default function Home() {
   const { logout, user, isAuthenticated, isLoading } = useAuth0();
 
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
+  const [posts, setPosts] = useState(null);
+  const [num, setNum] = useState(null);
   const allTechnologies = [...selector.technologies];
   const companies = [...selector.companies];
-  const suggestions = companies.slice(0, 2);
+  const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
   useEffect(() => {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
     dispatch(getAllTechnologies());
   }, [dispatch]);
+
+  useEffect(() => {
+    setPosts(selector.posts);
+    setNum(Math.random() * (companies.length - 3));
+  }, [selector]);
+
   if (isLoading) {
     return <div>LOADING...</div>;
   }
+
+  const getFilterByTechnologies = (id) => {
+    setPosts(
+      selector.posts.filter((data) =>
+        data.technologiesId.includes(id.toString()),
+      ),
+    );
+  };
+  const filterByCompany = (name) => {
+    setPosts(selector.posts.filter((data) => data.company.name === name));
+  };
+  const filterByModality = (data) => {
+    setPosts(selector.posts.filter((d) => d.modality === data));
+  };
+  const filterByExperience = (data) => {
+    setPosts(selector.posts.filter((d) => d.experience === data));
+  };
+
   return (
     <div className={style.containerHome}>
       {isAuthenticated ? (
@@ -47,10 +65,14 @@ export default function Home() {
               <Accordion>
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>Technologies</Accordion.Header>
-                  {tecnologias.map((d, i) => {
+                  {allTechnologies?.map((d, i) => {
                     return (
-                      <Accordion.Body style={{ padding: "5px" }} key={i}>
-                        {d}
+                      <Accordion.Body
+                        style={{ padding: "5px", cursor: "pointer" }}
+                        key={i}
+                        onClick={() => getFilterByTechnologies(d.id)}
+                      >
+                        {d.name}
                       </Accordion.Body>
                     );
                   })}
@@ -61,11 +83,22 @@ export default function Home() {
                 </Accordion.Item>
                 <Accordion.Item eventKey="2">
                   <Accordion.Header>Company</Accordion.Header>
-                  <div style={{ maxHeight: "300px", overflowY: "scroll" }}>
+                  <div
+                    style={{
+                      maxHeight: "300px",
+                      overflowY: "scroll",
+                      cursor: "pointer",
+                    }}
+                  >
                     {companies.map((d, i) => {
                       return (
-                        <Accordion.Body style={{ padding: "2px" }} key={i}>
+                        <Accordion.Body
+                          style={{ padding: "2px" }}
+                          key={i}
+                          onClick={() => filterByCompany(d.name)}
+                        >
                           {d.name}
+                          <hr />
                         </Accordion.Body>
                       );
                     })}
@@ -73,22 +106,46 @@ export default function Home() {
                 </Accordion.Item>
                 <Accordion.Item eventKey="3">
                   <Accordion.Header>Work contract</Accordion.Header>
-                  <Accordion.Body>hola</Accordion.Body>
+                  {Modality.map((data, index) => {
+                    return (
+                      <Accordion.Body
+                        key={index}
+                        onClick={() => filterByModality(data)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {data}
+                        <hr />
+                      </Accordion.Body>
+                    );
+                  })}
                 </Accordion.Item>
                 <Accordion.Item eventKey="4">
-                  <Accordion.Header>Ubication</Accordion.Header>
-                  <Accordion.Body>hola</Accordion.Body>
+                  <Accordion.Header>Experience</Accordion.Header>
+                  {Experience.map((data, index) => {
+                    return (
+                      <Accordion.Body
+                        key={index}
+                        onClick={() => filterByExperience(data)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {data}
+                        <hr />
+                      </Accordion.Body>
+                    );
+                  })}
                 </Accordion.Item>
               </Accordion>
             </div>
             <div className={style.infoPost}>
-              <div
-                style={{ display: "flex", alignItems: "flex-end" }}
-                className={style.image}
-              >
+              <div className={style.image}>
                 <img src={user.picture} alt="profile_picture" />
 
                 <h3>{user.name}</h3>
+                {posts !== selector.posts && (
+                  <Button variant='success' onClick={() => setPosts(selector.posts)}>
+                    Clear Filter
+                  </Button>
+                )}
               </div>
               <div className={style.columnInfoRight}>
                 <h3>suggestions</h3>
@@ -116,7 +173,7 @@ export default function Home() {
                 <div className={style.columInfo}></div>
               </div>
               <div className={style.columnPost}>
-                {selector.posts?.map((data, index) => {
+                {posts?.map((data, index) => {
                   // console.log(data);
                   return (
                     <div className={style.cardPost} key={index}>
@@ -140,7 +197,7 @@ export default function Home() {
                               {data.technologiesId.map((data, i) => {
                                 let tech = allTechnologies.find(
                                   // eslint-disable-next-line
-                                  (t) => t.id == data
+                                  (t) => t.id == data,
                                 );
 
                                 return <li key={i}>{tech.name}</li>;

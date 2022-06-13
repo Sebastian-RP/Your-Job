@@ -20,6 +20,10 @@
 }
 .infoPost .image {
     grid-column: 1/4;
+    display: flex; 
+    align-items: flex-end;
+    justify-content : flex-start;
+    gap: 10px;
 }
 .image img {
     border-radius: 50%;
