@@ -429,7 +429,7 @@ export default function RegisterUser() {
                 publicKey="de7dc23d760e287d1cb0"
                 clearable
                 onChange={(file) => {
-                  setUuid(file.uuid + "/");
+                  setUuid(file.uuid);
                 }}
               />
             </div>
