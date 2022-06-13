@@ -39,7 +39,12 @@ const getCompanies = async () => {
 
 const findCompany = async (id) => {
   const company = await Company.findByPk(id);
-  return company;
+  return company || { error: "company not found" };
+};
+
+const findCompanyEmail = async (email) => {
+  const company = await Company.findOne({ where: { email: email } });
+  return company || { error: "company not found" };
 };
 
 const getEmployees = async (ids) => {
@@ -57,4 +62,5 @@ module.exports = {
   getCompanies,
   getEmployees,
   findCompany,
+  findCompanyEmail,
 };
