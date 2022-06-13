@@ -1,13 +1,13 @@
 // import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import style from "./Login.module.css";
-import image from '../../image/img.png';
+import image from "../../image/img.png";
 
 export default function Login() {
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  
+
   return (
     <div className={style.containerLogin}>
       <h1>YourJob</h1>
@@ -19,11 +19,7 @@ export default function Login() {
           {isAuthenticated ? (
             <button
               className={style.logout}
-              onClick={() =>
-                logout({
-                  federated: true,
-                })
-              }
+              onClick={() => logout({ returnTo: window.location.origin })}
             >
               log out
             </button>
@@ -49,8 +45,7 @@ export default function Login() {
                 )}
           </div>
         </div>
-        
       </div>
-      </div>
+    </div>
   );
 }

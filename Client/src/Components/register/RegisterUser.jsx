@@ -233,7 +233,7 @@ export default function RegisterUser() {
       allTechnologies.filter((t) => !selectedTechs.includes(t.name))
     );
     // eslint-disable-next-line
-  }, []);
+  }, [selectedTechs]);
   useEffect(() => {
     setTechnologies(allTechnologies);
     // eslint-disable-next-line
@@ -248,13 +248,13 @@ export default function RegisterUser() {
 
   const addTechs = (tech) => {
     if (!selectedTechs.includes(tech)) {
-      let aux = [tech]
+      let aux = [tech];
       setSelected(selectedTechs.concat(aux));
     }
   };
 
   const removeTech = (tech) => {
-    let aux = selectedTechs.filter(element => element !== tech);
+    let aux = selectedTechs.filter((element) => element !== tech);
     setSelected(aux);
     console.log(aux);
   };
@@ -290,7 +290,9 @@ export default function RegisterUser() {
 
     dispatch(createUser(newUser));
 
-    window.location.replace(`https://dev-zgaxo6rs.us.auth0.com/continue?state=${state}`);
+    window.location.replace(
+      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${state}`
+    );
   };
 
   return (
@@ -298,14 +300,33 @@ export default function RegisterUser() {
       <h2> Please fill out the following form with your information</h2>
       <Card className="text-center" style={{ width: "40%", padding: "20px" }}>
         <form className={style.containeForm}>
-          <input name="name" onChange={(e) => handleChange(e)} placeholder="Full name" autoComplete="off" />
+          <input
+            name="name"
+            onChange={(e) => handleChange(e)}
+            placeholder="Full name"
+            autoComplete="off"
+          />
           <br />
-          <input name="email" onChange={(e) => handleChange(e)} placeholder="Email" autoComplete="off" />
+          <input
+            name="email"
+            onChange={(e) => handleChange(e)}
+            placeholder="Email"
+            autoComplete="off"
+          />
           <br />
-          <input type={"number"} name="age" onChange={(e) => handleChange(e)} placeholder="Age" autoComplete="off" />
+          <input
+            type={"number"}
+            name="age"
+            onChange={(e) => handleChange(e)}
+            placeholder="Age"
+            autoComplete="off"
+          />
           <br />
           <div className={style.containerTechnologies}>
-            <DropdownButton id="dropdown-basic-button" title="Select Technologies">
+            <DropdownButton
+              id="dropdown-basic-button"
+              title="Select Technologies"
+            >
               {technologies &&
                 technologies.map((tech, index) => {
                   return (
@@ -344,7 +365,11 @@ export default function RegisterUser() {
               gap: "10px",
             }}
           >
-            <DropdownButton id="dropdown-basic-button" title="Select Country" style={{ height: "10px" }}>
+            <DropdownButton
+              id="dropdown-basic-button"
+              title="Select Country"
+              style={{ height: "10px" }}
+            >
               <div style={{ height: "150px", overflowY: "scroll" }}>
                 {countries.map((country, index) => {
                   return (
@@ -364,15 +389,30 @@ export default function RegisterUser() {
           </div>
           <br />
           <br />
-          <input name="linkedin" onChange={(e) => handleChange(e)} placeholder="Linkedin Profile" autoComplete="off" />
+          <input
+            name="linkedin"
+            onChange={(e) => handleChange(e)}
+            placeholder="Linkedin Profile"
+            autoComplete="off"
+          />
           <br />
           <br />
-          <textarea name="desc" onChange={(e) => handleChange(e)} placeholder="Description" cols="40" />
+          <textarea
+            name="desc"
+            onChange={(e) => handleChange(e)}
+            placeholder="Description"
+            cols="40"
+          />
           <br />
           <div className={style.containerCheck}>
             <div>
               <label>Are you employed?</label>
-              <input type="checkbox" name="employment" id="" onClick={() => setEmploy(!employ)} />
+              <input
+                type="checkbox"
+                name="employment"
+                id=""
+                onClick={() => setEmploy(!employ)}
+              />
               <br />
               <input
                 type="text"
@@ -398,7 +438,6 @@ export default function RegisterUser() {
         </form>
         <br />
         <div>
-
           <Button
             variant="primary"
             size="small"

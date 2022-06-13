@@ -9,7 +9,7 @@ import Product from "./Pages/Product/Product";
 import Carrito from "./Pages/Carrito/Carrito";
 import RegisterUser from "./Components/register/RegisterUser";
 import RegisterCompany from "./Components/register/RegisterCompany";
-import Home from "./Pages/Home/home";
+import Home from "./Pages/Home/Home";
 
 function App() {
   return (
