@@ -16,13 +16,13 @@ export default function Home() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isLoading) {
-      companies.forEach((comp) => {
-        if (comp.email == user.email) {
-          setIsUser(false);
-        }
-      });
-    }
+    companies.forEach((comp) => {
+      // eslint-disable-next-line
+      if (comp.email == user.email) {
+        setIsUser(false);
+      }
+    });
+    // eslint-disable-next-line
   }, [isLoading]);
 
   if (isLoading) {
