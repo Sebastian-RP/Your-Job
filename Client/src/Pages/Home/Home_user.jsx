@@ -239,7 +239,7 @@ export default function HomeUser() {
                 <div className={style.columInfo}></div>
               </div>
               <div className={style.columnPost}>
-                {posts?posts.map((data, index) => {
+                {posts.length?posts.map((data, index) => {
                   return (
                     <div className={style.cardPost} key={index}>
                       <Card>
