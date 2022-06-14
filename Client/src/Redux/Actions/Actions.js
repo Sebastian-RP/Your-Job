@@ -10,6 +10,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ALL_POST = "GET_ALL_POST";
 export const GET_ALL_COMPANIES = "GET_ALL_COMPANIES";
 export const GET_ALL_POSTS_FROM_COMPANY = "GET_ALL_POSTS_FROM_COMPANY";
+export const GET_ALL_POSTULATES = "GET_ALL_POSTULATES";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -86,7 +87,6 @@ export function createUser(user) {
 
 export function createCompany(company) {
   return async function (dispatch) {
-    console.log(company);
     try {
       const newCompany = await axios.post(
         "http://localhost:3001/company/login",
@@ -148,4 +148,36 @@ export function getAllPostsFromCompany(id) {
       console.error("Error: " + e.message);
     }
   };
+}
+
+export function postulateJob(value) {
+  return async function(dispatch) {
+    try {
+      const newPostulate = await axios.post(
+        "http://localhost:3001/postulates", {
+          name: value.name,
+          url: value.url,
+          postId: value.postId
+        })
+        return newPostulate;
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  }
+}
+
+export function getPostulates(email) {
+  return async function(dispatch) {
+    try {
+      const resp = await axios.get("http://localhost:3001/postulates/"+ email)
+      return dispatch({
+        type: GET_ALL_POSTULATES,
+        payload: resp.data
+      })
+      
+    }catch (error){
+      console.error(error.message)
+    }
+
+  }
 }
