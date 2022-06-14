@@ -18,20 +18,18 @@ const Products = () => {
   const {carrito} = useCarritoContext()
 
   const navigate = useNavigate()
-  var infoUser = null;
+  // var infoUser = null;
 
-  const getInfo = async () => {
-    infoUser = await axios.get(`http://localhost:3001/users/${user.name}`).then(res => res.data);
-  }
+  // const getInfo = async () => {
+  //   infoUser = await axios.get(`http://localhost:3001/users/${user.name}`).then(res => res.data);
+  // }
   useEffect(() => {
     getAllProducts().then((action) => {
       dispatch(action);
     });
     setProducts(productsList);
-    getInfo();
+    // getInfo();
   }, []);
-
-
 
   useEffect(() => {
     setProducts(productsList);
