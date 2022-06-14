@@ -6,8 +6,9 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { createCompany } from "../../Redux/Actions/Actions";
+import style from "./register.module.css";
 
-export default function RegisterCompany() {
+export default function RegisterCompany({props}) {
   const countries = [
     "Afghanistan",
     "Albania",
@@ -207,7 +208,6 @@ export default function RegisterCompany() {
     "Zimbabwe",
   ];
   const [country, setCountry] = useState("");
-  const { state } = useParams();
   const [input, setInput] = useState({
     email: "",
     name: "",
@@ -246,62 +246,104 @@ export default function RegisterCompany() {
 
     dispatch(createCompany(newCompany));
     window.location.replace(
-      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${state}`
+      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${props}`,
     );
   };
 
   return (
-    <Card className="text-center">
-      Please fill out the following form with your information
-      <form>
-        <label>Company Name:</label>{" "}
-        <input name="name" onChange={(e) => handleChange(e)} />
-        <br />
-        <label>Propietary Name:</label>{" "}
-        <input name="prop_name" onChange={(e) => handleChange(e)} />
-        <br />
-        <label>Email: </label>
-        <input name="email" onChange={(e) => handleChange(e)} />
-        <br />
-        <label>Phone Number:</label>{" "}
-        <input type={"number"} name="phone" onChange={(e) => handleChange(e)} />
-        <br />
-        <label>Country of Origin: {country}</label>
-        <DropdownButton
-          id="dropdown-basic-button"
-          title="Select Country"
-          style={{ height: "10px" }}
-        >
-          <div style={{ height: "150px", overflowY: "scroll" }}>
-            {countries.map((country, index) => {
-              return (
-                <Dropdown.Item
-                  onClick={() => {
-                    addCountry(country);
-                  }}
-                  key={index}
-                >
-                  {country}
-                </Dropdown.Item>
-              );
-            })}
+    <div className={style.containerRegisterUser}>
+      <div className={style.containerCard}>
+        <h2> Please fill out the following form with your information</h2>
+
+        <Card className="text-center" style={{ width: "80%", padding: "20px" }}>
+          <form className={style.containeForm}>
+            <input
+              name="name"
+              onChange={(e) => handleChange(e)}
+              placeholder="Company Name"
+              autoComplete="off"
+            />
+            <br />
+
+            <input
+              name="prop_name"
+              onChange={(e) => handleChange(e)}
+              placeholder="Propietary Name"
+              autoComplete="off"
+            />
+            <br />
+
+            <input
+              name="email"
+              onChange={(e) => handleChange(e)}
+              placeholder="Email"
+              autoComplete="off"
+            />
+            <br />
+
+            <input
+              type={"number"}
+              name="phone"
+              onChange={(e) => handleChange(e)}
+              placeholder="Phone Number"
+              autoComplete="off"
+            />
+            <br />
+            <label>Country of Origin: {country}</label>
+            <div>
+              <DropdownButton
+                id="dropdown-basic-button"
+                title="Select Country"
+                style={{ height: "10px" }}
+              >
+                <div style={{ height: "150px", overflowY: "scroll" }}>
+                  {countries.map((country, index) => {
+                    return (
+                      <Dropdown.Item
+                        onClick={() => {
+                          addCountry(country);
+                        }}
+                        key={index}
+                      >
+                        {country}
+                      </Dropdown.Item>
+                    );
+                  })}
+                </div>
+              </DropdownButton>
+            </div>
+            <br />
+            <br />
+
+            <input
+              name="linkedin"
+              onChange={(e) => handleChange(e)}
+              placeholder="Linkedin Profile"
+              autoComplete="off"
+            />
+            <br />
+
+            <textarea
+              name="desc"
+              onChange={(e) => handleChange(e)}
+              placeholder="Description"
+              cols="40"
+              autoComplete="off"
+            />
+            {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
+          </form>
+          <br />
+          <div>
+            <Button
+              variant="primary"
+              size="small"
+              onClick={(e) => handleSubmit(e)}
+            >
+              Submit
+            </Button>
           </div>
-        </DropdownButton>
-        <br />
-        <br />
-        <label>Linkedin Profile:</label>{" "}
-        <input name="linkedin" onChange={(e) => handleChange(e)} />
-        <br />
-        <label>Description:</label>{" "}
-        <textarea name="desc" onChange={(e) => handleChange(e)} />
-        {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
-      </form>
-      <br />
-      <div>
-        <Button variant="primary" size="lg" onClick={(e) => handleSubmit(e)}>
-          Submit
-        </Button>
+        </Card>
       </div>
-    </Card>
+    </div>
   );
 }

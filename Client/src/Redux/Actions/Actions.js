@@ -12,6 +12,7 @@ export const GET_ALL_COMPANIES = "GET_ALL_COMPANIES";
 export const GET_ALL_POSTS_FROM_COMPANY = "GET_ALL_POSTS_FROM_COMPANY";
 export const GET_ALL_POSTULATES = "GET_ALL_POSTULATES";
 export const ADD_CARRITO = "ADD_CARRITO";
+export const GET_CONVERSATIONS = "GET_CONVERSATIONS"
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -202,4 +203,11 @@ export async function addCarrito(element) {
        type: ADD_CARRITO, payload: element
     })
   } 
+}
+
+export function getConversations(id) {
+  return async function () {
+    const conversations = await axios.get(`http://localhost:3001/conversation/${id}`)
+      return { type: GET_CONVERSATIONS , payload: conversations.data };
+  }
 }

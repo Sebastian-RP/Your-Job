@@ -17,13 +17,14 @@ const Experience = ["trainig", "junior", "semi-senior", "senior"];
 const salario = ["min-salary", "max-salary"];
 
 export default function HomeUser() {
-  const { logout, user, isAuthenticated, isLoading } = useAuth0();
+  const { logout, user, isAuthenticated} = useAuth0();
 
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const [posts, setPosts] = useState(null);
   const [num, setNum] = useState(null);
   const [postId, setPostId] = useState([]);
+  const [showPage, setShowPage] = useState(false);
   const allTechnologies = [...selector.technologies];
   const companies = [...selector.companies];
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
@@ -49,24 +50,27 @@ export default function HomeUser() {
     })
   },[postulatesUser])
 
-  if (isLoading) {
-    return <div>LOADING...</div>;
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      setShowPage(true)
+    }, 2000);
+  },[])
+
   const getFilterByTechnologies = (id) => {
     setPosts(
-      selector.posts.filter((data) =>
+      posts.filter((data) =>
         data.technologiesId.includes(id.toString()),
       ),
     );
   };
   const filterByCompany = (name) => {
-    setPosts(selector.posts.filter((data) => data.company.name === name));
+    setPosts(posts.filter((data) => data.company.name === name));
   };
   const filterByModality = (data) => {
-    setPosts(selector.posts.filter((d) => d.modality === data));
+    setPosts(posts.filter((d) => d.modality === data));
   };
   const filterByExperience = (data) => {
-    setPosts(selector.posts.filter((d) => d.experience === data));
+    setPosts(posts.filter((d) => d.experience === data));
   };
   const filterBySalary = (data) => {
     const salary = selector.posts;
@@ -106,7 +110,9 @@ export default function HomeUser() {
     <div className={style.containerHome}>
       {isAuthenticated ? (
         <>
-          <Navbar />
+         <Navbar />
+         {
+         showPage?(<>
           <div className={style.containerActions}>
             <div className={style.filters}>
               <Accordion>
@@ -233,7 +239,7 @@ export default function HomeUser() {
                 <div className={style.columInfo}></div>
               </div>
               <div className={style.columnPost}>
-                {posts?.map((data, index) => {
+                {posts?posts.map((data, index) => {
                   return (
                     <div className={style.cardPost} key={index}>
                       <Card>
@@ -279,10 +285,12 @@ export default function HomeUser() {
                       </Card>
                     </div>
                   );
-                })}
+                }):<h2>not posts found</h2>}
               </div>
             </div>
           </div>
+          </>):<p>Loading...</p>
+          }
         </>
       ) : (
         logout({ returnTo: window.location.origin })
