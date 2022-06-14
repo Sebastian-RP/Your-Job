@@ -285,7 +285,7 @@ export default function RegisterUser() {
       nationality: country,
       url: input.linkedin,
       cv: `ucarecdn.com/${uuid}`,
-      premium: null
+      premium: 0
     };
     console.log(newUser);
 

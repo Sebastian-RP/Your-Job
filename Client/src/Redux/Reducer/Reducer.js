@@ -7,7 +7,8 @@ import {
   GET_ALL_POST,
   GET_ALL_COMPANIES,
   GET_ALL_POSTS_FROM_COMPANY,
-  GET_ALL_POSTULATES
+  GET_ALL_POSTULATES,
+  ADD_CARRITO
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
   users: [],
   posts: [],
   companyPosts: [],
-  postulatesUser : []
+  postulatesUser : [],
+  carrito: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -65,6 +67,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         postulatesUser : action.payload
+      }
+    case ADD_CARRITO : 
+      return {
+        ...state,
+        carrito : action.payload
       }
     default:
       return { ...state };

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { db } from '../../Components/Firebase/credenciales'
 import {doc, collection, getDoc, getDocs} from 'firebase/firestore'
-import { useCarritoContext } from '../../Context/carritoContext'
 import style from "./Product.module.css";
 import Button from 'react-bootstrap/Button'
+import { addCarrito } from "../../Redux/Actions/Actions";
+import { useDispatch, useSelector } from 'react-redux'
 
 
 async function getProduct(id){
@@ -23,7 +24,8 @@ const Product = () => {
     const [productInfo, setProductInfo] = useState(null)
     const id = useParams().id
 
-    const {carrito, setCarrito} = useCarritoContext()
+    const dispatch = useDispatch()
+    const carrito = useSelector((state)=> state.carrito)
 
     const navigate = useNavigate()
 
@@ -40,7 +42,9 @@ const Product = () => {
                 alert("El elemento ya se encuentra en el carrito")
             } else{
                 alert("Elemento añadido al carrito de compras")
-                setCarrito([...new Set([...carrito, productInfo])])
+                addCarrito([...new Set([...carrito, productInfo])]).then((action) => {
+                    dispatch(action);
+                  });
             }
         }   
     }
