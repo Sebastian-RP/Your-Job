@@ -7,11 +7,15 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         userId: { 
-            type: DataTypes.INTEGER //con el id podemos consultar el nombre del usuario 
+            type: DataTypes.INTEGER
         },
         descripcion: {
             type: DataTypes.TEXT,
             allowNull: false,
+        },
+        status: { //borrado logico
+            type: DataTypes.ENUM(["active", "disabled"]),
+            defaultValue: "active"
         }
     })
 }

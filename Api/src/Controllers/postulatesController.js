@@ -12,7 +12,6 @@ const postulatesPost = async (name, url, postId) => {
 
     } catch (error) {
         console.error("Your application has not been successful")
-        
     }
 }
 
