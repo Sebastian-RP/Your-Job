@@ -54,19 +54,19 @@ export default function HomeUser() {
   }
   const getFilterByTechnologies = (id) => {
     setPosts(
-      selector.posts.filter((data) =>
+      posts.filter((data) =>
         data.technologiesId.includes(id.toString()),
       ),
     );
   };
   const filterByCompany = (name) => {
-    setPosts(selector.posts.filter((data) => data.company.name === name));
+    setPosts(posts.filter((data) => data.company.name === name));
   };
   const filterByModality = (data) => {
-    setPosts(selector.posts.filter((d) => d.modality === data));
+    setPosts(posts.filter((d) => d.modality === data));
   };
   const filterByExperience = (data) => {
-    setPosts(selector.posts.filter((d) => d.experience === data));
+    setPosts(posts.filter((d) => d.experience === data));
   };
   const filterBySalary = (data) => {
     const salary = selector.posts;
@@ -233,7 +233,7 @@ export default function HomeUser() {
                 <div className={style.columInfo}></div>
               </div>
               <div className={style.columnPost}>
-                {posts?.map((data, index) => {
+                {posts?posts.map((data, index) => {
                   return (
                     <div className={style.cardPost} key={index}>
                       <Card>
@@ -279,7 +279,7 @@ export default function HomeUser() {
                       </Card>
                     </div>
                   );
-                })}
+                }):<h2>not posts found</h2>}
               </div>
             </div>
           </div>
