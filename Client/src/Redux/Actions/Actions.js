@@ -15,16 +15,17 @@ export function getAllEmployees() {
 }
 
 export async function getUserInfo(userName) {
-  try {
-    const userData = await axios.get(`http://localhost:3001/users/${userName}`);
-    return {
-      type: GET_USER_INFO,
-      payload: userData.data,
-    };
-  } catch (e) {
-    console.error("Error: " + e.message);
-  }
+    try {
+      const userData = await axios.get(`http://localhost:3001/users/${userName}`);
+      return {
+        type: GET_USER_INFO,
+        payload: userData.data,
+      }
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
 }
+
 
 export async function getAllProducts() {
   const collectionRef = collection(db, "products");
@@ -75,6 +76,7 @@ export function createUser(user) {
         nationality: user.nationality,
         url: user.url,
         cv: user.cv,
+        premium: null
       });
       return newUser;
     } catch (e) {
@@ -98,6 +100,7 @@ export function createCompany(company) {
           url: company.url,
           nationality: company.nationality,
           description: company.description,
+          premium: null
         }
       );
       return newCompany;
@@ -134,3 +137,14 @@ export  function getAllCompanies() {
     }
   };
 }
+
+export async function updatePremiumPlan(userID, premiumService) {
+    try {
+      const user = await axios.put(`http://localhost:3001/users/${userID}`, {
+        premium: premiumService
+        });
+      return user
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  };

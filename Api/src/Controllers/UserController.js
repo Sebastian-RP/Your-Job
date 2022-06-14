@@ -11,7 +11,8 @@ const createUser = async (
   technologiesName,
   nationality,
   url,
-  cv
+  cv,
+  premium
 ) => {
   try {
     await getTechnologies();
@@ -27,6 +28,7 @@ const createUser = async (
       nationality,
       url,
       cv,
+      premium
     });
     let userTechnologies = await Technology.findAll({
       where: { name: technologiesName },
@@ -38,7 +40,8 @@ const createUser = async (
   }
 };
 const findUser = async (user) => {
-  const result = await User.findOne({ where: { name: user } });
+  const result = await User.findOne({ where: { name: user } });  
+
   return result || {};
 };
 
@@ -49,7 +52,6 @@ const getUsers = async () => {
 
 const updateUser = async (id, changes) => {
   let user = await User.findByPk(id);
-  console.log(changes);
   await user.update(changes);
   return user;
 };

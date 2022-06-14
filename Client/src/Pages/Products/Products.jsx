@@ -5,6 +5,7 @@ import style from "./Products.module.css";
 import { Link } from "react-router-dom";
 import {useCarritoContext } from '../../Context/carritoContext'
 import { useNavigate } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 
 const Products = () => {
@@ -30,8 +31,8 @@ const Products = () => {
   return (
     <div>
         <div>
-            <button onClick={()=>navigate('/carrito')}>Carrito {carrito.length}</button>
-            <button className={style.Button} onClick={()=> navigate('/home')}>Back</button>
+            <Button onClick={()=>navigate('/carrito')}>Carrito {carrito.length}</Button>
+            <Button className={style.Button} onClick={()=> navigate('/home')}>Back</Button>
         </div>
         <h1>Servicios premium</h1>
       {products ? (

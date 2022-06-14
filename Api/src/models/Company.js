@@ -50,5 +50,8 @@ module.exports = (sequelize) => {
     posts: {
       type: DataTypes.ARRAY(DataTypes.INTEGER), //id de los post vinculados a la empresa
     },
+    premium: {
+      type: DataTypes.INTEGER
+    }
   });
 };

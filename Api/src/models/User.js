@@ -52,6 +52,9 @@ module.exports = (sequelize) => {
       },
       cv:{
           type: DataTypes.STRING //string de manera temporal,mientra descubro como se almacena
+      },
+      premium:{
+        type: DataTypes.INTEGER
       }
   })
 }

@@ -11,6 +11,7 @@ export default function Users() {
   const dispatch = useDispatch();
   const { user } = useParams();
   useEffect(() => {
+    console.log(user)
     getUserInfo(user).then((action) => {
       dispatch(action);
     });
