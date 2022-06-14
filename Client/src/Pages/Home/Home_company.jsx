@@ -18,32 +18,40 @@ export default function HomeCompany() {
   const selector = useSelector((state) => state);
   const companies = [...selector.companies];
   const allTechnologies = [...selector.technologies];
+
   const posts = [...selector.companyPosts];
   const [company, setCompany] = useState(null);
 
   useEffect(() => {
     dispatch(getAllCompanies());
     dispatch(getAllPost());
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     companies.forEach((comp) => {
       if (comp.email === user.email) {
+        console.log(comp);
         setCompany(comp);
         console.log(company);
       }
     });
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
     if (company) {
       dispatch(getAllPostsFromCompany(company.id));
     }
-  }, [user]);
+    // eslint-disable-next-line
+  }, [company]);
 
   return (
     <>
       <Navbar />
       <div className={style.columnPost}>
         {posts?.map((data, index) => {
-          // console.log(data);
+          console.log(data.id);
           return (
             <div className={style.cardPost} key={index}>
               <Card>
@@ -72,8 +80,14 @@ export default function HomeCompany() {
                         return <li key={i}>{tech ? tech.name : data}</li>;
                       })}
                     </>
+                    <br />
+                    <strong>Postulates:</strong>
+                    <>
+                      {data.postulates?.map((data, i) => {
+                        return <li key={i}> {data.name} </li>;
+                      })}
+                    </>
                   </Card.Text>
-                  <Button variant="primary">Apply</Button>
                 </Card.Body>
               </Card>
             </div>
