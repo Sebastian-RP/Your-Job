@@ -202,21 +202,7 @@ export function getPostulates(email) {
   };
 }
 
-export function getPostulatesfromPost(id) {
-  return async function (dispatch) {
-    try {
-      const postulates = await axios.get(
-        `http://localhost:3001/companyPost/?id=${id}`
-      );
-      return dispatch({
-        type: GET_ALL_POSTULATES_FROM_POST,
-        payload: postulates.data,
-      });
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-}
+
 
 export async function addCarrito(element) {
   return async function(dispatch){
@@ -226,9 +212,12 @@ export async function addCarrito(element) {
   } 
 }
 
+
 export function getConversations(id) {
   return async function () {
-    const conversations = await axios.get(`http://localhost:3001/conversation/${id}`)
-      return { type: GET_CONVERSATIONS , payload: conversations.data };
-  }
+    const conversations = await axios.get(
+      `http://localhost:3001/conversation/${id}`
+    );
+    return { type: GET_CONVERSATIONS, payload: conversations.data };
+  };
 }
