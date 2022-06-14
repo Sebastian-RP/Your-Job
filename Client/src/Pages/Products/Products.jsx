@@ -43,12 +43,12 @@ const Products = () => {
         <div>
             <Button onClick={()=>navigate('/carrito')}>Carrito {carrito.length}</Button>
             <Button className={style.Button} onClick={()=> navigate('/home')}>Back</Button>
-            {infoUser?<p>Cargando informacion</p>:
+            {/* {infoUser?<p>Cargando informacion</p>:
               infoUser.premium == null ?<p>No posee servicios activos</p>:
               infoUser.premium === 1 ?<p>Usted posee un servicio premium 1</p>:
               infoUser.premium === 2 ?<p>Usted posee un servicio premium 2</p>:
               <p>Usted posee un servicio premium 3</p>
-            }
+            } */}
         </div>
         <h1>Servicios premium</h1>
       {products ? (
