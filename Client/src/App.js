@@ -10,6 +10,8 @@ import Carrito from "./Pages/Carrito/Carrito";
 import RegisterUser from "./Components/register/RegisterUser";
 import RegisterCompany from "./Components/register/RegisterCompany";
 import Home from "./Pages/Home/home";
+import Messenger from "./Pages/Messenger/Messenger.jsx";
+
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
       <Route path={"/products"} element={<Products />} />
       <Route path={"/carrito"} element={<Carrito />} />
       <Route path={"/product/:id"} element={<Product />} />
+      <Route path={"/messenger"} element={<Messenger />} />
     </Routes>
   );
 }

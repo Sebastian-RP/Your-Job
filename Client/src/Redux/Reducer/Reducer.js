@@ -1,4 +1,4 @@
-import { GET_ALL_EMPLOYEES, GET_USER_INFO, GET_ALL_PRODUCTS, GET_ALL_TECHNOLOGIES, GET_ALL_USERS, GET_ALL_POST, GET_ALL_COMPANIES } from "../Actions/Actions.js";
+import { GET_ALL_EMPLOYEES, GET_USER_INFO, GET_ALL_PRODUCTS, GET_ALL_TECHNOLOGIES, GET_ALL_USERS, GET_ALL_POST, GET_ALL_COMPANIES, GET_CONVERSATIONS } from "../Actions/Actions.js";
 
 const initialState = {
   user: [],
@@ -7,7 +7,10 @@ const initialState = {
   products: [],
   technologies: [],
   users: [],
-  posts: []
+  posts: [],
+  companyPosts: [],
+  postulatesUser : [],
+  conversations: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -42,7 +45,12 @@ export default function rootReducer(state = initialState, action) {
     case GET_ALL_COMPANIES: 
       return {
         ...state,
-        companies : action.payload
+        postulatesUser : action.payload
+      };
+      case GET_CONVERSATIONS:
+      return {
+        ...state,
+        conversations: action.payload
       }
     default:
       return { ...state };
