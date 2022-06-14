@@ -29,7 +29,6 @@ const Carrito = () => {
         if(!(carrito.length > 0)){
             alert("Para realizar una compra debes añadir elementos al carrito")
         }
-    }
     if (!(carrito.length > 0)) {
       alert("Para realizar una compra debes añadir elementos al carrito");
     }
@@ -53,13 +52,8 @@ const Carrito = () => {
                     </div>
                 )): <p>...Loading</p>}
             </div>
-          ))
-        ) : (
-          <p>...Loading</p>
-        )}
+        <Button className={style.Button} onClick={autenticate}>Comprar</Button>
       </div>
-            <Button className={style.Button} onClick={autenticate}>Comprar</Button>
-        </div>
     )
 }
 
