@@ -241,6 +241,7 @@ export default function RegisterCompany() {
       url: input.linkedin,
       nationality: country,
       description: input.desc,
+      premium: null
     };
 
     dispatch(createCompany(newCompany));

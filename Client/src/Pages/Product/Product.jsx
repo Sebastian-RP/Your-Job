@@ -4,6 +4,7 @@ import { db } from '../../Components/Firebase/credenciales'
 import {doc, collection, getDoc, getDocs} from 'firebase/firestore'
 import { useCarritoContext } from '../../Context/carritoContext'
 import style from "./Product.module.css";
+import Button from 'react-bootstrap/Button'
 
 
 async function getProduct(id){
@@ -46,12 +47,12 @@ const Product = () => {
 
   return (
         <div className={style.StyledProducts} >
-            <button className={style.Button} onClick={()=> navigate('/products')}>Back</button>
+            <Button className={style.Button} onClick={()=> navigate('/products')}>Back</Button>
             <h1>{productInfo? productInfo.name : 'Cargando...'}</h1>
             <h2>Detalles del Producto ID: {id}</h2>
             <p>{productInfo? productInfo.description : 'Cargando...'}</p>
             <div className={style.DivButtons} >
-                <button className={style.Button} onClick={addToCarrito} disabled={!productInfo}>Añadir a Carrito</button>
+                <Button className={style.Button} onClick={addToCarrito} disabled={!productInfo}>Añadir a Carrito</Button>
                 {/* <button className={style.Button}>Comprar Ahora</button> */}
             </div>
         </div>  
