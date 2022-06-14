@@ -86,7 +86,6 @@ export function createUser(user) {
 
 export function createCompany(company) {
   return async function (dispatch) {
-    console.log(company);
     try {
       const newCompany = await axios.post(
         "http://localhost:3001/company/login",
@@ -148,4 +147,21 @@ export function getAllPostsFromCompany(id) {
       console.error("Error: " + e.message);
     }
   };
+}
+
+export function postulateJob(value) {
+  return async function(dispatch) {
+    try {
+      const newPostulate = await axios.post(
+        "http://localhost:3001/postulates", {
+          id: value.id,
+          name: value.name,
+          url: value.url,
+          postId: value.postId
+        })
+        return newPostulate;
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  }
 }

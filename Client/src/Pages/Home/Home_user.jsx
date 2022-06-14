@@ -217,7 +217,7 @@ export default function HomeUser() {
               </div>
               <div className={style.columnPost}>
                 {posts?.map((data, index) => {
-                  // console.log(data);
+                  
                   return (
                     <div className={style.cardPost} key={index}>
                       <Card>
