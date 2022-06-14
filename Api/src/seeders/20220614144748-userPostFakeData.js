@@ -15,203 +15,203 @@ module.exports = {
      * }], {});
     */
     await queryInterface.bulkInsert('userPosts', [{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },{
-      titlePost: chance.sentence(), technologiesId: [chance.integer({ min: 1, max: 11 })], 
+      titlePost: chance.sentence(), 
       userId: chance.integer({ min: 1, max: 40 }), descripcion: chance.paragraph(),
       createdAt: new Date(), updatedAt: new Date()
     },], {});

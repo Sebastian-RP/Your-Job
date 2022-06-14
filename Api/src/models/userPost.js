@@ -6,9 +6,6 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        technologiesId:{
-            type: DataTypes.ARRAY(DataTypes.INTEGER)
-        },
         userId: { 
             type: DataTypes.INTEGER //con el id podemos consultar el nombre del usuario 
         },
