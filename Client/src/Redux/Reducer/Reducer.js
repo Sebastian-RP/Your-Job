@@ -1,4 +1,15 @@
-import { GET_ALL_EMPLOYEES, GET_USER_INFO, GET_ALL_PRODUCTS, GET_ALL_TECHNOLOGIES, GET_ALL_USERS, GET_ALL_POST, GET_ALL_COMPANIES, GET_CONVERSATIONS } from "../Actions/Actions.js";
+import {
+  GET_ALL_EMPLOYEES,
+  GET_USER_INFO,
+  GET_ALL_PRODUCTS,
+  GET_ALL_TECHNOLOGIES,
+  GET_ALL_USERS,
+  GET_ALL_POST,
+  GET_ALL_COMPANIES,
+  GET_ALL_POSTS_FROM_COMPANY,
+  GET_ALL_POSTULATES,
+  GET_CONVERSATIONS 
+} from "../Actions/Actions.js";
 
 const initialState = {
   user: [],
@@ -37,12 +48,22 @@ export default function rootReducer(state = initialState, action) {
       };
     case GET_ALL_USERS:
       return { ...state, users: action.payload };
-    case GET_ALL_POST: 
+    case GET_ALL_POST:
       return {
         ...state,
-        posts : action.payload
-      }
-    case GET_ALL_COMPANIES: 
+        posts: action.payload,
+      };
+    case GET_ALL_COMPANIES:
+      return {
+        ...state,
+        companies: action.payload,
+      };
+    case GET_ALL_POSTS_FROM_COMPANY:
+      return {
+        ...state,
+        companyPosts: action.payload,
+      };
+    case GET_ALL_POSTULATES : 
       return {
         ...state,
         postulatesUser : action.payload

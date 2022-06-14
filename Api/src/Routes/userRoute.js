@@ -4,6 +4,7 @@ const {
   findUser,
   getUsers,
   updateUser,
+  findUserEmail,
 } = require("../Controllers/UserController.js");
 
 const router = Router();
@@ -20,6 +21,7 @@ router.post("/login", async (req, res) => {
     nationality,
     url,
     cv,
+    premium
   } = req.body;
   const newUser = await createUser(
     email,
@@ -31,10 +33,16 @@ router.post("/login", async (req, res) => {
     technologiesName,
     nationality,
     url,
-    cv
+    cv,
+    premium
   );
 
   return res.status(200).send(newUser);
+});
+
+router.get("/profile", async (req, res) => {
+  const { email } = req.query;
+  res.send(await findUserEmail(email));
 });
 
 router.get("/:user", async (req, res) => {

@@ -1,17 +1,47 @@
 const { CompanyPost, Company } = require("../db.js");
+const { findCompany } = require("./CompanyController.js");
 
 const getCompanyPosts = async () => {
   try {
     const PostCreated = await CompanyPost.findAll({
       include: {
         model: Company,
-        attributes: ["id", "email", "name", "phone", "address", "url", "image", "nationality"],
-      }
+        attributes: [
+          "id",
+          "email",
+          "name",
+          "phone",
+          "address",
+          "url",
+          "image",
+          "nationality",
+        ],
+      },
     });
 
     return PostCreated;
   } catch (error) {
     console.error("Error in getCompanyPosts:", error.message);
+  }
+};
+
+const getPostsfromCompany = async (id) => {
+  try {
+    const company = await findCompany(id);
+    console.log(company.posts);
+    // const posts = await company.posts.map(async (id) => {
+    //   const post = await CompanyPost.findByPk(id);
+    //   return post;
+    // });
+    let posts = [];
+    for (let i = 0; i < company.posts.length; i++) {
+      const id = company.posts[i];
+      const post = await CompanyPost.findByPk(id);
+      posts.push(post);
+    }
+    return posts || { error: "posts not found" };
+  } catch (e) {
+    console.error("Error in getPostsfromCompany:", e.message);
   }
 };
 
@@ -57,4 +87,5 @@ module.exports = {
   getCompanyPosts,
   createPost,
   deletePost,
+  getPostsfromCompany,
 };

@@ -4,12 +4,18 @@ const {
   getCompanies,
   getEmployees,
   findCompany,
+  findCompanyEmail,
 } = require("../Controllers/CompanyController.js");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   res.send(await getCompanies());
+});
+
+router.get("/profile", async (req, res) => {
+  const { email } = req.query;
+  res.send(await findCompanyEmail(email));
 });
 
 router.get("/:id", async (req, res) => {
@@ -36,6 +42,7 @@ router.post("/login", async (req, res) => {
     nationality,
     description,
     employees,
+    premium
   } = req.body;
   const newCompany = await createCompany(
     email,
@@ -47,11 +54,10 @@ router.post("/login", async (req, res) => {
     image,
     nationality,
     description,
-    employees
+    employees,
+    premium
   );
   return res.status(200).send(newCompany);
 });
-
-
 
 module.exports = router;

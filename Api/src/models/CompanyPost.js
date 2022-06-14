@@ -35,4 +35,14 @@ module.exports = (sequelize) => {
             type: DataTypes.ARRAY(DataTypes.STRING)
         },
     })
+
+    sequelize.define("postulates", {
+        name: {
+            type: DataTypes.STRING
+        },
+        url: {
+            type: DataTypes.STRING
+        }
+        
+    })
 }

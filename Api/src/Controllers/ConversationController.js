@@ -41,6 +41,7 @@ const createConversation = async (senderId, receiverId) => {
       })
       let mapValues = conversation.map(x=>x.dataValues)
       let onlyUser = mapValues.filter(user => user.members.includes(Number(userId)))
+
       return onlyUser
     }catch (error){
       console.error("Error in getConversation:", error);

@@ -18,16 +18,17 @@ export function getAllEmployees() {
 }
 
 export async function getUserInfo(userName) {
-  try {
-    const userData = await axios.get(`http://localhost:3001/users/${userName}`);
-    return {
-      type: GET_USER_INFO,
-      payload: userData.data,
-    };
-  } catch (e) {
-    console.error("Error: " + e.message);
-  }
+    try {
+      const userData = await axios.get(`http://localhost:3001/users/${userName}`);
+      return {
+        type: GET_USER_INFO,
+        payload: userData.data,
+      }
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
 }
+
 
 export async function getAllProducts() {
   const collectionRef = collection(db, "products");
@@ -78,6 +79,7 @@ export function createUser(user) {
         nationality: user.nationality,
         url: user.url,
         cv: user.cv,
+        premium: null
       });
       return newUser;
     } catch (e) {
@@ -88,7 +90,6 @@ export function createUser(user) {
 
 export function createCompany(company) {
   return async function (dispatch) {
-    console.log(company);
     try {
       const newCompany = await axios.post(
         "http://localhost:3001/company/login",
@@ -101,6 +102,7 @@ export function createCompany(company) {
           url: company.url,
           nationality: company.nationality,
           description: company.description,
+          premium: null
         }
       );
       return newCompany;
@@ -124,7 +126,7 @@ export function getAllPost() {
   };
 }
 
-export  function getAllCompanies() {
+export function getAllCompanies() {
   return async function (dispatch) {
     try {
       const companies = await axios.get("http://localhost:3001/company");
@@ -194,7 +196,6 @@ export function getPostulates(email) {
 
   }
 }
-
 export function getConversations(id) {
   return async function () {
     const conversations = await axios.get(`http://localhost:3001/conversation/${id}`)
