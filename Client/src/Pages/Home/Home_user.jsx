@@ -7,6 +7,7 @@ import {
   getAllCompanies,
   getAllPost,
   getAllTechnologies,
+  getAllUsers,
   getPostulates,
   postulateJob,
 } from "../../Redux/Actions/Actions";
@@ -26,13 +27,16 @@ export default function HomeUser() {
   const [postId, setPostId] = useState([]);
   const allTechnologies = [...selector.technologies];
   const companies = [...selector.companies];
+  const users = [...selector.users];
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
   const postulatesUser = selector.postulatesUser;
+  const [loggedUser, setLoggedUser] = useState(null);
 
   useEffect(() => {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
     dispatch(getAllTechnologies());
+    getAllUsers().then((data) => dispatch(data));
   }, [dispatch]);
 
   // el useState llamado NUM y este useEffect hacen que la sugerencia de las
@@ -41,13 +45,23 @@ export default function HomeUser() {
   useEffect(() => {
     setPosts(selector.posts);
     setNum(Math.random() * (companies.length - 3));
+    // eslint-disable-next-line
   }, [selector]);
   //----------------------------------------------------
   useEffect(() => {
-    postulatesUser.length && postulatesUser.map((data) => {
-      setPostId([...postId, data.companyPostId])
-    })
-  },[postulatesUser])
+    postulatesUser.length &&
+      postulatesUser.map((data) => {
+        return setPostId([...postId, data.companyPostId]);
+      });
+    // eslint-disable-next-line
+  }, [postulatesUser]);
+
+  useEffect(() => {
+    let test = users.find((userdb) => userdb.email === user.email);
+    setLoggedUser(test);
+
+    // eslint-disable-next-line
+  }, [users]);
 
   if (isLoading) {
     return <div>LOADING...</div>;
@@ -55,8 +69,8 @@ export default function HomeUser() {
   const getFilterByTechnologies = (id) => {
     setPosts(
       selector.posts.filter((data) =>
-        data.technologiesId.includes(id.toString()),
-      ),
+        data.technologiesId.includes(id.toString())
+      )
     );
   };
   const filterByCompany = (name) => {
@@ -101,7 +115,7 @@ export default function HomeUser() {
       .then((res) => alert(res.data))
       .then(() => dispatch(getPostulates(user.email)));
   };
-  
+
   return (
     <div className={style.containerHome}>
       {isAuthenticated ? (
@@ -131,7 +145,7 @@ export default function HomeUser() {
                       <Accordion.Body
                         key={index}
                         onClick={() => filterBySalary(data)}
-                        style={{cursor:'pointer'}}
+                        style={{ cursor: "pointer" }}
                       >
                         {data}
                       </Accordion.Body>
@@ -256,24 +270,28 @@ export default function HomeUser() {
                               {data.technologiesId.map((data, i) => {
                                 let tech = allTechnologies.find(
                                   // eslint-disable-next-line
-                                  (t) => t.id == data,
+                                  (t) => t.id == data
                                 );
                                 return <li key={i}>{tech?.name}</li>;
                               })}
                             </>
                           </Card.Text>
                           <Button
-                            variant={postId.includes(data.id)?"secondary":"primary"}
+                            variant={
+                              postId.includes(data.id) ? "secondary" : "primary"
+                            }
                             onClick={() =>
                               handlerPostulate({
-                                name: user.name,
-                                url: user.email,
+                                name: loggedUser.name,
+                                url: loggedUser.email,
                                 postId: data.id,
                               })
                             }
-                            disabled= {postId.includes(data.id)?true:false}
+                            disabled={postId.includes(data.id) ? true : false}
                           >
-                            {postId.includes(data.id)?"Request sent":"Apply"}
+                            {postId.includes(data.id)
+                              ? "Request sent"
+                              : "Apply"}
                           </Button>
                         </Card.Body>
                       </Card>
