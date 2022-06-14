@@ -1,17 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./Carrito.module.css";
-import { useCarritoContext } from '../../Context/carritoContext'
 import { useAuth0 } from '@auth0/auth0-react';
 import loginEmail from '../../Components/Firebase/loginEmail';
 import createCheckoutSession from '../../Components/Firebase/createACheckoutSession';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button'
+import { useDispatch, useSelector } from "react-redux";
+import { addCarrito } from "../../Redux/Actions/Actions";
 
 const Carrito = () => {
-    const {carrito, setCarrito} = useCarritoContext()
     const navigate = useNavigate()
     const { user, isAuthenticated } = useAuth0(); 
+    const carrito = useSelector((state)=> state.carrito)
+    const dispatch = useDispatch();
 
     const autenticate = async () => {
         if(isAuthenticated && carrito.length > 0){  
@@ -36,7 +38,10 @@ const Carrito = () => {
 
     const handledClick = (e) => {
         e.preventDefault()
-        setCarrito(carrito.filter(item => item.name !== e.target.value))
+        addCarrito(carrito.filter(item => item.name !== e.target.value)).then((action) => {
+            dispatch(action);
+        }
+        )
         alert("Elemento eliminado del carrito")
     }
 

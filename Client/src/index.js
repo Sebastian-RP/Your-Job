@@ -4,19 +4,20 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import Store from "./Redux/Stores/Store.js";
+import { PersistGate } from 'redux-persist/lib/integration/react';
+// import Store from "./Redux/Stores/Store.js";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { CarritoContextProvider } from "./Context/carritoContext";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { persistor, store } from "./Redux/Stores/Store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <Provider store={Store}>
+  <Provider store={store}>
     <Router>
         <React.StrictMode>
-            <CarritoContextProvider>
+          <PersistGate persistor={persistor}>
                 <Auth0Provider
                   domain="dev-zgaxo6rs.us.auth0.com"
                   clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
@@ -24,7 +25,7 @@ root.render(
                 >
                   <App />
                 </Auth0Provider>
-            </CarritoContextProvider>
+          </PersistGate> 
         </React.StrictMode>
     </Router>
   </Provider>

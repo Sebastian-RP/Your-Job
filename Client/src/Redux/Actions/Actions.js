@@ -11,8 +11,9 @@ export const GET_ALL_POST = "GET_ALL_POST";
 export const GET_ALL_COMPANIES = "GET_ALL_COMPANIES";
 export const GET_ALL_POSTS_FROM_COMPANY = "GET_ALL_POSTS_FROM_COMPANY";
 export const GET_ALL_POSTULATES = "GET_ALL_POSTULATES";
+export const ADD_CARRITO = "ADD_CARRITO";
+export const GET_CONVERSATIONS = "GET_CONVERSATIONS"
 
-export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -200,6 +201,17 @@ export function getPostulates(email) {
     }
   };
 }
+
+
+
+export async function addCarrito(element) {
+  return async function(dispatch){
+    return dispatch({
+       type: ADD_CARRITO, payload: element
+    })
+  } 
+}
+
 
 export function getConversations(id) {
   return async function () {
