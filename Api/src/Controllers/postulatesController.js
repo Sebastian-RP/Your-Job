@@ -1,9 +1,8 @@
 const { Postulates } = require("../db.js");
 
-const postulatesPost = async (id, name, url, postId) => {
+const postulatesPost = async (name, url, postId) => {
     try {
         await Postulates.create({
-            id,
             name,
             url,
             companyPostId : postId
@@ -17,6 +16,20 @@ const postulatesPost = async (id, name, url, postId) => {
     }
 }
 
+const getPostulates = async (email) => {
+    try {
+        const allPostulates = await Postulates.findAll({
+            where : {
+               url: email
+            }
+        })
+        return allPostulates;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
 module.exports = {
-    postulatesPost
+    postulatesPost,
+    getPostulates
 }

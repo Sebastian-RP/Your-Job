@@ -7,6 +7,8 @@ import {
   getAllCompanies,
   getAllPost,
   getAllTechnologies,
+  getPostulates,
+  postulateJob,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 
@@ -21,9 +23,11 @@ export default function HomeUser() {
   const selector = useSelector((state) => state);
   const [posts, setPosts] = useState(null);
   const [num, setNum] = useState(null);
+  const [postId, setPostId] = useState([]);
   const allTechnologies = [...selector.technologies];
   const companies = [...selector.companies];
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
+  const postulatesUser = selector.postulatesUser;
 
   useEffect(() => {
     dispatch(getAllPost());
@@ -31,14 +35,19 @@ export default function HomeUser() {
     dispatch(getAllTechnologies());
   }, [dispatch]);
 
-  // el useState llamado NUM y este useEffect hacen que la sugerencia de las 
+  // el useState llamado NUM y este useEffect hacen que la sugerencia de las
   //empresas no sean la mismas siempre.
-  // y setea los posts en un estado local para hacer los filtros desde acá 
+  // y setea los posts en un estado local para hacer los filtros desde acá
   useEffect(() => {
     setPosts(selector.posts);
     setNum(Math.random() * (companies.length - 3));
   }, [selector]);
   //----------------------------------------------------
+  useEffect(() => {
+    postulatesUser.length && postulatesUser.map((data) => {
+      setPostId([...postId, data.companyPostId])
+    })
+  },[postulatesUser])
 
   if (isLoading) {
     return <div>LOADING...</div>;
@@ -85,7 +94,14 @@ export default function HomeUser() {
       setPosts([...salary]);
     }
   };
+  const handlerPostulate = (val) => {
+    const { name, url, postId } = val;
 
+    dispatch(postulateJob({ name, url, postId }))
+      .then((res) => alert(res.data))
+      .then(() => dispatch(getPostulates(user.email)));
+  };
+  
   return (
     <div className={style.containerHome}>
       {isAuthenticated ? (
@@ -115,6 +131,7 @@ export default function HomeUser() {
                       <Accordion.Body
                         key={index}
                         onClick={() => filterBySalary(data)}
+                        style={{cursor:'pointer'}}
                       >
                         {data}
                       </Accordion.Body>
@@ -217,7 +234,6 @@ export default function HomeUser() {
               </div>
               <div className={style.columnPost}>
                 {posts?.map((data, index) => {
-                  
                   return (
                     <div className={style.cardPost} key={index}>
                       <Card>
@@ -242,13 +258,23 @@ export default function HomeUser() {
                                   // eslint-disable-next-line
                                   (t) => t.id == data,
                                 );
-                                return (
-                                <li key={i}>{tech?.name}</li>
-                                )
+                                return <li key={i}>{tech?.name}</li>;
                               })}
                             </>
                           </Card.Text>
-                          <Button variant="primary">Apply</Button>
+                          <Button
+                            variant={postId.includes(data.id)?"secondary":"primary"}
+                            onClick={() =>
+                              handlerPostulate({
+                                name: user.name,
+                                url: user.email,
+                                postId: data.id,
+                              })
+                            }
+                            disabled= {postId.includes(data.id)?true:false}
+                          >
+                            {postId.includes(data.id)?"Request sent":"Apply"}
+                          </Button>
                         </Card.Body>
                       </Card>
                     </div>
