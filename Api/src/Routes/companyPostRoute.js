@@ -3,6 +3,7 @@ const {
   getCompanyPosts,
   createPost,
   deletePost,
+  getPostsfromCompany,
 } = require("../Controllers/companyPostController.js");
 
 const router = Router();
@@ -13,6 +14,11 @@ router.get("/", async (req, res) => {
   } catch (e) {
     res.status(404).send(e.message);
   }
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  res.send(await getPostsfromCompany(id));
 });
 
 router.post("/", async (req, res) => {
