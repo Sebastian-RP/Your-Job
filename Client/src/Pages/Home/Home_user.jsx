@@ -3,6 +3,7 @@ import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
+import image from './loadingJob.gif';
 import {
   getAllCompanies,
   getAllPost,
@@ -17,13 +18,14 @@ const Experience = ["trainig", "junior", "semi-senior", "senior"];
 const salario = ["min-salary", "max-salary"];
 
 export default function HomeUser() {
-  const { logout, user, isAuthenticated, isLoading } = useAuth0();
+  const { logout, user, isAuthenticated} = useAuth0();
 
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const [posts, setPosts] = useState(null);
   const [num, setNum] = useState(null);
   const [postId, setPostId] = useState([]);
+  const [showPage, setShowPage] = useState(false);
   const allTechnologies = [...selector.technologies];
   const companies = [...selector.companies];
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
@@ -49,9 +51,12 @@ export default function HomeUser() {
     })
   },[postulatesUser])
 
-  if (isLoading) {
-    return <div>LOADING...</div>;
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      setShowPage(true)
+    }, 2000);
+  },[])
+
   const getFilterByTechnologies = (id) => {
     setPosts(
       posts.filter((data) =>
@@ -106,7 +111,9 @@ export default function HomeUser() {
     <div className={style.containerHome}>
       {isAuthenticated ? (
         <>
-          <Navbar />
+         <Navbar />
+         {
+         showPage?(<>
           <div className={style.containerActions}>
             <div className={style.filters}>
               <Accordion>
@@ -283,6 +290,8 @@ export default function HomeUser() {
               </div>
             </div>
           </div>
+          </>):<img src={image} alt='loading-Page'/>
+          }
         </>
       ) : (
         logout({ returnTo: window.location.origin })
