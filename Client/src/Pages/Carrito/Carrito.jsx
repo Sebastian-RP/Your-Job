@@ -1,5 +1,5 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import style from "./Carrito.module.css";
 import { useCarritoContext } from '../../Context/carritoContext'
 import { useAuth0 } from '@auth0/auth0-react';
@@ -30,6 +30,10 @@ const Carrito = () => {
             alert("Para realizar una compra debes añadir elementos al carrito")
         }
     }
+    if (!(carrito.length > 0)) {
+      alert("Para realizar una compra debes añadir elementos al carrito");
+    }
+  };
 
     const handledClick = (e) => {
         e.preventDefault()
@@ -49,7 +53,11 @@ const Carrito = () => {
                     </div>
                 )): <p>...Loading</p>}
             </div>
-
+          ))
+        ) : (
+          <p>...Loading</p>
+        )}
+      </div>
             <Button className={style.Button} onClick={autenticate}>Comprar</Button>
         </div>
     )

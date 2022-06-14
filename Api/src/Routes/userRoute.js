@@ -4,6 +4,7 @@ const {
   findUser,
   getUsers,
   updateUser,
+  findUserEmail,
 } = require("../Controllers/UserController.js");
 
 const router = Router();
@@ -37,6 +38,11 @@ router.post("/login", async (req, res) => {
   );
 
   return res.status(200).send(newUser);
+});
+
+router.get("/profile", async (req, res) => {
+  const { email } = req.query;
+  res.send(await findUserEmail(email));
 });
 
 router.get("/:user", async (req, res) => {

@@ -40,9 +40,13 @@ const createUser = async (
   }
 };
 const findUser = async (user) => {
-  const result = await User.findOne({ where: { name: user } });  
+  const result = await User.findOne({ where: { name: user } });
+  return result || { error: "user not found" };
+};
 
-  return result || {};
+const findUserEmail = async (email) => {
+  const user = await User.findOne({ where: { email: email } });
+  return user || { error: "user not found" };
 };
 
 const getUsers = async () => {
@@ -61,4 +65,5 @@ module.exports = {
   findUser,
   getUsers,
   updateUser,
+  findUserEmail,
 };
