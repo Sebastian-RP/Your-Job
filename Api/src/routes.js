@@ -6,6 +6,7 @@ const technologyRoutes = require("./Routes/technologyRoute.js");
 const companyPostRoutes = require("./Routes/companyPostRoute.js");
 const conversationRoutes = require("./Routes/conversationsRoute.js");
 const postulatesRoutes = require("./Routes/postulatesRoute.js")
+const userPostRoutes = require("./Routes/userPostRoute.js");
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.use("/technology", technologyRoutes);
 router.use("/companyPost", companyPostRoutes);
 router.use("/conversation", conversationRoutes);
 router.use("/postulates", postulatesRoutes);
+router.use("/userPost", userPostRoutes);
 
 router.use("*", (req, res) => {
   res.status(404).send({ error: "page not found" });
