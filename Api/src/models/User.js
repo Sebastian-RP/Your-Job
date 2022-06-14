@@ -51,6 +51,10 @@ module.exports = (sequelize) => {
       status: {
         type: DataTypes.ENUM(["active", "disabled"]),
         defaultValue: "active"
+          type: DataTypes.STRING //string de manera temporal,mientra descubro como se almacena
+      },
+      premium:{
+        type: DataTypes.INTEGER
       }
   })
 }

@@ -11,7 +11,8 @@ const createCompany = async (
   image,
   nationality,
   description,
-  employees
+  employees,
+  premium
 ) => {
   try {
     const newCompany = await Company.create({
@@ -25,6 +26,7 @@ const createCompany = async (
       nationality,
       description,
       employees,
+      premium
     });
     return "Company account created";
   } catch (error) {

@@ -58,6 +58,10 @@ module.exports = (sequelize) => {
     status: {
       type: DataTypes.ENUM(["active", "disabled"]),
       defaultValue: "active"
+      type: DataTypes.ARRAY(DataTypes.INTEGER), //id de los post vinculados a la empresa
+    },
+    premium: {
+      type: DataTypes.INTEGER
     }
   });
 };
