@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 const Modality = ["remoto", "presencial"];
 const Experience = ["trainig", "junior", "semi-senior", "senior"];
+const salario = ["min-salary", "max-salary"];
 
 export default function Home() {
   const { logout, user, isAuthenticated, isLoading } = useAuth0();
@@ -29,10 +30,14 @@ export default function Home() {
     dispatch(getAllTechnologies());
   }, [dispatch]);
 
+  // el useState llamado NUM y este useEffect hacen que la sugerencia de las 
+  //empresas no sean la mismas siempre.
+  // y setea los posts en un estado local para hacer los filtros desde acá 
   useEffect(() => {
     setPosts(selector.posts);
     setNum(Math.random() * (companies.length - 3));
   }, [selector]);
+  //----------------------------------------------------
 
   if (isLoading) {
     return <div>LOADING...</div>;
@@ -53,6 +58,32 @@ export default function Home() {
   };
   const filterByExperience = (data) => {
     setPosts(selector.posts.filter((d) => d.experience === data));
+  };
+  const filterBySalary = (data) => {
+    const salary = selector.posts;
+    if (data === "min-salary") {
+      for (let i = 0; i < salary.length - 1; i++) {
+        for (let j = i + 1; j < salary.length; j++) {
+          if (salary[j].max_salary < salary[i].max_salary) {
+            let current = salary[i];
+            salary[i] = salary[j];
+            salary[j] = current;
+          }
+        }
+      }
+      setPosts([...salary]);
+    } else {
+      for (let i = 0; i < salary.length - 1; i++) {
+        for (let j = i + 1; j < salary.length; j++) {
+          if (salary[j].max_salary > salary[i].max_salary) {
+            let current = salary[i];
+            salary[i] = salary[j];
+            salary[j] = current;
+          }
+        }
+      }
+      setPosts([...salary]);
+    }
   };
 
   return (
@@ -78,8 +109,17 @@ export default function Home() {
                   })}
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                  <Accordion.Header>Date filter</Accordion.Header>
-                  <Accordion.Body>hola</Accordion.Body>
+                  <Accordion.Header>Salary</Accordion.Header>
+                  {salario.map((data, index) => {
+                    return (
+                      <Accordion.Body
+                        key={index}
+                        onClick={() => filterBySalary(data)}
+                      >
+                        {data}
+                      </Accordion.Body>
+                    );
+                  })}
                 </Accordion.Item>
                 <Accordion.Item eventKey="2">
                   <Accordion.Header>Company</Accordion.Header>
@@ -105,7 +145,7 @@ export default function Home() {
                   </div>
                 </Accordion.Item>
                 <Accordion.Item eventKey="3">
-                  <Accordion.Header>Work contract</Accordion.Header>
+                  <Accordion.Header>Modality</Accordion.Header>
                   {Modality.map((data, index) => {
                     return (
                       <Accordion.Body
@@ -142,7 +182,10 @@ export default function Home() {
 
                 <h3>{user.name}</h3>
                 {posts !== selector.posts && (
-                  <Button variant='success' onClick={() => setPosts(selector.posts)}>
+                  <Button
+                    variant="success"
+                    onClick={() => setPosts(selector.posts)}
+                  >
                     Clear Filter
                   </Button>
                 )}
