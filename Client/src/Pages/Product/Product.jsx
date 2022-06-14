@@ -34,7 +34,7 @@ const Product = () => {
 
     const addToCarrito = () => {
         if(carrito){
-            let repetido = carrito.filter(e => e.name == productInfo.name)
+            let repetido = carrito.filter(e => e.name === productInfo.name)
             if(repetido.length > 0){
                 alert("El elemento ya se encuentra en el carrito")
             } else{
