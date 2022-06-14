@@ -3,7 +3,6 @@ import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
-import image from './loadingJob.gif';
 import {
   getAllCompanies,
   getAllPost,
@@ -290,7 +289,7 @@ export default function HomeUser() {
               </div>
             </div>
           </div>
-          </>):<img src={image} alt='loading-Page'/>
+          </>):<p>Loading...</p>
           }
         </>
       ) : (
