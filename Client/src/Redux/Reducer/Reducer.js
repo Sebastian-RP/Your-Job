@@ -8,6 +8,7 @@ import {
   GET_ALL_COMPANIES,
   GET_ALL_POSTS_FROM_COMPANY,
   GET_ALL_POSTULATES,
+  ADD_CARRITO,
   GET_CONVERSATIONS 
 } from "../Actions/Actions.js";
 
@@ -21,6 +22,7 @@ const initialState = {
   posts: [],
   companyPosts: [],
   postulatesUser : [],
+  carrito: [],
   conversations: []
 };
 
@@ -72,6 +74,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         conversations: action.payload
+      }
+    case ADD_CARRITO : 
+      return {
+        ...state,
+        carrito : action.payload
       }
     default:
       return { ...state };
