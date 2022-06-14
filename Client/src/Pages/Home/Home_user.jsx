@@ -242,8 +242,9 @@ export default function HomeUser() {
                                   // eslint-disable-next-line
                                   (t) => t.id == data,
                                 );
-
-                                return <li key={i}>{tech.name}</li>;
+                                return (
+                                <li key={i}>{tech?.name}</li>
+                                )
                               })}
                             </>
                           </Card.Text>
