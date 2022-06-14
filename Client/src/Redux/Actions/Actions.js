@@ -12,8 +12,7 @@ export const GET_ALL_COMPANIES = "GET_ALL_COMPANIES";
 export const GET_ALL_POSTS_FROM_COMPANY = "GET_ALL_POSTS_FROM_COMPANY";
 export const GET_ALL_POSTULATES = "GET_ALL_POSTULATES";
 
-export const GET_CONVERSATIONS = "GET_CONVERSATIONS"
-
+export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -202,24 +201,11 @@ export function getPostulates(email) {
   };
 }
 
-export function getPostulatesfromPost(id) {
-  return async function (dispatch) {
-    try {
-      const postulates = await axios.get(
-        `http://localhost:3001/companyPost/?id=${id}`
-      );
-      return dispatch({
-        type: GET_ALL_POSTULATES_FROM_POST,
-        payload: postulates.data,
-      });
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-}
 export function getConversations(id) {
   return async function () {
-    const conversations = await axios.get(`http://localhost:3001/conversation/${id}`)
-      return { type: GET_CONVERSATIONS , payload: conversations.data };
-  }
+    const conversations = await axios.get(
+      `http://localhost:3001/conversation/${id}`
+    );
+    return { type: GET_CONVERSATIONS, payload: conversations.data };
+  };
 }
