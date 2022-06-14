@@ -18,20 +18,18 @@ const Products = () => {
   const {carrito} = useCarritoContext()
 
   const navigate = useNavigate()
-  var infoUser = null;
+  // var infoUser = null;
 
-  const getInfo = async () => {
-    infoUser = await axios.get(`http://localhost:3001/users/${user.name}`).then(res => res.data);
-  }
+  // const getInfo = async () => {
+  //   infoUser = await axios.get(`http://localhost:3001/users/${user.name}`).then(res => res.data);
+  // }
   useEffect(() => {
     getAllProducts().then((action) => {
       dispatch(action);
     });
     setProducts(productsList);
-    getInfo();
+    // getInfo();
   }, []);
-
-
 
   useEffect(() => {
     setProducts(productsList);
@@ -43,12 +41,12 @@ const Products = () => {
         <div>
             <Button onClick={()=>navigate('/carrito')}>Carrito {carrito.length}</Button>
             <Button className={style.Button} onClick={()=> navigate('/home')}>Back</Button>
-            {infoUser?<p>Cargando informacion</p>:
+            {/* {infoUser?<p>Cargando informacion</p>:
               infoUser.premium == null ?<p>No posee servicios activos</p>:
               infoUser.premium === 1 ?<p>Usted posee un servicio premium 1</p>:
               infoUser.premium === 2 ?<p>Usted posee un servicio premium 2</p>:
               <p>Usted posee un servicio premium 3</p>
-            }
+            } */}
         </div>
         <h1>Servicios premium</h1>
       {products ? (
