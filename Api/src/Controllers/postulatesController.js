@@ -1,4 +1,4 @@
-const { Postulates } = require("../db.js");
+const { Postulates, Company } = require("../db.js");
 
 const postulatesPost = async (name, url, postId) => {
   try {
@@ -22,6 +22,7 @@ const getPostulates = async (email) => {
         url: email,
       },
     });
+    console.log(allPostulates);
     return allPostulates;
   } catch (error) {
     console.error(error.message);
