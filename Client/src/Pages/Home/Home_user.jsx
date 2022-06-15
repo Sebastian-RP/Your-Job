@@ -223,7 +223,7 @@ export default function HomeUser() {
                     variant="success"
                     onClick={() => setPosts(selector.posts)}
                   >
-                    Clear Filter
+                    Clear Filasdfasdfasdfasdfter
                   </Button>
                 )}
               </div>
