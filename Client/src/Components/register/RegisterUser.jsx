@@ -6,10 +6,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Button from "react-bootstrap/Button";
 import { Widget } from "@uploadcare/react-widget";
-import { useParams } from "react-router-dom";
 import style from "./register.module.css";
+import validateUser from "./ValidateUser";
 
-export default function RegisterUser() {
+export default function RegisterUser({ props }) {
   const countries = [
     "Afghanistan",
     "Albania",
@@ -208,7 +208,6 @@ export default function RegisterUser() {
     "Zambia",
     "Zimbabwe",
   ];
-  const { state } = useParams();
   const allTechnologies = useSelector((state) => state.technologies);
   const [technologies, setTechnologies] = useState([]);
   const [employ, setEmploy] = useState(false);
@@ -223,6 +222,7 @@ export default function RegisterUser() {
     desc: "",
     employ: "",
   });
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllTechnologies());
@@ -238,6 +238,14 @@ export default function RegisterUser() {
     setTechnologies(allTechnologies);
     // eslint-disable-next-line
   }, [allTechnologies]);
+
+  useEffect(() => {
+    setErrors(
+      validateUser({
+        ...input,
+      })
+    );
+  }, [input]);
 
   const handleChange = (e) => {
     setInput({
@@ -265,6 +273,11 @@ export default function RegisterUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(errors);
+    if (Object.keys(errors).length > 0) {
+      console.log(errors);
+      return;
+    }
     let empleado = employ ? "empleado" : "desempleado";
     if (employ) {
       let company = input.employ;
@@ -285,169 +298,180 @@ export default function RegisterUser() {
       nationality: country,
       url: input.linkedin,
       cv: `ucarecdn.com/${uuid}`,
-      premium: 0
+      premium: 0,
     };
     console.log(newUser);
 
     dispatch(createUser(newUser));
 
     window.location.replace(
-      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${state}`
+      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${props}`
     );
   };
 
   return (
     <div className={style.containerRegisterUser}>
-      <h2> Please fill out the following form with your information</h2>
-      <Card className="text-center" style={{ width: "40%", padding: "20px" }}>
-        <form className={style.containeForm}>
-          <input
-            name="name"
-            onChange={(e) => handleChange(e)}
-            placeholder="Full name"
-            autoComplete="off"
-          />
-          <br />
-          <input
-            name="email"
-            onChange={(e) => handleChange(e)}
-            placeholder="Email"
-            autoComplete="off"
-          />
-          <br />
-          <input
-            type={"number"}
-            name="age"
-            onChange={(e) => handleChange(e)}
-            placeholder="Age"
-            autoComplete="off"
-          />
-          <br />
-          <div className={style.containerTechnologies}>
-            <DropdownButton
-              id="dropdown-basic-button"
-              title="Select Technologies"
-            >
-              {technologies &&
-                technologies.map((tech, index) => {
-                  return (
-                    <Dropdown.Item
+      <div className={style.containerCard}>
+        <h2> Please fill out the following form with your information</h2>
+        <Card className="text-center" style={{ width: "80%", padding: "20px" }}>
+          <form
+            className={style.containeForm}
+            onSubmit={(e) => handleSubmit(e)}
+          >
+            <input
+              name="name"
+              onChange={(e) => handleChange(e)}
+              placeholder="Full name"
+              autoComplete="off"
+              required
+            />
+            <br />
+            <span className={style.danger}>{errors.name}</span>
+            <br />
+            <input
+              name="email"
+              onChange={(e) => handleChange(e)}
+              placeholder="Email"
+              autoComplete="off"
+              required
+            />
+            <br />
+            <span className={style.danger}>{errors.email}</span>
+            <br />
+            <input
+              type={"number"}
+              name="age"
+              onChange={(e) => handleChange(e)}
+              placeholder="Age"
+              autoComplete="off"
+              required
+            />
+            <br />
+            <span className={style.danger}>{errors.age}</span>
+            <br />
+            <div className={style.containerTechnologies}>
+              <DropdownButton
+                id="dropdown-basic-button"
+                title="Select Technologies"
+              >
+                {technologies &&
+                  technologies.map((tech, index) => {
+                    return (
+                      <Dropdown.Item
+                        onClick={() => {
+                          addTechs(tech.name);
+                        }}
+                        key={index}
+                      >
+                        {tech.name}
+                      </Dropdown.Item>
+                    );
+                  })}
+              </DropdownButton>
+              <label>Technologies:</label>
+              <ul>
+                {selectedTechs?.map((tech, index) => (
+                  <div key={index}>
+                    <li
                       onClick={() => {
-                        addTechs(tech.name);
+                        removeTech(tech);
                       }}
-                      key={index}
                     >
-                      {tech.name}
-                    </Dropdown.Item>
-                  );
-                })}
-            </DropdownButton>
-            <label>Technologies:</label>
-            <ul>
-              {selectedTechs?.map((tech, index) => (
-                <div key={index}>
-                  <li
-                    onClick={() => {
-                      removeTech(tech);
-                    }}
-                  >
-                    {` ${tech} `}
-                  </li>
+                      {` ${tech} `}
+                    </li>
+                  </div>
+                ))}
+              </ul>
+            </div>
+            <br />
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "center",
+                gap: "10px",
+              }}
+            >
+              <DropdownButton
+                id="dropdown-basic-button"
+                title="Select Country"
+                style={{ height: "10px" }}
+              >
+                <div style={{ height: "150px", overflowY: "scroll" }}>
+                  {countries.map((country, index) => {
+                    return (
+                      <Dropdown.Item
+                        onClick={() => {
+                          addCountry(country);
+                        }}
+                        key={index}
+                      >
+                        {country}
+                      </Dropdown.Item>
+                    );
+                  })}
                 </div>
-              ))}
-            </ul>
-          </div>
-          <br />
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
-              gap: "10px",
-            }}
-          >
-            <DropdownButton
-              id="dropdown-basic-button"
-              title="Select Country"
-              style={{ height: "10px" }}
-            >
-              <div style={{ height: "150px", overflowY: "scroll" }}>
-                {countries.map((country, index) => {
-                  return (
-                    <Dropdown.Item
-                      onClick={() => {
-                        addCountry(country);
-                      }}
-                      key={index}
-                    >
-                      {country}
-                    </Dropdown.Item>
-                  );
-                })}
+              </DropdownButton>
+              <label>Country of Origin: {country}</label>
+            </div>
+            <br />
+            <br />
+            <input
+              name="linkedin"
+              onChange={(e) => handleChange(e)}
+              placeholder="Linkedin Profile"
+              autoComplete="off"
+              required
+            />
+            <br />
+            <span className={style.danger}>{errors.linkedin}</span>
+            <br />
+            <textarea
+              name="desc"
+              onChange={(e) => handleChange(e)}
+              placeholder="Description"
+              cols="40"
+            />
+            <br />
+            <div className={style.containerCheck}>
+              <div>
+                <label>Are you employed?</label>
+                <input
+                  type="checkbox"
+                  name="employment"
+                  id=""
+                  onClick={() => setEmploy(!employ)}
+                />
+                <br />
+                <input
+                  type="text"
+                  name="employ"
+                  placeholder="Place of employment"
+                  style={{ display: employ ? "" : "none" }}
+                  onChange={(e) => handleChange(e)}
+                  autoComplete="off"
+                />
               </div>
-            </DropdownButton>
-            <label>Country of Origin: {country}</label>
-          </div>
-          <br />
-          <br />
-          <input
-            name="linkedin"
-            onChange={(e) => handleChange(e)}
-            placeholder="Linkedin Profile"
-            autoComplete="off"
-          />
-          <br />
-          <br />
-          <textarea
-            name="desc"
-            onChange={(e) => handleChange(e)}
-            placeholder="Description"
-            cols="40"
-          />
-          <br />
-          <div className={style.containerCheck}>
-            <div>
-              <label>Are you employed?</label>
-              <input
-                type="checkbox"
-                name="employment"
-                id=""
-                onClick={() => setEmploy(!employ)}
-              />
-              <br />
-              <input
-                type="text"
-                name="employ"
-                placeholder="Place of employment"
-                style={{ display: employ ? "" : "none" }}
-                onChange={(e) => handleChange(e)}
-                autoComplete="off"
-              />
+              <div>
+                <label>CV:</label>{" "}
+                <Widget
+                  publicKey="de7dc23d760e287d1cb0"
+                  clearable
+                  onChange={(file) => {
+                    setUuid(file.uuid);
+                  }}
+                />
+              </div>
             </div>
-            <div>
-              <label>CV:</label>{" "}
-              <Widget
-                publicKey="de7dc23d760e287d1cb0"
-                clearable
-                onChange={(file) => {
-                  setUuid(file.uuid);
-                }}
-              />
-            </div>
-          </div>
-          {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
-        </form>
-        <br />
-        <div>
-          <Button
-            variant="primary"
-            size="small"
-            onClick={(e) => handleSubmit(e)}
-          >
-            Submit
-          </Button>
-        </div>
-      </Card>
+            {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
+            <Button variant="primary" size="small" type="submit">
+              Submit
+            </Button>
+          </form>
+          <br />
+          <div></div>
+        </Card>
+      </div>
     </div>
   );
 }

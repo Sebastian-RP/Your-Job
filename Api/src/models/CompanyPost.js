@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
             type: DataTypes.ENUM(["por labor", "temporal", "termino fijo", "termino indefinido"])
         },
         companyId: { 
-            type: DataTypes.INTEGER //con el id podemos consultar el nombre de la empresa 
+            type: DataTypes.UUID //con el id podemos consultar el nombre de la empresa 
         },
         descripcion: {
             type: DataTypes.TEXT,
@@ -34,6 +34,10 @@ module.exports = (sequelize) => {
         technologiesId:{
             type: DataTypes.ARRAY(DataTypes.STRING)
         },
+        status: {
+            type: DataTypes.ENUM(["active", "disabled"]),
+            defaultValue: "active"
+        }
     })
 
     sequelize.define("postulates", {
