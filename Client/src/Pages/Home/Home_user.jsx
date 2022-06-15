@@ -12,6 +12,7 @@ import {
   postulateJob,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Modality = ["remoto", "presencial"];
 const Experience = ["trainig", "junior", "semi-senior", "senior"];
@@ -21,6 +22,7 @@ export default function HomeUser() {
   const { logout, user, isAuthenticated } = useAuth0();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const selector = useSelector((state) => state);
   const [posts, setPosts] = useState(null);
   const [num, setNum] = useState(null);
@@ -253,7 +255,18 @@ export default function HomeUser() {
                         return (
                           <div className={style.cardPost} key={index}>
                             <Card>
-                              <Card.Header as="h5">Oferta Laboral</Card.Header>
+                              <Card.Header as="h5">
+                                <label>Oferta Laboral</label> -{" "}
+                                <a
+                                  href=""
+                                  onClick={() => {
+                                    navigate(`/users/${data.company.name}`);
+                                  }}
+                                >
+                                  {" "}
+                                  {data.company.name}{" "}
+                                </a>
+                              </Card.Header>
                               <Card.Body>
                                 <Card.Title>{data.TitlePost}</Card.Title>
                                 <Card.Text style={{ textAlign: "start" }}>
