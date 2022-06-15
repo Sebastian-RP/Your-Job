@@ -3,9 +3,6 @@
 const Chance = require("chance"); //genera datos aleatoriamente, para llenar los campos de la BD
 const chance = new Chance();
 
-const { v4: uuidv4 } = require('uuid');
-// test: uuidv4(),
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -37,7 +34,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "01a3e498-8cf3-44a7-bc94-01a8422b61a6",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -53,7 +50,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "f24d9e9e-883c-4062-ba99-6dc7bd04b5be",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -69,7 +66,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "c47ea95b-afa1-47cf-b148-a45a6ec71060",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -85,7 +82,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "4a939b84-9bbc-4bcb-b317-751816025e0d",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -101,7 +98,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "4e83d61f-feb1-4148-a4f8-f904006f8f5e",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -117,7 +114,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "beaef743-4a01-479c-adaa-fb73c27b2a61",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -133,7 +130,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "88b9e802-832e-4345-9137-0f934f54c572",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -149,7 +146,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "b47b73b9-40bd-4b93-a87b-690f5c56db48",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -165,7 +162,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "b4e6585f-281b-4f41-a5a5-01bff0d2c044",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -181,7 +178,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "408c0954-5f6e-478e-ba14-17f6df40d01b",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -197,7 +194,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "261a59f9-c26b-4293-a07d-7e9ec28423df",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -213,7 +210,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "70886253-9700-4d2c-ac95-f4437941a59a",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -229,7 +226,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "f39b9e55-42a8-4bd9-ade7-f9bee25d258b",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -245,7 +242,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "b0fe5d28-c242-407e-b180-788cad71e28d",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -261,7 +258,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "008c2705-63cf-445c-968a-327212f59a49",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -277,7 +274,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "91e3a58d-da19-4a12-96b3-e7d3114d50f8",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -293,7 +290,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "a19f5c0f-cdf7-442d-b893-cfa0cfc51641",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -309,7 +306,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "374f781d-9822-4d01-80bf-1e262efc2d16",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -325,7 +322,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "f9a3648e-cf17-4ff5-af53-e587c6a20101",
           email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
@@ -341,7 +338,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: uuidv4(),
+          id: "813b4c01-f5b8-4f08-ac90-1f7bd44f5c53",
           email: "t0mshaster4@gmail.com",
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),

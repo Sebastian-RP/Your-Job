@@ -4,6 +4,7 @@ const {
   createPost,
   deletePost,
   getPostsfromCompany,
+  updatePostCompany
 } = require("../Controllers/companyPostController.js");
 
 const router = Router();
@@ -21,7 +22,9 @@ router.get("/:id", async (req, res) => {
   res.send(await getPostsfromCompany(id));
 });
 
-router.post("/", async (req, res) => {
+router.post("/:id", async (req, res) => {
+  const { id } = req.params
+
   const {
     titlePost,
     experience,
@@ -56,7 +59,8 @@ router.post("/", async (req, res) => {
         min_salary,
         max_salary,
         modality,
-        technologiesId
+        technologiesId, 
+        companyId= id
       );
       res.status(200).json(newPost);
     } else res.status(404).send("Faltan poner datos para el posteo");
@@ -64,6 +68,13 @@ router.post("/", async (req, res) => {
     console.log(error);
   }
 });
+
+
+router.put("/id", async (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+  res.send(await updatePostCompany(id, changes));
+})
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
