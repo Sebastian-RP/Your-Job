@@ -12,7 +12,6 @@ export default function Users() {
   // al hacer el login ya deberia de pasar la informacion al reducer.
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const users = useSelector((state) => state.users);
   const { username } = useParams();
   const loggedUser = useSelector((state) => state.myUser);
   const [ownProfile, setOwnProfile] = useState(false);
@@ -22,12 +21,12 @@ export default function Users() {
     getUserInfo(username).then((action) => {
       dispatch(action);
     });
-    // if (loggedUser.name === username) {
-    //   setOwnProfile(true);
-    // }
-    console.log(ownProfile);
+    if (loggedUser.name === username) {
+      setOwnProfile(true);
+    }
     //eslint-disable-next-line
   }, []);
+
   //----------------------------------
   const userData = useSelector((state) => state.user);
 
@@ -46,6 +45,12 @@ export default function Users() {
           >
             Go to home
           </Button>
+          <Button
+            className={ownProfile ? null : style.none}
+            onClick={() => navigate(`/users/${loggedUser.name}/edit`)}
+          >
+            Edit Profile
+          </Button>
         </div>
       </div>
       <div className={style.suggestions}>
@@ -54,8 +59,8 @@ export default function Users() {
       <div className={style.perfilInfo}>
         <div className={style.about}>
           <h2>About</h2>
-          <p>Email: {userData?.email}</p>
           <p>Status: {userData?.employment_status}</p>
+          <p>Email: {userData?.email}</p>
           <p>Age: {userData?.age}</p>
           <p>Nationality: {userData?.nationality}</p>
           Technologies:
