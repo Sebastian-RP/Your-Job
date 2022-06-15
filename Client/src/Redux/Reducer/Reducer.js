@@ -9,7 +9,8 @@ import {
   GET_ALL_POSTS_FROM_COMPANY,
   GET_ALL_POSTULATES,
   ADD_CARRITO,
-  GET_CONVERSATIONS 
+  GET_CONVERSATIONS,
+  GET_USER_BY_EMAIL,
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -21,9 +22,10 @@ const initialState = {
   users: [],
   posts: [],
   companyPosts: [],
-  postulatesUser : [],
+  postulatesUser: [],
   carrito: [],
-  conversations: []
+  conversations: [],
+  myUser: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -65,21 +67,27 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         companyPosts: action.payload,
       };
-    case GET_ALL_POSTULATES : 
+    case GET_ALL_POSTULATES:
       return {
         ...state,
-        postulatesUser : action.payload
+        postulatesUser: action.payload,
       };
-      case GET_CONVERSATIONS:
+    case GET_CONVERSATIONS:
       return {
         ...state,
-        conversations: action.payload
-      }
-    case ADD_CARRITO : 
+        conversations: action.payload,
+      };
+    case ADD_CARRITO:
       return {
         ...state,
-        carrito : action.payload
-      }
+        carrito: action.payload,
+      };
+    case GET_USER_BY_EMAIL:
+      console.log(action.payload);
+      return {
+        ...state,
+        myUser: action.payload,
+      };
     default:
       return { ...state };
   }
