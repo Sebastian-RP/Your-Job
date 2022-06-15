@@ -31,9 +31,6 @@ module.exports = (sequelize) => {
         modality:{
             type: DataTypes.ENUM(["remoto", "presencial"])
         },
-        technologiesId:{
-            type: DataTypes.ARRAY(DataTypes.STRING)
-        },
         status: {
             type: DataTypes.ENUM(["active", "disabled"]),
             defaultValue: "active"

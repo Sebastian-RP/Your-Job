@@ -221,3 +221,10 @@ export function getConversations(id) {
     return { type: GET_CONVERSATIONS, payload: conversations.data };
   };
 }
+
+export function createJob(value) {
+  console.log(value)
+  // return async function() {
+  //   const data = axios.post("http://localhost:3000/companyPost")
+  // }
+}

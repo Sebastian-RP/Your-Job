@@ -22,7 +22,7 @@ module.exports = {
       [
         {
           id: uuidv4(),
-          email: chance.email(),
+          email: "jsarabialugo@gmail.com",
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
           propietary_name: chance.name(),

@@ -54,8 +54,6 @@ export default function HomeCompany() {
     setShowList(true)
   }
 
-
-  console.log(posts)
   return (
     <div className={style.containerCompany}>
       <Navbar />
