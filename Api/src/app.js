@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
@@ -35,7 +35,7 @@ app.use((err, req, res, next) => {
 
 const deleteDB = true;
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("Server listening on port 3001!");
   conn.sync({ force: deleteDB });
 
