@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import style from "./perfil.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllUsers, getUserInfo } from "../../Redux/Actions/Actions";
+import { getUserInfo } from "../../Redux/Actions/Actions";
 import image from "./perfilPicture.png";
 import Button from "react-bootstrap/Button";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from "react";
 
 export default function Users() {
@@ -15,22 +14,8 @@ export default function Users() {
   const navigate = useNavigate();
   const users = useSelector((state) => state.users);
   const { username } = useParams();
-  const { user } = useAuth0();
-  const [loggedUser, setLoggedUser] = useState(null);
+  const loggedUser = useSelector((state) => state.myUser);
   const [ownProfile, setOwnProfile] = useState(false);
-
-  useEffect(() => {
-    getAllUsers().then((data) => dispatch(data));
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    console.log(user);
-    let test = users.find((userdb) => userdb.email === user.email);
-    setLoggedUser(test);
-    console.log(loggedUser);
-    // eslint-disable-next-line
-  }, [users]);
 
   useEffect(() => {
     console.log(username);

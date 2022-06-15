@@ -3,30 +3,13 @@ import style from "./Navbar.module.css";
 import { Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { useEffect } from "react";
-import { getAllUsers } from "../../Redux/Actions/Actions";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
-  const { logout, user } = useAuth0();
+  const { logout } = useAuth0();
   const navigate = useNavigate();
   const carrito = useSelector((state) => state.carrito);
-  const users = useSelector((state) => state.users);
-  const [loggedUser, setLoggedUser] = useState(null);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    getAllUsers().then((data) => dispatch(data));
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    let test = users.find((userdb) => userdb.email === user.email);
-    setLoggedUser(test);
-
-    // eslint-disable-next-line
-  }, [users]);
+  const loggedUser = useSelector((state) => state.myUser);
 
   return (
     <div className={style.containerNavbar}>
