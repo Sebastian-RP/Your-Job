@@ -12,6 +12,9 @@
     padding: 10px;
     gap: 10px;
 }
+.cardPost {
+    cursor: pointer;
+}
 .infoCompany {
     flex-grow: 2;
 }
@@ -48,4 +51,32 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
+}
+.containerFormPost {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    top: 0;
+    backdrop-filter: blur(10px);
+}
+.buttonCancel {
+    position: absolute;
+    z-index: 4;
+    top: 20px;
+    right:20px;
+}
+.containerList {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    top: 0;
+    backdrop-filter: blur(10px);
 }

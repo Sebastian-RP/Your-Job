@@ -10,6 +10,8 @@ import {
 } from "../../Redux/Actions/Actions";
 import {Button, Card} from "react-bootstrap";
 import style from "./homeCompany.module.css";
+import PostForm from "./postForm";
+import ListPostulates from "./listPostulates";
 
 export default function HomeCompany() {
   const { user } = useAuth0();
@@ -20,6 +22,9 @@ export default function HomeCompany() {
 
   const posts = [...selector.companyPosts];
   const [company, setCompany] = useState(null);
+  const [showFormPost, setShowFormPost] = useState(false);
+  const [showList, setShowList] = useState(false);
+  const [listPostulates, setListPostulates] = useState(null);
 
   useEffect(() => {
     dispatch(getAllCompanies());
@@ -43,10 +48,18 @@ export default function HomeCompany() {
     }
     // eslint-disable-next-line
   }, [company]);
-  console.log(user)
+
+  const handlerList = (data) => {
+    setListPostulates(data);
+    setShowList(true)
+  }
+
+
+  console.log(posts)
   return (
     <div className={style.containerCompany}>
       <Navbar />
+      {showFormPost && <PostForm />}
       <div className={style.containerInfo}>
         <div className={style.infoCompany}>
           <h2>Company</h2>
@@ -58,13 +71,23 @@ export default function HomeCompany() {
             <p><strong>Email:</strong> {company?.email}</p>
             <p><strong>Address:</strong> {company?.address}</p>
           </div>
-          <Button variant='success'>Create Post</Button>
+          <Button variant='success'
+          onClick={() => setShowFormPost(true)}
+          >Create Post</Button>
+          {showFormPost&&<Button variant='danger'
+          className={style.buttonCancel}
+          onClick={() => setShowFormPost(false)}
+          >
+            Cancel
+          </Button>}
         </div>
         <div className={style.infoPost}>
 
         {posts?.map((data, index) => {
           return (
-            <div className={style.cardPost} key={index}>
+            <div className={style.cardPost} key={index} 
+            onClick={() => handlerList(data.postulates)}
+            >
               <Card>
                 <Card.Header as="h6">{data.titlePost}</Card.Header>
                 <Card.Body>
@@ -93,14 +116,7 @@ export default function HomeCompany() {
                     </div>
                     </>
                     </div>
-                    
-                    {/* <br />
-                    <strong>Postulates:</strong>
-                    <>
-                      {data.postulates?.map((data, i) => {
-                        return <li key={i}> {data.name} </li>;
-                      })}
-                    </> */}
+                   
                   </Card.Text>
                   <p>Created: {data.createdAt.slice(0,10)}</p>
                 </Card.Body>
@@ -110,6 +126,16 @@ export default function HomeCompany() {
         })}
         </div>
       </div>
+        
+        {showList && 
+        <>
+        <Button variant='danger'
+        className={style.buttonCancel}
+        onClick={() => setShowList(false)}
+        >Back</Button>
+        <ListPostulates props={listPostulates}/>
+        </>
+        }
     </div>
   );
 }
