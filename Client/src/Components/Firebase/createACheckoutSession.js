@@ -7,8 +7,8 @@ async function createCheckoutSession(uid, cart) {
 
   const { id } = await addDoc(collectionRef, {
     mode: "subscription",
-    success_url: "http://localhost:3000/home",
-    cancel_url: "http://localhost:3000/home",
+    success_url: "http://localhost:3000/products",
+    cancel_url: "http://localhost:3000/carrito",
     collect_shipping_address: true,
     line_items: cart.map((item) => {
       return {
@@ -24,7 +24,8 @@ async function createCheckoutSession(uid, cart) {
       let url = snapshots.data().url;
       if (url) {
         cancelarStreaming();
-        window.open(url, "_blank", "noopener,noreferrer");
+        window.location.href = url;
+        // window.open(url, "_blank", "noopener,noreferrer");
       }
     }
   );

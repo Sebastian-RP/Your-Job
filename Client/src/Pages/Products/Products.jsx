@@ -5,8 +5,9 @@ import style from "./Products.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import getAllPayments from "../../Components/Firebase/getAllPayments";
+import { clearCarrito } from "../../Redux/Actions/Actions";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -14,40 +15,38 @@ const Products = () => {
   const { user } = useAuth0();
 
   const [products, setProducts] = useState(null);
+  const [plans, setPlans] = useState([]);
   const carrito = useSelector((state)=> state.carrito)
 
   const navigate = useNavigate()
-  // var newUser = null;
 
-  // const getInfo = async () => {
-  //   const infoUser = await axios.get(`http://localhost:3001/users/${user.name}`).then(res => res.data);
-  //   return infoUser;
-  // }
+  const awaitLogin = async () => {  
+    setPlans(await getAllPayments(user))
+  }
 
   useEffect(() => {
     getAllProducts().then((action) => {
       dispatch(action);
     });
-
     setProducts(productsList);
+    awaitLogin()
   }, []);
 
   useEffect(() => {
     setProducts(productsList);
   }, [productsList]);
 
-
   return (
     <div>
         <div>
             <Button onClick={()=>navigate('/carrito')}>Carrito {carrito.length}</Button>
-            <Button className={style.Button} onClick={()=> navigate('/home')}>Back</Button>
-            {/* {newUser === null?<p>Cargando informacion</p>:
-              newUser.premium == 0 ?<p>No posee servicios activos</p>:
-              newUser.premium === 1 ?<p>Usted posee un servicio premium 1</p>:
-              newUser.premium === 2 ?<p>Usted posee un servicio premium 2</p>:
-              <p>Usted posee un servicio premium 3</p>
-            } */}
+            <Button className={style.Button} onClick={()=> navigate('/home')}>Back home</Button>
+            <h2>Actualmente posee los siguientes planes activos:</h2>
+            {plans.length > 0? plans.map(item =>{
+              return <div>
+                <p>{item.items[0].price.product.name}</p>
+              </div> 
+            }) : <p>Cargando planes activos...</p> }
         </div>
         <h1>Servicios premium</h1>
       {products ? (

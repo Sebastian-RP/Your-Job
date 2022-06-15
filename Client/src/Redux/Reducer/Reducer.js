@@ -9,6 +9,7 @@ import {
   GET_ALL_POSTS_FROM_COMPANY,
   GET_ALL_POSTULATES,
   ADD_CARRITO,
+  CLEAR_CARRITO,
   GET_CONVERSATIONS,
   GET_USER_BY_EMAIL,
 } from "../Actions/Actions.js";
@@ -80,7 +81,12 @@ export default function rootReducer(state = initialState, action) {
     case ADD_CARRITO:
       return {
         ...state,
-        carrito: action.payload,
+        carrito : action.payload
+      };
+    case CLEAR_CARRITO : 
+      return {
+        ...state,
+        carrito : action.payload
       };
     case GET_USER_BY_EMAIL:
       console.log(action.payload);
