@@ -15,7 +15,6 @@ const postulatesPost = async (name, url, postId) => {
     }
 }
 
-
 const getPostulates = async (email) => {
   try {
     const allPostulates = await Postulates.findAll({
