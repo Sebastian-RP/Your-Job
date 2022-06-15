@@ -4,6 +4,7 @@ import { collection, doc, addDoc, onSnapshot } from "firebase/firestore";
 async function createCheckoutSession(uid, cart) {
   const collectionRef = collection(db, `customers/${uid}/checkout_sessions`);
 
+
   const { id } = await addDoc(collectionRef, {
     mode: "subscription",
     success_url: "http://localhost:3000/home",

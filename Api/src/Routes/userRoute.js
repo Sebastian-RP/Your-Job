@@ -21,6 +21,7 @@ router.post("/login", async (req, res) => {
     nationality,
     url,
     cv,
+    premium
   } = req.body;
   const newUser = await createUser(
     email,
@@ -32,7 +33,8 @@ router.post("/login", async (req, res) => {
     technologiesName,
     nationality,
     url,
-    cv
+    cv,
+    premium
   );
 
   return res.status(200).send(newUser);

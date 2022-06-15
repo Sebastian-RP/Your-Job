@@ -13,6 +13,7 @@ export default function Users() {
   const navigate = useNavigate();
   const { user } = useParams();
   useEffect(() => {
+    console.log(user)
     getUserInfo(user).then((action) => {
       dispatch(action);
     });
