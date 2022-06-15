@@ -1,14 +1,15 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 import { createCompany } from "../../Redux/Actions/Actions";
 import style from "./register.module.css";
+import validateCompany from "./ValidateCompany";
 
-export default function RegisterCompany({props}) {
+export default function RegisterCompany({ props }) {
   const countries = [
     "Afghanistan",
     "Albania",
@@ -218,6 +219,15 @@ export default function RegisterCompany({props}) {
     desc: "",
   });
   const dispatch = useDispatch();
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setErrors(
+      validateCompany({
+        ...input,
+      })
+    );
+  }, [input]);
 
   const handleChange = (e) => {
     setInput({
@@ -232,6 +242,11 @@ export default function RegisterCompany({props}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(errors);
+    if (Object.keys(errors).length > 0) {
+      console.log(errors);
+      return;
+    }
     let newCompany = {
       email: input.email,
       name: input.name,
@@ -241,12 +256,12 @@ export default function RegisterCompany({props}) {
       url: input.linkedin,
       nationality: country,
       description: input.desc,
-      premium: 0
+      premium: 0,
     };
 
     dispatch(createCompany(newCompany));
     window.location.replace(
-      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${props}`,
+      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${props}`
     );
   };
 
@@ -256,37 +271,45 @@ export default function RegisterCompany({props}) {
         <h2> Please fill out the following form with your information</h2>
 
         <Card className="text-center" style={{ width: "80%", padding: "20px" }}>
-          <form className={style.containeForm}>
+          <form
+            className={style.containeForm}
+            onSubmit={(e) => handleSubmit(e)}
+          >
             <input
               name="name"
               onChange={(e) => handleChange(e)}
               placeholder="Company Name"
               autoComplete="off"
+              required
             />
             <br />
-
+            <br />
             <input
               name="prop_name"
               onChange={(e) => handleChange(e)}
               placeholder="Propietary Name"
               autoComplete="off"
+              required
             />
             <br />
-
+            <br />
             <input
               name="email"
               onChange={(e) => handleChange(e)}
               placeholder="Email"
               autoComplete="off"
+              required
             />
             <br />
-
+            <span className={style.danger}>{errors.email}</span>
+            <br />
             <input
               type={"number"}
               name="phone"
               onChange={(e) => handleChange(e)}
               placeholder="Phone Number"
               autoComplete="off"
+              required
             />
             <br />
             <label>Country of Origin: {country}</label>
@@ -320,7 +343,10 @@ export default function RegisterCompany({props}) {
               onChange={(e) => handleChange(e)}
               placeholder="Linkedin Profile"
               autoComplete="off"
+              required
             />
+            <br />
+            <span className={style.danger}>{errors.linkedin}</span>
             <br />
 
             <textarea
@@ -330,18 +356,15 @@ export default function RegisterCompany({props}) {
               cols="40"
               autoComplete="off"
             />
+            <br />
+            <br />
             {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
-          </form>
-          <br />
-          <div>
-            <Button
-              variant="primary"
-              size="small"
-              onClick={(e) => handleSubmit(e)}
-            >
+            <Button variant="primary" size="small" type="submit">
               Submit
             </Button>
-          </div>
+          </form>
+          <br />
+          <div></div>
         </Card>
       </div>
     </div>
