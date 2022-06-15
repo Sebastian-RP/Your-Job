@@ -2,11 +2,6 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define('user', {
-      // id_user:{
-      //     type: DataTypes.INTEGER,
-      //     autoIncrement: true,
-      //     primaryKey: true
-      // },
       email:{
           type: DataTypes.STRING,
           allowNull: false,
@@ -51,6 +46,11 @@ module.exports = (sequelize) => {
           }
       },
       cv:{
+          type: DataTypes.STRING
+      },
+      status: {
+        type: DataTypes.ENUM(["active", "disabled"]),
+        defaultValue: "active"
           type: DataTypes.STRING //string de manera temporal,mientra descubro como se almacena
       },
       premium:{

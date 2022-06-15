@@ -7,7 +7,6 @@
   align-items: center;
   flex-direction: column;
   z-index: 0;
- 
 }
 .containerCard {
   width: 50%;
@@ -16,7 +15,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation:normal 1s showRegister linear;
+  animation: normal 1s showRegister linear;
   position: absolute;
 }
 
@@ -67,4 +66,8 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
+}
+
+.danger {
+  color: red;
 }
