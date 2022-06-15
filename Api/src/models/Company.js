@@ -53,15 +53,14 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.INTEGER), //id de los empleados asociados a dicha empresa
     },
     posts: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER), 
-    }, 
-    status: {
-      type: DataTypes.ENUM(["active", "disabled"]),
-      defaultValue: "active"
-      type: DataTypes.ARRAY(DataTypes.INTEGER), //id de los post vinculados a la empresa
+      type: DataTypes.ARRAY(DataTypes.INTEGER) 
     },
     premium: {
       type: DataTypes.INTEGER
+    },
+    status: {
+      type: DataTypes.ENUM(["active", "disabled"]),
+      defaultValue: "active"
     }
   });
 };

@@ -8,11 +8,12 @@ const postulatesPost = async (name, url, postId) => {
       companyPostId: postId,
     });
 
-    return "Successful postulation";
-  } catch (error) {
-    console.error("Your application has not been successful");
-  }
-};
+        return "Successful postulation";
+
+    } catch (error) {
+        console.error("Your application has not been successful")
+    }
+}
 
 const getPostulates = async (email) => {
   try {
