@@ -48,6 +48,9 @@ module.exports = (sequelize) => {
       cv:{
           type: DataTypes.STRING
       },
+      premium:{
+        type: DataTypes.INTEGER
+      },
       status: {
         type: DataTypes.ENUM(["active", "disabled"]),
         defaultValue: "active"

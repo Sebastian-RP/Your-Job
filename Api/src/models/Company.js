@@ -54,7 +54,10 @@ module.exports = (sequelize) => {
     },
     posts: {
       type: DataTypes.ARRAY(DataTypes.INTEGER), 
-    }, 
+    },
+    premium: {
+      type: DataTypes.INTEGER
+    },
     status: {
       type: DataTypes.ENUM(["active", "disabled"]),
       defaultValue: "active"
