@@ -24,7 +24,7 @@ export default function HomeCompany() {
   useEffect(() => {
     dispatch(getAllCompanies());
     dispatch(getAllPost());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     companies.forEach((comp) => {
@@ -36,8 +36,7 @@ export default function HomeCompany() {
     if (company) {
       dispatch(getAllPostsFromCompany(company.id));
     }
-    // eslint-disable-next-line
-  }, [dispatch, user, company]);
+  }, [user]);
 
   return (
     <>

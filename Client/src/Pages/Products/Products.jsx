@@ -21,7 +21,7 @@ const Products = () => {
       dispatch(action);
     });
     setProducts(productsList);
-  }, [dispatch, productsList]);
+  }, []);
 
   useEffect(() => {
     setProducts(productsList);

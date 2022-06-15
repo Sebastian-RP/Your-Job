@@ -41,14 +41,13 @@ export default function HomeUser() {
   useEffect(() => {
     setPosts(selector.posts);
     setNum(Math.random() * (companies.length - 3));
-  }, [selector, companies.length]);
+  }, [selector]);
   //----------------------------------------------------
   useEffect(() => {
-    // eslint-disable-next-line
     postulatesUser.length && postulatesUser.map((data) => {
       setPostId([...postId, data.companyPostId])
     })
-  },[postulatesUser, postId])
+  },[postulatesUser])
 
   if (isLoading) {
     return <div>LOADING...</div>;
