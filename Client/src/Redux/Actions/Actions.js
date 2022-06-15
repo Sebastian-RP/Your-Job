@@ -12,6 +12,8 @@ export const GET_ALL_COMPANIES = "GET_ALL_COMPANIES";
 export const GET_ALL_POSTS_FROM_COMPANY = "GET_ALL_POSTS_FROM_COMPANY";
 export const GET_ALL_POSTULATES = "GET_ALL_POSTULATES";
 export const ADD_CARRITO = "ADD_CARRITO";
+export const GET_ALL_POSTULATES_FROM_POST = "GET_ALL_POSTULATES_FROM_POST"
+export const CLEAR_CARRITO = "CLEAR_CARRITO"
 export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 
@@ -204,6 +206,15 @@ export async function addCarrito(element) {
     });
   };
 }
+
+export async function clearCarrito() {
+  return async function(dispatch){
+    return dispatch({
+       type: CLEAR_CARRITO, payload: []
+    })
+  } 
+}
+      
 
 export function getConversations(id) {
   return async function () {
