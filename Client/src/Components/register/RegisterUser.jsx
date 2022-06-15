@@ -6,10 +6,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Button from "react-bootstrap/Button";
 import { Widget } from "@uploadcare/react-widget";
-import { useParams } from "react-router-dom";
 import style from "./register.module.css";
+import validateUser from "./ValidateUser";
 
-export default function RegisterUser({props}) {
+export default function RegisterUser({ props }) {
   const countries = [
     "Afghanistan",
     "Albania",
@@ -222,6 +222,7 @@ export default function RegisterUser({props}) {
     desc: "",
     employ: "",
   });
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllTechnologies());
@@ -229,7 +230,7 @@ export default function RegisterUser({props}) {
   }, []);
   useEffect(() => {
     setTechnologies(
-      allTechnologies.filter((t) => !selectedTechs.includes(t.name)),
+      allTechnologies.filter((t) => !selectedTechs.includes(t.name))
     );
     // eslint-disable-next-line
   }, [selectedTechs]);
@@ -237,6 +238,14 @@ export default function RegisterUser({props}) {
     setTechnologies(allTechnologies);
     // eslint-disable-next-line
   }, [allTechnologies]);
+
+  useEffect(() => {
+    setErrors(
+      validateUser({
+        ...input,
+      })
+    );
+  }, [input]);
 
   const handleChange = (e) => {
     setInput({
@@ -264,6 +273,11 @@ export default function RegisterUser({props}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(errors);
+    if (Object.keys(errors).length > 0) {
+      console.log(errors);
+      return;
+    }
     let empleado = employ ? "empleado" : "desempleado";
     if (employ) {
       let company = input.employ;
@@ -284,14 +298,14 @@ export default function RegisterUser({props}) {
       nationality: country,
       url: input.linkedin,
       cv: `ucarecdn.com/${uuid}`,
-      premium: 0
+      premium: 0,
     };
     console.log(newUser);
 
     dispatch(createUser(newUser));
 
     window.location.replace(
-      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${props}`,
+      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${props}`
     );
   };
 
@@ -300,20 +314,29 @@ export default function RegisterUser({props}) {
       <div className={style.containerCard}>
         <h2> Please fill out the following form with your information</h2>
         <Card className="text-center" style={{ width: "80%", padding: "20px" }}>
-          <form className={style.containeForm}>
+          <form
+            className={style.containeForm}
+            onSubmit={(e) => handleSubmit(e)}
+          >
             <input
               name="name"
               onChange={(e) => handleChange(e)}
               placeholder="Full name"
               autoComplete="off"
+              required
             />
+            <br />
+            <span className={style.danger}>{errors.name}</span>
             <br />
             <input
               name="email"
               onChange={(e) => handleChange(e)}
               placeholder="Email"
               autoComplete="off"
+              required
             />
+            <br />
+            <span className={style.danger}>{errors.email}</span>
             <br />
             <input
               type={"number"}
@@ -321,7 +344,10 @@ export default function RegisterUser({props}) {
               onChange={(e) => handleChange(e)}
               placeholder="Age"
               autoComplete="off"
+              required
             />
+            <br />
+            <span className={style.danger}>{errors.age}</span>
             <br />
             <div className={style.containerTechnologies}>
               <DropdownButton
@@ -395,8 +421,10 @@ export default function RegisterUser({props}) {
               onChange={(e) => handleChange(e)}
               placeholder="Linkedin Profile"
               autoComplete="off"
+              required
             />
             <br />
+            <span className={style.danger}>{errors.linkedin}</span>
             <br />
             <textarea
               name="desc"
@@ -436,17 +464,12 @@ export default function RegisterUser({props}) {
               </div>
             </div>
             {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
-          </form>
-          <br />
-          <div>
-            <Button
-              variant="primary"
-              size="small"
-              onClick={(e) => handleSubmit(e)}
-            >
+            <Button variant="primary" size="small" type="submit">
               Submit
             </Button>
-          </div>
+          </form>
+          <br />
+          <div></div>
         </Card>
       </div>
     </div>
