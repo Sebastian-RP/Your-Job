@@ -5,18 +5,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getUserInfo } from "../../Redux/Actions/Actions";
 import image from "./perfilPicture.png";
 import Button from "react-bootstrap/Button";
+import { useState } from "react";
 
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
   // al hacer el login ya deberia de pasar la informacion al reducer.
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useParams();
+  const users = useSelector((state) => state.users);
+  const { username } = useParams();
+  const loggedUser = useSelector((state) => state.myUser);
+  const [ownProfile, setOwnProfile] = useState(false);
+
   useEffect(() => {
-    console.log(user)
-    getUserInfo(user).then((action) => {
+    console.log(username);
+    getUserInfo(username).then((action) => {
       dispatch(action);
     });
+    // if (loggedUser.name === username) {
+    //   setOwnProfile(true);
+    // }
+    console.log(ownProfile);
     //eslint-disable-next-line
   }, []);
   //----------------------------------
@@ -27,7 +36,7 @@ export default function Users() {
       <div className={style.header}>
         <div className={style.picture}>
           <img src={image} alt="perfil" />
-          <h2>{user}</h2>
+          <h2>{username}</h2>
         </div>
         <div>
           <Button

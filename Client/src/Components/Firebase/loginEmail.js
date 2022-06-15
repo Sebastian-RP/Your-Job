@@ -1,13 +1,12 @@
 import { auth } from "./credenciales";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { updatePremiumPlan } from "../../Redux/Actions/Actions";
-// import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import getPaymentsByUID from "./getPaymentsByUID";
 
 
-async function loginEmail(user, password, userInfo, carrito) {
+async function loginEmail(user, password, carrito) {
     try {
-        const newUser = await createUserWithEmailAndPassword(auth, user.email, password)
+        await createUserWithEmailAndPassword(auth, user.email, password)
         .then((userCredential) => {
             // Signed in
             return userCredential.user;
@@ -15,29 +14,29 @@ async function loginEmail(user, password, userInfo, carrito) {
         .catch((error) => {
             return error.code;
         });
-        let newUserPremium = 0;
-         
-        if (carrito.length === 1) {
-            newUserPremium = carrito.map(element => {
-                if(element.priceId === "price_1L8PiyAVAGwpZp37HtBfrXAq"){
-                    return 1
-                }else if(element.priceId === "price_1L8PlDAVAGwpZp377IJz6ge3"){
-                    return 2
-                }
-            })
-            if(userInfo.premium === null) updatePremiumPlan(userInfo.id, newUserPremium)
-        } else{
-            newUserPremium = 3;
-            if(userInfo.premium === null) updatePremiumPlan(userInfo.id, newUserPremium)
-        }
-        newUserPremium = newUserPremium[0];
-        if(userInfo.premium === 1 && (newUserPremium === 3 || newUserPremium === 1)) return ("Ya tienes este plan premium")
-        if(userInfo.premium === 2 && (newUserPremium === 3 || newUserPremium === 2)) return ("Ya tienes este plan premium")
-        
-        updatePremiumPlan(userInfo.id, newUserPremium)
-        
+
         const result = await signInWithEmailAndPassword( auth, user.email, password);
-        return result;
+        let userID = result.user.uid;
+        let array = await getPaymentsByUID(userID);
+        if(array.length === 0){
+            return userID
+        }else {
+            userID = carrito.map(element => {
+                if((element.stripe_metadata_clase === "primera") && (array.find(element => element.items[0].price.product.metadata.clase === "primera"))){
+                    return "Posees un plan premium 1 activo"
+                }
+                if((element.stripe_metadata_clase === "segunda") && (array.find(element => element.items[0].price.product.metadata.clase === "segunda"))){
+                    return "Posees un plan premium 2 activo"
+                }
+                if((element.stripe_metadata_clase === "primera")||(element.stripe_metadata_clase === "primera")){
+                    return result.user.uid
+                }
+            }
+            )
+            if(userID.includes(result.user.uid)) return result.user.uid
+            return userID
+        }
+        
     } catch (error) {
         console.log(error);
         return error;

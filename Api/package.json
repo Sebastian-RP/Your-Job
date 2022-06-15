@@ -1,28 +1,28 @@
 {
-  "name": "api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon ./src/app.js",
-    "add-data": "dir/config.js src; npx sequelize-cli db:seed:all",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.27.2",
-    "body-parser": "^1.20.0",
-    "chance": "^1.1.8",
-    "config": "^3.3.7",
-    "cookie-parser": "^1.4.6",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "g": "^2.0.1",
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.16",
-    "pg": "^8.7.3",
-    "sequelize": "^6.20.1"
+    "name": "api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "nodemon ./src/app.js",
+      "add-data": "dir/config.js src; npx sequelize-cli db:seed:all",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "axios": "^0.27.2",
+      "body-parser": "^1.20.0",
+      "chance": "^1.1.8",
+      "config": "^3.3.7",
+      "cookie-parser": "^1.4.6",
+      "dotenv": "^16.0.1",
+      "express": "^4.18.1",
+      "g": "^2.0.1",
+      "morgan": "^1.10.0",
+      "nodemon": "^2.0.16",
+      "pg": "^8.7.3",
+      "sequelize": "^6.20.1"
+    }
   }
-}

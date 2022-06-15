@@ -20,7 +20,6 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   const { id } = req.query;
   try {
-    console.log(id);
     res.send(await getPostulatesofPost(id));
   } catch (error) {
     res.send({ message: error.message });

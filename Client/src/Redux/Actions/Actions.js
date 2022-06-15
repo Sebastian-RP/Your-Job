@@ -12,8 +12,10 @@ export const GET_ALL_COMPANIES = "GET_ALL_COMPANIES";
 export const GET_ALL_POSTS_FROM_COMPANY = "GET_ALL_POSTS_FROM_COMPANY";
 export const GET_ALL_POSTULATES = "GET_ALL_POSTULATES";
 export const ADD_CARRITO = "ADD_CARRITO";
-export const GET_CONVERSATIONS = "GET_CONVERSATIONS"
-
+export const GET_ALL_POSTULATES_FROM_POST = "GET_ALL_POSTULATES_FROM_POST"
+export const CLEAR_CARRITO = "CLEAR_CARRITO"
+export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
+export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -96,20 +98,17 @@ export function createUser(user) {
 export function createCompany(company) {
   return async function (dispatch) {
     try {
-      const newCompany = await axios.post(
-        "/company/login",
-        {
-          email: company.email,
-          name: company.name,
-          phone: company.phone,
-          propietary_name: company.propietary_name,
-          address: company.address,
-          url: company.url,
-          nationality: company.nationality,
-          description: company.description,
-          premium: null,
-        }
-      );
+      const newCompany = await axios.post("/company/login", {
+        email: company.email,
+        name: company.name,
+        phone: company.phone,
+        propietary_name: company.propietary_name,
+        address: company.address,
+        url: company.url,
+        nationality: company.nationality,
+        description: company.description,
+        premium: null,
+      });
       return newCompany;
     } catch (e) {
       console.error("Error: " + e.message);
@@ -173,14 +172,11 @@ export function getAllPostsFromCompany(id) {
 export function postulateJob(value) {
   return async function (dispatch) {
     try {
-      const newPostulate = await axios.post(
-        "/postulates",
-        {
-          name: value.name,
-          url: value.url,
-          postId: value.postId,
-        }
-      );
+      const newPostulate = await axios.post("/postulates", {
+        name: value.name,
+        url: value.url,
+        postId: value.postId,
+      });
       return newPostulate;
     } catch (e) {
       console.error("Error: " + e.message);
@@ -202,22 +198,36 @@ export function getPostulates(email) {
   };
 }
 
-
-
 export async function addCarrito(element) {
+  return async function (dispatch) {
+    return dispatch({
+      type: ADD_CARRITO,
+      payload: element,
+    });
+  };
+}
+
+export async function clearCarrito() {
   return async function(dispatch){
     return dispatch({
-       type: ADD_CARRITO, payload: element
+       type: CLEAR_CARRITO, payload: []
     })
   } 
 }
-
+      
 
 export function getConversations(id) {
   return async function () {
-    const conversations = await axios.get(
-      `/conversation/${id}`
-    );
+    const conversations = await axios.get(`/conversation/${id}`);
     return { type: GET_CONVERSATIONS, payload: conversations.data };
+  };
+}
+
+export function getUserByEmail(email) {
+  return async function (dispatch) {
+    const userEmail = await axios.get(
+      "http://localhost:3001/users/profile?email=" + email
+    );
+    return dispatch({ type: GET_USER_BY_EMAIL, payload: userEmail.data });
   };
 }

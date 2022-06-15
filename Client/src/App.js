@@ -10,7 +10,6 @@ import Carrito from "./Pages/Carrito/Carrito";
 import Home from "./Pages/Home/home";
 import Messenger from "./Pages/Messenger/Messenger.jsx";
 
-
 function App() {
   return (
     <Routes>
@@ -23,7 +22,7 @@ function App() {
         }
       />
       <Route path={"/"} element={<Login />} />
-      <Route path={"/users/:user"} element={<Users />} />
+      <Route path={"/users/:username"} element={<Users />} />
       <Route path={"/onboarding"} element={<Onboarding />} />
       <Route path={"/checkout"} element={<Checkout />} />
       <Route path={"/products"} element={<Products />} />
