@@ -48,10 +48,12 @@ module.exports = (sequelize) => {
       cv:{
           type: DataTypes.STRING
       },
+      premium:{
+        type: DataTypes.INTEGER
+      },
       status: {
         type: DataTypes.ENUM(["active", "disabled"]),
         defaultValue: "active"
-          type: DataTypes.STRING //string de manera temporal,mientra descubro como se almacena
       },
       premium:{
         type: DataTypes.INTEGER
