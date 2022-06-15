@@ -39,6 +39,81 @@ module.exports = {
       url: "usuarioHernandez@gmail.com",
       createdAt: new Date(), updatedAt: new Date(),
       companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Dario Nicolas Castiblanco",
+      url: "usuarioCastiblanco@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Dario Nicolas Castiblanco",
+      url: "usuarioCastiblanco@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Dario Nicolas Castiblanco",
+      url: "usuarioCastiblanco@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Dario Nicolas Castiblanco",
+      url: "usuarioCastiblanco@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Dario Nicolas Castiblanco",
+      url: "usuarioCastiblanco@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Diego Esteban Zamudio",
+      url: "usuarioZamudio@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Diego Esteban Zamudio",
+      url: "usuarioZamudio@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Diego Esteban Zamudio",
+      url: "usuarioZamudio@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Angie tatiana Triana",
+      url: "usuarioTriana@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Angie tatiana Triana",
+      url: "usuarioTriana@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Angie tatiana Triana",
+      url: "usuarioTriana@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Karen Eleana Rios",
+      url: "usuarioRios@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Karen Eleana Rios",
+      url: "usuarioRios@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Karen Eleana Rios",
+      url: "usuarioRios@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
+    },{
+      name: "Karen Eleana Rios",
+      url: "usuarioRios@gmail.com",
+      createdAt: new Date(), updatedAt: new Date(),
+      companyPostId: chance.integer({ min: 0, max: 50 })
     },], {});
   },
 
