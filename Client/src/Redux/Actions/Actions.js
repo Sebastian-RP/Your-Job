@@ -14,6 +14,7 @@ export const GET_ALL_POSTULATES = "GET_ALL_POSTULATES";
 export const ADD_CARRITO = "ADD_CARRITO";
 export const GET_CONVERSATIONS = "GET_CONVERSATIONS"
 export const GET_ALL_POSTULATES_FROM_POST = "GET_ALL_POSTULATES_FROM_POST"
+export const CLEAR_CARRITO = "CLEAR_CARRITO"
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -202,6 +203,14 @@ export async function addCarrito(element) {
   return async function(dispatch){
     return dispatch({
        type: ADD_CARRITO, payload: element
+    })
+  } 
+}
+
+export async function clearCarrito() {
+  return async function(dispatch){
+    return dispatch({
+       type: CLEAR_CARRITO, payload: []
     })
   } 
 }

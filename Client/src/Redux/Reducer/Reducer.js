@@ -8,7 +8,8 @@ import {
   GET_ALL_COMPANIES,
   GET_ALL_POSTS_FROM_COMPANY,
   GET_ALL_POSTULATES,
-  ADD_CARRITO
+  ADD_CARRITO,
+  CLEAR_CARRITO
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -69,6 +70,11 @@ export default function rootReducer(state = initialState, action) {
         postulatesUser : action.payload
       }
     case ADD_CARRITO : 
+      return {
+        ...state,
+        carrito : action.payload
+      }
+    case CLEAR_CARRITO : 
       return {
         ...state,
         carrito : action.payload
