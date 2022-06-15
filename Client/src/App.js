@@ -11,6 +11,7 @@ import RegisterUser from "./Components/register/RegisterUser";
 import RegisterCompany from "./Components/register/RegisterCompany";
 import Home from "./Pages/Home/home";
 import Messenger from "./Pages/Messenger/Messenger.jsx";
+import Forum from "./Pages/Forum/Forum.jsx";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       <Route path={"/carrito"} element={<Carrito />} />
       <Route path={"/product/:id"} element={<Product />} />
       <Route path={"/messenger"} element={<Messenger />} />
+      <Route path={"/forum"} element={<Forum />} />
     </Routes>
   );
 }
