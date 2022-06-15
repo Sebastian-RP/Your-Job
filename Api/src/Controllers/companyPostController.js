@@ -83,6 +83,12 @@ const createPost = async (
   }
 };
 
+const updatePostCompany = async (id, changes) => {
+  let postFound = await CompanyPost.findByPk(id);
+  await postFound.update(changes);
+  return postFound;
+}
+
 const deletePost = async (id) => {
   try {
     const post = await CompanyPost.findByPk(id);
@@ -98,4 +104,5 @@ module.exports = {
   createPost,
   deletePost,
   getPostsfromCompany,
+  updatePostCompany
 };
