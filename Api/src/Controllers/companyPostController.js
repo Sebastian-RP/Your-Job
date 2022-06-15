@@ -1,4 +1,4 @@
-const { CompanyPost, Company } = require("../db.js");
+const { CompanyPost, Company, Postulates, Op } = require("../db.js");
 const { findCompany } = require("./CompanyController.js");
 
 const getCompanyPosts = async () => {
@@ -36,7 +36,17 @@ const getPostsfromCompany = async (id) => {
     let posts = [];
     for (let i = 0; i < company.posts.length; i++) {
       const id = company.posts[i];
-      const post = await CompanyPost.findByPk(id);
+      const post = await CompanyPost.findByPk(id, {
+        include: [
+          {
+            model: Postulates,
+            required: false,
+            where: {
+              companyPostId: { [Op.eq]: id },
+            },
+          },
+        ],
+      });
       posts.push(post);
     }
     return posts || { error: "posts not found" };
