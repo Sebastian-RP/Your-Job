@@ -9,11 +9,8 @@ import Product from "./Pages/Product/Product";
 import Carrito from "./Pages/Carrito/Carrito";
 import Home from "./Pages/Home/home";
 import Messenger from "./Pages/Messenger/Messenger.jsx";
-<<<<<<< HEAD
 import UsersEdit from "./Pages/Users/UsersEdit";
-=======
 import Forum from "./Pages/Forum/Forum.jsx";
->>>>>>> Feature-Forum
 
 function App() {
   return (
