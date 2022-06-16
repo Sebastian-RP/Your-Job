@@ -29,11 +29,8 @@
     justify-content: space-around;
     align-items: center;
 }
-.info .ul {
-    display: flex;
-    gap: 10px;
-}
-.info .ul li {
+
+.info  li {
     list-style: none;
     padding: 5px;
     border: 1px solid;
@@ -45,7 +42,6 @@
 .imageCompany {
     width: 100%;
     height: 150px;
-    background-color: aqua;
 }
 .imageCompany img {
     width: 100%;
@@ -72,7 +68,7 @@
 .containerList {
     width: 100%;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;

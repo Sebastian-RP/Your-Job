@@ -9,14 +9,14 @@ export default function PostForm({props}) {
     const dispatch = useDispatch();
     const technologies = [...selector.technologies];
     const [techArray, setTechArray] = useState([]);
-    const [clearRadio, setClearRadio] = useState(false)
+    const [clearRadio, setClearRadio] = useState(false);
     const [data, setData] = useState({
         titlePost:'',
         experience: '',
         typeof_contract: '',
         modality: '',
-        min_salary: null,
-        max_salary: null,
+        min_salary: undefined,
+        max_salary: undefined,
         descripcion: ''
     })
 
@@ -25,30 +25,45 @@ export default function PostForm({props}) {
             ...data,
             [e.target.name]: e.target.value
         })
+        
     }
+   
 
     const handlerSubmit = (e) => {
         e.preventDefault();
         dispatch(createJob({...data, technologiesId:techArray, id : props}))
         .then(resp =>{
-          alert(resp.data)
-          if(resp.status === 200){
-            setData({
-              titlePost:'',
-              experience: '',
-              typeof_contract: '',
-              modality: '',
-              min_salary: '',
-              max_salary: '',
-              descripcion: ''
-            })
-            setClearRadio(true);
-            setTimeout(() => {
-              
-              setClearRadio(false);
-            }, 1000);
+          try {
+
+            alert(resp.data)
+            if(resp.status === 200){
+              handlerReset()
+            }
+          } catch{
+
+            alert("Request has not been received: try again!")
+            handlerReset()
           }
+          
         })
+    }
+
+    const handlerReset = () => {
+      setData({
+        titlePost:'',
+        experience: '',
+        typeof_contract: '',
+        modality: '',
+        min_salary: 0,
+        max_salary: 0,
+        descripcion: ''
+      })
+      setClearRadio(true);
+      setTimeout(() => {
+        
+        setClearRadio(false);
+      }, 1000);
+      setTechArray([])
     }
    
   return (
@@ -57,18 +72,19 @@ export default function PostForm({props}) {
          
             <div>
 
-          <input className={style.inputForm} type="text" name='titlePost' placeholder="Job Applied for" onChange={(e) => handlerChange(e)} value={data.titlePost}/>
+          <input className={style.inputForm} type="text" name='titlePost' placeholder="Job Applied for" onChange={(e) => handlerChange(e)} uncontrolled="true" value={data.titlePost}/>
          
           <br />
-          <input className={style.inputForm} type="number" name='min_salary' placeholder="Min salary in USD" onChange={(e) => handlerChange(e)}  value={data.min_salary}/>
+          <input className={style.inputForm} type="number" name='min_salary' placeholder="Min salary in USD" onChange={(e) => handlerChange(e)} controlled="true" />
           <br />
-          <input className={style.inputForm} type="number" name='max_salary' placeholder="Max salary in USD" onChange={(e) => handlerChange(e)}  value={data.max_salary}/>
+          <input className={style.inputForm} type="number" name='max_salary' placeholder="Max salary in USD" onChange={(e) => handlerChange(e)}  controlled="true" />
+          <p style={{color:'red',fontSize:'10px'}}>{data.max_salary > data.min_salary?'':"the maximum value must be longer than minimum value"}</p>
           <br />
-          <textarea name="descripcion" cols="30" rows="6" placeholder="Description" onChange={(e) => handlerChange(e)}  value={data.descripcion}/>
+          <textarea name="descripcion" cols="30" rows="6" placeholder="Description" onChange={(e) => handlerChange(e)} uncontrolled ="true"  value={data.descripcion}/>
           <br />
           <br />
           <label><strong>Experience:</strong>  </label>
-          <select name="experience" defaultValue='' onChange={(e) => handlerChange(e)}  value={data.experience}>
+          <select name="experience" onChange={(e) => handlerChange(e)}  controlled ="true">
             <option value="trainig">trainig</option>
             <option value="junior" >
               junior
@@ -79,7 +95,7 @@ export default function PostForm({props}) {
           </select>
           <br />
           <label><strong>type of contract:</strong> </label>
-          <select name="typeof_contract" onChange={(e) => handlerChange(e)}  value={data.typeof_contract}>
+          <select name="typeof_contract" onChange={(e) => handlerChange(e)}  controlled = "true" >
             <option value="por labor">por labor</option>
             <option value="temporal">
             temporal
@@ -90,7 +106,7 @@ export default function PostForm({props}) {
           </select>
           <br />
           <label><strong>Modality:</strong> </label>
-          <select name="modality" onChange={(e) => handlerChange(e)}  value={data.modality}>
+          <select name="modality" onChange={(e) => handlerChange(e)}  controlled ="true" >
             <option value="remoto">remoto</option>
             <option value="presencial" >
             presencial
@@ -111,12 +127,13 @@ export default function PostForm({props}) {
                 )
             })
           }
+          <p style={{color:'red',fontSize:'10px'}}>{!techArray.length?"You must mark at least one option":""}</p>
           <br />
-          <Button variant='success' className={style.buttonSubmit} type="submit">Submit</Button>
+          <Button variant='success' disabled={!techArray.length?true:false}  className={style.buttonSubmit} type="submit">Submit</Button>
         </div>
         
         </form>
-        <Button variant='primary' className={style.buttonReset}>Reset</Button>
+        <Button variant='primary' className={style.buttonReset} onClick={handlerReset}>Reset</Button>
     </div>
   );
 }

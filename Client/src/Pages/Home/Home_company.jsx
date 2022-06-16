@@ -59,7 +59,6 @@ export default function HomeCompany() {
     dispatch(getAllPostsFromCompany(company.id))
   }
 
-  console.log(selector)
   return (
     <div className={style.containerCompany}>
       <Navbar />
@@ -91,14 +90,15 @@ export default function HomeCompany() {
         {posts?.map((data, index) => {
           return (
             <div className={style.cardPost} key={index} 
-            onClick={() => handlerList(data.postulates)}
+            
             >
-              <Card>
+                <button variant='danger' style={{position:'absolute',zIndex:'2', right:'10px'}}>X</button>
+              <Card onClick={() => handlerList(data.postulates)}>
                 <Card.Header as="h6">{data.titlePost}</Card.Header>
                 <Card.Body>
                   {/* <Card.Title>{data.TitlePost}</Card.Title> */}
-                  <Card.Text style={{ textAlign: "start" }}>
-                    <div className={style.info}>
+                  <Card.Text style={{ textAlign: "start" }} className={style.info}>
+                    
                       <span>
                     <strong>Experience:</strong> {data.experience}
                       </span>
@@ -109,7 +109,7 @@ export default function HomeCompany() {
                     <br />
                     <>
                     <strong>Technologies:</strong>
-                    <div className={style.ul}>
+                    
                       {data.technologiesId.map((data, i) => {
                         let tech = allTechnologies.find(
                           // eslint-disable-next-line
@@ -118,9 +118,9 @@ export default function HomeCompany() {
 
                         return <li key={i}>{tech ? tech.name : data}</li>;
                       })}
-                    </div>
+                    
                     </>
-                    </div>
+                   
                    
                   </Card.Text>
                   <p>Created: {data.createdAt.slice(0,10)}</p>
