@@ -38,7 +38,7 @@ const Products = () => {
   }, [productsList]);
 
   return (
-    <div>
+    <div className={style.ContainerGeneral}>
         <div className={style.TopContainer}>
             <div className={style.ButtonsContainer}>
               <Button onClick={()=>navigate('/carrito')}><FaShoppingCart /> {carrito.length}</Button>
@@ -47,7 +47,7 @@ const Products = () => {
             <div className={style.Title}>
               <h1 className={style.TitleH1}>Servicios Premium</h1>
             </div>
-            <div className={style.Products}>
+            <div className={`bg-dark p-2 text-light bg-opacity-50 ${style.Products}`}>
               <p><strong>Planes activos:</strong></p>
               {plans.length > 0? plans.map(item =>{
                 return <div className={style.ActivesProducts}>
@@ -62,11 +62,11 @@ const Products = () => {
             products.map((e, index) => {
               return (
                 <Link to={`/product/${e.id}`} className={style.Links}>
-                  <div className={style.StyledProducts} key={index}>
+                  <div className={`bg-dark p-2 text-light bg-opacity-50 ${style.StyledProducts}`} key={index}>
                     <h3><GiLaurelCrown className={style.Svg}></GiLaurelCrown> {e.name}</h3>
                     <p>{e.description}</p>
                     <p>
-                      Plan mensual de ${e.prices.unit_amount / 100} {e.prices.currency} 
+                      <strong>Plan mensual de ${e.prices.unit_amount / 100} {e.prices.currency}</strong>  
                     </p>
                   </div>
                 </Link>
