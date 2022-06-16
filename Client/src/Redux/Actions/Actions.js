@@ -249,7 +249,7 @@ export function createJob(value) {
 export function getUserByEmail(email) {
   return async function (dispatch) {
     const userEmail = await axios.get(
-      "http://localhost:3001/users/profile?email=" + email
+      "/users/profile?email=" + email
     );
     return dispatch({ type: GET_USER_BY_EMAIL, payload: userEmail.data });
   };
