@@ -17,9 +17,10 @@ module.exports = {
     await queryInterface.bulkInsert(
       "companies",
       [
+        
         {
           id: "aa93ab2c-90a3-43c2-9bb9-2fd992b68eeb",
-          email: chance.email(),
+          email: "jsarabialugo@gmail.com",
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
           propietary_name: chance.name(),

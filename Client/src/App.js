@@ -9,6 +9,8 @@ import Product from "./Pages/Product/Product";
 import Carrito from "./Pages/Carrito/Carrito";
 import Home from "./Pages/Home/home";
 import Messenger from "./Pages/Messenger/Messenger.jsx";
+import UsersEdit from "./Pages/Users/UsersEdit";
+import Forum from "./Pages/Forum/Forum.jsx";
 
 function App() {
   return (
@@ -23,12 +25,14 @@ function App() {
       />
       <Route path={"/"} element={<Login />} />
       <Route path={"/users/:username"} element={<Users />} />
+      <Route path={"/users/:username/edit"} element={<UsersEdit />} />
       <Route path={"/onboarding"} element={<Onboarding />} />
       <Route path={"/checkout"} element={<Checkout />} />
       <Route path={"/products"} element={<Products />} />
       <Route path={"/carrito"} element={<Carrito />} />
       <Route path={"/product/:id"} element={<Product />} />
       <Route path={"/messenger"} element={<Messenger />} />
+      <Route path={"/forum"} element={<Forum />} />
     </Routes>
   );
 }
