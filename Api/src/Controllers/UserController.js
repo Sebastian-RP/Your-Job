@@ -28,7 +28,7 @@ const createUser = async (
       nationality,
       url,
       cv,
-      premium
+      premium,
     });
     let userTechnologies = await Technology.findAll({
       where: { name: technologiesName },
@@ -41,16 +41,27 @@ const createUser = async (
 };
 const findUser = async (user) => {
   const result = await User.findOne({ where: { name: user } });
+  if (user.status === "disabled") return { warning: "user deleted" };
   return result || { error: "user not found" };
 };
 
 const findUserEmail = async (email) => {
   const user = await User.findOne({ where: { email: email } });
+  if (user.status === "disabled") return { warning: "user deleted" };
+  return user || { error: "user not found" };
+};
+
+const findUserId = async (id) => {
+  const user = await User.findByPk(id);
+  if (user.status === "disabled") return { warning: "user deleted" };
   return user || { error: "user not found" };
 };
 
 const getUsers = async () => {
-  const users = await User.findAll({ include: Technology });
+  const users = await User.findAll({
+    include: { model: Technology },
+    where: { status: "active" },
+  });
   return users;
 };
 
@@ -60,10 +71,18 @@ const updateUser = async (id, changes) => {
   return user;
 };
 
+const deleteUser = async (id) => {
+  let user = await User.findByPk(id);
+  await user.update({ status: "disabled" });
+  return user;
+};
+
 module.exports = {
   createUser,
   findUser,
+  findUserEmail,
+  findUserId,
   getUsers,
   updateUser,
-  findUserEmail,
+  deleteUser,
 };

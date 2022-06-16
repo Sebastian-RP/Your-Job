@@ -39,12 +39,14 @@ export default function HomeUser() {
     dispatch(getAllCompanies());
     dispatch(getAllTechnologies());
     dispatch(getUserByEmail(user.email));
+    // eslint-disable-next-line
   }, [dispatch]);
 
   useEffect(() => {
     console.log(selector)
     console.log(user.email);
     console.log(logged);
+    // eslint-disable-next-line
   }, [user]);
 
   // el useState llamado NUM y este useEffect hacen que la sugerencia de las
@@ -258,15 +260,15 @@ export default function HomeUser() {
                             <Card>
                               <Card.Header as="h5">
                                 <label>Oferta Laboral</label> -{" "}
-                                <a
-                                  href=""
+                                <label
+                                  className={style.companyName}
                                   onClick={() => {
                                     navigate(`/users/${data.company.name}`);
                                   }}
                                 >
                                   {" "}
                                   {data.company.name}{" "}
-                                </a>
+                                </label>
                               </Card.Header>
                               <Card.Body>
                                 <Card.Title>{data.TitlePost}</Card.Title>

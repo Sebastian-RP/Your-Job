@@ -5,6 +5,7 @@ const {
   getEmployees,
   findCompany,
   findCompanyEmail,
+  deleteCompany,
 } = require("../Controllers/CompanyController.js");
 
 const router = Router();
@@ -42,7 +43,7 @@ router.post("/login", async (req, res) => {
     nationality,
     description,
     employees,
-    premium
+    premium,
   } = req.body;
   const newCompany = await createCompany(
     email,
@@ -58,6 +59,11 @@ router.post("/login", async (req, res) => {
     premium
   );
   return res.status(200).send(newCompany);
+});
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  res.send(await deleteCompany(id));
 });
 
 module.exports = router;
