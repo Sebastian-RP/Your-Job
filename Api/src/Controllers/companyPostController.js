@@ -17,6 +17,9 @@ const getCompanyPosts = async () => {
           "nationality",
         ],
       },
+      where: {
+        status: "active",
+      },
     });
 
     return PostCreated;
@@ -26,16 +29,15 @@ const getCompanyPosts = async () => {
 };
 
 const getPostsfromCompany = async (id) => {
-    
   try {
     const data = await CompanyPost.findAll({
       where: {
-        companyId : id
+        companyId: id,
+        status: "active",
       },
-      include: ["postulates"]
-    })
-    
-    
+      include: ["postulates"],
+    });
+
     return data || { error: "posts not found" };
   } catch (e) {
     console.error("Error in getPostsfromCompany:", e.message);
@@ -63,12 +65,12 @@ const createPost = async (
       max_salary,
       modality,
       technologiesId,
-      companyId
+      companyId,
     });
 
     return "Post created";
   } catch (error) {
-    console.error("Error in createCompany:", error.message);
+    console.error("Error in createCompanyPost:", error.message);
   }
 };
 
@@ -76,15 +78,15 @@ const updatePostCompany = async (id, changes) => {
   let postFound = await CompanyPost.findByPk(id);
   await postFound.update(changes);
   return postFound;
-}
+};
 
 const deletePost = async (id) => {
   try {
     const post = await CompanyPost.findByPk(id);
-    await post.destroy();
+    await post.update({ status: "disabled" });
     return post;
   } catch (error) {
-    console.error("Error in createCompany:", error.message);
+    console.error("Error in deletePost:", error.message);
   }
 };
 
@@ -93,5 +95,5 @@ module.exports = {
   createPost,
   deletePost,
   getPostsfromCompany,
-  updatePostCompany
+  updatePostCompany,
 };

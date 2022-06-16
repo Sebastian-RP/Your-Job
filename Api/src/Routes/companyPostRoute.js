@@ -4,7 +4,7 @@ const {
   createPost,
   deletePost,
   getPostsfromCompany,
-  updatePostCompany
+  updatePostCompany,
 } = require("../Controllers/companyPostController.js");
 
 const router = Router();
@@ -23,7 +23,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/:companyId", async (req, res) => {
-  const { companyId } = req.params
+  const { companyId } = req.params;
 
   const {
     titlePost,
@@ -33,24 +33,23 @@ router.post("/:companyId", async (req, res) => {
     min_salary,
     max_salary,
     modality,
-    technologiesId
+    technologiesId,
   } = req.body;
 
-  
-  technologiesId.forEach(elem => {
-    Number(elem)
+  technologiesId.forEach((elem) => {
+    Number(elem);
   });
-  
+
   try {
     if (Number(min_salary) > Number(max_salary)) {
-
-      return res.status(404).send({message: "El salario mínimo no puede ser mayor al máximo"});
-    }
-    if (Number(max_salary) <= 0 && Number(min_salary) <= 0){
-
       return res
-         .status(404)
-         .send("El salario mínimo o máximo deben ser numeros enteros positivos");
+        .status(404)
+        .send({ message: "El salario mínimo no puede ser mayor al máximo" });
+    }
+    if (Number(max_salary) <= 0 && Number(min_salary) <= 0) {
+      return res
+        .status(404)
+        .send("El salario mínimo o máximo deben ser numeros enteros positivos");
     }
 
     if (
@@ -68,7 +67,7 @@ router.post("/:companyId", async (req, res) => {
         Number(min_salary),
         Number(max_salary),
         modality,
-        technologiesId, 
+        technologiesId,
         companyId
       );
       res.status(200).json(newPost);
@@ -78,12 +77,11 @@ router.post("/:companyId", async (req, res) => {
   }
 });
 
-
-router.put("/id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
   res.send(await updatePostCompany(id, changes));
-})
+});
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
