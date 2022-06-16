@@ -19,7 +19,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  animation:normal 2s linear presentation;
+  animation: normal 2s linear presentation;
 }
 .login img {
   filter: drop-shadow(-5px -5px 10px black);
@@ -37,17 +37,22 @@
 
 .login button:hover {
   background-color: rgb(80, 97, 113);
-
 }
 
 .logout {
   position: absolute;
   top: 20px;
-  right:20px;
+  right: 20px;
+}
+
+.continue {
+  position: absolute;
+  top: 20px;
+  right: 150px;
 }
 
 @keyframes presentation {
-  0%{
+  0% {
     opacity: 0;
     transform: translate(-50px);
   }

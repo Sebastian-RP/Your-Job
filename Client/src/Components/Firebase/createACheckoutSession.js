@@ -8,10 +8,10 @@ async function createCheckoutSession(uid, cart) {
   const { id } = await addDoc(collectionRef, {
     mode: "subscription",
 
-    success_url: `${process.env.REACT_APP_URL}/home` || "http://localhost:3000/home",
-    cancel_url: `${process.env.REACT_APP_URL}/home` || "http://localhost:3000/home",
+    success_url: "https://your-job-seven.vercel.app/home",
+    cancel_url: "https://your-job-seven.vercel.app/home",
 
-    collect_shipping_address: true,
+    collect_shipping_address: false,
     line_items: cart.map((item) => {
       return {
         quantity: 1,

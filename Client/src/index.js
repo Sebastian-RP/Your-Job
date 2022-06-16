@@ -19,17 +19,19 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <Router>
-      <React.StrictMode>
-        <PersistGate persistor={persistor}>
-          <Auth0Provider
-            domain="dev-zgaxo6rs.us.auth0.com"
-            clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
-            redirectUri="http://localhost:3000/home"
-          >
-            <App />
-          </Auth0Provider>
-        </PersistGate>
-      </React.StrictMode>
+
+        <React.StrictMode>
+          <PersistGate persistor={persistor}>
+                <Auth0Provider
+                  domain="dev-zgaxo6rs.us.auth0.com"
+                  clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
+                  redirectUri="https://your-job-seven.vercel.app/home"
+                >
+                  <App />
+                </Auth0Provider>
+          </PersistGate> 
+        </React.StrictMode>
+
     </Router>
   </Provider>
 );

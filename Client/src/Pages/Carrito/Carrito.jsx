@@ -7,6 +7,7 @@ import createCheckoutSession from '../../Components/Firebase/createACheckoutSess
 import Button from 'react-bootstrap/Button'
 import { useDispatch, useSelector } from "react-redux";
 import { addCarrito, clearCarrito } from "../../Redux/Actions/Actions";
+import swal from "sweetalert";
 
 
 const Carrito = () => {
@@ -20,7 +21,7 @@ const Carrito = () => {
             const result = await loginEmail(user,"123456", carrito)
             if(Array.isArray(result)){
                 result.map(item =>
-                    alert(`${item}`)    
+                    swal ( "Oops" ,  `${item}` ,  "error" )   
                 )
             }
             else{
@@ -29,10 +30,10 @@ const Carrito = () => {
             } 
         }
         if(!isAuthenticated){
-            alert("Para realizar una compra debes estar autenticado")
+            swal ( "Oops" ,  "Para realizar una compra debes estar autenticado" ,  "error" )   
         }
         if(carrito.length === 0){
-            alert("Para realizar una compra debes añadir elementos al carrito")
+            swal ( "Oops" ,  "Para realizar una compra debes añadir elementos al carrito" ,  "error" )   
         }
     };
 
@@ -42,7 +43,7 @@ const Carrito = () => {
             dispatch(action);
         }
         )
-        alert("Elemento eliminado del carrito")
+        swal ( "Listo" ,  "Elemento eliminado del carrito" ,  "success" )   
     }
 
     const handledEmpty = (e) => {
@@ -51,7 +52,7 @@ const Carrito = () => {
             dispatch(action);
         }
         )
-        alert("Carrito vaciado")
+        swal ( "Listo" ,  "Carrito vacio" ,  "success" )   
     }
 
     return (
@@ -61,13 +62,19 @@ const Carrito = () => {
             <div className={style.Contenedor}>
                 {carrito? carrito.map((producto, index) =>(
                     <div className={style.Products} key={index}>
-                        <p>{producto.name}</p>
-                        <Button onClick={handledClick} value={producto.name}>Eliminar</Button>
+                        <div className={style.ProductsName}>
+                            <p><strong>{producto.name}</strong></p>
+                        </div>
+                        <div className={style.CloseButton}>
+                            <Button className="btn-danger" onClick={handledClick} value={producto.name}>X</Button>
+                        </div>
                     </div>
                 )): <p>...Loading</p>}
             </div>
-        <Button className={style.Button} onClick={autenticate}>Comprar</Button>
-        <Button className={style.Button} onClick={handledEmpty}>Vaciar Carrito</Button>
+            <div>
+                <Button className={style.Button} onClick={autenticate}>Comprar</Button>
+                <Button className={`btn-danger ${style.Button}`} onClick={handledEmpty}>Vaciar Carrito</Button>
+            </div>
       </div>
     )
 }
