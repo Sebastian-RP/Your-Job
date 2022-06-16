@@ -223,6 +223,29 @@ export function getConversations(id) {
   };
 }
 
+export function createJob(value) {
+ 
+  return async function(dispatch) {
+
+    try {
+      const data = await axios.post(`/companyPost/${value.id}`, {
+        titlePost: value.titlePost,
+        experience: value.experience,
+        typeof_contract: value.typeof_contract,
+        descripcion: value.descripcion,
+        min_salary: value.min_salary,
+        max_salary: value.max_salary,
+        modality: value.modality,
+        technologiesId: value.technologiesId,
+      })
+      return data
+      
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+  
+}
 export function getUserByEmail(email) {
   return async function (dispatch) {
     const userEmail = await axios.get(

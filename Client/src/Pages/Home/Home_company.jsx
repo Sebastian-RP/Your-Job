@@ -54,12 +54,16 @@ export default function HomeCompany() {
     setShowList(true)
   }
 
+  const showForm = () => {
+    setShowFormPost(false);
+    dispatch(getAllPostsFromCompany(company.id))
+  }
 
-  console.log(posts)
+  console.log(selector)
   return (
     <div className={style.containerCompany}>
       <Navbar />
-      {showFormPost && <PostForm />}
+      {showFormPost && <PostForm props={company.id}/>}
       <div className={style.containerInfo}>
         <div className={style.infoCompany}>
           <h2>Company</h2>
@@ -76,7 +80,8 @@ export default function HomeCompany() {
           >Create Post</Button>
           {showFormPost&&<Button variant='danger'
           className={style.buttonCancel}
-          onClick={() => setShowFormPost(false)}
+          onClick={showForm}
+
           >
             Cancel
           </Button>}
