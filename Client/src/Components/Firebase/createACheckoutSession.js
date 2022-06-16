@@ -11,7 +11,7 @@ async function createCheckoutSession(uid, cart) {
     success_url: `${process.env.REACT_APP_URL}/home` || "http://localhost:3000/home",
     cancel_url: `${process.env.REACT_APP_URL}/home` || "http://localhost:3000/home",
 
-    collect_shipping_address: true,
+    collect_shipping_address: false,
     line_items: cart.map((item) => {
       return {
         quantity: 1,

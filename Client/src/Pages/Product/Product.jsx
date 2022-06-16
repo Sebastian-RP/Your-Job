@@ -6,8 +6,9 @@ import style from "./Product.module.css";
 import Button from 'react-bootstrap/Button'
 import { addCarrito } from "../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from 'react-redux'
-
-
+import { FaShoppingCart } from "react-icons/fa";
+import swal from 'sweetalert';
+    
 async function getProduct(id){
     const colectionRef = collection(db, 'products')
     const docRef = doc(colectionRef, id)
@@ -39,9 +40,9 @@ const Product = () => {
         if(carrito){
             let repetido = carrito.filter(e => e.name == productInfo.name)
             if(repetido.length > 0){
-                alert("El elemento ya se encuentra en el carrito")
+                swal ( "Oops" ,  "El elemento ya se encuentra en el carrito" ,  "error" )
             } else{
-                alert("Elemento añadido al carrito de compras")
+                swal ( "Listo!", "Elemento añadido al carrito de compras" ,  "success" )
                 addCarrito([...new Set([...carrito, productInfo])]).then((action) => {
                     dispatch(action);
                   });
@@ -56,8 +57,7 @@ const Product = () => {
             <h2>Detalles del Producto ID: {id}</h2>
             <p>{productInfo? productInfo.description : 'Cargando...'}</p>
             <div className={style.DivButtons} >
-                <Button className={style.Button} onClick={addToCarrito} disabled={!productInfo}>Añadir a Carrito</Button>
-                {/* <button className={style.Button}>Comprar Ahora</button> */}
+                <Button className={style.Button} onClick={addToCarrito} disabled={!productInfo}><FaShoppingCart/> Añadir</Button>
             </div>
         </div>  
   )
