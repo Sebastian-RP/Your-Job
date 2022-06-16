@@ -133,3 +133,8 @@
 .cardPostulate a:hover {
     color:rgb(219, 97, 97);
 }
+.spanName:hover {
+    cursor:pointer;
+    transform: scale(1.1);
+    color: blue;
+}

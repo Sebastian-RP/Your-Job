@@ -42,6 +42,7 @@ export default function HomeUser() {
   }, [dispatch]);
 
   useEffect(() => {
+    console.log(selector)
     console.log(user.email);
     console.log(logged);
   }, [user]);
@@ -70,9 +71,8 @@ export default function HomeUser() {
   }, []);
 
   const getFilterByTechnologies = (id) => {
-    setPosts(
-      posts.filter((data) => data.technologiesId.includes(id.toString()))
-    );
+    console.log(id)
+    setPosts(posts.filter((data) => data.technologiesId.includes(id)));
   };
   const filterByCompany = (name) => {
     setPosts(posts.filter((data) => data.company.name === name));
@@ -116,6 +116,7 @@ export default function HomeUser() {
       .then((res) => alert(res.data))
       .then(() => dispatch(getPostulates(user.email)));
   };
+
 
   return (
     <div className={style.containerHome}>

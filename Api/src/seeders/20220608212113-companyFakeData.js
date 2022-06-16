@@ -20,7 +20,7 @@ module.exports = {
         
         {
           id: "aa93ab2c-90a3-43c2-9bb9-2fd992b68eeb",
-          email: "jsarabialugo@gmail.com",
+          email: chance.email(),
           name: chance.company() + " company",
           phone: chance.integer({ min: 10000000, max: 99999999 }),
           propietary_name: chance.name(),

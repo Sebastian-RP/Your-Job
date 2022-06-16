@@ -16,7 +16,10 @@ export default function ListPostulates({ props }) {
           props.map((data, index) => {
             return (
               <div key={index} className={style.cardPostulate}>
-                <span onClick={() => navigate(`/users/${data.name}`)}>
+                <span 
+                onClick={() => navigate(`/users/${data.name}`)}
+                className={style.spanName}
+                >
                   {data.name}
                 </span>
 
