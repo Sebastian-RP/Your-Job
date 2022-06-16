@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../Redux/Actions/Actions";
+import { useSelector } from "react-redux";
 import style from "./Products.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
@@ -11,7 +10,6 @@ import { GiLaurelCrown } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
 
 const Products = () => {
-  const dispatch = useDispatch();
   const productsList = useSelector((state) => state.products);
   const { user } = useAuth0();
 
@@ -26,9 +24,6 @@ const Products = () => {
   }
 
   useEffect(() => {
-    getAllProducts().then((action) => {
-      dispatch(action);
-    });
     setProducts(productsList);
     awaitLogin()
   }, []);

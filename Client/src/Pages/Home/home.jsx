@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCompanies, getAllPost } from "../../Redux/Actions/Actions";
+import { getAllCompanies, getAllPost, getAllProducts } from "../../Redux/Actions/Actions";
 import HomeCompany from "./Home_company";
 import HomeUser from "./Home_user";
 import image from './loadingJob.gif';
@@ -22,6 +22,13 @@ export default function Home() {
       // eslint-disable-next-line
       if (comp.email == user.email) {
         setIsUser(false);
+        getAllProducts("empresa").then((action) => {
+          dispatch(action);
+        });
+      } else{
+        getAllProducts("usuario").then((action) => {
+          dispatch(action);
+        });
       }
     });
     // eslint-disable-next-line

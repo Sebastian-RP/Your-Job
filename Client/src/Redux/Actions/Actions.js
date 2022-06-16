@@ -33,9 +33,9 @@ export async function getUserInfo(userName) {
   }
 }
 
-export async function getAllProducts() {
+export async function getAllProducts(selector) {
   const collectionRef = collection(db, "products");
-  const filtradoActivos = query(collectionRef, where("active", "==", true));
+  const filtradoActivos = query(collectionRef, where("metadata.tipo", "==", selector));
   const snaps = await getDocs(filtradoActivos);
   const products = [];
   for await (const snap of snaps.docs) {
