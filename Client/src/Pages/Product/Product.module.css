@@ -1,10 +1,11 @@
 .StyledProducts{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    width: 95vw;
-    height: 90vh;
+    width: 98%;
+    height: 100%;
     background-color: #697179;
     padding: 20px;
     margin: 10px;

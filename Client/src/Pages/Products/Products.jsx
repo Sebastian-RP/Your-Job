@@ -44,8 +44,11 @@ const Products = () => {
               <Button onClick={()=>navigate('/carrito')}><FaShoppingCart /> {carrito.length}</Button>
               <Button className={style.Button} onClick={()=> navigate('/home')}>Back home</Button>
             </div>
+            <div className={style.Title}>
+              <h1 className={style.TitleH1}>Servicios Premium</h1>
+            </div>
             <div className={style.Products}>
-              <p><strong>Actualmente posee los siguientes planes activos:</strong></p>
+              <p><strong>Planes activos:</strong></p>
               {plans.length > 0? plans.map(item =>{
                 return <div className={style.ActivesProducts}>
                   <GiLaurelCrown className={style.Svg}></GiLaurelCrown>
@@ -55,7 +58,6 @@ const Products = () => {
             </div>
         </div>
         <div className={style.ProductsContainer}>
-          <h1>Servicios premium</h1>
           {products ? (
             products.map((e, index) => {
               return (
