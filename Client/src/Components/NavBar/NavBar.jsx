@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { FaShoppingCart } from "react-icons/fa";
 
 export default function Navbar() {
   const { logout } = useAuth0();
@@ -23,7 +24,7 @@ export default function Navbar() {
           Profile
         </Button>
         <Button variant="success" onClick={() => navigate("/carrito")}>
-          Carrito {carrito.length}
+          <FaShoppingCart/> {carrito.length}
         </Button>
         <Button variant="success" onClick={() => navigate("/products")}>
           Premium
