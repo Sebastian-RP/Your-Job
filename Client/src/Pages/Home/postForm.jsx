@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "../../Redux/Actions/Actions";
 import style from "./homeCompany.module.css";
 
-export default function PostForm() {
+export default function PostForm({props}) {
     const selector = useSelector((state) => state);
     const dispatch = useDispatch();
     const technologies = [...selector.technologies];
     const [techArray, setTechArray] = useState([]);
+    const [clearRadio, setClearRadio] = useState(false)
     const [data, setData] = useState({
         titlePost:'',
         experience: '',
         typeof_contract: '',
         modality: '',
-        min_salary: 0,
-        max_salary: 0,
+        min_salary: null,
+        max_salary: null,
         descripcion: ''
     })
 
@@ -27,19 +28,45 @@ export default function PostForm() {
 
     const handlerSubmit = (e) => {
         e.preventDefault();
-        dispatch(createJob({...data, technologiesId:techArray}))
+        dispatch(createJob({...data, technologiesId:techArray, id : props}))
+        .then(data =>{
+          if(data.status === 200){
+            setData({
+              titlePost:'',
+              experience: '',
+              typeof_contract: '',
+              modality: '',
+              min_salary: null,
+              max_salary: null,
+              descripcion: ''
+            })
+            setClearRadio(true);
+            setTimeout(() => {
+              
+              setClearRadio(false);
+            }, 1000);
+          }
+        })
     }
-
+   
   return (
     <div className={style.containerFormPost}>
-      <div>
-        <form onSubmit={(e) => handlerSubmit(e)}>
+        <form onSubmit={(e) => handlerSubmit(e)} className={style.form}>
+         
             <div>
 
-          <input type="text" name='titlePost' placeholder="Job Applied for" onChange={(e) => handlerChange(e)}/>
+          <input className={style.inputForm} type="text" name='titlePost' placeholder="Job Applied for" onChange={(e) => handlerChange(e)} value={data.titlePost}/>
+         
+          <br />
+          <input className={style.inputForm} type="number" name='min_salary' placeholder="Min salary in USD" onChange={(e) => handlerChange(e)}  value={data.min_salary}/>
+          <br />
+          <input className={style.inputForm} type="number" name='max_salary' placeholder="Max salary in USD" onChange={(e) => handlerChange(e)}  value={data.max_salary}/>
+          <br />
+          <textarea name="descripcion" cols="30" rows="6" placeholder="Description" onChange={(e) => handlerChange(e)}  value={data.descripcion}/>
+          <br />
           <br />
           <label>Experience: </label>
-          <select name="experience" defaultValue='' onChange={(e) => handlerChange(e)}>
+          <select name="experience" defaultValue='' onChange={(e) => handlerChange(e)}  value={data.experience}>
             <option value="trainig">trainig</option>
             <option value="junior" >
               junior
@@ -50,7 +77,7 @@ export default function PostForm() {
           </select>
           <br />
           <label>type of contract: </label>
-          <select name="typeof_contract" onChange={(e) => handlerChange(e)}>
+          <select name="typeof_contract" onChange={(e) => handlerChange(e)}  value={data.typeof_contract}>
             <option value="por labor">por labor</option>
             <option value="temporal">
             temporal
@@ -61,20 +88,13 @@ export default function PostForm() {
           </select>
           <br />
           <label>Modality: </label>
-          <select name="modality" onChange={(e) => handlerChange(e)}>
+          <select name="modality" onChange={(e) => handlerChange(e)}  value={data.modality}>
             <option value="remoto">remoto</option>
             <option value="presencial" >
             presencial
             </option>
 
           </select>
-          <br />
-          <input type="number" name='min_salary' placeholder="Min salary in USD" onChange={(e) => handlerChange(e)}/>
-          <br />
-          <input type="number" name='max_salary' placeholder="Max salary in USD" onChange={(e) => handlerChange(e)}/>
-          <br />
-          <textarea name="descripcion" cols="30" rows="10" placeholder="Description" onChange={(e) => handlerChange(e)}/>
-          <br />
         </div>
         <div>
 
@@ -82,9 +102,9 @@ export default function PostForm() {
           {
             technologies.map((data, index) => {
                 return (
-                    <div key={index}>
+                    <div key={index} className={style.buttonRadio}>
+                        <input type="radio" checked={clearRadio?false:undefined}  name={data.name} id={data.name} value={data.id} onChange={(e) => setTechArray([...techArray, e.target.value])}/>
                         <label htmlFor={data.name}>{data.name}</label>
-                        <input type="radio"  name={data.name} id={data.name} value={data.id} onChange={(e) => setTechArray([...techArray, e.target.value])}/>
                     </div>
                 )
             })
@@ -92,8 +112,8 @@ export default function PostForm() {
           <br />
           <button type="submit">Submit</button>
         </div>
+        
         </form>
-      </div>
     </div>
   );
 }

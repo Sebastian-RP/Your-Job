@@ -80,3 +80,25 @@
     top: 0;
     backdrop-filter: blur(10px);
 }
+.form {
+    width: 60%;
+    height: 80%;
+    display: flex;
+    background-color: rgba(127, 255, 212, 0.647);
+    padding: 20px;
+}
+.form  div {
+    flex-grow: 1;
+    
+}
+.form .inputForm {
+    width: 60%;
+    margin-bottom: 10px;
+}
+.form select {
+    margin: 10px;
+}
+.buttonRadio {
+    display: flex;
+    align-items: center;
+}

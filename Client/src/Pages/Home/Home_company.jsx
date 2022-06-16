@@ -53,11 +53,11 @@ export default function HomeCompany() {
     setListPostulates(data);
     setShowList(true)
   }
-
+  
   return (
     <div className={style.containerCompany}>
       <Navbar />
-      {showFormPost && <PostForm />}
+      {showFormPost && <PostForm props={company.id}/>}
       <div className={style.containerInfo}>
         <div className={style.infoCompany}>
           <h2>Company</h2>
