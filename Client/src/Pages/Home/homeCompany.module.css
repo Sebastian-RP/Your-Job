@@ -29,11 +29,8 @@
     justify-content: space-around;
     align-items: center;
 }
-.info .ul {
-    display: flex;
-    gap: 10px;
-}
-.info .ul li {
+
+.info  li {
     list-style: none;
     padding: 5px;
     border: 1px solid;
@@ -45,7 +42,6 @@
 .imageCompany {
     width: 100%;
     height: 150px;
-    background-color: aqua;
 }
 .imageCompany img {
     width: 100%;
@@ -62,9 +58,11 @@
     z-index: 3;
     top: 0;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
 }
 .buttonCancel {
-    position: absolute;
+    position: fixed;
     z-index: 4;
     top: 20px;
     right:20px;
@@ -72,13 +70,14 @@
 .containerList {
     width: 100%;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 3;
     top: 0;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 .form {
     width: 60%;
@@ -111,4 +110,31 @@
     position: absolute;
     top: 20px;
     right: 220px;
+}
+.infoCard {
+    display: flex;
+    justify-content: space-around;
+}
+.cardPostulate {
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: solid 1px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.cardPostulate a {
+    text-decoration: none;
+    color: azure;
+}
+.cardPostulate a:hover {
+    color:rgb(219, 97, 97);
+}
+.spanName:hover {
+    cursor:pointer;
+    transform: scale(1.1);
+    color: blue;
 }

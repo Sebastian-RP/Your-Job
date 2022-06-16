@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../../Components/NavBar/NavBar";
 import {
+  deletePost,
   getAllCompanies,
   getAllPost,
   getAllPostsFromCompany,
@@ -58,14 +59,28 @@ export default function HomeCompany() {
     setShowFormPost(false);
     dispatch(getAllPostsFromCompany(company.id))
   }
+  const handlerDelete = (value) => {
+    dispatch(deletePost(value))
+    .then(data => {
+      if(data.status === 200) {
+        alert("job offer successsfully deleted")
+        dispatch(getAllPostsFromCompany(company.id))
+        
+      }else {
+        alert("the operation could not be carried out, please try again")
 
-  console.log(selector)
+      }
+    })
+  }
+  
   return (
     <div className={style.containerCompany}>
       <Navbar />
       {showFormPost && <PostForm props={company.id}/>}
       <div className={style.containerInfo}>
         <div className={style.infoCompany}>
+          
+
           <h2>Company</h2>
           <div className={style.imageCompany}>
             <img src={company?.image} alt="image company" />
@@ -85,20 +100,25 @@ export default function HomeCompany() {
           >
             Cancel
           </Button>}
+          
         </div>
         <div className={style.infoPost}>
 
         {posts?.map((data, index) => {
           return (
             <div className={style.cardPost} key={index} 
-            onClick={() => handlerList(data.postulates)}
+            
             >
-              <Card>
+                <button variant='danger' 
+                style={{position:'absolute',zIndex:'2', right:'10px'}}
+                onClick={() => handlerDelete(data.id)}
+                >X</button>
+              <Card onClick={() => handlerList(data.postulates)}>
                 <Card.Header as="h6">{data.titlePost}</Card.Header>
                 <Card.Body>
                   {/* <Card.Title>{data.TitlePost}</Card.Title> */}
-                  <Card.Text style={{ textAlign: "start" }}>
-                    <div className={style.info}>
+                  <Card.Text style={{ textAlign: "start" }} className={style.info}>
+                    
                       <span>
                     <strong>Experience:</strong> {data.experience}
                       </span>
@@ -109,7 +129,7 @@ export default function HomeCompany() {
                     <br />
                     <>
                     <strong>Technologies:</strong>
-                    <div className={style.ul}>
+                    
                       {data.technologiesId.map((data, i) => {
                         let tech = allTechnologies.find(
                           // eslint-disable-next-line
@@ -118,12 +138,16 @@ export default function HomeCompany() {
 
                         return <li key={i}>{tech ? tech.name : data}</li>;
                       })}
-                    </div>
+                    
                     </>
-                    </div>
+                   
                    
                   </Card.Text>
-                  <p>Created: {data.createdAt.slice(0,10)}</p>
+                  <div className={style.infoCard}>
+
+                  <span>postulates: {data.postulates.length}</span>
+                  <span>Created: {data.createdAt.slice(0,10)}</span>
+                  </div>
                 </Card.Body>
               </Card>
             </div>
