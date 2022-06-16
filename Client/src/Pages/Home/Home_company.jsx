@@ -79,6 +79,8 @@ export default function HomeCompany() {
       {showFormPost && <PostForm props={company.id}/>}
       <div className={style.containerInfo}>
         <div className={style.infoCompany}>
+          
+
           <h2>Company</h2>
           <div className={style.imageCompany}>
             <img src={company?.image} alt="image company" />
@@ -98,6 +100,7 @@ export default function HomeCompany() {
           >
             Cancel
           </Button>}
+          
         </div>
         <div className={style.infoPost}>
 
@@ -140,7 +143,11 @@ export default function HomeCompany() {
                    
                    
                   </Card.Text>
-                  <p>Created: {data.createdAt.slice(0,10)}</p>
+                  <div className={style.infoCard}>
+
+                  <span>postulates: {data.postulates.length}</span>
+                  <span>Created: {data.createdAt.slice(0,10)}</span>
+                  </div>
                 </Card.Body>
               </Card>
             </div>

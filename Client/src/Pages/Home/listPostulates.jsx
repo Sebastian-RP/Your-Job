@@ -1,29 +1,37 @@
 import style from "./homeCompany.module.css";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
+export default function ListPostulates({ props }) {
+  const navigate = useNavigate();
 
-export default function ListPostulates({props}) {
-    
-    return (
-        <div className={style.containerList}>
-            <div>
+  return (
+    <div className={style.containerList}>
+      <div>
+        <h1>Postulates</h1>
+        <br />
+        <br />
 
-            <h1>
-                Postulates
-            </h1>
-            <br />
-            <br />
+        {props.length ? (
+          props.map((data, index) => {
+            return (
+              <div key={index} className={style.cardPostulate}>
+                <span onClick={() => navigate(`/users/${data.name}`)}>
+                  {data.name}
+                </span>
 
-            {
-                props.length?props.map((data, index) => {
-                    return (
-                        <div key={index}>
-                            <span>{data.name}</span>
-                            <span>{data.url}</span>
-                        </div>
-                    )
-                }):<h3>Not Postulates</h3>
-            }
-            </div>
-        </div>
-    )
+                <Button variant="primary">
+                  <a href={data.url} download>
+                    Download CV
+                  </a>
+                </Button>
+              </div>
+            );
+          })
+        ) : (
+          <h3>Not Postulates</h3>
+        )}
+      </div>
+    </div>
+  );
 }

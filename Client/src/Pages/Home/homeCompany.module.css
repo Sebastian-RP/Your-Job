@@ -58,9 +58,11 @@
     z-index: 3;
     top: 0;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
 }
 .buttonCancel {
-    position: absolute;
+    position: fixed;
     z-index: 4;
     top: 20px;
     right:20px;
@@ -75,6 +77,7 @@
     z-index: 3;
     top: 0;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 .form {
     width: 60%;
@@ -107,4 +110,26 @@
     position: absolute;
     top: 20px;
     right: 220px;
+}
+.infoCard {
+    display: flex;
+    justify-content: space-around;
+}
+.cardPostulate {
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: solid 1px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.cardPostulate a {
+    text-decoration: none;
+    color: azure;
+}
+.cardPostulate a:hover {
+    color:rgb(219, 97, 97);
 }
