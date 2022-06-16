@@ -53,7 +53,13 @@ export default function HomeCompany() {
     setListPostulates(data);
     setShowList(true)
   }
-  
+
+  const showForm = () => {
+    setShowFormPost(false);
+    dispatch(getAllPostsFromCompany(company.id))
+  }
+
+  console.log(selector)
   return (
     <div className={style.containerCompany}>
       <Navbar />
@@ -74,7 +80,8 @@ export default function HomeCompany() {
           >Create Post</Button>
           {showFormPost&&<Button variant='danger'
           className={style.buttonCancel}
-          onClick={() => setShowFormPost(false)}
+          onClick={showForm}
+
           >
             Cancel
           </Button>}

@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "../../Redux/Actions/Actions";
 import style from "./homeCompany.module.css";
+import {Button} from 'react-bootstrap'
 
 export default function PostForm({props}) {
     const selector = useSelector((state) => state);
@@ -29,15 +30,16 @@ export default function PostForm({props}) {
     const handlerSubmit = (e) => {
         e.preventDefault();
         dispatch(createJob({...data, technologiesId:techArray, id : props}))
-        .then(data =>{
-          if(data.status === 200){
+        .then(resp =>{
+          alert(resp.data)
+          if(resp.status === 200){
             setData({
               titlePost:'',
               experience: '',
               typeof_contract: '',
               modality: '',
-              min_salary: null,
-              max_salary: null,
+              min_salary: '',
+              max_salary: '',
               descripcion: ''
             })
             setClearRadio(true);
@@ -65,7 +67,7 @@ export default function PostForm({props}) {
           <textarea name="descripcion" cols="30" rows="6" placeholder="Description" onChange={(e) => handlerChange(e)}  value={data.descripcion}/>
           <br />
           <br />
-          <label>Experience: </label>
+          <label><strong>Experience:</strong>  </label>
           <select name="experience" defaultValue='' onChange={(e) => handlerChange(e)}  value={data.experience}>
             <option value="trainig">trainig</option>
             <option value="junior" >
@@ -76,7 +78,7 @@ export default function PostForm({props}) {
 
           </select>
           <br />
-          <label>type of contract: </label>
+          <label><strong>type of contract:</strong> </label>
           <select name="typeof_contract" onChange={(e) => handlerChange(e)}  value={data.typeof_contract}>
             <option value="por labor">por labor</option>
             <option value="temporal">
@@ -87,7 +89,7 @@ export default function PostForm({props}) {
 
           </select>
           <br />
-          <label>Modality: </label>
+          <label><strong>Modality:</strong> </label>
           <select name="modality" onChange={(e) => handlerChange(e)}  value={data.modality}>
             <option value="remoto">remoto</option>
             <option value="presencial" >
@@ -98,7 +100,7 @@ export default function PostForm({props}) {
         </div>
         <div>
 
-          <label>Tecnologies:</label>
+          <label><strong>Tecnologies:</strong></label>
           {
             technologies.map((data, index) => {
                 return (
@@ -110,10 +112,11 @@ export default function PostForm({props}) {
             })
           }
           <br />
-          <button type="submit">Submit</button>
+          <Button variant='success' className={style.buttonSubmit} type="submit">Submit</Button>
         </div>
         
         </form>
+        <Button variant='primary' className={style.buttonReset}>Reset</Button>
     </div>
   );
 }

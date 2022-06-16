@@ -22,8 +22,8 @@ router.get("/:id", async (req, res) => {
   res.send(await getPostsfromCompany(id));
 });
 
-router.post("/:id", async (req, res) => {
-  const { id } = req.params
+router.post("/:companyId", async (req, res) => {
+  const { companyId } = req.params
 
   const {
     titlePost,
@@ -33,7 +33,7 @@ router.post("/:id", async (req, res) => {
     min_salary,
     max_salary,
     modality,
-    technologiesId,
+    technologiesId
   } = req.body;
 
   
@@ -69,7 +69,7 @@ router.post("/:id", async (req, res) => {
         Number(max_salary),
         modality,
         technologiesId, 
-        companyId= id
+        companyId
       );
       res.status(200).json(newPost);
     } else res.status(404).send("Faltan poner datos para el posteo");

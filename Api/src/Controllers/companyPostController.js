@@ -26,30 +26,17 @@ const getCompanyPosts = async () => {
 };
 
 const getPostsfromCompany = async (id) => {
+    
   try {
-    const company = await findCompany(id);
-    console.log(company.posts);
-    // const posts = await company.posts.map(async (id) => {
-    //   const post = await CompanyPost.findByPk(id);
-    //   return post;
-    // });
-    let posts = [];
-    for (let i = 0; i < company.posts.length; i++) {
-      const id = company.posts[i];
-      const post = await CompanyPost.findByPk(id, {
-        include: [
-          {
-            model: Postulates,
-            required: false,
-            where: {
-              companyPostId: { [Op.eq]: id },
-            },
-          },
-        ],
-      });
-      posts.push(post);
-    }
-    return posts || { error: "posts not found" };
+    const data = await CompanyPost.findAll({
+      where: {
+        companyId : id
+      },
+      include: ["postulates"]
+    })
+    
+    
+    return data || { error: "posts not found" };
   } catch (e) {
     console.error("Error in getPostsfromCompany:", e.message);
   }
@@ -63,10 +50,11 @@ const createPost = async (
   min_salary,
   max_salary,
   modality,
-  technologiesId
+  technologiesId,
+  companyId
 ) => {
   try {
-    const newPost = await CompanyPost.create({
+    await CompanyPost.create({
       titlePost,
       experience,
       typeof_contract,
@@ -75,6 +63,7 @@ const createPost = async (
       max_salary,
       modality,
       technologiesId,
+      companyId
     });
 
     return "Post created";
