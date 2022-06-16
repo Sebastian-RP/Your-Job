@@ -18,6 +18,8 @@ export default function Users() {
 
   useEffect(() => {
     console.log(username);
+    console.log(loggedUser.name);
+    console.log(ownProfile);
     getUserInfo(username).then((action) => {
       dispatch(action);
     });
@@ -46,7 +48,7 @@ export default function Users() {
             Go to home
           </Button>
           <Button
-            className={ownProfile ? null : style.none}
+            style={{ display: ownProfile ? "" : "none" }}
             onClick={() => navigate(`/users/${loggedUser.name}/edit`)}
           >
             Edit Profile
