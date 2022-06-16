@@ -5,6 +5,7 @@ const {
   getUsers,
   updateUser,
   findUserEmail,
+  deleteUser,
 } = require("../Controllers/UserController.js");
 
 const router = Router();
@@ -21,7 +22,7 @@ router.post("/login", async (req, res) => {
     nationality,
     url,
     cv,
-    premium
+    premium,
   } = req.body;
   const newUser = await createUser(
     email,
@@ -57,6 +58,11 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
   res.send(await updateUser(id, changes));
+});
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  res.send(await deleteUser(id));
 });
 
 module.exports = router;

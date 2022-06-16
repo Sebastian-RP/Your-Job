@@ -1,4 +1,5 @@
 const { Company, User } = require("../db.js");
+const { findUserId } = require("./UserController.js");
 // const User = require("../models/User.js");
 
 const createCompany = async (
@@ -26,7 +27,7 @@ const createCompany = async (
       nationality,
       description,
       employees,
-      premium
+      premium,
     });
     return "Company account created";
   } catch (error) {
@@ -53,10 +54,16 @@ const getEmployees = async (ids) => {
   const employees = [];
   for (let i = 0; i < ids.length; i++) {
     const element = ids[i];
-    let employee = await User.findByPk(element);
+    let employee = await findUserId(element);
     employees.push(employee);
   }
   return employees;
+};
+
+const deleteCompany = async (id) => {
+  const company = await findCompany(id);
+  await company.update({ status: "disabled" });
+  return company;
 };
 
 module.exports = {
@@ -65,4 +72,5 @@ module.exports = {
   getEmployees,
   findCompany,
   findCompanyEmail,
+  deleteCompany,
 };
