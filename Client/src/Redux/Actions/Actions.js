@@ -254,3 +254,16 @@ export function getUserByEmail(email) {
     return dispatch({ type: GET_USER_BY_EMAIL, payload: userEmail.data });
   };
 }
+
+export function deletePost(value) {
+  return async function() {
+
+    try {
+      const deleted = await axios.delete(`/companyPost/${value}`)
+      return deleted
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+}

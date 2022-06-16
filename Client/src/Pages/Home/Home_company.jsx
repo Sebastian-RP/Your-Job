@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../../Components/NavBar/NavBar";
 import {
+  deletePost,
   getAllCompanies,
   getAllPost,
   getAllPostsFromCompany,
@@ -58,7 +59,20 @@ export default function HomeCompany() {
     setShowFormPost(false);
     dispatch(getAllPostsFromCompany(company.id))
   }
+  const handlerDelete = (value) => {
+    dispatch(deletePost(value))
+    .then(data => {
+      if(data.status === 200) {
+        alert("job offer successsfully deleted")
+        dispatch(getAllPostsFromCompany(company.id))
+        
+      }else {
+        alert("the operation could not be carried out, please try again")
 
+      }
+    })
+  }
+  
   return (
     <div className={style.containerCompany}>
       <Navbar />
@@ -92,7 +106,10 @@ export default function HomeCompany() {
             <div className={style.cardPost} key={index} 
             
             >
-                <button variant='danger' style={{position:'absolute',zIndex:'2', right:'10px'}}>X</button>
+                <button variant='danger' 
+                style={{position:'absolute',zIndex:'2', right:'10px'}}
+                onClick={() => handlerDelete(data.id)}
+                >X</button>
               <Card onClick={() => handlerList(data.postulates)}>
                 <Card.Header as="h6">{data.titlePost}</Card.Header>
                 <Card.Body>
