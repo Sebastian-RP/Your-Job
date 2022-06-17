@@ -61,7 +61,6 @@ export default function Users() {
             onClick={() => {
               navigate("/home");
             }}
-            style={{ display: !ownProfile ? true : "none" }}
           >
             Go to home
           </Button>
