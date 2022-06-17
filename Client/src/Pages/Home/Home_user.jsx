@@ -3,6 +3,7 @@ import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
+import swal from 'sweetalert';
 import {
   getAllCompanies,
   getAllPost,
@@ -14,7 +15,6 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import image from "../Users/perfilPicture.png";
-import swal from "sweetalert";
 
 const Modality = ["remoto", "presencial"];
 const Experience = ["trainig", "junior", "semi-senior", "senior"];
@@ -130,7 +130,7 @@ export default function HomeUser() {
     const { name, url, postId } = val;
 
     dispatch(postulateJob({ name, url, postId }))
-      .then((res) => alert(res.data))
+      .then((res) => swal("Listo!",res.data,"success"))
       .then(() => dispatch(getPostulates(user.email)));
   };
 
