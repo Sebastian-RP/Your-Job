@@ -15,7 +15,6 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import image from "../Users/perfilPicture.png";
-import swal from "sweetalert";
 
 const Modality = ["remoto", "presencial"];
 const Experience = ["trainig", "junior", "semi-senior", "senior"];
