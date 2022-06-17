@@ -5,6 +5,13 @@ const cookieParser = require("cookie-parser");
 const { conn } = require("./db.js");
 const app = express();
 const routes = require("./routes.js");
+const { loaderCompanyData } = require("./Loaders/Company/fakeCompany.js")
+const { loaderUserData } = require("./Loaders/User/fakeUser.js")
+const { loaderTechnologyData } = require("./Loaders/Technologies/fakeTechnologies.js")
+const { loaderCompanyPostData } = require("./Loaders/CompanyPost/fakeCompanyPost.js")
+const { loaderUserPostData } = require("./Loaders/UserPost/fakeUserPosts")
+const { loaderPostulatesData } = require("./Loaders/Postulates/fakePostulate")
+const { LoadData } = require("./Loaders/runServerData")
 
 const { executeComand } = require("./config/addData.js");
 //Middlewares
@@ -33,13 +40,18 @@ app.use((err, req, res, next) => {
   res.status(status).send(message);
 });
 
-const deleteDB = true;
+const deleteDB = true;//en true el sembrado falla
 
 app.listen(process.env.PORT || 3001, () => {
+  
   console.log("Server listening on port 3001!");
   conn.sync({ force: deleteDB });
 
-  executeComand(deleteDB); //llena la Bd si deleteDB= true
+  setTimeout(function name() { //espero que se borre y se cree de nuevo los campos de DB
+    LoadData(deleteDB)
+  }, 2000);
+    
+  // executeComand(deleteDB); //llena la Bd si deleteDB= true  
 });
 
 // app.use(require("./Routes/index"));

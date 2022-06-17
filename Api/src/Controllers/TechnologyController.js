@@ -33,6 +33,21 @@ const getTechnologies = async () => {
   }
 };
 
+const createTechnologies = async (name) => {
+  try {
+    let [techX, created] = await Technology.findOrCreate({
+      where: { name: name },
+        default: {
+          name: name,
+        },
+    })
+    // console.log("successful technology creation");
+  } catch (error) {
+    console.error("Error in createTechnology:", error.message);
+  }
+}
+
 module.exports = {
   getTechnologies,
+  createTechnologies
 };
