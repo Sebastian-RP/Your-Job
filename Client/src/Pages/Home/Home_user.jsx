@@ -48,6 +48,7 @@ export default function HomeUser() {
     console.log(selector);
     console.log(user?.email);
     console.log(logged);
+    dispatch(getUserByEmail(user?.email));
     // eslint-disable-next-line
   }, [user]);
 
