@@ -22,7 +22,24 @@ const getUserPosts = async () => {
     }
 };
 
+const createPostUser = async(
+  titlePost,
+  userId,
+  descripcion,
+) => {
+  try {
+    await UserPost.create({
+      titlePost,
+      userId,
+      descripcion
+    })
+  } catch (error) {
+    console.error("Error in createUserPost:", error.message);
+  }
+}
+
 module.exports = {
-    getUserPosts
+    getUserPosts,
+    createPostUser
 };
   
