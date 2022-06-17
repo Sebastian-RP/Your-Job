@@ -3,6 +3,7 @@ import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
+import swal from 'sweetalert';
 import {
   getAllCompanies,
   getAllPost,
@@ -35,10 +36,10 @@ export default function HomeUser() {
   const postulatesUser = selector.postulatesUser;
 
   useEffect(() => {
-    dispatch(getAllPost());
-    dispatch(getAllCompanies());
-    dispatch(getAllTechnologies());
-    dispatch(getUserByEmail(user.email));
+      dispatch(getAllPost());
+      dispatch(getAllCompanies());
+      dispatch(getAllTechnologies());
+      dispatch(getUserByEmail(user.email));
     // eslint-disable-next-line
   }, [dispatch]);
 
@@ -115,7 +116,7 @@ export default function HomeUser() {
     const { name, url, postId } = val;
 
     dispatch(postulateJob({ name, url, postId }))
-      .then((res) => alert(res.data))
+      .then((res) => swal("Listo!",res.data,"success"))
       .then(() => dispatch(getPostulates(user.email)));
   };
 
