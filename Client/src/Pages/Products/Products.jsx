@@ -22,6 +22,7 @@ const Products = () => {
 
   const awaitLogin = async () => {
     UserPlans = await getAllPayments(user);
+    console.log(UserPlans)
     if(UserPlans.length > 0) setPlans(UserPlans)
     if(UserPlans.length === 0) setPlans(["No posee planes activos"])
   }
@@ -49,10 +50,20 @@ const Products = () => {
               <p><strong>Planes activos:</strong></p>
               {plans.length > 0? plans.map(item =>{
                 return <div className={style.ActivesProducts}>
-                  {item.hasOwnProperty(item)? <GiLaurelCrown className={style.Svg}></GiLaurelCrown> : null} 
-                  {item.hasOwnProperty(item)? <p>{item.items[0].price.product.name}</p> :<p>{item}</p>} 
+                  {item.hasOwnProperty("items")? <GiLaurelCrown className={style.Svg}></GiLaurelCrown> : null} 
+                  {item.hasOwnProperty("items")? <p>{item.items[0].price.product.name}</p> :<p>{item}</p>}
                 </div> 
               }) : <p>Cargando planes activos...</p> }
+              {plans.length > 0? plans.map(item =>{
+                return <div className={style.ActivesProducts}>
+                  {item.hasOwnProperty("items")? item.items.length > 1 ?
+                    <>
+                      <GiLaurelCrown className={style.Svg}></GiLaurelCrown>
+                      <p>{item.items[1].price.product.name}</p>
+                    </>
+                  : null : null}
+                  </div> 
+              }) : null }
             </div>
         </div>
         <div className={style.ProductsContainer}>
