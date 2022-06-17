@@ -39,11 +39,10 @@ const deleteDB = true;//en true el sembrado falla
 app.listen(process.env.PORT || 3001, () => {
   
   console.log("Server listening on port 3001!");
-  conn.sync({ force: deleteDB });
+  conn.sync({ force: deleteDB })
+  .then(() =>  LoadData(deleteDB))
 
-  setTimeout(function name() { //espero que se borre y se cree de nuevo los campos de DB
-    LoadData(deleteDB)
-  }, 2000);
+  
     
   // executeComand(deleteDB); //llena la Bd si deleteDB= true  
 });
