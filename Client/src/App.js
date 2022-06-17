@@ -33,6 +33,7 @@ function App() {
       <Route path={"/product/:id"} element={<Product />} />
       <Route path={"/messenger"} element={<Messenger />} />
       <Route path={"/forum"} element={<Forum />} />
+      <Route path={"/forum/create"} element={<Forum />} />
     </Routes>
   );
 }

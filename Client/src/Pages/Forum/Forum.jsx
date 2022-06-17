@@ -1,12 +1,11 @@
 import style from "./Forum.module.css";
-import Post from "../../Components/Post/Post";
-import { Link } from "react-router-dom";
-import AdPost from "../../Components/AdPost/AdPost";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useLocation } from "react-router-dom";
+import Advertisement from "../../Components/Advertisment/Advertisment";
+import ForumPosts from "../../Components/ForumPosts/ForumPosts";
+import ForumCreatePost from "../../Components/ForumCreatePost/ForumCreatePost";
 export default function Forum() {
-  const Posts = ["Jose Peña", "Raul Diaz", "Jeronimo Perez", "Armando Lio", "Rodrigo Marte", "Benjamin Andujar", "Mata lluvia", "Rosa melina"];
   const Follows = ["Jeronimo Perez", "Armando Lio", "Rodrigo Marte", "Benjamin Andujar"];
-  const { isAuthenticated, isLoading, user } = useAuth0();
+  const isCreatingPost = !useLocation().pathname.split("/").includes("create");
   return (
     <>
       <header className={style.header}>
@@ -19,11 +18,11 @@ export default function Forum() {
           <hr />
           <h4>Profile</h4>
           <hr />
-          <div>
-            <p>View posts</p>
-            <p>Create a post</p>
-            <p>Messages</p>
-            <p>Notifications</p>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Link to={"../forum"}>View posts</Link>
+            <Link to={"/forum/create"}>Create a post</Link>
+            <Link to={"../messenger"}>Messages</Link>
+            <Link to={"/forum/create"}>Notifications</Link>
           </div>
           <hr />
           <h4>Follows</h4>
@@ -52,24 +51,14 @@ export default function Forum() {
             })}
           </div>
         </aside>
-        <section className={style.container}>
-          <h2>Posts</h2>
-          <hr />
-          <ul className={style.posts}>
-            {Posts.map((author, index) => {
-              return <Post key={author + "_" + index} Author={author} />;
-            })}
-          </ul>
-        </section>
-        <aside className={style.announces}>
-          <h2>Advertisements</h2>
-          <ul>
-            <hr />
-            <AdPost Company={"L&R Commercial"} />
-            <AdPost Company={"Optica Oviedo"} />
-            <AdPost Company={"Banco Popular"} />
-          </ul>
-        </aside>
+        {isCreatingPost ? (
+          <>
+            <ForumPosts />
+            <Advertisement />
+          </>
+        ) : (
+          <ForumCreatePost />
+        )}
       </main>
     </>
   );

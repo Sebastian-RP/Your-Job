@@ -3,17 +3,20 @@ export default function Post({ Author, Message }) {
   return (
     <>
       <li className={style.post}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "20%", margin: "30px 0px" }}>
+        <div className={style.profile}>
           <img src="https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg" alt="" width={"50px"} />
           <p>{Author}</p>
           <p>{Math.floor(Math.random() * 24)}:00 PM</p>
-          <button>Follow</button>
+          <button className={style.button}>Follow</button>
         </div>
-        <div style={{ width: "60%", margin: "0px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores sequi animi voluptate quas magni dicta repellat unde ipsum, aspernatur
-          corrupti velit alias officia, laudantium dolorem itaque, expedita modi natus corporis!
-          <button style={{ margin: "20px 0px" }}>Know more</button>
-          <ul style={{ display: "flex", width: "100%", justifyContent: "space-between", listStyle: "none", marginTop: "10px" }}>
+        <div className={style.container}>
+          <h4 className={style.title}>Trabajando de gratis</h4>
+          <p className={style.description}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores sequi animi voluptate quas magni dicta repellat unde ipsum, aspernatur
+            corrupti velit alias officia, laudantium dolorem itaque, expedita modi natus corporis!
+          </p>
+          <button className={style.button}>Know more</button>
+          <ul className={style.menu__interaction}>
             <li>
               <i className="fa-regular fa-message"></i> {Math.floor(Math.random() * 1000)}
             </li>
