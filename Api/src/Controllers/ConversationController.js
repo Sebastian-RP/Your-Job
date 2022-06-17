@@ -10,13 +10,13 @@ const createText = async (id, texto, senderId) => {
       await conversacion.update({
       text: [message]
     })
-    return conversacion
+    return message
   } else if (conversacion.text){
     let edit = conversacion.text[0].concat(message)
     await conversacion.update({
       text: [edit]
     })
-    return conversacion
+    return message
     }
     }catch(error){
     console.error("Error in createText:", error);
@@ -48,9 +48,19 @@ const createConversation = async (senderId, receiverId) => {
     }
   }
 
+  const conversationById = async(ID) => {
+    try{
+      const conversation = await Conversation.findByPk(ID)
+      return conversation
+    }catch (error){
+      console.error("Error in conversationById:", error);
+    }
+  }
+
 module.exports = {
     createConversation,
     getConversation,
-    createText
+    createText,
+    conversationById
   };
   

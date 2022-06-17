@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
-// import Store from "./Redux/Stores/Store.js";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -26,6 +25,8 @@ root.render(
                   domain="dev-zgaxo6rs.us.auth0.com"
                   clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
                   redirectUri="https://your-job-seven.vercel.app/home"
+                  // redirectUri="http://localhost:3001//home"
+
                 >
                   <App />
                 </Auth0Provider>

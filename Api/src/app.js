@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const { conn } = require("./db.js");
 const app = express();
 const routes = require("./routes.js");
+const { LoadData } = require("./Loaders/runServerData")
 
 const { executeComand } = require("./config/addData.js");
 //Middlewares
@@ -36,10 +37,14 @@ app.use((err, req, res, next) => {
 const deleteDB = true;
 
 app.listen(process.env.PORT || 3001, () => {
+  
   console.log("Server listening on port 3001!");
-  conn.sync({ force: deleteDB });
+  conn.sync({ force: deleteDB })
+  .then(() =>  LoadData(deleteDB))
 
-  executeComand(deleteDB); //llena la Bd si deleteDB= true
+  
+    
+  // executeComand(deleteDB); //llena la Bd si deleteDB= true  
 });
 
 // app.use(require("./Routes/index"));

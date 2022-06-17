@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../Redux/Actions/Actions";
+import { useSelector } from "react-redux";
 import style from "./Products.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
@@ -11,24 +10,24 @@ import { GiLaurelCrown } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
 
 const Products = () => {
-  const dispatch = useDispatch();
   const productsList = useSelector((state) => state.products);
-  const { user } = useAuth0();
-
+  const { user } = useAuth0()
   const [products, setProducts] = useState(null);
   const [plans, setPlans] = useState([]);
   const carrito = useSelector((state)=> state.carrito)
 
   const navigate = useNavigate()
 
-  const awaitLogin = async () => {  
-    setPlans(await getAllPayments(user))
+  var UserPlans = []
+
+  const awaitLogin = async () => {
+    UserPlans = await getAllPayments(user);
+    console.log(UserPlans)
+    if(UserPlans.length > 0) setPlans(UserPlans)
+    if(UserPlans.length === 0) setPlans(["No posee planes activos"])
   }
 
   useEffect(() => {
-    getAllProducts().then((action) => {
-      dispatch(action);
-    });
     setProducts(productsList);
     awaitLogin()
   }, []);
@@ -51,10 +50,20 @@ const Products = () => {
               <p><strong>Planes activos:</strong></p>
               {plans.length > 0? plans.map(item =>{
                 return <div className={style.ActivesProducts}>
-                  <GiLaurelCrown className={style.Svg}></GiLaurelCrown>
-                  <p>{item.items[0].price.product.name}</p>
+                  {item.hasOwnProperty("items")? <GiLaurelCrown className={style.Svg}></GiLaurelCrown> : null} 
+                  {item.hasOwnProperty("items")? <p>{item.items[0].price.product.name}</p> :<p>{item}</p>}
                 </div> 
               }) : <p>Cargando planes activos...</p> }
+              {plans.length > 0? plans.map(item =>{
+                return <div className={style.ActivesProducts}>
+                  {item.hasOwnProperty("items")? item.items.length > 1 ?
+                    <>
+                      <GiLaurelCrown className={style.Svg}></GiLaurelCrown>
+                      <p>{item.items[1].price.product.name}</p>
+                    </>
+                  : null : null}
+                  </div> 
+              }) : null }
             </div>
         </div>
         <div className={style.ProductsContainer}>

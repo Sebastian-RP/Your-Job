@@ -6,6 +6,8 @@ import { getUserInfo } from "../../Redux/Actions/Actions";
 import image from "./perfilPicture.png";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
+import axios from 'axios';
+
 
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -15,6 +17,7 @@ export default function Users() {
   const { username } = useParams();
   const loggedUser = useSelector((state) => state.myUser);
   const [ownProfile, setOwnProfile] = useState(false);
+  
 
   useEffect(() => {
     console.log(username);
@@ -22,7 +25,7 @@ export default function Users() {
     console.log(ownProfile);
     getUserInfo(username).then((action) => {
       dispatch(action);
-    });
+    })
     if (loggedUser.name === username) {
       setOwnProfile(true);
     }
@@ -31,6 +34,20 @@ export default function Users() {
 
   //----------------------------------
   const userData = useSelector((state) => state.user);
+
+
+  const sendMessage = async () => {
+    try{
+      const res = await axios.get(`/users/` + username)
+      let conversation = {senderId: loggedUser.id, receiverId: res.data.id}
+      await axios.post("/conversation/", conversation)
+      navigate("/messenger")
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  //----------------------------------
 
   return (
     <div className={style.containerPerfil}>
@@ -44,8 +61,14 @@ export default function Users() {
             onClick={() => {
               navigate("/home");
             }}
+            style={{ display: !ownProfile ? true : "none" }}
           >
             Go to home
+          </Button>
+          <Button
+          onClick={sendMessage}
+          style={{ display: !ownProfile ? "" : "none" }}
+          >Message
           </Button>
           <Button
             style={{ display: ownProfile ? "" : "none" }}
