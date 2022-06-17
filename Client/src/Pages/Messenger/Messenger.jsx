@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import axios from 'axios';
 import style from "./Messenger.module.css"
-import Conversation from '../../Components/Conversation/Conversation.jsx'
+import Conversation from '../../Components/Conversation/conversation.jsx'
 import Message from '../../Components/Message/Message.jsx'
 import ChatOnline from "../../Components/ChatOnline/ChatOnline.jsx"
 import Navbar from "../../Components/NavBar/NavBar.jsx"
