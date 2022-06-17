@@ -47,7 +47,7 @@ const findUser = async (user) => {
 
 const findUserEmail = async (email) => {
   const user = await User.findOne({ where: { email: email } });
-  if (user.status === "disabled") return { warning: "user deleted" };
+  if (user?.status === "disabled") return { warning: "user deleted" };
   return user || { error: "user not found" };
 };
 
