@@ -52,12 +52,14 @@ const Product = () => {
 
   return (
         <div className={style.StyledProducts} >
-            <Button className={style.Button} onClick={()=> navigate('/products')}>Back</Button>
-            <h1>{productInfo? productInfo.name : 'Cargando...'}</h1>
-            <h2>Detalles del Producto ID: {id}</h2>
-            <p>{productInfo? productInfo.description : 'Cargando...'}</p>
-            <div className={style.DivButtons} >
-                <Button className={style.Button} onClick={addToCarrito} disabled={!productInfo}><FaShoppingCart/> Añadir</Button>
+            <div className={`bg-dark p-2 text-light bg-opacity-50 ${style.ProductContainer}`}>
+                <Button className={style.Button} onClick={()=> navigate('/products')}>Back</Button>
+                <h1>{productInfo? productInfo.name : 'Cargando...'}</h1>
+                <h2>Detalles del Producto ID: {id}</h2>
+                <p>{productInfo? productInfo.description : 'Cargando...'}</p>
+                <div className={style.DivButtons} >
+                    <Button className={style.Button} onClick={addToCarrito} disabled={!productInfo}><FaShoppingCart/> Añadir</Button>
+                </div>
             </div>
         </div>  
   )
