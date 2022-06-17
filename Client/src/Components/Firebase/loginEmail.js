@@ -28,7 +28,10 @@ async function loginEmail(user, password, carrito) {
                 if((element.stripe_metadata_clase === "segunda") && (array.find(element => element.items[0].price.product.metadata.clase === "segunda"))){
                     return "Posees un plan premium 2 activo"
                 }
-                if((element.stripe_metadata_clase === "primera")||(element.stripe_metadata_clase === "primera")){
+                if(array[0].items.length>1){
+                    return "Tenes ambos planes activos"
+                }
+                if((element.stripe_metadata_clase === "primera")||(element.stripe_metadata_clase === "segunda")){
                     return result.user.uid
                 }
             }
