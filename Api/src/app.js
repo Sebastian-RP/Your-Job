@@ -34,7 +34,7 @@ app.use((err, req, res, next) => {
   res.status(status).send(message);
 });
 
-const deleteDB = true;//en true el sembrado falla
+const deleteDB = true;
 
 app.listen(process.env.PORT || 3001, () => {
   
