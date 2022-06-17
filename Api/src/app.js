@@ -5,12 +5,6 @@ const cookieParser = require("cookie-parser");
 const { conn } = require("./db.js");
 const app = express();
 const routes = require("./routes.js");
-const { loaderCompanyData } = require("./Loaders/Company/fakeCompany.js")
-const { loaderUserData } = require("./Loaders/User/fakeUser.js")
-const { loaderTechnologyData } = require("./Loaders/Technologies/fakeTechnologies.js")
-const { loaderCompanyPostData } = require("./Loaders/CompanyPost/fakeCompanyPost.js")
-const { loaderUserPostData } = require("./Loaders/UserPost/fakeUserPosts")
-const { loaderPostulatesData } = require("./Loaders/Postulates/fakePostulate")
 const { LoadData } = require("./Loaders/runServerData")
 
 const { executeComand } = require("./config/addData.js");
