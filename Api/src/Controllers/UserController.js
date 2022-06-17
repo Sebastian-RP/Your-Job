@@ -41,19 +41,19 @@ const createUser = async (
 };
 const findUser = async (user) => {
   const result = await User.findOne({ where: { name: user } });
-  if (user.status === "disabled") return { warning: "user deleted" };
+  if (user && user.status === "disabled") return { warning: "user deleted" };
   return result || { error: "user not found" };
 };
 
 const findUserEmail = async (email) => {
   const user = await User.findOne({ where: { email: email } });
-  if (user.status === "disabled") return { warning: "user deleted" };
+  if (user && user.status === "disabled") return { warning: "user deleted" };
   return user || { error: "user not found" };
 };
 
 const findUserId = async (id) => {
   const user = await User.findByPk(id);
-  if (user.status === "disabled") return { warning: "user deleted" };
+  if (user && user.status === "disabled") return { warning: "user deleted" };
   return user || { error: "user not found" };
 };
 
