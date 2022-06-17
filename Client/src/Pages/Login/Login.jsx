@@ -5,7 +5,7 @@ import image from "../../image/img.png";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, loginWithPopup } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
   const navigate = useNavigate();
@@ -34,13 +34,23 @@ export default function Login() {
               </button>
             </>
           ) : (
-            <button
-              onClick={() => {
-                loginWithRedirect();
-              }}
-            >
-              Log in
-            </button>
+            <>
+              <button
+                onClick={() => {
+                  loginWithPopup();
+                }}
+              >
+                Log in
+              </button>
+              <br />
+              <button
+                onClick={() => {
+                  navigate("/home");
+                }}
+              >
+                Continue
+              </button>
+            </>
           )}
 
           <div>
