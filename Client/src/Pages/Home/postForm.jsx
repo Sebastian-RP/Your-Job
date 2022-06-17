@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "../../Redux/Actions/Actions";
 import style from "./homeCompany.module.css";
 import {Button} from 'react-bootstrap'
+import swal from 'sweetalert';
 
 export default function PostForm({props}) {
     const selector = useSelector((state) => state);
@@ -35,13 +36,13 @@ export default function PostForm({props}) {
         .then(resp =>{
           try {
 
-            alert(resp.data)
+            swal("Listo!",resp.data, "success");
             if(resp.status === 200){
               handlerReset()
             }
           } catch{
 
-            alert("Request has not been received: try again!")
+            swal("Listo!","Request has not been received: try again!","error")
             handlerReset()
           }
           
