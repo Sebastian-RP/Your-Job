@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./Products.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +8,8 @@ import getAllPayments from "../../Components/Firebase/getAllPayments";
 import { GiLaurelCrown } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
 import styled from "styled-components";
+import { getAllProducts } from "../../Redux/Actions/Actions";
+
 
 const Products = () => {
   const productsList = useSelector((state) => state.products);
@@ -15,7 +17,7 @@ const Products = () => {
   const [products, setProducts] = useState(null);
   const [plans, setPlans] = useState([]);
   const carrito = useSelector((state)=> state.carrito)
-
+  const dispatch = useDispatch();
   const navigate = useNavigate()
 
   var UserPlans = []
