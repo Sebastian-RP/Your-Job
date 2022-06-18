@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { AiOutlineUser, AiOutlinePoweroff, AiOutlineStar } from "react-icons/ai";
-
+import swal from "sweetalert";
 import styled from "styled-components";
 
 export default function Navbar() {
@@ -19,18 +19,23 @@ export default function Navbar() {
       <Title2>YourJob</Title2>
       <SearchBar />
       <div>
-        <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
-          <AiOutlineUser/>
-        </Button>
+        
         <Button onClick={() => navigate("/carrito")}>
           <FaShoppingCart/> {carrito.length}
         </Button>
         <Button onClick={() => navigate("/products")}>
           <AiOutlineStar/> | Premium
         </Button>
-        <ButtonOff onClick={() => logout({ returnTo: window.location.origin })}>
-          <AiOutlinePoweroff/>
-        </ButtonOff>
+        {isAuthenticate && (
+          <>
+            <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
+              <AiOutlineUser/>
+            </Button>
+            <ButtonOff onClick={() => logout({ returnTo: window.location.origin })}>
+              <AiOutlinePoweroff/>
+            </ButtonOff>
+          </>
+        )}
       </div>
     </div>
   );

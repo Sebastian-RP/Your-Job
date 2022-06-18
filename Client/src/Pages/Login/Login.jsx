@@ -34,7 +34,7 @@ export default function Login() {
           ) : (
             <Button
               onClick={() => {
-                loginWithRedirect();
+                loginWithPopup();
               }}
             >
               Log in

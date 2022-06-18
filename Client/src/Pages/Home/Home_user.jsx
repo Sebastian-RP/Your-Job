@@ -122,7 +122,6 @@ export default function HomeUser() {
 
   return (
     <div className={style.containerHome}>
-      {isAuthenticated ? (
         <>
           <Navbar />
           {showPage ? (
@@ -131,7 +130,7 @@ export default function HomeUser() {
                 <div className={style.filters}>
                   <div className={style.image}>
                       <img src={user.picture} alt="profile_picture" />
-                      <p>Welcome {user.name}!</p>
+                      <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
                       {posts !== selector.posts && (
                         <Button
                           variant="success"
@@ -330,9 +329,6 @@ export default function HomeUser() {
             <p>Loading...</p>
           )}
         </>
-      ) : (
-        logout({ returnTo: window.location.origin })
-      )}
     </div>
   );
 }
