@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import style from "./Products.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
 import { useAuth0 } from "@auth0/auth0-react";
 import getAllPayments from "../../Components/Firebase/getAllPayments";
 import { GiLaurelCrown } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
+import styled from "styled-components";
 
 const Products = () => {
   const productsList = useSelector((state) => state.products);
@@ -44,7 +44,7 @@ const Products = () => {
               <Button className={style.Button} onClick={()=> navigate('/home')}>Back home</Button>
             </div>
             <div className={style.Title}>
-              <h1 className={style.TitleH1}>Servicios Premium</h1>
+              <Title2>Servicios Premium</Title2>
             </div>
             <div className={`bg-dark p-2 text-light bg-opacity-50 ${style.Products}`}>
               <p><strong>Planes activos:</strong></p>
@@ -90,3 +90,34 @@ const Products = () => {
 };
 
 export default Products;
+
+
+const Button = styled.button`
+  background-color: #1C5D99;
+  border-radius: 5px;
+  border: 1px solid white;
+  color: white;
+  padding: 7px 10px 7px 10px ;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: all 300ms;
+
+  &:hover {
+    color: #222222;
+    background-color: #FFFFFF;
+  }
+`;
+
+
+const Title2 = styled.h1`
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #dddddd;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;

@@ -137,16 +137,28 @@ export default function HomeUser() {
 
   return (
     <div className={style.containerHome}>
-      <>
-        <Navbar />
-        {showPage ? (
-          <>
-            <div className={style.containerActions}>
-              <div className={style.filters}>
-                <Accordion>
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>Technologies</Accordion.Header>
-                    {allTechnologies?.map((d, i) => {
+        <>
+          <Navbar />
+          {showPage ? (
+            <>
+              <div className={style.containerActions}>
+                <div className={style.filters}>
+                  <div className={style.image}>
+                      <img src={user.picture} alt="profile_picture" />
+                      <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
+                      {posts !== selector.posts && (
+                        <Button
+                          variant="success"
+                          onClick={() => setPosts(selector.posts)}
+                        >
+                          Clear Filter
+                        </Button>
+                      )}
+                  </div>
+                  <Accordion>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>Technologies</Accordion.Header>
+                      {allTechnologies?.map((d, i) => {
                       return (
                         <Accordion.Body
                           style={{ padding: "5px", cursor: "pointer" }}
@@ -228,24 +240,8 @@ export default function HomeUser() {
                 </Accordion>
               </div>
               <div className={style.infoPost}>
-                <div className={style.image}>
-                  <img
-                    src={user ? user.picture : image}
-                    alt="profile_picture"
-                  />
-
-                  <h3>{logged.error ? "Guest" : logged.name}</h3>
-                  {posts !== selector.posts && (
-                    <Button
-                      variant="success"
-                      onClick={() => setPosts(selector.posts)}
-                    >
-                      Clear Filter
-                    </Button>
-                  )}
-                </div>
                 <div className={style.columnInfoRight}>
-                  <h3>suggestions</h3>
+                  <h3>Suggestions</h3>
                   <>
                     {suggestions.map((data, index) => (
                       <Card
@@ -351,3 +347,4 @@ export default function HomeUser() {
     </div>
   );
 }
+
