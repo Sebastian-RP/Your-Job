@@ -42,8 +42,6 @@ app.listen(process.env.PORT || 3001, () => {
   conn.sync({ force: deleteDB })
   .then(() =>  LoadData(deleteDB))
 
-  
-    
   // executeComand(deleteDB); //llena la Bd si deleteDB= true  
 });
 
