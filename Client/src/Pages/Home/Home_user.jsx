@@ -272,7 +272,7 @@ export default function HomeUser() {
                         <div className={style.cardPost} key={index}>
                           <Card>
                             <Card.Header as="h5">
-                              <label>Oferta Laboral</label> -{" "}
+                              <label>Job Offer</label> -{" "}
                               <label
                                 className={style.companyName}
                                 onClick={() => {
