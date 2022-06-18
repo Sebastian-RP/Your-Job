@@ -8,6 +8,7 @@ import {
   getAllCompanies,
   getAllPost,
   getAllPostsFromCompany,
+  getAllProducts
 } from "../../Redux/Actions/Actions";
 import { Button, Card } from "react-bootstrap";
 import style from "./homeCompany.module.css";
@@ -37,6 +38,10 @@ export default function HomeCompany() {
     if (company) {
       dispatch(getAllPostsFromCompany(company.id));
     }
+    getAllProducts("empresa").then((res) => {
+      dispatch(res);
+    }
+    );
     // eslint-disable-next-line
   }, [company]);
 

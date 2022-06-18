@@ -11,6 +11,7 @@ import {
   getPostulates,
   getUserByEmail,
   postulateJob,
+  getAllProducts,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -72,6 +73,10 @@ export default function HomeUser() {
   useEffect(() => {
     setTimeout(() => {
       setShowPage(true);
+      getAllProducts("usuario").then((res) => {
+        dispatch(res);
+      }
+      );
     }, 2000);
   }, []);
 
