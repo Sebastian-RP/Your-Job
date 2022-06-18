@@ -11,17 +11,15 @@ async function getAllPayments(user) {
             return userCredential.user;
         })
         .catch((error) => {
-            return error.code;
+            return error.name;
         });
-
         const result = await signInWithEmailAndPassword( auth, user.email, "123456");
         let userID = result.user.uid;
         let array = await getPaymentsByUID(userID);
         return array
         
     } catch (error) {
-        console.log(error);
-        return error;
+        return "error";
     }
 }
 

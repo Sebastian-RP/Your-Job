@@ -5,8 +5,10 @@ const Checkout = () => {
 
   return (
     <div className={style.contenedor}>
-      <h1>Esperando redireccionamiento a pagina de pago. </h1>
-      <p>Por favor, aguarde...</p>
+      <div>
+        <h1>Waiting for redirection to payment page. </h1>
+        <p>Please wait...</p>
+      </div>
     </div>
   )
 }

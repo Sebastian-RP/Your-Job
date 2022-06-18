@@ -23,13 +23,13 @@ async function loginEmail(user, password, carrito) {
         }else {
             userID = carrito.map(element => {
                 if((element.stripe_metadata_clase === "primera") && (array.find(element => element.items[0].price.product.metadata.clase === "primera"))){
-                    return "Posees un plan premium 1 activo"
+                    return "You have an active premium plan 1"
                 }
                 if((element.stripe_metadata_clase === "segunda") && (array.find(element => element.items[0].price.product.metadata.clase === "segunda"))){
-                    return "Posees un plan premium 2 activo"
+                    return "You have an active premium plan 2"
                 }
                 if(array[0].items.length>1){
-                    return "Tenes ambos planes activos"
+                    return "You have both active plans"
                 }
                 if((element.stripe_metadata_clase === "primera")||(element.stripe_metadata_clase === "segunda")){
                     return result.user.uid

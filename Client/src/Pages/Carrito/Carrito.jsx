@@ -31,10 +31,10 @@ const Carrito = () => {
             } 
         }
         if(!isAuthenticated){
-            swal ( "Oops" ,  "Para realizar una compra debes estar autenticado" ,  "error" )   
+            swal ( "Oops" ,  "To make a purchase you must be authenticated" ,  "error" )   
         }
         if(carrito.length === 0){
-            swal ( "Oops" ,  "Para realizar una compra debes añadir elementos al carrito" ,  "error" )   
+            swal ( "Oops" ,  "To make a purchase you must add items to the cart" ,  "error" )   
         }
     };
 
@@ -44,7 +44,7 @@ const Carrito = () => {
             dispatch(action);
         }
         )
-        swal ( "Listo" ,  "Elemento eliminado del carrito" ,  "success" )   
+        swal ( "Ready" ,  "Item removed from cart" ,  "success" )   
     }
 
     const handledEmpty = (e) => {
@@ -53,7 +53,7 @@ const Carrito = () => {
             dispatch(action);
         }
         )
-        swal ( "Listo" ,  "Carrito vacio" ,  "success" )   
+        swal ( "Ready" ,  "Empty cart" ,  "success" )   
     }
 
     return (
