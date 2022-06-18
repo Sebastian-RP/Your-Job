@@ -1,8 +1,8 @@
 // import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import style from "./Login.module.css";
-import image from "../../image/img.png";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 export default function Login() {
   const { loginWithRedirect } = useAuth0();
@@ -12,35 +12,33 @@ export default function Login() {
 
   return (
     <div className={style.containerLogin}>
-      <h1>YourJob</h1>
+      <Title>Welcome to</Title>
+      <Title2>YourJob</Title2>
       <div className={style.login}>
-        <div className={style.image}>
-          <img src={image} alt="" />
-        </div>
         <div>
           {isAuthenticated ? (
             <>
-              <button
+              <Button
                 className={style.continue}
                 onClick={() => navigate("/home")}
               >
                 Continue
-              </button>
-              <button
+              </Button>
+              <Button
                 className={style.logout}
                 onClick={() => logout({ returnTo: window.location.origin })}
               >
-                log out
-              </button>
+                Log out
+              </Button>
             </>
           ) : (
-            <button
+            <Button
               onClick={() => {
                 loginWithRedirect();
               }}
             >
               Log in
-            </button>
+            </Button>
           )}
 
           <div>
@@ -59,3 +57,42 @@ export default function Login() {
     </div>
   );
 }
+
+
+const Button = styled.button`
+  background-color: #1C5D99;
+  border-radius: 5px;
+  border: 1px solid white;
+  color: white;
+  padding: 7px 10px 7px 10px ;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: all 300ms;
+
+  &:hover {
+    color: #222222;
+    background-color: #FFFFFF;
+  }
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #639FAB;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const Title2 = styled.h1`
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #dddddd;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;

@@ -1,10 +1,12 @@
 import SearchBar from "../SearchBar/SearchBar";
 import style from "./Navbar.module.css";
-import { Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
+import { AiOutlineUser, AiOutlinePoweroff, AiOutlineStar } from "react-icons/ai";
+
+import styled from "styled-components";
 
 export default function Navbar() {
   const { logout } = useAuth0();
@@ -14,28 +16,61 @@ export default function Navbar() {
 
   return (
     <div className={style.containerNavbar}>
-      <h1>YourJob</h1>
+      <Title2>YourJob</Title2>
       <SearchBar />
       <div>
-        <Button
-          variant="success"
-          onClick={() => navigate(`/users/${loggedUser.name}`)}
-        >
-          Profile
+        <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
+          <AiOutlineUser/>
         </Button>
-        <Button variant="success" onClick={() => navigate("/carrito")}>
+        <Button onClick={() => navigate("/carrito")}>
           <FaShoppingCart/> {carrito.length}
         </Button>
-        <Button variant="success" onClick={() => navigate("/products")}>
-          Premium
+        <Button onClick={() => navigate("/products")}>
+          <AiOutlineStar/> | Premium
         </Button>
-        <Button
-          variant="danger"
-          onClick={() => logout({ returnTo: window.location.origin })}
-        >
-          LogOut
-        </Button>
+        <ButtonOff onClick={() => logout({ returnTo: window.location.origin })}>
+          <AiOutlinePoweroff/>
+        </ButtonOff>
       </div>
     </div>
   );
 }
+
+
+const Button = styled.button`
+  background-color: #1C5D99;
+  border-radius: 5px;
+  color: white;
+  padding: 7px 10px 7px 10px ;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: all 300ms;
+
+  &:hover {
+    color: #222222;
+    background-color: #FFFFFF;
+  }
+`;
+
+const ButtonOff = styled(Button)`
+  background-color: #639FAB;
+
+  &:hover {
+    color: #222222;
+    background-color: #FFFFFF;
+  }
+
+  `;
+
+const Title2 = styled.h1`
+font-size: 2.5rem;
+font-weight: bold;
+color: #dddddd;
+text-align: center;
+margin-top: 10px;
+margin-bottom: 10px;
+`;

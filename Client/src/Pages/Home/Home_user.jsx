@@ -129,6 +129,18 @@ export default function HomeUser() {
             <>
               <div className={style.containerActions}>
                 <div className={style.filters}>
+                  <div className={style.image}>
+                      <img src={user.picture} alt="profile_picture" />
+                      <p>Welcome {user.name}!</p>
+                      {posts !== selector.posts && (
+                        <Button
+                          variant="success"
+                          onClick={() => setPosts(selector.posts)}
+                        >
+                          Clear Filter
+                        </Button>
+                      )}
+                  </div>
                   <Accordion>
                     <Accordion.Item eventKey="0">
                       <Accordion.Header>Technologies</Accordion.Header>
@@ -214,21 +226,8 @@ export default function HomeUser() {
                   </Accordion>
                 </div>
                 <div className={style.infoPost}>
-                  <div className={style.image}>
-                    <img src={user.picture} alt="profile_picture" />
-
-                    <h3>{logged.name}</h3>
-                    {posts !== selector.posts && (
-                      <Button
-                        variant="success"
-                        onClick={() => setPosts(selector.posts)}
-                      >
-                        Clear Filter
-                      </Button>
-                    )}
-                  </div>
                   <div className={style.columnInfoRight}>
-                    <h3>suggestions</h3>
+                    <h3>Suggestions</h3>
                     <>
                       {suggestions.map((data, index) => (
                         <Card
@@ -259,7 +258,7 @@ export default function HomeUser() {
                           <div className={style.cardPost} key={index}>
                             <Card>
                               <Card.Header as="h5">
-                                <label>Oferta Laboral</label> -{" "}
+                                <label>Job Offer</label> -{" "}
                                 <label
                                   className={style.companyName}
                                   onClick={() => {
@@ -337,3 +336,4 @@ export default function HomeUser() {
     </div>
   );
 }
+
