@@ -32,7 +32,7 @@ export default function Home() {
     // eslint-disable-next-line
   }, [user]);
   useEffect(() => {
-    if (loggedCompany?.length > 0) {
+    if (loggedCompany) {
       setIsUser(false);
     } else {
       setIsUser(true);
