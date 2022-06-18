@@ -3,7 +3,7 @@ import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 import {
   getAllCompanies,
   getAllPost,
@@ -131,34 +131,34 @@ export default function HomeUser() {
     const { name, url, postId } = val;
 
     dispatch(postulateJob({ name, url, postId }))
-      .then((res) => swal("Listo!",res.data,"success"))
+      .then((res) => swal("Listo!", res.data, "success"))
       .then(() => dispatch(getPostulates(user.email)));
   };
 
   return (
     <div className={style.containerHome}>
-        <>
-          <Navbar />
-          {showPage ? (
-            <>
-              <div className={style.containerActions}>
-                <div className={style.filters}>
-                  <div className={style.image}>
-                      <img src={user.picture} alt="profile_picture" />
-                      <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
-                      {posts !== selector.posts && (
-                        <Button
-                          variant="success"
-                          onClick={() => setPosts(selector.posts)}
-                        >
-                          Clear Filter
-                        </Button>
-                      )}
-                  </div>
-                  <Accordion>
-                    <Accordion.Item eventKey="0">
-                      <Accordion.Header>Technologies</Accordion.Header>
-                      {allTechnologies?.map((d, i) => {
+      <>
+        <Navbar />
+        {showPage ? (
+          <>
+            <div className={style.containerActions}>
+              <div className={style.filters}>
+                <div className={style.image}>
+                  <img src={user.picture} alt="profile_picture" />
+                  <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
+                  {posts !== selector.posts && (
+                    <Button
+                      variant="success"
+                      onClick={() => setPosts(selector.posts)}
+                    >
+                      Clear Filter
+                    </Button>
+                  )}
+                </div>
+                <Accordion>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Technologies</Accordion.Header>
+                    {allTechnologies?.map((d, i) => {
                       return (
                         <Accordion.Body
                           style={{ padding: "5px", cursor: "pointer" }}
@@ -276,11 +276,11 @@ export default function HomeUser() {
                               <label
                                 className={style.companyName}
                                 onClick={() => {
-                                  navigate(`/users/${data.company.name}`);
+                                  navigate(`/users/${data.company?.name}`);
                                 }}
                               >
                                 {" "}
-                                {data.company.name}{" "}
+                                {data.company?.name}{" "}
                               </label>
                             </Card.Header>
                             <Card.Body>
@@ -347,4 +347,3 @@ export default function HomeUser() {
     </div>
   );
 }
-
