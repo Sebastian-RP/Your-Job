@@ -20,7 +20,7 @@ export default function Home() {
   const companies = [...selector.companies];
   const loggedUser = useSelector((state) => state.myUser);
   const loggedCompany = useSelector((state) => state.myCompany);
-  console.log(loggedCompany)
+  console.log(loggedCompany);
   useEffect(() => {
     dispatch(getAllCompanies());
     dispatch(getAllPost());
@@ -32,7 +32,7 @@ export default function Home() {
     // eslint-disable-next-line
   }, [user]);
   useEffect(() => {
-    if (loggedCompany) {
+    if (!loggedCompany.hasOwnProperty("error")) {
       setIsUser(false);
     } else {
       setIsUser(true);
