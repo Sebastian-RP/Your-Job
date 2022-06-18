@@ -16,6 +16,7 @@ export const GET_ALL_POSTULATES_FROM_POST = "GET_ALL_POSTULATES_FROM_POST";
 export const CLEAR_CARRITO = "CLEAR_CARRITO";
 export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
+export const GET_COMPANY_BY_EMAIL = "GET_COMPANY_BY_EMAIL";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -249,6 +250,13 @@ export function getUserByEmail(email) {
   return async function (dispatch) {
     const userEmail = await axios.get("/users/profile?email=" + email);
     return dispatch({ type: GET_USER_BY_EMAIL, payload: userEmail.data });
+  };
+}
+
+export function getCompanyByEmail(email) {
+  return async function (dispatch) {
+    const companyEmail = await axios.get("/company/profile?email=" + email);
+    return dispatch({ type: GET_COMPANY_BY_EMAIL, payload: companyEmail.data });
   };
 }
 

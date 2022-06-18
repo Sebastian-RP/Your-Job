@@ -5,6 +5,8 @@ import {
   getAllCompanies,
   getAllPost,
   getAllProducts,
+  getCompanyByEmail,
+  getUserByEmail,
 } from "../../Redux/Actions/Actions";
 import HomeCompany from "./Home_company";
 import HomeUser from "./Home_user";
@@ -16,10 +18,25 @@ export default function Home() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const companies = [...selector.companies];
+  const loggedUser = useSelector((state) => state.myUser);
+  const loggedCompany = useSelector((state) => state.myCompany);
   useEffect(() => {
     dispatch(getAllCompanies());
     dispatch(getAllPost());
   }, [dispatch]);
 
-  return <HomeUser />;
+  useEffect(() => {
+    dispatch(getUserByEmail(user?.email));
+    dispatch(getCompanyByEmail(user?.email));
+    // eslint-disable-next-line
+  }, [user]);
+  useEffect(() => {
+    if (loggedCompany) {
+      setIsUser(false);
+    } else {
+      setIsUser(true);
+    }
+    console.log(isUser);
+  }, [loggedUser, loggedCompany]);
+  return isUser ? <HomeUser /> : <HomeCompany />;
 }
