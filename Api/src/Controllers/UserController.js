@@ -39,10 +39,10 @@ const createUser = async (
     console.error("Error in createUser:", error);
   }
 };
-const findUser = async (user) => {
-  const result = await User.findOne({ where: { name: user } });
+const findUser = async (username) => {
+  const user = await User.findOne({ where: { name: username } });
   if (user && user.status === "disabled") return { warning: "user deleted" };
-  return result || { error: "user not found" };
+  return user || { error: "user not found" };
 };
 
 const findUserEmail = async (email) => {
