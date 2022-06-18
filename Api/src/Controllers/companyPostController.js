@@ -1,6 +1,7 @@
 const { CompanyPost, Company, Postulates, Op } = require("../db.js");
 const { findCompany } = require("./CompanyController.js");
 
+
 const getCompanyPosts = async () => {
   try {
     const PostCreated = await CompanyPost.findAll({
