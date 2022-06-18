@@ -71,3 +71,8 @@
 .danger {
   color: red;
 }
+
+.Form-control {
+  display: flex;
+  border-radius: 0px;
+}

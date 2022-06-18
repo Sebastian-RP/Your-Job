@@ -9,17 +9,40 @@ import swal from "sweetalert";
 import styled from "styled-components";
 
 export default function Navbar() {
-  const { logout } = useAuth0();
+  const { logout, isAuthenticate } = useAuth0();
   const navigate = useNavigate();
   const carrito = useSelector((state) => state.carrito);
   const loggedUser = useSelector((state) => state.myUser);
+
+ 
+  const handlerPerfile = () => {
+    if (loggedUser.error) {
+      return swal({
+        title: "Oops!",
+        text: "It seems like you haven't finished your profile, click Ok to finish it!",
+        icon: "warning",
+        buttons: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          navigate(`/onboarding`);
+        } else {
+          swal({
+            title: "are you sure?",
+            icon: "warning",
+          });
+        }
+      });
+    }else {
+      navigate(`/user/${loggedUser.name}`)
+    }
+  };
 
   return (
     <div className={style.containerNavbar}>
       <Title2>YourJob</Title2>
       <SearchBar />
       <div>
-        
+      
         <Button onClick={() => navigate("/carrito")}>
           <FaShoppingCart/> {carrito.length}
         </Button>

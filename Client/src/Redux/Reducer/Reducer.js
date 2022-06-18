@@ -12,6 +12,7 @@ import {
   CLEAR_CARRITO,
   GET_CONVERSATIONS,
   GET_USER_BY_EMAIL,
+  GET_COMPANY_BY_EMAIL,
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -27,6 +28,7 @@ const initialState = {
   carrito: [],
   conversations: [],
   myUser: [],
+  myCompany: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -81,18 +83,23 @@ export default function rootReducer(state = initialState, action) {
     case ADD_CARRITO:
       return {
         ...state,
-        carrito : action.payload
+        carrito: action.payload,
       };
-    case CLEAR_CARRITO : 
+    case CLEAR_CARRITO:
       return {
         ...state,
-        carrito : action.payload
+        carrito: action.payload,
       };
     case GET_USER_BY_EMAIL:
       console.log(action.payload);
       return {
         ...state,
         myUser: action.payload,
+      };
+    case GET_COMPANY_BY_EMAIL:
+      return {
+        ...state,
+        myCompany: action.payload,
       };
     default:
       return { ...state };

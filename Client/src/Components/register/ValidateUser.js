@@ -17,8 +17,5 @@ export default function validateUser(input) {
   if (input.name && !input.name.match(/^[a-z ,.'-]+$/i)) {
     errors.name = "Please enter a valid name";
   }
-  if (input.age && (input.age > 100 || input.age < 10)) {
-    errors.age = "Please enter a valid age";
-  }
   return errors;
 }

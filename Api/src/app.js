@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const { conn } = require("./db.js");
 const app = express();
 const routes = require("./routes.js");
-const { LoadData } = require("./Loaders/runServerData")
+const { LoadData } = require("./Loaders/runServerData");
 
 const { executeComand } = require("./config/addData.js");
 //Middlewares
@@ -15,9 +15,15 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://your-job-seven.vercel.app");
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://your-job-seven.vercel.app"
+  );
   res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
@@ -37,13 +43,9 @@ app.use((err, req, res, next) => {
 const deleteDB = true;
 
 app.listen(process.env.PORT || 3001, () => {
-  
   console.log("Server listening on port 3001!");
-  conn.sync({ force: deleteDB })
-  .then(() =>  LoadData(deleteDB))
+  conn.sync({ force: deleteDB }).then(() => LoadData(deleteDB));
 
-  
-    
   // executeComand(deleteDB); //llena la Bd si deleteDB= true  
 });
 
