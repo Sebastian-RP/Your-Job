@@ -114,7 +114,25 @@ const fakeCompanyPostData = [
   [chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 })],
   idsCompany[15]
   ],
+  [chance.sentence(), "trainig", "termino indefinido",
+  chance.paragraph(), chance.integer({ min: 10, max: 50 }),
+  chance.integer({ min: 50, max: 120 }), "presencial",
+  [chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 })],
+  idsCompany[15]
+  ],
   [chance.sentence(), "junior", "temporal",
+  chance.paragraph(), chance.integer({ min: 10, max: 50 }),
+  chance.integer({ min: 50, max: 120 }), "presencial",
+  [chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 })],
+  idsCompany[16]
+  ],
+  [chance.sentence(), "trainig", "temporal",
+  chance.paragraph(), chance.integer({ min: 10, max: 50 }),
+  chance.integer({ min: 50, max: 120 }), "presencial",
+  [chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 })],
+  idsCompany[16]
+  ],
+  [chance.sentence(), "senior", "temporal",
   chance.paragraph(), chance.integer({ min: 10, max: 50 }),
   chance.integer({ min: 50, max: 120 }), "presencial",
   [chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 }), chance.integer({ min: 1, max: 11 })],

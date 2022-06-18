@@ -20,7 +20,7 @@ const LoadData = async (force) => {
 
         await loaderUserPostData()
         
-        // loaderPostulatesData();
+        await loaderPostulatesData();
     }
 }
 
