@@ -23,8 +23,9 @@ const Products = () => {
   const awaitLogin = async () => {
     UserPlans = await getAllPayments(user);
     console.log(UserPlans)
-    if(UserPlans.length > 0) setPlans(UserPlans)
-    if(UserPlans.length === 0) setPlans(["No posee planes activos"])
+    if(UserPlans.length > 0 ) setPlans(UserPlans)
+    if(UserPlans.length === 0) setPlans(["Does not have active plans"])
+    if(UserPlans.includes("error")) setPlans(["To see your plans you must log in"])
   }
 
   useEffect(() => {
@@ -44,16 +45,16 @@ const Products = () => {
               <Button className={style.Button} onClick={()=> navigate('/home')}>Back home</Button>
             </div>
             <div className={style.Title}>
-              <Title2>Servicios Premium</Title2>
+              <Title2>Premium services</Title2>
             </div>
             <div className={`bg-dark p-2 text-light bg-opacity-50 ${style.Products}`}>
-              <p><strong>Planes activos:</strong></p>
+              <p><strong>Active plans:</strong></p>
               {plans.length > 0? plans.map(item =>{
                 return <div className={style.ActivesProducts}>
                   {item.hasOwnProperty("items")? <GiLaurelCrown className={style.Svg}></GiLaurelCrown> : null} 
                   {item.hasOwnProperty("items")? <p>{item.items[0].price.product.name}</p> :<p>{item}</p>}
                 </div> 
-              }) : <p>Cargando planes activos...</p> }
+              }) : <p>Loading active plans...</p> }
               {plans.length > 0? plans.map(item =>{
                 return <div className={style.ActivesProducts}>
                   {item.hasOwnProperty("items")? item.items.length > 1 ?
@@ -75,7 +76,7 @@ const Products = () => {
                     <h3><GiLaurelCrown className={style.Svg}></GiLaurelCrown> {e.name}</h3>
                     <p>{e.description}</p>
                     <p>
-                      <strong>Plan mensual de ${e.prices.unit_amount / 100} {e.prices.currency}</strong>  
+                      <strong>Monthly plan of ${e.prices.unit_amount / 100} {e.prices.currency}</strong>  
                     </p>
                   </div>
                 </Link>
