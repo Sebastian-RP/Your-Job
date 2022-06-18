@@ -9,9 +9,9 @@ const {
 const router = Router();
 
 router.post("/", async (req, res) => {
-  const { name, url, postId } = req.body;
+  const { name, url, companyPostId } = req.body;
   try {
-    res.send(await postulatesPost(name, url, postId));
+    res.send(await postulatesPost(name, url, companyPostId));
   } catch (error) {
     res.send({ message: error.message });
   }
