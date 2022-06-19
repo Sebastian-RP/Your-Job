@@ -29,8 +29,8 @@ const createCompany = async (
       employees,
       premium,
     });
-    
-    return "Company account created";
+
+    return newCompany;
   } catch (error) {
     console.error("Error in createCompany:", error.message);
   }

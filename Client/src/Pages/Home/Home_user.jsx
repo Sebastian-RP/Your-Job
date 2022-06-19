@@ -75,8 +75,7 @@ export default function HomeUser() {
       setShowPage(true);
       getAllProducts("usuario").then((res) => {
         dispatch(res);
-      }
-      );
+      });
     }, 2000);
   }, []);
 
@@ -149,7 +148,7 @@ export default function HomeUser() {
             <div className={style.containerActions}>
               <div className={style.filters}>
                 <div className={style.image}>
-                  <img src={user.picture} alt="profile_picture" />
+                  <img src={user?.picture} alt="profile_picture" />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
                   {posts !== selector.posts && (
                     <Button

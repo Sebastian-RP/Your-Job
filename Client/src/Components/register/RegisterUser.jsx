@@ -299,7 +299,7 @@ export default function RegisterUser({ props }) {
       name: input.name,
       employment_status: empleado,
       age: dob,
-      image: "no image",
+      image: user?.picture,
       description: input.desc,
       technologies: selectedTechs,
       nationality: country,

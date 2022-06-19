@@ -8,12 +8,13 @@ import {
   getAllCompanies,
   getAllPost,
   getAllPostsFromCompany,
-  getAllProducts
+  getAllProducts,
 } from "../../Redux/Actions/Actions";
 import { Button, Card } from "react-bootstrap";
 import style from "./homeCompany.module.css";
 import PostForm from "./postForm";
 import ListPostulates from "./listPostulates";
+import Image from "../Users/perfilPicture.png";
 
 export default function HomeCompany() {
   const { user } = useAuth0();
@@ -40,8 +41,7 @@ export default function HomeCompany() {
     }
     getAllProducts("empresa").then((res) => {
       dispatch(res);
-    }
-    );
+    });
     // eslint-disable-next-line
   }, [company]);
 
@@ -73,7 +73,7 @@ export default function HomeCompany() {
         <div className={style.infoCompany}>
           <h2>Company</h2>
           <div className={style.imageCompany}>
-            <img src={company?.image} alt="image company" />
+            <img src={company?.image} alt={Image} />
           </div>
           <div className={style.infoCompany}>
             <p>

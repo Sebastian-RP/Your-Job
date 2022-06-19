@@ -256,6 +256,7 @@ export default function RegisterCompany({ props }) {
       name: input.name,
       propietary_name: input.prop_name,
       phone: parseInt(input.phone),
+      image: user?.picture,
       address: input.address,
       url: input.linkedin,
       nationality: country,
