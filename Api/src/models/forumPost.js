@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       content: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       user: { type: DataTypes.STRING, allowNull: false },
@@ -16,6 +16,6 @@ module.exports = (sequelize) => {
       dislikes: { type: DataTypes.INTEGER, defaultValue: 0 },
       comments: { type: DataTypes.ARRAY(DataTypes.STRING), defaultValue: [] },
     },
-    { timestamps: false }
+    { timestamps: true }
   );
 };

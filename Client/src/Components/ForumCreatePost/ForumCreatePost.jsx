@@ -2,6 +2,7 @@ import style from "./ForumCreatePost.module.css";
 import TextArea from "../TextArea/TextArea";
 import { useState } from "react";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 async function submitHandler(e, state) {
   e.preventDefault();
@@ -19,8 +20,11 @@ function changeHandler(e, state, setState) {
 }
 
 export default function ForumCreatePost() {
-  const [state, setState] = useState({ title: "", content: "", user: "Jose" });
-
+  const { isAuthenticated, user } = useAuth0();
+  const [state, setState] = useState({ title: "", content: "", user: isAuthenticated ? user.name : "Guest" });
+  if (!user?.name && isAuthenticated) setState({ ...state, user: user.name });
+  const date = new Date();
+  console.log(`${date.getUTCHours()}:${date.getUTCMinutes()}:${date.getUTCSeconds()}`);
   return (
     <section className={style.container}>
       <h1>Create post</h1>

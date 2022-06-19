@@ -29,6 +29,10 @@
   border-right: 1px solid #222;
 }
 
+.menu > img {
+  border-radius: 50%;
+}
+
 hr {
   border: 0;
   clear: both;

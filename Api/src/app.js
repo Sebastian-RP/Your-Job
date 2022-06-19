@@ -15,19 +15,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
 app.use((req, res, next) => {
-<<<<<<< HEAD
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-=======
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://your-job-seven.vercel.app"
-  );
->>>>>>> 814ebae35d4d754093839e642b52d3dfeb828f02
+  // res.header("Access-Control-Allow-Origin", "https://your-job-seven.vercel.app");
   res.header("Access-Control-Allow-Credentials", "true");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
