@@ -42,7 +42,7 @@ hr {
   height: 1px;
 }
 
-button {
+.button {
   border: 1px solid #222;
   padding: 3px 20px;
 }
