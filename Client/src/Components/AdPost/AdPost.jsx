@@ -9,7 +9,7 @@ export default function AdPost({ Company, Message }) {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quis nesciunt similique? Distinctio velit dolorem quia iusto? Dolorem
           nostrum suscipit, aut voluptatem animi tempore accusantium natus illum dolor itaque nisi.
         </p>
-        <button>Contact</button>
+        <button className={style.button}>Contact</button>
       </li>
       <hr />
     </>

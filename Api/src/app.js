@@ -15,15 +15,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
 app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://your-job-seven.vercel.app"
-  );
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  // res.header("Access-Control-Allow-Origin", "https://your-job-seven.vercel.app");
   res.header("Access-Control-Allow-Credentials", "true");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
@@ -46,7 +41,7 @@ app.listen(process.env.PORT || 3001, () => {
   console.log("Server listening on port 3001!");
   conn.sync({ force: deleteDB }).then(() => LoadData(deleteDB));
 
-  // executeComand(deleteDB); //llena la Bd si deleteDB= true  
+  // executeComand(deleteDB); //llena la Bd si deleteDB= true
 });
 
 // app.use(require("./Routes/index"));

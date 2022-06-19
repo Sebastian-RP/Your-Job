@@ -1,27 +1,46 @@
 import style from "./Post.module.css";
-export default function Post({ Author, Message }) {
+
+function getTimeAgo(hours) {
+  let timeAgo = hours;
+  if (Math.floor(timeAgo) >= 1) {
+    return Math.floor(timeAgo) + " hours";
+  } else if (timeAgo * 60 >= 1) {
+    return Math.floor(timeAgo * 60) + " minutes ago";
+  } else {
+    return "Few seconds ago";
+  }
+  return timeAgo;
+}
+
+export default function Post({ data }) {
+  const { user, content, title, likes, dislikes, comments, createdAt } = data;
+  const date = new Date();
+  const createdTime = createdAt;
+  const currentTime = date.toISOString(date.getDate());
+  const time = (new Date(currentTime).getTime() - new Date(createdTime).getTime()) / 1000 / 60 / 60;
+
   return (
     <>
       <li className={style.post}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "20%", margin: "30px 0px" }}>
-          <img src="https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg" alt="" width={"50px"} />
-          <p>{Author}</p>
-          <p>{Math.floor(Math.random() * 24)}:00 PM</p>
-          <button>Follow</button>
+        <div className={style.profile}>
+          <img src="https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg" alt="" />
+          <p>{user}</p>
+          <p>{getTimeAgo(time)}</p>
+          <button className={style.button}>Follow</button>
         </div>
-        <div style={{ width: "60%", margin: "0px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores sequi animi voluptate quas magni dicta repellat unde ipsum, aspernatur
-          corrupti velit alias officia, laudantium dolorem itaque, expedita modi natus corporis!
-          <button style={{ margin: "20px 0px" }}>Know more</button>
-          <ul style={{ display: "flex", width: "100%", justifyContent: "space-between", listStyle: "none", marginTop: "10px" }}>
+        <div className={style.container}>
+          <h4 className={style.title}>{title}</h4>
+          <p className={style.description}>{content}</p>
+          <button className={style.button}>Know more</button>
+          <ul className={style.menu__interaction}>
             <li>
-              <i className="fa-regular fa-message"></i> {Math.floor(Math.random() * 1000)}
+              <i className="fa-regular fa-message"></i> {comments.length}
             </li>
             <li>
-              <i className="fa-regular fa-heart"></i> {Math.floor(Math.random() * 1000)}{" "}
+              <i className="fa-regular fa-heart"></i> {likes}
             </li>
             <li>
-              <i className="fa-regular fa-face-angry"></i> {Math.floor(Math.random() * 1000)}
+              <i className="fa-regular fa-face-angry"></i> {dislikes}
             </li>
           </ul>
         </div>
