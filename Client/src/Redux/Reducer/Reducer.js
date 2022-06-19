@@ -13,6 +13,7 @@ import {
   GET_CONVERSATIONS,
   GET_USER_BY_EMAIL,
   GET_COMPANY_BY_EMAIL,
+  CREATE_COMPANY,
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -97,6 +98,12 @@ export default function rootReducer(state = initialState, action) {
         myUser: action.payload,
       };
     case GET_COMPANY_BY_EMAIL:
+      return {
+        ...state,
+        myCompany: action.payload,
+      };
+    case CREATE_COMPANY:
+      console.log(action.payload);
       return {
         ...state,
         myCompany: action.payload,
