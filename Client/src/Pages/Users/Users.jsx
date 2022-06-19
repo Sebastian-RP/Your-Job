@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserInfo } from "../../Redux/Actions/Actions";
 import image from "./perfilPicture.png";
-import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import axios from 'axios';
+import Navbar from "../../Components/NavBar/NavBar";
 
 
 export default function Users() {
@@ -50,70 +50,78 @@ export default function Users() {
   //----------------------------------
 
   return (
-    <div className={style.containerPerfil}>
-      <div className={style.header}>
-        <div className={style.picture}>
-          <img src={image} alt="perfil" />
-          <h2>{username}</h2>
-        </div>
-        <div>
-          <Button
-            onClick={() => {
-              navigate("/home");
-            }}
-          >
-            Go to home
-          </Button>
-          <Button
-          onClick={sendMessage}
-          style={{ display: !ownProfile ? "" : "none" }}
-          >Message
-          </Button>
-          <Button
-            style={{ display: ownProfile ? "" : "none" }}
-            onClick={() => navigate(`/users/${loggedUser.name}/edit`)}
-          >
-            Edit Profile
-          </Button>
-        </div>
-      </div>
-      <div className={style.suggestions}>
-        <h2>Suggestions</h2>
-      </div>
-      <div className={style.perfilInfo}>
-        <div className={style.about}>
+    <>
+      <Navbar />
+      <div className={style.containerPerfil}>
+        <div className={style.header}>
           <h2>About</h2>
-          <p>Status: {userData?.employment_status}</p>
-          <p>Email: {userData?.email}</p>
-          <p>Age: {userData?.age}</p>
-          <p>Nationality: {userData?.nationality}</p>
-          Technologies:
-          <ul>
-            {userData.technologiesName?.map((d, i) => {
-              return <li key={i}>{d}</li>;
-            })}
-          </ul>
-        </div>
-        <div className={style.info}>
-          <h2>info</h2>
-          <p>{userData?.description}</p>
           <hr />
-
-          <div style={{ textAlign: "right" }}>
-            <Button
+          <div className={style.picture}>
+            <img src={image} alt="perfil" />
+            <h2>{username}</h2>
+          </div>
+          <div className={style.about}>
+            <p>Status: {userData?.employment_status}</p>
+            <p>Email: {userData?.email}</p>
+            <p>Age: {userData?.age}</p>
+            <p>Nationality: {userData?.nationality}</p>
+            Technologies:
+            <ul>
+              {userData.technologiesName?.map((d, i) => {
+                return <li key={i}>{d}</li>;
+              })}
+            </ul>
+          </div>
+        </div>
+        <div className={style.suggestions}>
+          <div>
+            <button className={style.Button}
               onClick={() => {
-                window.open(
-                  "https://" + userData.cv + "/",
-                  "_blank",
-                  "noopener,noreferrer"
-                );
+                navigate("/home");
               }}
-            >
-              download CV
-            </Button>
+              >
+                Go to home
+              </button>
+              <button
+              className={style.Button}
+              onClick={sendMessage}
+              style={{ display: !ownProfile ? "" : "none" }}
+              >
+                Message
+              </button>
+              <button
+              className={style.Button}
+                style={{ display: ownProfile ? "" : "none" }}
+                onClick={() => navigate(`/users/${loggedUser.name}/edit`)}
+              >
+                Edit Profile
+              </button>
+          </div>
+          <h2>Suggestions</h2>
+        </div>
+        <div className={style.perfilInfo}>
+          <div className={style.info}>
+            <h2>Information</h2>
+            <p>{userData?.description}</p>
+            <hr />
+
+            <div style={{ textAlign: "right" }}>
+              <button
+                className={style.Button}
+                onClick={() => {
+                  window.open(
+                    "https://" + userData.cv + "/",
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
+                }}
+              >
+                Download CV
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
