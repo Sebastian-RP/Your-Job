@@ -312,7 +312,7 @@ export default function HomeUser() {
                                   })}
                                 </>
                               </Card.Text>
-                              <Button
+                              <button className={style.Button}
                                 variant={
                                   postId.includes(data.id)
                                     ? "secondary"
@@ -332,7 +332,7 @@ export default function HomeUser() {
                                 {postId.includes(data.id)
                                   ? "Request sent"
                                   : "Apply"}
-                              </Button>
+                              </button>
                             </Card.Body>
                           </Card>
                         </div>
