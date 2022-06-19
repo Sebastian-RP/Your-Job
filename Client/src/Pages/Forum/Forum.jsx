@@ -3,9 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import Advertisement from "../../Components/Advertisment/Advertisment";
 import ForumPosts from "../../Components/ForumPosts/ForumPosts";
 import ForumCreatePost from "../../Components/ForumCreatePost/ForumCreatePost";
+import { useAuth0 } from "@auth0/auth0-react";
 export default function Forum() {
   const Follows = ["Jeronimo Perez", "Armando Lio", "Rodrigo Marte", "Benjamin Andujar"];
   const isCreatingPost = !useLocation().pathname.split("/").includes("create");
+  const { isAuthenticated, user } = useAuth0();
   return (
     <>
       <header className={style.header}>
@@ -13,8 +15,13 @@ export default function Forum() {
       </header>
       <main className={style.main}>
         <aside className={style.menu}>
-          <img src="https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg" alt="" width={"100px"} style={{ marginTop: "20px" }} />
-          <h3 style={{ marginTop: "20px" }}>José Peña</h3>
+          <img
+            src={isAuthenticated ? user.picture : "https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg"}
+            alt=""
+            width={"100px"}
+            style={{ marginTop: "20px" }}
+          />
+          <h3 style={{ marginTop: "20px" }}>{isAuthenticated ? user.name : "Guest"}</h3>
           <hr />
           <h4>Profile</h4>
           <hr />
@@ -34,17 +41,11 @@ export default function Forum() {
                   key={`${follow}_${index}`}
                   style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", width: "100%", marginTop: "20px" }}
                 >
-                  <img
-                    src="https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg"
-                    alt=""
-                    width={"50px"}
-                    // style={{ marginTop: "20px" }}
-                  />
+                  <img src="https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg" alt="" width={"50px"} />
                   <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", width: "80%" }}>
                     <Link to="/" style={{ marginLeft: "20px", marginBottom: "0px" }}>
                       {follow}
                     </Link>
-                    {/* <button>Visit</button> */}
                   </div>
                 </div>
               );
@@ -57,7 +58,7 @@ export default function Forum() {
             <Advertisement />
           </>
         ) : (
-          <ForumCreatePost />
+          <ForumCreatePost user={user} />
         )}
       </main>
     </>

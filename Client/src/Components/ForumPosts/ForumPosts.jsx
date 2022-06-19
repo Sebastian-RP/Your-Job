@@ -1,16 +1,23 @@
 import style from "./ForumPosts.module.css";
 import Post from "../Post/Post";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function ForumPosts() {
-  const Posts = ["Jose Peña", "Raul Diaz", "Jeronimo Perez", "Armando Lio", "Rodrigo Marte", "Benjamin Andujar", "Mata lluvia", "Rosa melina"];
-
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:3001/forum/posts").then(({ data }) => {
+      setPosts(data.sort((a, b) => b.id - a.id));
+    });
+  }, []);
   return (
     <section className={style.container}>
       <h2>Posts</h2>
       <hr />
       <ul className={style.posts}>
-        {Posts.map((author, index) => {
-          return <Post key={author + "_" + index} Author={author} />;
+        {posts.map((post, index) => {
+          return <Post key={post.user + "_" + index} data={post} />;
         })}
       </ul>
     </section>
