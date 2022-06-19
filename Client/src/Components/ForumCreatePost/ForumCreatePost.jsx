@@ -3,12 +3,17 @@ import TextArea from "../TextArea/TextArea";
 import { useState } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
-
-async function submitHandler(e, state) {
+import swal from "sweetalert";
+async function submitHandler(e, state, setState) {
   e.preventDefault();
   try {
-    console.log(await axios.post("http://localhost:3001/forum/post", { ...state }).data);
+    const response = await axios.post("http://localhost:3001/forum/post", { ...state });
+    if (response.status === 200) {
+      setState({ title: "", content: "", user: state.user });
+      swal({ title: "Create Post", text: "Your post has been posted", icon: "success" });
+    }
   } catch (e) {
+    swal({ title: "Create Post", text: "An error has ocurred", icon: "error" });
     console.error(e.message);
   }
 }
@@ -23,12 +28,10 @@ export default function ForumCreatePost() {
   const { isAuthenticated, user } = useAuth0();
   const [state, setState] = useState({ title: "", content: "", user: isAuthenticated ? user.name : "Guest" });
   if (!user?.name && isAuthenticated) setState({ ...state, user: user.name });
-  const date = new Date();
-  console.log(`${date.getUTCHours()}:${date.getUTCMinutes()}:${date.getUTCSeconds()}`);
   return (
     <section className={style.container}>
       <h1>Create post</h1>
-      <form onSubmit={(e) => submitHandler(e, state)}>
+      <form onSubmit={(e) => submitHandler(e, state, setState)}>
         <div className={style.input__container}>
           <label htmlFor="" className={style.label}>
             Title

@@ -1,49 +1,81 @@
-.containerLogin {
+.container {
+  background-color: #ffffff;
+  display: flex;
+  height: 100vh;
+}
+
+.aside {
+  width: 65vw;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100%;
-  align-items: center;
   justify-content: center;
-  background-color: #1C5D99;
+  align-items: center;
+  /* background-color: #dbe6f5; */
+  background-color: #fff;
+  color: #222;
 }
-
-.login {
-  width: 90%;
-  height: 90%;
+.main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
-  animation: normal 2s linear presentation;
+  background-color: #1c5d99;
+  width: 35vw;
+  height: 100vh;
+  color: #fff;
+  opacity: 0.8;
+  background-image: radial-gradient(#444cf7 1.5px, transparent 1.5px), radial-gradient(#fff 1.5px, #1c5d99 1.5px);
+  background-size: 80px 80px;
+  background-position: 0 0, 10px 10px;
 }
-.login img {
-  filter: drop-shadow(-5px -5px 10px black);
-}
-
-.logout {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-.continue {
-  position: absolute;
-  top: 20px;
-  right: 150px;
+.main > h1 {
+  margin-bottom: 40px;
 }
 
-@keyframes presentation {
-  0% {
-    opacity: 0;
-    transform: translate(-50px);
-  }
-  50% {
-    opacity: 0.5;
-    transform: translate(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0);
-  }
+.button {
+  width: 100px;
+  height: max-content;
+  border-radius: 20px;
+  border: 1px solid #fff;
+  padding: 8px 0px;
+  margin-bottom: 20px;
+}
+
+.login,
+.continue,
+.login:active,
+.continue:active {
+  background-color: #04960b;
+  font-weight: bolder;
+  color: #fff;
+  margin: 20px 0px;
+}
+.login:hover,
+.continue:hover {
+  background-color: #06ad0e;
+}
+
+.logout,
+.logout:active {
+  background-color: #db1d1d;
+  font-weight: bolder;
+  color: #fff;
+  margin: 20px 0px;
+}
+
+.logout:hover {
+  background-color: #f32424;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100px;
+  height: max-content;
+  width: 100%;
+}
+.profile__image {
+  border-radius: 50%;
+  margin-bottom: 20px;
 }
