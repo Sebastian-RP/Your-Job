@@ -16,6 +16,7 @@ export const GET_ALL_POSTULATES_FROM_POST = "GET_ALL_POSTULATES_FROM_POST";
 export const CLEAR_CARRITO = "CLEAR_CARRITO";
 export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
+export const GET_COMPANY_BY_EMAIL = "GET_COMPANY_BY_EMAIL";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -34,22 +35,28 @@ export async function getUserInfo(userName) {
 }
 
 export async function getAllProducts(selector) {
-  const collectionRef = collection(db, "products");
-  const filtradoActivos = query(
-    collectionRef,
-    where("metadata.tipo", "==", selector)
-  );
-  const snaps = await getDocs(filtradoActivos);
-  const products = [];
-  for await (const snap of snaps.docs) {
-    const producto = snap.data();
-    producto.id = snap.id;
-    const priceSnaps = await getDocs(collection(snap.ref, "prices"));
-    producto.prices = priceSnaps.docs[0].data();
-    producto.priceId = priceSnaps.docs[0].id;
-    products.push(producto);
-  }
-  return { type: GET_ALL_PRODUCTS, payload: products };
+  return async function (dispatch) {
+    try {
+      const collectionRef = collection(db, "products");
+      const filtradoActivos = query(
+        collectionRef,
+        where("metadata.tipo", "==", selector)
+      );
+      const snaps = await getDocs(filtradoActivos);
+      const products = [];
+      for await (const snap of snaps.docs) {
+        const producto = snap.data();
+        producto.id = snap.id;
+        const priceSnaps = await getDocs(collection(snap.ref, "prices"));
+        producto.prices = priceSnaps.docs[0].data();
+        producto.priceId = priceSnaps.docs[0].id;
+        products.push(producto);
+      }
+      return dispatch({ type: GET_ALL_PRODUCTS, payload: products });
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  };
 }
 
 export function getAllTechnologies() {
@@ -249,6 +256,13 @@ export function getUserByEmail(email) {
   return async function (dispatch) {
     const userEmail = await axios.get("/users/profile?email=" + email);
     return dispatch({ type: GET_USER_BY_EMAIL, payload: userEmail.data });
+  };
+}
+
+export function getCompanyByEmail(email) {
+  return async function (dispatch) {
+    const companyEmail = await axios.get("/company/profile?email=" + email);
+    return dispatch({ type: GET_COMPANY_BY_EMAIL, payload: companyEmail.data });
   };
 }
 

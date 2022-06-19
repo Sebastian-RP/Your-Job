@@ -37,3 +37,8 @@ hr {
   background-color: #ffff00;
   height: 1px;
 }
+
+button {
+  border: 1px solid #222;
+  padding: 3px 20px;
+}

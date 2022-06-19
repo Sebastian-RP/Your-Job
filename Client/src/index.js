@@ -24,7 +24,8 @@ root.render(
             domain="dev-zgaxo6rs.us.auth0.com"
             clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
             // redirectUri="https://your-job-seven.vercel.app/home"
-            redirectUri="http://localhost:3000/home"
+            // redirectUri="http://localhost:3000/home"
+            redirectUri={window.location.origin}
           >
             <App />
           </Auth0Provider>

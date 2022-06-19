@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./Products.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
 import { useAuth0 } from "@auth0/auth0-react";
 import getAllPayments from "../../Components/Firebase/getAllPayments";
 import { GiLaurelCrown } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
+import styled from "styled-components";
+import { getAllProducts } from "../../Redux/Actions/Actions";
+
 
 const Products = () => {
   const productsList = useSelector((state) => state.products);
@@ -15,7 +17,7 @@ const Products = () => {
   const [products, setProducts] = useState(null);
   const [plans, setPlans] = useState([]);
   const carrito = useSelector((state)=> state.carrito)
-
+  const dispatch = useDispatch();
   const navigate = useNavigate()
 
   var UserPlans = []
@@ -23,8 +25,9 @@ const Products = () => {
   const awaitLogin = async () => {
     UserPlans = await getAllPayments(user);
     console.log(UserPlans)
-    if(UserPlans.length > 0) setPlans(UserPlans)
-    if(UserPlans.length === 0) setPlans(["No posee planes activos"])
+    if(UserPlans.length > 0 ) setPlans(UserPlans)
+    if(UserPlans.length === 0) setPlans(["Does not have active plans"])
+    if(UserPlans.includes("error")) setPlans(["To see your plans you must log in"])
   }
 
   useEffect(() => {
@@ -44,16 +47,16 @@ const Products = () => {
               <Button className={style.Button} onClick={()=> navigate('/home')}>Back home</Button>
             </div>
             <div className={style.Title}>
-              <h1 className={style.TitleH1}>Servicios Premium</h1>
+              <Title2>Premium services</Title2>
             </div>
             <div className={`bg-dark p-2 text-light bg-opacity-50 ${style.Products}`}>
-              <p><strong>Planes activos:</strong></p>
+              <p><strong>Active plans:</strong></p>
               {plans.length > 0? plans.map(item =>{
                 return <div className={style.ActivesProducts}>
                   {item.hasOwnProperty("items")? <GiLaurelCrown className={style.Svg}></GiLaurelCrown> : null} 
                   {item.hasOwnProperty("items")? <p>{item.items[0].price.product.name}</p> :<p>{item}</p>}
                 </div> 
-              }) : <p>Cargando planes activos...</p> }
+              }) : <p>Loading active plans...</p> }
               {plans.length > 0? plans.map(item =>{
                 return <div className={style.ActivesProducts}>
                   {item.hasOwnProperty("items")? item.items.length > 1 ?
@@ -75,7 +78,7 @@ const Products = () => {
                     <h3><GiLaurelCrown className={style.Svg}></GiLaurelCrown> {e.name}</h3>
                     <p>{e.description}</p>
                     <p>
-                      <strong>Plan mensual de ${e.prices.unit_amount / 100} {e.prices.currency}</strong>  
+                      <strong>Monthly plan of ${e.prices.unit_amount / 100} {e.prices.currency}</strong>  
                     </p>
                   </div>
                 </Link>
@@ -90,3 +93,34 @@ const Products = () => {
 };
 
 export default Products;
+
+
+const Button = styled.button`
+  background-color: #1C5D99;
+  border-radius: 5px;
+  border: 1px solid white;
+  color: white;
+  padding: 7px 10px 7px 10px ;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: all 300ms;
+
+  &:hover {
+    color: #222222;
+    background-color: #FFFFFF;
+  }
+`;
+
+
+const Title2 = styled.h1`
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #dddddd;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;

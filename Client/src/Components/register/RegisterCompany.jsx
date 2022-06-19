@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
@@ -5,11 +6,13 @@ import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { createCompany } from "../../Redux/Actions/Actions";
 import style from "./register.module.css";
 import validateCompany from "./ValidateCompany";
 
 export default function RegisterCompany({ props }) {
+  const { user } = useAuth0();
   const countries = [
     "Afghanistan",
     "Albania",
@@ -220,6 +223,7 @@ export default function RegisterCompany({ props }) {
   });
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     setErrors(
@@ -248,7 +252,7 @@ export default function RegisterCompany({ props }) {
       return;
     }
     let newCompany = {
-      email: input.email,
+      email: user?.email,
       name: input.name,
       propietary_name: input.prop_name,
       phone: parseInt(input.phone),
@@ -260,9 +264,8 @@ export default function RegisterCompany({ props }) {
     };
 
     dispatch(createCompany(newCompany));
-    window.location.replace(
-      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${props}`
-    );
+
+    navigate(-1);
   };
 
   return (
@@ -296,9 +299,9 @@ export default function RegisterCompany({ props }) {
             <input
               name="email"
               onChange={(e) => handleChange(e)}
-              placeholder="Email"
+              value={user?.email}
               autoComplete="off"
-              required
+              disabled
             />
             <br />
             <span className={style.danger}>{errors.email}</span>

@@ -4,7 +4,7 @@ const { fakePostulatesData } = require("./arrayPostulates")
 const loaderPostulatesData = async () => {
     try {
         fakePostulatesData.forEach(user => {
-            postulatesPost("Karen Eleana Rios", "usuarioRios@gmail.com", 20);
+            postulatesPost(user[0], user[1], user[2]);
         })
         console.log("data postulates cargada");
     } catch (error) {

@@ -4,7 +4,7 @@ const { loaderTechnologyData } = require("./Technologies/fakeTechnologies.js")
 const { loaderCompanyPostData } = require("./CompanyPost/fakeCompanyPost.js")
 const { loaderUserPostData } = require("./UserPost/fakeUserPosts")
 const { loaderPostulatesData } = require("./Postulates/fakePostulate")
-
+const { getCompanies } = require("../Controllers/CompanyController");
 
 const LoadData = async (force) => {
 
@@ -14,11 +14,14 @@ const LoadData = async (force) => {
         await loaderTechnologyData();
         await loaderUserData();
         await loaderCompanyData();
-        // await loaderUserPostData()
-        // loaderCompanyPostData(); //no usar hasta que se resuelva el uuid 
-        // loaderPostulatesData();
-    }
 
+        await getCompanies();
+        await loaderCompanyPostData();
+
+        await loaderUserPostData()
+        
+        await loaderPostulatesData();
+    }
 }
 
 

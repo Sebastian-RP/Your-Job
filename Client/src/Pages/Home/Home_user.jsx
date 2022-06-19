@@ -3,7 +3,7 @@ import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 import {
   getAllCompanies,
   getAllPost,
@@ -11,6 +11,7 @@ import {
   getPostulates,
   getUserByEmail,
   postulateJob,
+  getAllProducts,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -48,6 +49,7 @@ export default function HomeUser() {
     console.log(selector);
     console.log(user?.email);
     console.log(logged);
+    dispatch(getUserByEmail(user?.email));
     // eslint-disable-next-line
   }, [user]);
 
@@ -71,6 +73,10 @@ export default function HomeUser() {
   useEffect(() => {
     setTimeout(() => {
       setShowPage(true);
+      getAllProducts("usuario").then((res) => {
+        dispatch(res);
+      }
+      );
     }, 2000);
   }, []);
 
@@ -130,7 +136,7 @@ export default function HomeUser() {
     const { name, url, postId } = val;
 
     dispatch(postulateJob({ name, url, postId }))
-      .then((res) => swal("Listo!",res.data,"success"))
+      .then((res) => swal("Listo!", res.data, "success"))
       .then(() => dispatch(getPostulates(user.email)));
   };
 
@@ -142,6 +148,18 @@ export default function HomeUser() {
           <>
             <div className={style.containerActions}>
               <div className={style.filters}>
+                <div className={style.image}>
+                  <img src={user.picture} alt="profile_picture" />
+                  <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
+                  {posts !== selector.posts && (
+                    <Button
+                      variant="success"
+                      onClick={() => setPosts(selector.posts)}
+                    >
+                      Clear Filter
+                    </Button>
+                  )}
+                </div>
                 <Accordion>
                   <Accordion.Item eventKey="0">
                     <Accordion.Header>Technologies</Accordion.Header>
@@ -227,24 +245,8 @@ export default function HomeUser() {
                 </Accordion>
               </div>
               <div className={style.infoPost}>
-                <div className={style.image}>
-                  <img
-                    src={user ? user.picture : image}
-                    alt="profile_picture"
-                  />
-
-                  <h3>{logged.error ? "Guest" : logged.name}</h3>
-                  {posts !== selector.posts && (
-                    <Button
-                      variant="success"
-                      onClick={() => setPosts(selector.posts)}
-                    >
-                      Clear Filter
-                    </Button>
-                  )}
-                </div>
                 <div className={style.columnInfoRight}>
-                  <h3>suggestions</h3>
+                  <h3>Suggestions</h3>
                   <>
                     {suggestions.map((data, index) => (
                       <Card
@@ -275,15 +277,15 @@ export default function HomeUser() {
                         <div className={style.cardPost} key={index}>
                           <Card>
                             <Card.Header as="h5">
-                              <label>Oferta Laboral</label> -{" "}
+                              <label>Job Offer</label> -{" "}
                               <label
                                 className={style.companyName}
                                 onClick={() => {
-                                  navigate(`/users/${data.company.name}`);
+                                  navigate(`/users/${data.company?.name}`);
                                 }}
                               >
                                 {" "}
-                                {data.company.name}{" "}
+                                {data.company?.name}{" "}
                               </label>
                             </Card.Header>
                             <Card.Body>

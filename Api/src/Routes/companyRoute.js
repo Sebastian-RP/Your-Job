@@ -44,6 +44,7 @@ router.post("/login", async (req, res) => {
     description,
     employees,
     premium,
+    id,
   } = req.body;
   const newCompany = await createCompany(
     email,
@@ -56,7 +57,8 @@ router.post("/login", async (req, res) => {
     nationality,
     description,
     employees,
-    premium
+    premium,
+    id
   );
   return res.status(200).send(newCompany);
 });

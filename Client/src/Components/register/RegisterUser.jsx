@@ -5,11 +5,15 @@ import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { Widget } from "@uploadcare/react-widget";
 import style from "./register.module.css";
 import validateUser from "./ValidateUser";
+import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function RegisterUser({ props }) {
+  const { user } = useAuth0();
   const countries = [
     "Afghanistan",
     "Albania",
@@ -217,13 +221,14 @@ export default function RegisterUser({ props }) {
   const [input, setInput] = useState({
     name: "",
     email: "",
-    age: 0,
+    age: "",
     linkedin: "",
     desc: "",
     employ: "",
   });
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getAllTechnologies());
     // eslint-disable-next-line
@@ -271,7 +276,7 @@ export default function RegisterUser({ props }) {
     setCountry(country);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(errors);
     if (Object.keys(errors).length > 0) {
@@ -287,26 +292,26 @@ export default function RegisterUser({ props }) {
         desc: descript.concat(` This user Works at ${company}`),
       });
     }
+    console.log(user?.email);
+    let dob = new Date(input.age);
     let newUser = {
-      email: input.email,
+      email: user?.email,
       name: input.name,
       employment_status: empleado,
-      age: parseInt(input.age),
+      age: dob,
       image: "no image",
       description: input.desc,
       technologies: selectedTechs,
       nationality: country,
       url: input.linkedin,
-      cv: `ucarecdn.com/${uuid}`,
+      cv: `ucarecdn.com/${uuid}/`,
       premium: 0,
     };
     console.log(newUser);
 
-    dispatch(createUser(newUser));
+    dispatch(await createUser(newUser));
 
-    window.location.replace(
-      `https://dev-zgaxo6rs.us.auth0.com/continue?state=${props}`
-    );
+    navigate(-1);
   };
 
   return (
@@ -330,23 +335,26 @@ export default function RegisterUser({ props }) {
             <br />
             <input
               name="email"
-              onChange={(e) => handleChange(e)}
+              value={user?.email}
               placeholder="Email"
               autoComplete="off"
-              required
+              onMouseEnter={(e) => {
+                handleChange(e);
+              }}
+              disabled
             />
             <br />
             <span className={style.danger}>{errors.email}</span>
             <br />
-            <input
-              type={"number"}
+            <Form.Control
+              type="date"
               name="age"
-              onChange={(e) => handleChange(e)}
-              placeholder="Age"
-              autoComplete="off"
-              required
+              error={errors.date_of_birth}
+              onChange={(e) => {
+                handleChange(e);
+              }}
             />
-            <br />
+
             <span className={style.danger}>{errors.age}</span>
             <br />
             <div className={style.containerTechnologies}>
