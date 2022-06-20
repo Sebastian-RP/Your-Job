@@ -25,12 +25,13 @@ export default function HomeUser() {
   const state = useSelector((state) => state);
   const { posts, technologies } = state;
   const [techsFiltered, setTechsFiltered] = useState([]);
+  let maxSal = Math.max(...posts.map((post) => post.max_salary));
   const [filter, setFilter] = useState({
     technology: "all",
     experience: "all",
     modality: "all",
     minSalary: 0,
-    maxSalary: Math.max(...posts.map((post) => post.max_salary)),
+    maxSalary: maxSal,
     contract: "all",
   });
   useEffect(() => {
