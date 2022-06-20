@@ -17,6 +17,7 @@ export const CLEAR_CARRITO = "CLEAR_CARRITO";
 export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const GET_COMPANY_BY_EMAIL = "GET_COMPANY_BY_EMAIL";
+export const CREATE_COMPANY = "CREATE_COMPANY";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -112,6 +113,7 @@ export function createCompany(company) {
         email: company.email,
         name: company.name,
         phone: company.phone,
+        image: company.image,
         propietary_name: company.propietary_name,
         address: company.address,
         url: company.url,
@@ -119,7 +121,10 @@ export function createCompany(company) {
         description: company.description,
         premium: null,
       });
-      return newCompany;
+      return dispatch({
+        type: CREATE_COMPANY,
+        payload: newCompany.data,
+      });
     } catch (e) {
       console.error("Error: " + e.message);
     }

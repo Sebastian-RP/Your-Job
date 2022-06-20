@@ -19,8 +19,8 @@ export default function Home() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getUserByEmail(user?.email));
-    dispatch(getCompanyByEmail(user?.email));
+    if (Array.isArray(loggedUser)) dispatch(getUserByEmail(user?.email));
+    if (Array.isArray(loggedCompany)) dispatch(getCompanyByEmail(user?.email));
     // eslint-disable-next-line
   }, [user]);
   useEffect(() => {
