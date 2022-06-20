@@ -14,7 +14,7 @@ import styled from "styled-components";
 import { logOut } from "../../Redux/Actions/Actions";
 
 export default function Navbar() {
-  const { logout, isAuthenticate } = useAuth0();
+  const { logout } = useAuth0();
   const navigate = useNavigate();
   const carrito = useSelector((state) => state.carrito);
   const loggedUser = useSelector((state) => state.myUser);
@@ -50,17 +50,16 @@ export default function Navbar() {
 
   return (
     <div className={style.containerNavbar}>
-      <Title2 onClick={() => navigate("/")}>YourJob</Title2>
+      <Title2 onClick={() => navigate("/home")}>YourJob</Title2>
       <SearchBar />
       <div>
-        <Button onClick={() => exit()}>Log Out</Button>
         <Button onClick={() => navigate("/carrito")}>
           <FaShoppingCart /> {carrito.length}
         </Button>
         <Button onClick={() => navigate("/products")}>
           <AiOutlineStar /> | Premium
         </Button>
-        {isAuthenticate && (
+        { !loggedUser.hasOwnProperty("error") ? (
           <>
             <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
               <AiOutlineUser />
@@ -69,7 +68,7 @@ export default function Navbar() {
               <AiOutlinePoweroff />
             </ButtonOff>
           </>
-        )}
+        ): null}
       </div>
     </div>
   );
@@ -94,9 +93,11 @@ const Button = styled.button`
 `;
 
 const ButtonOff = styled(Button)`
-  background-color: #639fab;
+  color: #ffffff;
+  background-color: #222222;
 
   &:hover {
+    /* border: 1px solid #ffffff; */
     color: #222222;
     background-color: #ffffff;
   }
