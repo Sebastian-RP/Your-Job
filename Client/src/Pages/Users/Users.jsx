@@ -5,9 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getUserInfo } from "../../Redux/Actions/Actions";
 import image from "./perfilPicture.png";
 import { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import Navbar from "../../Components/NavBar/NavBar";
-
 
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -17,7 +16,6 @@ export default function Users() {
   const { username } = useParams();
   const loggedUser = useSelector((state) => state.myUser);
   const [ownProfile, setOwnProfile] = useState(false);
-  
 
   useEffect(() => {
     console.log(username);
@@ -25,7 +23,7 @@ export default function Users() {
     console.log(ownProfile);
     getUserInfo(username).then((action) => {
       dispatch(action);
-    })
+    });
     if (loggedUser.name === username) {
       setOwnProfile(true);
     }
@@ -35,17 +33,16 @@ export default function Users() {
   //----------------------------------
   const userData = useSelector((state) => state.user);
 
-
   const sendMessage = async () => {
-    try{
-      const res = await axios.get(`/users/` + username)
-      let conversation = {senderId: loggedUser.id, receiverId: res.data.id}
-      await axios.post("/conversation/", conversation)
-      navigate("/messenger")
-    }catch(error){
-      console.log(error)
+    try {
+      const res = await axios.get(`/users/` + username);
+      let conversation = { senderId: loggedUser.id, receiverId: res.data.id };
+      await axios.post("/conversation/", conversation);
+      navigate("/messenger");
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   //----------------------------------
 
@@ -75,27 +72,28 @@ export default function Users() {
         </div>
         <div className={style.suggestions}>
           <div>
-            <button className={style.Button}
+            <button
+              className={style.Button}
               onClick={() => {
                 navigate("/home");
               }}
-              >
-                Go to home
-              </button>
-              <button
+            >
+              Go to home
+            </button>
+            <button
               className={style.Button}
-              onClick={sendMessage}
+              onClick={() => sendMessage()}
               style={{ display: !ownProfile ? "" : "none" }}
-              >
-                Message
-              </button>
-              <button
+            >
+              Message
+            </button>
+            <button
               className={style.Button}
-                style={{ display: ownProfile ? "" : "none" }}
-                onClick={() => navigate(`/users/${loggedUser.name}/edit`)}
-              >
-                Edit Profile
-              </button>
+              style={{ display: ownProfile ? "" : "none" }}
+              onClick={() => navigate(`/users/${loggedUser.name}/edit`)}
+            >
+              Edit Profile
+            </button>
           </div>
           <h2>Suggestions</h2>
         </div>
