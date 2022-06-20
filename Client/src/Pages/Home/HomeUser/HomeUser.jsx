@@ -30,7 +30,7 @@ export default function HomeUser() {
     experience: "all",
     modality: "all",
     minSalary: 0,
-    maxSalary: Math.max(...posts.map((post) => post.max_salary)),
+    maxSalary: Math.max(...posts.map((post) => post.max_salary)) || 120,
     contract: "all",
   });
   useEffect(() => {
