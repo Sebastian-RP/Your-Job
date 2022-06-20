@@ -9,7 +9,7 @@ import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 const persistConfig = {
   key: "root",
   storage: storage,
-  blacklist: ["user", "companies", "posts", "myUser", "myCompany", "products"],
+  blacklist: ["user", "companies", "posts", "products"],
   stateReconciler: autoMergeLevel2, // see "Merge Process" section for details.
 };
 const middleware = [thunk];
