@@ -2,14 +2,18 @@ import React, { useEffect } from "react";
 import style from "./perfil.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserInfo } from "../../Redux/Actions/Actions";
-import image from "./perfilPicture.png";
+import { getUserInfo, updateUser } from "../../Redux/Actions/Actions";
+import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import { Widget } from "@uploadcare/react-widget";
 import { useState } from "react";
 import Home from "../Home/home";
+import Form from "react-bootstrap/Form";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import swal from "sweetalert";
 
 export default function UsersEdit() {
+  const userData = useSelector((state) => state.user);
   const countries = [
     "Afghanistan",
     "Albania",
@@ -214,9 +218,19 @@ export default function UsersEdit() {
   const navigate = useNavigate();
   const { username } = useParams();
   const loggedUser = useSelector((state) => state.myUser);
+  const allTechnologies = useSelector((state) => state.technologies);
+  const [technologies, setTechnologies] = useState([]);
+  const [selectedTechs, setSelected] = useState([]);
   const [ownProfile, setOwnProfile] = useState(false);
-  const [country, setCountry] = useState("");
-  const [uuid, setUuid] = useState("");
+  const [country, setCountry] = useState(userData?.nationality);
+  const [uuidImage, setUuidImage] = useState(userData?.image);
+  const [uuidCV, setUuidCV] = useState(userData?.cv);
+  const [input, setInput] = useState({
+    name: username,
+    age: userData?.age,
+    linkedin: userData?.url,
+    desc: userData?.description,
+  });
 
   useEffect(() => {
     console.log(username);
@@ -229,8 +243,70 @@ export default function UsersEdit() {
     //eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    setTechnologies(allTechnologies);
+    // eslint-disable-next-line
+  }, [allTechnologies]);
+
   //----------------------------------
-  const userData = useSelector((state) => state.user);
+
+  useEffect(() => {
+    setSelected(userData?.technologiesName);
+  }, [userData]);
+
+  useEffect(() => {
+    setTechnologies(
+      allTechnologies.filter((t) => !selectedTechs?.includes(t.name))
+    );
+    // eslint-disable-next-line
+  }, [selectedTechs]);
+
+  const addTechs = (tech) => {
+    if (!selectedTechs.includes(tech)) {
+      let aux = [tech];
+      setSelected(selectedTechs.concat(aux));
+    }
+  };
+
+  const removeTech = (tech) => {
+    let aux = selectedTechs.filter((element) => element !== tech);
+    setSelected(aux);
+    console.log(aux);
+  };
+
+  const addCountry = (country) => {
+    setCountry(country);
+  };
+
+  const handleChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    let cv = `https://ucarecdn.com/${uuidCV}/`;
+    let image = `https://ucarecdn.com/${uuidImage}/`;
+    let update = {
+      name: input.name,
+      age: input.age,
+      url: input.linkedin,
+      description: input.desc,
+      cv: cv,
+      image: image,
+      technologiesName: selectedTechs,
+      nationality: country,
+    };
+
+    dispatch(updateUser(userData?.id, update));
+    swal({
+      title: "Success!",
+      text: "Your changes have been submitted.",
+      icon: "success",
+    }).then(navigate(-1));
+  };
 
   return (
     <div>
@@ -240,14 +316,21 @@ export default function UsersEdit() {
             <Widget
               publicKey="de7dc23d760e287d1cb0"
               clearable
-              data-crop=""
+              imagesOnly
+              crop=""
               onChange={(file) => {
-                setUuid(file.uuid);
+                setUuidImage(file.uuid);
               }}
             />
             <div className={style.picture}>
-              <img src={loggedUser.image} alt={image} />
-              <input defaultValue={username} />
+              <img src={loggedUser.image} alt="" />
+              <input
+                defaultValue={username}
+                name="name"
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
             </div>
             <div>
               <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
@@ -257,43 +340,123 @@ export default function UsersEdit() {
           </div>
           <div className={style.suggestions}>
             <h2>Suggestions</h2>
+            <Button onClick={(e) => handleUpdate(e)}>Update</Button>
           </div>
           <div className={style.perfilInfo}>
             <div className={style.about}>
               <h2>About</h2>
               <p>Status: {userData?.employment_status}</p>
-              <label>Email:</label> <input defaultValue={userData?.email} />
+              <label>Linkedin/etc...:</label>{" "}
+              <input
+                defaultValue={userData?.url}
+                name="linkedin"
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
               <br />
-              <label>Age:</label> <input defaultValue={userData?.age} />
-              <p>Nationality: {userData?.nationality}</p>
+              <label>Date of Birth:</label>{" "}
+              <Form.Control
+                type="date"
+                name="age"
+                defaultValue={userData?.age}
+                // error={errors.date_of_birth}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+              {/* <p>Nationality: {userData?.nationality}</p> */}
+              <div
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
+                <DropdownButton
+                  id="dropdown-basic-button"
+                  title="Select Country"
+                  style={{ height: "10px" }}
+                >
+                  <div style={{ height: "150px", overflowY: "scroll" }}>
+                    {countries.map((country, index) => {
+                      return (
+                        <Dropdown.Item
+                          onClick={() => {
+                            addCountry(country);
+                          }}
+                          key={index}
+                        >
+                          {country}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </div>
+                </DropdownButton>
+                <label>
+                  Country of Origin: {country || userData.nationality}
+                </label>
+              </div>
               Technologies:
+              <Dropdown className="d-inline mx-2" autoClose="outside">
+                <Dropdown.Toggle id="dropdown-autoclose-outside">
+                  Select Technologies
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {technologies &&
+                    technologies.map((tech, index) => {
+                      return (
+                        <Dropdown.Item
+                          onClick={() => {
+                            addTechs(tech.name);
+                          }}
+                          key={index}
+                        >
+                          {tech.name}
+                        </Dropdown.Item>
+                      );
+                    })}
+                </Dropdown.Menu>
+              </Dropdown>
               <ul>
-                {userData.technologiesName?.map((d, i) => {
-                  return <li key={i}>{d}</li>;
-                })}
+                {selectedTechs?.map((tech, index) => (
+                  <div key={index} className={style.containerTechnologies}>
+                    <li
+                      onClick={() => {
+                        removeTech(tech);
+                      }}
+                    >
+                      {` ${tech} `}
+                    </li>
+                  </div>
+                ))}
               </ul>
             </div>
             <div className={style.info}>
               <h2>info</h2>
               <textarea
                 defaultValue={userData?.description}
-                cols="120"
+                cols="50"
                 rows="10"
+                name="desc"
+                onChange={(e) => {
+                  handleChange(e);
+                }}
               />
               <hr />
 
               <div style={{ textAlign: "right" }}>
-                <Button
-                  onClick={() => {
-                    window.open(
-                      "https://" + userData.cv + "/",
-                      "_blank",
-                      "noopener,noreferrer"
-                    );
+                CV:
+                <Widget
+                  publicKey="de7dc23d760e287d1cb0"
+                  clearable
+                  crop=""
+                  onChange={(file) => {
+                    setUuidCV(file.uuid);
                   }}
-                >
-                  download CV
-                </Button>
+                />
               </div>
             </div>
           </div>

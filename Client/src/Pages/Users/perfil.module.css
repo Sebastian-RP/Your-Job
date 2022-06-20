@@ -12,7 +12,7 @@
   flex-direction: column;
   padding: 20px;
   width: 25%;
-  background-color: #1C5D99;
+  background-color: #1c5d99;
   text-align: center;
   color: #fff;
   overflow-y: auto;
@@ -26,7 +26,7 @@
   font-size: 40px;
 }
 
-.about{
+.about {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -49,18 +49,18 @@
   flex-direction: column;
   padding: 20px;
   width: 25%;
-  background-color: #1C5D99;
+  background-color: #1c5d99;
   text-align: center;
   color: #fff;
   overflow-y: auto;
 }
 
-.Button{
-  background-color: #1C5D99;
+.Button {
+  background-color: #1c5d99;
   border-radius: 5px;
   border: 1px solid white;
   color: white;
-  padding: 7px 10px 7px 10px ;
+  padding: 7px 10px 7px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -69,7 +69,16 @@
   cursor: pointer;
   transition: all 300ms;
 }
-.Button:hover{
-    color: #222222;
-    background-color: #FFFFFF;
+.Button:hover {
+  color: #222222;
+  background-color: #ffffff;
+}
+.containerTechnologies li {
+  border-radius: 5px;
+  list-style-type: none;
+}
+
+.containerTechnologies li:hover {
+  background-color: rgba(247, 75, 75, 0.411);
+  cursor: pointer;
 }

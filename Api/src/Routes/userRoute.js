@@ -57,6 +57,8 @@ router.get("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
+  console.log(id);
+  console.log(changes);
   res.send(await updateUser(id, changes));
 });
 

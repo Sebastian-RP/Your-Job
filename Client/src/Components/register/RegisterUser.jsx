@@ -358,24 +358,27 @@ export default function RegisterUser({ props }) {
             <span className={style.danger}>{errors.age}</span>
             <br />
             <div className={style.containerTechnologies}>
-              <DropdownButton
-                id="dropdown-basic-button"
-                title="Select Technologies"
-              >
-                {technologies &&
-                  technologies.map((tech, index) => {
-                    return (
-                      <Dropdown.Item
-                        onClick={() => {
-                          addTechs(tech.name);
-                        }}
-                        key={index}
-                      >
-                        {tech.name}
-                      </Dropdown.Item>
-                    );
-                  })}
-              </DropdownButton>
+              <Dropdown className="d-inline mx-2" autoClose="outside">
+                <Dropdown.Toggle id="dropdown-autoclose-outside">
+                  Select Technologies
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {technologies &&
+                    technologies.map((tech, index) => {
+                      return (
+                        <Dropdown.Item
+                          onClick={() => {
+                            addTechs(tech.name);
+                          }}
+                          key={index}
+                        >
+                          {tech.name}
+                        </Dropdown.Item>
+                      );
+                    })}
+                </Dropdown.Menu>
+              </Dropdown>
               <label>Technologies:</label>
               <ul>
                 {selectedTechs?.map((tech, index) => (
