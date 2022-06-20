@@ -5,19 +5,19 @@ const { findCompany } = require("./CompanyController.js");
 const getCompanyPosts = async () => {
   try {
     const PostCreated = await CompanyPost.findAll({
-      // include: {
-      //   model: Company,
-      //   attributes: [
-      //     "id",
-      //     "email",
-      //     "name",
-      //     "phone",
-      //     "address",
-      //     "url",
-      //     "image",
-      //     "nationality",
-      //   ],
-      // },
+      include: {
+        model: Company,
+        attributes: [
+          "id",
+          "email",
+          "name",
+          "phone",
+          "address",
+          "url",
+          "image",
+          "nationality",
+        ],
+      },
       where: {
         status: "active",
       },
