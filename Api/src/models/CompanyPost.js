@@ -44,6 +44,6 @@ module.exports = (sequelize) => {
         url: {
             type: DataTypes.STRING
         },
-        
+
     })
 }

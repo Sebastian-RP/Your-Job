@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllCompanies,
-  getAllPost,
-  getCompanyByEmail,
-  getUserByEmail,
-} from "../../Redux/Actions/Actions";
+import { getAllCompanies, getAllPost, getCompanyByEmail, getUserByEmail } from "../../Redux/Actions/Actions";
 import HomeCompany from "./Home_company";
-import HomeUser from "./Home_user";
+import HomeUser from "./Home_user.jsx";
 
 export default function Home() {
   const { user, isLoading } = useAuth0();
@@ -18,7 +13,6 @@ export default function Home() {
   const companies = [...selector.companies];
   const loggedUser = useSelector((state) => state.myUser);
   const loggedCompany = useSelector((state) => state.myCompany);
-  console.log(loggedCompany);
   useEffect(() => {
     dispatch(getAllCompanies());
     dispatch(getAllPost());
@@ -35,7 +29,6 @@ export default function Home() {
     } else {
       setIsUser(true);
     }
-    console.log(isUser);
   }, [loggedUser, loggedCompany]);
   return isUser ? <HomeUser /> : <HomeCompany />;
 }

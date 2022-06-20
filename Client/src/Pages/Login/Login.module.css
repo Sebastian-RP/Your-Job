@@ -45,14 +45,14 @@
 .continue,
 .login:active,
 .continue:active {
-  background-color: #04960b;
+  background-color: #12528f;
   font-weight: bolder;
   color: #fff;
   margin: 20px 0px;
 }
 .login:hover,
 .continue:hover {
-  background-color: #06ad0e;
+  background-color: #2069ad;
 }
 
 .logout,

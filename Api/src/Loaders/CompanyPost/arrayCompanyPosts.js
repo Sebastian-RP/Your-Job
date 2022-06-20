@@ -1,8 +1,6 @@
 const Chance = require("chance"); //genera datos aleatoriamente, para llenar los campos de la BD
 const chance = new Chance();
-
 const { Company } = require("../../db")
-
 let idsCompany = [];//uuid de las compañias creadas
 async function getIds() {
   const companies = await Company.findAll({
@@ -12,7 +10,6 @@ async function getIds() {
   companies.forEach(comp => {
     idsCompany.push(comp.dataValues.id)
   });
-
   console.log(idsCompany.length+" compañias agregadas");
 }
 
@@ -139,7 +136,6 @@ const fakeCompanyPostData = [
   idsCompany[16]
   ],
 ];
-
 module.exports = {
   fakeCompanyPostData,
   getIds

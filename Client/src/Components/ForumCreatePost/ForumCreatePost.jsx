@@ -7,7 +7,7 @@ import swal from "sweetalert";
 async function submitHandler(e, state, setState) {
   e.preventDefault();
   try {
-    const response = await axios.post("http://localhost:3001/forum/post", { ...state });
+    const response = await axios.post("/forum/post", { ...state });
     if (response.status === 200) {
       setState({ title: "", content: "", user: state.user });
       swal({ title: "Create Post", text: "Your post has been posted", icon: "success" });
