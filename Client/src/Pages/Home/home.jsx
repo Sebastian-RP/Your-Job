@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCompanies, getAllPost, getCompanyByEmail, getUserByEmail } from "../../Redux/Actions/Actions";
 import HomeCompany from "./Home_company";
-import HomeUser from "./HomeUser/HomeUser.jsx";
+import HomeUser from "./Home_user.jsx";
 
 export default function Home() {
   const { user, isLoading } = useAuth0();
