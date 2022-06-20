@@ -18,6 +18,7 @@ export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const GET_COMPANY_BY_EMAIL = "GET_COMPANY_BY_EMAIL";
 export const CREATE_COMPANY = "CREATE_COMPANY";
+export const LOG_OUT = "LOG_OUT";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -279,5 +280,11 @@ export function deletePost(value) {
     } catch (error) {
       console.error(error.message);
     }
+  };
+}
+
+export function logOut() {
+  return {
+    type: LOG_OUT,
   };
 }
