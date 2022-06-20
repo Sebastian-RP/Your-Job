@@ -11,6 +11,8 @@ import Home from "./Pages/Home/home";
 import Messenger from "./Pages/Messenger/Messenger.jsx";
 import UsersEdit from "./Pages/Users/UsersEdit";
 import Forum from "./Pages/Forum/Forum.jsx";
+import Success from "./Pages/CheckOut/Success.jsx";
+import Canceled from "./Pages/CheckOut/Cancel.jsx";
 
 function App() {
   return (
@@ -34,8 +36,8 @@ function App() {
       <Route path={"/messenger"} element={<Messenger />} />
       <Route path={"/forum"} element={<Forum />} />
       <Route path={"/forum/create"} element={<Forum />} />
-      <Route path={"/success"} element={<Forum />} />
-      <Route path={"/cancel"} element={<Forum />} />
+      <Route path={"/success"} element={<Success />} />
+      <Route path={"/canceled"} element={<Canceled />} />
     </Routes>
   );
 }
