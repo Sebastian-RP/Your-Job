@@ -1,0 +1,170 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+.aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25vw;
+  height: 100vh;
+  position: sticky;
+  top: 0px;
+  border-right: 1px solid #222;
+  background-color: #24272b;
+  color: #fff;
+  overflow: hidden;
+}
+
+.profile {
+  margin-top: 20px;
+}
+.profile__image {
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.jobs__container {
+  width: 75vw;
+}
+.suggestion__container {
+  width: 20%;
+  background-color: #fff;
+  position: sticky;
+  top: 0px;
+}
+.jobs__list {
+  height: 100%;
+  padding: 0px;
+}
+
+.job {
+  min-height: 100px;
+  max-height: 340px;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-top: 1px solid #222;
+  width: 100%;
+  padding: 2% 10%;
+  text-align: left;
+}
+.job__title {
+  color: #004ba8;
+  margin-bottom: 20px;
+}
+.job__description {
+  overflow: hidden;
+}
+.job__info {
+  width: 100%;
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  align-items: center;
+}
+.job__technologies {
+  width: 100%;
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.technology {
+  padding: 2px 15px;
+  min-width: 70px;
+  border-radius: 25px;
+  border: 1px solid #222;
+  background-color: #31468a;
+  color: #fff;
+  text-align: center;
+}
+
+.button {
+  width: 100px;
+  height: max-content;
+  border-radius: 20px;
+  border: 1px solid #222;
+  padding: 8px 0px;
+  background-color: #3072af;
+  font-weight: bolder;
+  color: #fff;
+  align-self: center;
+}
+
+.selector {
+  width: 150px;
+  max-width: 150px;
+  height: 30px;
+  padding: 0px;
+  margin-bottom: 20px;
+}
+
+.selector__technologies {
+  margin-left: 55px;
+}
+
+.filter__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: max-content;
+}
+
+.filter__technologies {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.filter__technologies > input {
+  background-color: #3072af;
+  color: #fff;
+  border: 1px solid #3072af;
+  margin-left: 10px;
+  border-radius: 25px;
+  padding: 0px 10px;
+}
+
+.technologiesFiltered__container {
+  display: flex;
+  list-style: none;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  overflow-x: hidden;
+  padding: 0px;
+}
+
+.technologyFiltered {
+  display: flex;
+  justify-content: center;
+  padding: 2px 50px;
+  border-radius: 25px;
+  border: 1px solid #222;
+  background-color: #31468a;
+  color: #fff;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.technologyFiltered:hover {
+  background-color: #fa2d2d;
+  cursor: pointer;
+}
+.technologyFiltered:active {
+  background-color: #f75454;
+}
