@@ -34,6 +34,8 @@ function App() {
       <Route path={"/messenger"} element={<Messenger />} />
       <Route path={"/forum"} element={<Forum />} />
       <Route path={"/forum/create"} element={<Forum />} />
+      <Route path={"/success"} element={<Forum />} />
+      <Route path={"/cancel"} element={<Forum />} />
     </Routes>
   );
 }
