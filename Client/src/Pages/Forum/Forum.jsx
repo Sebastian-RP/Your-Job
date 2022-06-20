@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import Advertisement from "../../Components/Advertisment/Advertisment";
 import ForumPosts from "../../Components/ForumPosts/ForumPosts";
 import ForumCreatePost from "../../Components/ForumCreatePost/ForumCreatePost";
+import Navbar from "../../Components/NavBar/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
 export default function Forum() {
   const Follows = ["Jeronimo Perez", "Armando Lio", "Rodrigo Marte", "Benjamin Andujar"];
@@ -10,9 +11,10 @@ export default function Forum() {
   const { isAuthenticated, user } = useAuth0();
   return (
     <>
-      <header className={style.header}>
+      {/* <header className={style.header}>
         <h1>YourJobs</h1>
-      </header>
+      </header> */}
+      <Navbar />
       <main className={style.main}>
         <aside className={style.menu}>
           <img
