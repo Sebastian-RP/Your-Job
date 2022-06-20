@@ -91,7 +91,6 @@ export default function rootReducer(state = initialState, action) {
         carrito: action.payload,
       };
     case GET_USER_BY_EMAIL:
-      console.log(action.payload);
       return {
         ...state,
         myUser: action.payload,

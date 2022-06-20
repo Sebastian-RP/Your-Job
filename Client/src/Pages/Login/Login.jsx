@@ -6,7 +6,6 @@ import logo from "./YourJobs.png";
 export default function Login() {
   const { loginWithRedirect, loginWithPopup, user, isAuthenticated, isLoading, logout } = useAuth0();
   const navigate = useNavigate();
-  console.log(isLoading);
   return (
     <div className={style.container}>
       <aside className={style.aside}>
