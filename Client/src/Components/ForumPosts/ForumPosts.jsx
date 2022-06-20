@@ -7,7 +7,7 @@ import axios from "axios";
 export default function ForumPosts() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/forum/posts").then(({ data }) => {
+    axios.get("/forum/posts").then(({ data }) => {
       setPosts(data.sort((a, b) => b.id - a.id));
     });
   }, []);
