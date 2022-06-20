@@ -2,17 +2,23 @@ import SearchBar from "../SearchBar/SearchBar";
 import style from "./Navbar.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
-import { AiOutlineUser, AiOutlinePoweroff, AiOutlineStar } from "react-icons/ai";
+import {
+  AiOutlineUser,
+  AiOutlinePoweroff,
+  AiOutlineStar,
+} from "react-icons/ai";
 import swal from "sweetalert";
 import styled from "styled-components";
+import { logOut } from "../../Redux/Actions/Actions";
 
 export default function Navbar() {
   const { logout, isAuthenticate } = useAuth0();
   const navigate = useNavigate();
   const carrito = useSelector((state) => state.carrito);
   const loggedUser = useSelector((state) => state.myUser);
+  const dispatch = useDispatch();
 
   const handlerPerfile = () => {
     if (loggedUser.error) {
@@ -36,12 +42,18 @@ export default function Navbar() {
     }
   };
 
+  const exit = () => {
+    dispatch(logOut());
+    console.log("logout");
+    logout({ returnTo: window.location.origin });
+  };
+
   return (
     <div className={style.containerNavbar}>
       <Title2 onClick={() => navigate("/")}>YourJob</Title2>
       <SearchBar />
       <div>
-        <Button onClick={() => logout({ returnTo: window.location.origin })}>Log Out</Button>
+        <Button onClick={() => exit()}>Log Out</Button>
         <Button onClick={() => navigate("/carrito")}>
           <FaShoppingCart /> {carrito.length}
         </Button>
@@ -53,7 +65,7 @@ export default function Navbar() {
             <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
               <AiOutlineUser />
             </Button>
-            <ButtonOff onClick={() => logout({ returnTo: window.location.origin })}>
+            <ButtonOff onClick={() => exit()}>
               <AiOutlinePoweroff />
             </ButtonOff>
           </>

@@ -14,6 +14,7 @@ import {
   GET_USER_BY_EMAIL,
   GET_COMPANY_BY_EMAIL,
   CREATE_COMPANY,
+  LOG_OUT,
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -106,6 +107,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         myCompany: action.payload,
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        myUser: [],
+        myCompany: [],
       };
     default:
       return { ...state };
