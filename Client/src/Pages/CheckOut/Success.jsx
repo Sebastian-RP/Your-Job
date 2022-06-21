@@ -1,19 +1,15 @@
 import React, {useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
 import { clearCarrito } from '../../Redux/Actions/Actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import styled from 'styled-components';
 
 
-//ServiceID: service_db1lpkd
-//Public_Key: F-jlerFc9kQmnHiSA
-//TemplateID: template_upt9d5c
-
 function Success() {
-    const { user } = useAuth0(); 
+    const myUser = useSelector(state => state.myUser)
+    const myCompany = useSelector(state => state.myCompany)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const form = useRef();
@@ -23,20 +19,23 @@ function Success() {
             dispatch(action);
         }
         )
+        console.log(myCompany)
     }, [])
 
+    let user = myUser;
+    if(myUser.hasOwnProperty('error')){
+        user = myCompany
+    }
 
     async function handledHome(e) {
         e.preventDefault();
-        console.log(user)
-        if(user){
-            emailjs.sendForm('service_db1lpkd', 'template_upt9d5c', form.current, 'F-jlerFc9kQmnHiSA')
-            .then((result) => {
-                navigate(`/home`);
-            }, (error) => {
-                console.log(error.text);
-            });
-        }   
+        // console.log(user)
+        emailjs.sendForm('service_db1lpkd', 'template_upt9d5c', form.current, 'F-jlerFc9kQmnHiSA')
+        .then((result) => {
+            navigate(`/home`);
+        }, (error) => {
+            console.log(error.text);
+        });
     }
 
 
