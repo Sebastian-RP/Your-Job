@@ -52,7 +52,7 @@ module.exports = (sequelize) => {
       defaultValue: "active",
     },
     Account: {
-      type: DataTypes.ENUM(["User", "Company"]),
+      type: DataTypes.ENUM(["User", "Company", "Admin"]),
       defaultValue: "User",
     },
   });
