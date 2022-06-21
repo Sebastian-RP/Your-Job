@@ -3,20 +3,30 @@
     height: 100vh;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 .containerInfo {
-    width:100%;
-    height: calc(100vh - 80px);
     display: flex;
-    padding: 10px;
-    gap: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
 }
 .cardPost {
     cursor: pointer;
 }
 .infoCompany {
-    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+    background-color: #1c5d99;
 }
 .infoPost {
     flex-grow: 3;
@@ -36,11 +46,11 @@
     border: 1px solid;
     border-radius: 10px;
     font-weight: 500;
-    background-color: cadetblue;
+    background-color: #1c5d99;
 
 }
 .imageCompany {
-    width: 100%;
+    width: 250px;
     height: 150px;
 }
 .imageCompany img {
@@ -83,7 +93,7 @@
     width: 60%;
     height: 80%;
     display: flex;
-    background-color: rgba(127, 255, 212, 0.647);
+    background-color: #4a8dca;
     padding: 20px;
 }
 .form  div {
@@ -103,12 +113,12 @@
 }
 .buttonSubmit {
     position: absolute;
-    top: 20px;
+    top: 15px;
     right: 120px;
 }
 .buttonReset {
     position: absolute;
-    top: 20px;
+    top: 15px;
     right: 220px;
 }
 .infoCard {

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "../../Redux/Actions/Actions";
 import style from "./homeCompany.module.css";
-import {Button} from 'react-bootstrap'
 import swal from 'sweetalert';
+import styled from "styled-components";
 
 export default function PostForm({props}) {
     const selector = useSelector((state) => state);
@@ -36,13 +36,13 @@ export default function PostForm({props}) {
         .then(resp =>{
           try {
 
-            swal("Listo!",resp.data, "success");
+            swal("Ready!",resp.data, "success");
             if(resp.status === 200){
               handlerReset()
             }
           } catch{
 
-            swal("Listo!","Request has not been received: try again!","error")
+            swal("Error!","The request has not been received, try again!","error")
             handlerReset()
           }
           
@@ -79,45 +79,45 @@ export default function PostForm({props}) {
           <input className={style.inputForm} type="number" name='min_salary' placeholder="Min salary in USD" onChange={(e) => handlerChange(e)} controlled="true" />
           <br />
           <input className={style.inputForm} type="number" name='max_salary' placeholder="Max salary in USD" onChange={(e) => handlerChange(e)}  controlled="true" />
-          <p style={{color:'red',fontSize:'10px'}}>{data.max_salary > data.min_salary?'':"the maximum value must be longer than minimum value"}</p>
+          <p style={{color:'red',fontSize:'10px'}}>{data.max_salary > data.min_salary?'':"The maximum value must be longer than minimum value"}</p>
           <br />
           <textarea name="descripcion" cols="30" rows="6" placeholder="Description" onChange={(e) => handlerChange(e)} uncontrolled ="true"  value={data.descripcion}/>
           <br />
           <br />
           <label><strong>Experience:</strong>  </label>
           <select name="experience" onChange={(e) => handlerChange(e)}  controlled ="true">
-            <option value="trainig">trainig</option>
+            <option value="trainig">Training</option>
             <option value="junior" >
-              junior
+              Junior
             </option>
-            <option value="semi-senior">semi-senior</option>
-            <option value="senior">senior</option>
+            <option value="semi-senior">Semi-senior</option>
+            <option value="senior">Senior</option>
 
           </select>
           <br />
-          <label><strong>type of contract:</strong> </label>
+          <label><strong>Type of contract:</strong> </label>
           <select name="typeof_contract" onChange={(e) => handlerChange(e)}  controlled = "true" >
-            <option value="por labor">por labor</option>
+            <option value="por labor">By labor</option>
             <option value="temporal">
-            temporal
+            Temporary
             </option>
-            <option value="termino fijo">termino fijo</option>
-            <option value="termino indefinido">termino indefinido</option>
+            <option value="termino fijo">Fixed term</option>
+            <option value="termino indefinido">Indefinite term</option>
 
           </select>
           <br />
           <label><strong>Modality:</strong> </label>
           <select name="modality" onChange={(e) => handlerChange(e)}  controlled ="true" >
-            <option value="remoto">remoto</option>
+            <option value="remoto">Remote</option>
             <option value="presencial" >
-            presencial
+             Face-to-face
             </option>
 
           </select>
         </div>
         <div>
 
-          <label><strong>Tecnologies:</strong></label>
+          <label><strong>Technologies:</strong></label>
           {
             technologies.map((data, index) => {
                 return (
@@ -138,3 +138,23 @@ export default function PostForm({props}) {
     </div>
   );
 }
+
+
+const Button = styled.button`
+  background-color: #1c5d99;
+  border-radius: 5px;
+  color: white;
+  padding: 7px 10px 7px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+
+  cursor: pointer;
+  transition: all 300ms;
+  &:hover {
+    color: #222222;
+    background-color: #ffffff;
+  }
+`;

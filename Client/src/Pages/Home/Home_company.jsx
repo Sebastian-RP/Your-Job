@@ -10,11 +10,12 @@ import {
   getAllPostsFromCompany,
   getAllProducts,
 } from "../../Redux/Actions/Actions";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import style from "./homeCompany.module.css";
 import PostForm from "./postForm";
 import ListPostulates from "./listPostulates";
 import Image from "../Users/perfilPicture.png";
+import styled from "styled-components";
 
 export default function HomeCompany() {
   const { user } = useAuth0();
@@ -57,10 +58,10 @@ export default function HomeCompany() {
   const handlerDelete = (value) => {
     dispatch(deletePost(value)).then((data) => {
       if (data.status === 200) {
-        alert("job offer successsfully deleted");
+        alert("Job offer successsfully deleted");
         dispatch(getAllPostsFromCompany(company.id));
       } else {
-        alert("the operation could not be carried out, please try again");
+        alert("The operation could not be carried out, please try again");
       }
     });
   };
@@ -75,7 +76,7 @@ export default function HomeCompany() {
           <div className={style.imageCompany}>
             <img src={company?.image} alt={Image} />
           </div>
-          <div className={style.infoCompany}>
+          <div>
             <p>
               <strong>Name:</strong> {company?.name}
             </p>
@@ -86,30 +87,29 @@ export default function HomeCompany() {
               <strong>Address:</strong> {company?.address}
             </p>
           </div>
-          <Button variant="success" onClick={() => setShowFormPost(true)}>
+          <Button onClick={() => setShowFormPost(true)}>
             Create Post
           </Button>
           {showFormPost && (
-            <Button
-              variant="danger"
-              className={style.buttonCancel}
+            <ButtonCanceled
+              // className={style.buttonCancel}
               onClick={showForm}
             >
               Cancel
-            </Button>
+            </ButtonCanceled>
           )}
         </div>
         <div className={style.infoPost}>
           {posts?.map((data, index) => {
             return (
               <div className={style.cardPost} key={index}>
-                <button
+                <Button
                   variant="danger"
                   style={{ position: "absolute", zIndex: "2", right: "10px" }}
                   onClick={() => handlerDelete(data.id)}
                 >
                   X
-                </button>
+                </Button>
                 <Card onClick={() => handlerList(data.postulates)}>
                   <Card.Header as="h6">{data.titlePost}</Card.Header>
                   <Card.Body>
@@ -140,7 +140,7 @@ export default function HomeCompany() {
                       </>
                     </Card.Text>
                     <div className={style.infoCard}>
-                      <span>postulates: {data.postulates.length}</span>
+                      <span>Postulates: {data.postulates.length}</span>
                       <span>Created: {data.createdAt.slice(0, 10)}</span>
                     </div>
                   </Card.Body>
@@ -153,16 +153,55 @@ export default function HomeCompany() {
 
       {showList && (
         <>
-          <Button
+          <ButtonCanceled
             variant="danger"
-            className={style.buttonCancel}
+            // className={style.buttonCancel}
             onClick={() => setShowList(false)}
           >
             Back
-          </Button>
+          </ButtonCanceled>
           <ListPostulates props={listPostulates} />
         </>
       )}
     </div>
   );
 }
+
+const Button = styled.button`
+  background-color: #1c5d99;
+  border-radius: 5px;
+  color: white;
+  padding: 7px 10px 7px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: all 300ms;
+  &:hover {
+    color: #222222;
+    background-color: #ffffff;
+  }
+`;
+
+const ButtonCanceled = styled.button`
+  background-color: white;
+  border-radius: 5px;
+  color: #222222;
+  padding: 7px 10px 7px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: all 300ms;
+  position: fixed;
+  z-index: 4;
+  top: 15px;
+  right:20px;
+  &:hover {
+    color: white;
+    background-color: #1c5d99;
+  }
+`;
