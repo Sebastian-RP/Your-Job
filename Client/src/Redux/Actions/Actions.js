@@ -20,8 +20,9 @@ export const GET_COMPANY_BY_EMAIL = "GET_COMPANY_BY_EMAIL";
 export const CREATE_COMPANY = "CREATE_COMPANY";
 export const LOG_OUT = "LOG_OUT";
 export const UPDATE_USER = "UPDATE_USER";
-export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY"
-export const DELETE_FORUM_POST = "DELETE_FORUM_POST" 
+export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY";
+export const DELETE_FORUM_POST = "DELETE_FORUM_POST";
+export const DELETE_USER = "DELETE_USER";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -312,15 +313,26 @@ export function updateUser(id, changes) {
   };
 }
 
-export function deleteTech(id){
-  return async function (dispatch){
+export function deleteTech(id) {
+  return async function (dispatch) {
     try {
-      const techArray = await axios.delete(`/technology/${id}`)
-      return dispatch({type:DELETE_TECHNOLOGY, payload: techArray.data})
+      const techArray = await axios.delete(`/technology/${id}`);
+      return dispatch({ type: DELETE_TECHNOLOGY, payload: techArray.data });
     } catch (error) {
       console.error(error.message);
     }
-  }
+  };
+}
+
+export function deleteUser(id) {
+  return async function (dispatch) {
+    try {
+      const deletedUser = await axios.delete(`/users/${id}`);
+      return;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 }
 
 // export function deleteForumPost(id){
@@ -328,7 +340,7 @@ export function deleteTech(id){
 //     try {
 //       const forumPostArray = await axios.delete(`/userPost/${id}`)
 //       return forumPostArray
-//     } catch (error) {   
+//     } catch (error) {
 //       console.error(error.message);
 //     }
 //   }
