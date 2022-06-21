@@ -148,7 +148,10 @@ export default function HomeUser() {
             <div className={style.containerActions}>
               <div className={style.filters}>
                 <div className={style.image}>
-                  <img src={user?.picture} alt="profile_picture" />
+                  <img
+                    src={logged?.image + "-/resize/200x200/"}
+                    alt="profile_picture"
+                  />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
                   {posts !== selector.posts && (
                     <Button
@@ -311,7 +314,8 @@ export default function HomeUser() {
                                   })}
                                 </>
                               </Card.Text>
-                              <button className={style.Button}
+                              <button
+                                className={style.Button}
                                 variant={
                                   postId.includes(data.id)
                                     ? "secondary"
