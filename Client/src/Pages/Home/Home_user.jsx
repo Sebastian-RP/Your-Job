@@ -50,6 +50,9 @@ export default function HomeUser() {
     console.log(user?.email);
     console.log(logged);
     dispatch(getUserByEmail(user?.email));
+    getAllProducts("usuario").then((res) => {
+      dispatch(res);
+    });
     // eslint-disable-next-line
   }, [user]);
 
@@ -73,9 +76,6 @@ export default function HomeUser() {
   useEffect(() => {
     setTimeout(() => {
       setShowPage(true);
-      getAllProducts("usuario").then((res) => {
-        dispatch(res);
-      });
     }, 2000);
   }, []);
 

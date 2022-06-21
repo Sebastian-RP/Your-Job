@@ -18,6 +18,8 @@ export default function Navbar() {
   const navigate = useNavigate();
   const carrito = useSelector((state) => state.carrito);
   const loggedUser = useSelector((state) => state.myUser);
+  const loggedCompany = useSelector((state) => state.myCompany);
+
   const dispatch = useDispatch();
 
   const handlerPerfile = () => {
@@ -32,7 +34,7 @@ export default function Navbar() {
           navigate(`/onboarding`);
         } else {
           swal({
-            title: "are you sure?",
+            title: "Are you sure?",
             icon: "warning",
           });
         }
@@ -62,6 +64,16 @@ export default function Navbar() {
         { !loggedUser.hasOwnProperty("error") ? (
           <>
             <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
+              <AiOutlineUser />
+            </Button>
+            <ButtonOff onClick={() => exit()}>
+              <AiOutlinePoweroff />
+            </ButtonOff>
+          </>
+        ): null}
+        { !loggedCompany.hasOwnProperty("error") ? (
+          <>
+            <Button onClick={() => navigate(`/company/${loggedCompany.name}`)}>
               <AiOutlineUser />
             </Button>
             <ButtonOff onClick={() => exit()}>
