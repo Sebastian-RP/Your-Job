@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("company", {
-    id:{
+    id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
@@ -53,14 +53,18 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.INTEGER), //id de los empleados asociados a dicha empresa
     },
     posts: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER) 
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
     },
     premium: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     status: {
       type: DataTypes.ENUM(["active", "disabled"]),
-      defaultValue: "active"
-    }
+      defaultValue: "active",
+    },
+    Account: {
+      type: DataTypes.ENUM(["User", "Company"]),
+      defaultValue: "Company",
+    },
   });
 };

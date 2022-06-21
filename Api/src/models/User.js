@@ -50,6 +50,10 @@ module.exports = (sequelize) => {
     status: {
       type: DataTypes.ENUM(["active", "disabled"]),
       defaultValue: "active",
-    }
+    },
+    Account: {
+      type: DataTypes.ENUM(["User", "Company"]),
+      defaultValue: "User",
+    },
   });
 };
