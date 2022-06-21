@@ -81,7 +81,7 @@ const updatePostCompany = async (id, changes) => {
   return postFound;
 };
 
-const deletePost = async (id) => {
+const deleteCompanyPost = async (id) => {
   try {
     const post = await CompanyPost.findByPk(id);
     await post.update({ status: "disabled" });
@@ -94,7 +94,7 @@ const deletePost = async (id) => {
 module.exports = {
   getCompanyPosts,
   createPost,
-  deletePost,
+  deleteCompanyPost,
   getPostsfromCompany,
   updatePostCompany,
 };

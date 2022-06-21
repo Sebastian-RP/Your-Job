@@ -16,6 +16,7 @@ import {
   CREATE_COMPANY,
   LOG_OUT,
   UPDATE_USER,
+  DELETE_TECHNOLOGY
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -121,6 +122,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         myUser: action.payload,
       };
+    case DELETE_TECHNOLOGY:
+      return {
+        ...state,
+        technologies: action.payload
+      }
     default:
       return { ...state };
   }

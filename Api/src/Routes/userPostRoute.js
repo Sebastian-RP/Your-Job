@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const {
     getUserPosts,
-    createPostUser
+    createPostUser,
+    deleteUserPost
 } = require("../Controllers/UserPostController");
 
 const router = Router();
@@ -25,5 +26,10 @@ router.post("/:id", async(req, res) => {
     res.status(404).send(e.message);
   }
 })
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  res.send(await deleteUserPost(id));
+});
 
 module.exports = router;

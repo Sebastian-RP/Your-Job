@@ -14,7 +14,7 @@ const getTechnologies = async () => {
     //   });
     // }
 
-    let technologies = await Technology.findAll();
+    let technologies = await Technology.findAll({ where: { status:"active" } });
 
     technologies.sort((a, b) => {
       //ordedenado alfabeticaamente
@@ -41,13 +41,24 @@ const createTechnologies = async (name) => {
           name: name,
         },
     })
-    // console.log("successful technology creation");
+
+    return created
+
   } catch (error) {
     console.error("Error in createTechnology:", error.message);
   }
 }
 
+const deleteTechnology = async (id) => {
+  const technologies = await getTechnologies()
+  const technology = technologies.find((tech) => tech.id === parseInt(id))
+  await technology?.update({status:"disabled"})
+
+  return await getTechnologies();
+}
+
 module.exports = {
   getTechnologies,
-  createTechnologies
+  createTechnologies,
+  deleteTechnology
 };
