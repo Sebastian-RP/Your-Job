@@ -287,8 +287,24 @@ export default function UsersEdit() {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    let cv = `https://ucarecdn.com/${uuidCV}/`;
-    let image = `https://ucarecdn.com/${uuidImage}/`;
+    let cv = uuidCV;
+    let image = uuidImage;
+    if (
+      !uuidCV.match(
+        // eslint-disable-next-line
+        /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi
+      )
+    ) {
+      cv = `https://ucarecdn.com/${uuidCV}/`;
+    }
+    if (
+      !uuidImage.match(
+        // eslint-disable-next-line
+        /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi
+      )
+    ) {
+      image = `https://ucarecdn.com/${uuidImage}/`;
+    }
     let update = {
       name: input.name,
       age: input.age,
@@ -305,162 +321,172 @@ export default function UsersEdit() {
       title: "Success!",
       text: "Your changes have been submitted.",
       icon: "success",
-    }).then(navigate(-1));
+    });
+
+    setTimeout(() => {
+      navigate(`/users/${input.name}`);
+    }, 1500);
   };
 
   return (
     <div>
       {ownProfile ? (
-        <div className={style.containerPerfil}>
-          <div className={style.header}>
-            <Widget
-              publicKey="de7dc23d760e287d1cb0"
-              clearable
-              imagesOnly
-              crop=""
-              onChange={(file) => {
-                setUuidImage(file.uuid);
-              }}
-            />
-            <div className={style.picture}>
-              <img src={loggedUser.image} alt="" />
-              <input
-                defaultValue={username}
-                name="name"
-                onChange={(e) => {
-                  handleChange(e);
+        <form>
+          <div className={style.containerPerfil}>
+            <div className={style.header}>
+              <Widget
+                publicKey="de7dc23d760e287d1cb0"
+                clearable
+                imagesOnly
+                crop=""
+                onChange={(file) => {
+                  setUuidImage(file.uuid);
                 }}
               />
-            </div>
-            <div>
-              <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
-                Back
-              </Button>
-            </div>
-          </div>
-          <div className={style.suggestions}>
-            <h2>Suggestions</h2>
-            <Button onClick={(e) => handleUpdate(e)}>Update</Button>
-          </div>
-          <div className={style.perfilInfo}>
-            <div className={style.about}>
-              <h2>About</h2>
-              <p>Status: {userData?.employment_status}</p>
-              <label>Linkedin/etc...:</label>{" "}
-              <input
-                defaultValue={userData?.url}
-                name="linkedin"
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-              <br />
-              <label>Date of Birth:</label>{" "}
-              <Form.Control
-                type="date"
-                name="age"
-                defaultValue={userData?.age}
-                // error={errors.date_of_birth}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-              {/* <p>Nationality: {userData?.nationality}</p> */}
-              <div
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  justifyContent: "center",
-                  gap: "10px",
-                }}
-              >
-                <DropdownButton
-                  id="dropdown-basic-button"
-                  title="Select Country"
-                  style={{ height: "10px" }}
-                >
-                  <div style={{ height: "150px", overflowY: "scroll" }}>
-                    {countries.map((country, index) => {
-                      return (
-                        <Dropdown.Item
-                          onClick={() => {
-                            addCountry(country);
-                          }}
-                          key={index}
-                        >
-                          {country}
-                        </Dropdown.Item>
-                      );
-                    })}
-                  </div>
-                </DropdownButton>
-                <label>
-                  Country of Origin: {country || userData.nationality}
-                </label>
-              </div>
-              Technologies:
-              <Dropdown className="d-inline mx-2" autoClose="outside">
-                <Dropdown.Toggle id="dropdown-autoclose-outside">
-                  Select Technologies
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  {technologies &&
-                    technologies.map((tech, index) => {
-                      return (
-                        <Dropdown.Item
-                          onClick={() => {
-                            addTechs(tech.name);
-                          }}
-                          key={index}
-                        >
-                          {tech.name}
-                        </Dropdown.Item>
-                      );
-                    })}
-                </Dropdown.Menu>
-              </Dropdown>
-              <ul>
-                {selectedTechs?.map((tech, index) => (
-                  <div key={index} className={style.containerTechnologies}>
-                    <li
-                      onClick={() => {
-                        removeTech(tech);
-                      }}
-                    >
-                      {` ${tech} `}
-                    </li>
-                  </div>
-                ))}
-              </ul>
-            </div>
-            <div className={style.info}>
-              <h2>info</h2>
-              <textarea
-                defaultValue={userData?.description}
-                cols="50"
-                rows="10"
-                name="desc"
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-              <hr />
-
-              <div style={{ textAlign: "right" }}>
-                CV:
-                <Widget
-                  publicKey="de7dc23d760e287d1cb0"
-                  clearable
-                  crop=""
-                  onChange={(file) => {
-                    setUuidCV(file.uuid);
+              <div className={style.picture}>
+                <img src={loggedUser.image} alt="" />
+                <input
+                  defaultValue={username}
+                  name="name"
+                  required
+                  onChange={(e) => {
+                    handleChange(e);
                   }}
                 />
               </div>
+              <div>
+                <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
+                  Back
+                </Button>
+              </div>
+            </div>
+            <div className={style.suggestions}>
+              <h2>Suggestions</h2>
+              <Button type="submit" onClick={(e) => handleUpdate(e)}>
+                Update
+              </Button>
+            </div>
+            <div className={style.perfilInfo}>
+              <div className={style.about}>
+                <h2>About</h2>
+                <p>Status: {userData?.employment_status}</p>
+                <label>Linkedin/etc...:</label>{" "}
+                <input
+                  defaultValue={userData?.url}
+                  name="linkedin"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+                <br />
+                <label>Date of Birth:</label>{" "}
+                <Form.Control
+                  type="date"
+                  required
+                  name="age"
+                  defaultValue={userData?.age}
+                  // error={errors.date_of_birth}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+                {/* <p>Nationality: {userData?.nationality}</p> */}
+                <div
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <DropdownButton
+                    id="dropdown-basic-button"
+                    title="Select Country"
+                    style={{ height: "10px" }}
+                  >
+                    <div style={{ height: "150px", overflowY: "scroll" }}>
+                      {countries.map((country, index) => {
+                        return (
+                          <Dropdown.Item
+                            onClick={() => {
+                              addCountry(country);
+                            }}
+                            key={index}
+                          >
+                            {country}
+                          </Dropdown.Item>
+                        );
+                      })}
+                    </div>
+                  </DropdownButton>
+                  <label>
+                    Country of Origin: {country || userData.nationality}
+                  </label>
+                </div>
+                Technologies:
+                <Dropdown className="d-inline mx-2" autoClose="outside">
+                  <Dropdown.Toggle id="dropdown-autoclose-outside">
+                    Select Technologies
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    {technologies &&
+                      technologies.map((tech, index) => {
+                        return (
+                          <Dropdown.Item
+                            onClick={() => {
+                              addTechs(tech.name);
+                            }}
+                            key={index}
+                          >
+                            {tech.name}
+                          </Dropdown.Item>
+                        );
+                      })}
+                  </Dropdown.Menu>
+                </Dropdown>
+                <ul>
+                  {selectedTechs?.map((tech, index) => (
+                    <div key={index} className={style.containerTechnologies}>
+                      <li
+                        onClick={() => {
+                          removeTech(tech);
+                        }}
+                      >
+                        {` ${tech} `}
+                      </li>
+                    </div>
+                  ))}
+                </ul>
+              </div>
+              <div className={style.info}>
+                <h2>info</h2>
+                <textarea
+                  defaultValue={userData?.description}
+                  cols="50"
+                  rows="10"
+                  name="desc"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+                <hr />
+
+                <div style={{ textAlign: "right" }}>
+                  CV:
+                  <Widget
+                    publicKey="de7dc23d760e287d1cb0"
+                    clearable
+                    crop=""
+                    onChange={(file) => {
+                      setUuidCV(file.uuid);
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       ) : (
         <Home />
       )}

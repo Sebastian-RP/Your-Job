@@ -350,6 +350,7 @@ export default function RegisterUser({ props }) {
               type="date"
               name="age"
               error={errors.date_of_birth}
+              required
               onChange={(e) => {
                 handleChange(e);
               }}
