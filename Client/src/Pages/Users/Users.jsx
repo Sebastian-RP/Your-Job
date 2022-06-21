@@ -31,7 +31,7 @@ export default function Users() {
   }, []);
 
   //----------------------------------
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.myUser);
 
   const sendMessage = async () => {
     try {
@@ -44,6 +44,14 @@ export default function Users() {
     }
   };
 
+  const years = (date) => {
+    let now = new Date();
+    let birth = new Date(date);
+    let diff = (now.getTime() - birth.getTime()) / 1000;
+    diff /= 60 * 60 * 24;
+    return Math.abs(Math.round(diff / 365.25));
+  };
+
   //----------------------------------
 
   return (
@@ -54,13 +62,13 @@ export default function Users() {
           <h2>About</h2>
           <hr />
           <div className={style.picture}>
-            <img src={image} alt="perfil" />
-            <h2>{username}</h2>
+            <img src={userData?.image} alt="perfil" />
+            <h2>{userData?.name}</h2>
           </div>
           <div className={style.about}>
             <p>Status: {userData?.employment_status}</p>
             <p>Email: {userData?.email}</p>
-            <p>Age: {userData?.age}</p>
+            <p>Age: {years(userData?.age)} Years Old</p>
             <p>Nationality: {userData?.nationality}</p>
             Technologies:
             <ul>
@@ -68,6 +76,16 @@ export default function Users() {
                 return <li key={i}>{d}</li>;
               })}
             </ul>
+            <p>
+              Linkedin/etc... :{" "}
+              <a
+                href={"https://" + userData.url}
+                target="_blank"
+                rel="noopener,noreferrer"
+              >
+                {userData.url}
+              </a>
+            </p>
           </div>
         </div>
         <div className={style.suggestions}>
@@ -107,11 +125,7 @@ export default function Users() {
               <button
                 className={style.Button}
                 onClick={() => {
-                  window.open(
-                    "https://" + userData.cv + "/",
-                    "_blank",
-                    "noopener,noreferrer"
-                  );
+                  window.open(userData.cv, "_blank", "noopener,noreferrer");
                 }}
               >
                 Download CV

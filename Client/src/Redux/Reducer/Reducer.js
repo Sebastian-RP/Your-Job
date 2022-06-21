@@ -15,6 +15,7 @@ import {
   GET_COMPANY_BY_EMAIL,
   CREATE_COMPANY,
   LOG_OUT,
+  UPDATE_USER,
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -113,6 +114,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         myUser: [],
         myCompany: [],
+      };
+    case UPDATE_USER:
+      console.log(action.payload);
+      return {
+        ...state,
+        myUser: action.payload,
       };
     default:
       return { ...state };
