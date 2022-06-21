@@ -142,6 +142,5 @@ async function getIds() {
 
 
 module.exports = {
-  // fakeCompanyPostData,
   getIds
 };
