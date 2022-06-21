@@ -31,7 +31,7 @@ export default function Users() {
   }, []);
 
   //----------------------------------
-  const userData = useSelector((state) => state.myUser);
+  const userData = useSelector((state) => state.user);
 
   const sendMessage = async () => {
     try {
