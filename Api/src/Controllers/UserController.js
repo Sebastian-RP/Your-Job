@@ -72,7 +72,7 @@ const updateUser = async (id, changes) => {
 };
 
 const deleteUser = async (id) => {
-  let user = await User.findByPk(id);
+  let user = await findUserId(id);
   await user.update({ status: "disabled" });
   return user;
 };

@@ -2,7 +2,7 @@ const { Router } = require("express");
 const {
   getCompanyPosts,
   createPost,
-  deletePost,
+  deleteCompanyPost,
   getPostsfromCompany,
   updatePostCompany,
 } = require("../Controllers/companyPostController.js");
@@ -85,7 +85,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  res.send(await deletePost(id));
+  res.send(await deleteCompanyPost(id));
 });
 
 module.exports = router;

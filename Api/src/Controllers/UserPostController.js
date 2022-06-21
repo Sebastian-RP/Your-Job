@@ -13,8 +13,10 @@ const getUserPosts = async () => {
             "url",
             "image",
             "nationality",
+            "status"
           ],
         },
+        where: { status: "active" }
       });
       return allPosts;
     } catch (error) {
@@ -36,10 +38,18 @@ const createPostUser = async(
   } catch (error) {
     console.error("Error in createUserPost:", error.message);
   }
+};
+
+const deleteUserPost = async (id) => {
+  const user = await getUserPosts();
+  const userDelete = user.find(u => u.id === parseInt(id))
+  await userDelete.update({ status: "disabled" });
+  return userDelete;
 }
 
 module.exports = {
     getUserPosts,
-    createPostUser
+    createPostUser,
+    deleteUserPost
 };
   
