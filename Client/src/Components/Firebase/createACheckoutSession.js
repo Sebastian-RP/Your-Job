@@ -9,9 +9,9 @@ async function createCheckoutSession(uid, cart) {
     mode: "subscription",
 
     success_url: "https://your-job-seven.vercel.app/success",
-    cancel_url: "https://your-job-seven.vercel.app/cancel",
-    // success_url: "https://localhost:3000/success",
-    // cancel_url: "https://localhost:3000/cancel",
+    cancel_url: "https://your-job-seven.vercel.app/canceled",
+    // success_url: "http://localhost:3000/success",
+    // cancel_url: "http://localhost:3000/canceled",
 
     collect_shipping_address: false,
     line_items: cart.map((item) => {
