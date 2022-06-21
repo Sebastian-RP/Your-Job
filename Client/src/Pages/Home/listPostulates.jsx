@@ -16,9 +16,9 @@ export default function ListPostulates({ props }) {
           props.map((data, index) => {
             return (
               <div key={index} className={style.cardPostulate}>
-                <span 
-                onClick={() => navigate(`/users/${data.name}`)}
-                className={style.spanName}
+                <span
+                  onClick={() => navigate(`/users/${data.name}`)}
+                  className={style.spanName}
                 >
                   {data.name}
                 </span>
@@ -32,7 +32,7 @@ export default function ListPostulates({ props }) {
             );
           })
         ) : (
-          <h3>Not Postulates</h3>
+          <h3>No Postulates</h3>
         )}
       </div>
     </div>
