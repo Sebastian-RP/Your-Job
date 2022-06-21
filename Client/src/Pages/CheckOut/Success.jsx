@@ -28,6 +28,7 @@ function Success() {
 
     async function handledHome(e) {
         e.preventDefault();
+        console.log(user)
         if(user){
             emailjs.sendForm('service_db1lpkd', 'template_upt9d5c', form.current, 'F-jlerFc9kQmnHiSA')
             .then((result) => {
