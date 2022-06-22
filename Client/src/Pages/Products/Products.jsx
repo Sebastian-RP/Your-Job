@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import style from "./Products.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
@@ -8,7 +8,6 @@ import getAllPayments from "../../Components/Firebase/getAllPayments";
 import { GiLaurelCrown } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
 import styled from "styled-components";
-import { getAllProducts } from "../../Redux/Actions/Actions";
 
 
 const Products = () => {
@@ -17,14 +16,12 @@ const Products = () => {
   const [products, setProducts] = useState(null);
   const [plans, setPlans] = useState([]);
   const carrito = useSelector((state)=> state.carrito)
-  const dispatch = useDispatch();
   const navigate = useNavigate()
 
   var UserPlans = []
 
   const awaitLogin = async () => {
     UserPlans = await getAllPayments(user);
-    console.log(UserPlans)
     if(UserPlans.length > 0 ) setPlans(UserPlans)
     if(UserPlans.length === 0) setPlans(["Does not have active plans"])
     if(UserPlans.includes("error")) setPlans(["To see your plans you must log in"])
