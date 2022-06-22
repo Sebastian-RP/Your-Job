@@ -58,9 +58,14 @@ const findUserId = async (id) => {
 };
 
 const getUsers = async () => {
-  const users = await User.findAll({
+  let users = await User.findAll({
     include: { model: Technology },
     where: { status: "active" },
+  });
+  users = users.sort((a, b) => {
+    if (a.name > b.name) return 1;
+    if (a.name < b.name) return -1;
+    return 0;
   });
   return users;
 };

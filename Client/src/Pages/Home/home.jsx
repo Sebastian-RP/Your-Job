@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCompanies, getAllPost, getCompanyByEmail, getUserByEmail } from "../../Redux/Actions/Actions";
+import {
+  getAllCompanies,
+  getAllPost,
+  getCompanyByEmail,
+  getUserByEmail,
+} from "../../Redux/Actions/Actions";
 import HomeCompany from "./Home_company";
 import HomeUser from "./Home_user.jsx";
+import HomeAdmin from "./Home_admin";
+import Onboarding from "../Onboarding/Onboarding";
 
 export default function Home() {
   const { user, isLoading } = useAuth0();
@@ -27,8 +34,21 @@ export default function Home() {
     if (!loggedCompany.hasOwnProperty("error")) {
       setIsUser(false);
     } else {
-      setIsUser(true);
+      if (!loggedUser.hasOwnProperty("error")) {
+        setIsUser(true);
+      } else {
+        setIsUser("nada");
+        console.log(isUser);
+      }
     }
   }, [loggedUser, loggedCompany]);
-  return isUser ? <HomeUser /> : <HomeCompany />;
+  return isUser && loggedUser?.Account === "Admin" ? (
+    <HomeAdmin />
+  ) : isUser === true ? (
+    <HomeUser />
+  ) : isUser !== "nada" ? (
+    <HomeCompany />
+  ) : (
+    <Onboarding />
+  );
 }
