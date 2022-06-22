@@ -1,6 +1,15 @@
-const { Technology } = require("../db.js");
+const { Technology, Op } = require("../db.js");
 
-const tecnologias = ["Javascript", "React", "Redux", "HTML5", "CSS3", "Boostrap", "Jquery", "Java"];
+const tecnologias = [
+  "Javascript",
+  "React",
+  "Redux",
+  "HTML5",
+  "CSS3",
+  "Boostrap",
+  "Jquery",
+  "Java",
+];
 
 const getTechnologies = async () => {
   try {
@@ -14,7 +23,9 @@ const getTechnologies = async () => {
     //   });
     // }
 
-    let technologies = await Technology.findAll({ where: { status:"active" } });
+    let technologies = await Technology.findAll({
+      where: { status: "active" },
+    });
 
     technologies.sort((a, b) => {
       //ordedenado alfabeticaamente
@@ -36,29 +47,36 @@ const getTechnologies = async () => {
 const createTechnologies = async (name) => {
   try {
     let [techX, created] = await Technology.findOrCreate({
-      where: { name: name },
-        default: {
-          name: name,
-        },
-    })
-
-    return created
-
+      where: { name: { [Op.iLike]: name } },
+      defaults: {
+        name: name,
+      },
+    });
+    if (created) {
+      return created;
+    } else {
+      if (techX.status === "active") {
+        return { active: true };
+      } else {
+        techX.update({ status: "active" });
+      }
+    }
+    return;
   } catch (error) {
     console.error("Error in createTechnology:", error.message);
   }
-}
+};
 
 const deleteTechnology = async (id) => {
-  const technologies = await getTechnologies()
-  const technology = technologies.find((tech) => tech.id === parseInt(id))
-  await technology?.update({status:"disabled"})
+  const technologies = await getTechnologies();
+  const technology = technologies.find((tech) => tech.id === parseInt(id));
+  await technology?.update({ status: "disabled" });
 
   return await getTechnologies();
-}
+};
 
 module.exports = {
   getTechnologies,
   createTechnologies,
-  deleteTechnology
+  deleteTechnology,
 };

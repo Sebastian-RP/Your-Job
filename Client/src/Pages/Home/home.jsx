@@ -25,7 +25,9 @@ export default function Home() {
     // eslint-disable-next-line
   }, [user]);
   useEffect(() => {
+
     if (!isLoading) {
+
       if (!loggedCompany.hasOwnProperty("error")) {
         setIsUser(false);
       } else {
@@ -36,8 +38,10 @@ export default function Home() {
           console.log(isUser);
         }
       }
+
     }
   }, [loggedUser, loggedCompany, isLoading]);
+    
   return isUser && loggedUser?.Account === "Admin" ? (
     <HomeAdmin />
   ) : isUser === true ? (
