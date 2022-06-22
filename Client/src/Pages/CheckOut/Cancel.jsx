@@ -1,36 +1,32 @@
 import React from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
-// import { useNavigate } from 'react-router-dom';
+import { clearCarrito } from '../../Redux/Actions/Actions'
+import { useDispatch } from 'react-redux';
+
 
 function Canceled() {
-  // const navigate = useNavigate()
+  const dispatch = useDispatch();
 
-  // function resolveAfter5Seconds(x) {
-  //   return new Promise(resolve => {
-  //     setTimeout(() => {
-  //       resolve(x);
-  //     }, 5000);
-  //   });
-  // }
-  
-  // async function f1() {
-  //   var x = await resolveAfter5Seconds(10);
-  //   if(x === 10) {
-  //     navigate('/home')
-  //   }
-  // }
-  // f1()
+  useEffect(()=>{
+    clearCarrito([]).then((action) => {
+        dispatch(action);
+    }
+    )
+  }, [])
 
-  // function handledHome(e) {
-  //   e.preventDefault();
-  //   navigate(`/home`);
-  // }
+  function handledHome(e) {
+    e.preventDefault();
+    var daddy = window.self;
+    daddy.opener = window.self;
+    daddy.close();
+  }
 
   return (
     <Body>
       <h1>Your purchase has been canceled!</h1>
       <p>You can close this window</p>
-      {/* <Button onClick={handledHome}>Home</Button> */}
+      <Button onClick={handledHome}>Close</Button>
     </Body>
   )
 }
@@ -59,22 +55,22 @@ const Body = styled.div`
     }   
 `;
 
-// const Button = styled.button`
-//   background-color: #1C5D99;
-//   border-radius: 5px;
-//   border: 1px solid white;
-//   color: white;
-//   padding: 7px 10px 7px 10px ;
-//   text-align: center;
-//   text-decoration: none;
-//   display: inline-block;
-//   font-size: 16px;
-//   margin: 4px 2px;
-//   cursor: pointer;
-//   transition: all 300ms;
+const Button = styled.button`
+  background-color: #1C5D99;
+  border-radius: 5px;
+  border: 1px solid white;
+  color: white;
+  padding: 7px 10px 7px 10px ;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: all 300ms;
 
-//   &:hover {
-//     color: #222222;
-//     background-color: #FFFFFF;
-//   }
-// `;
+  &:hover {
+    color: #222222;
+    background-color: #FFFFFF;
+  }
+`;
