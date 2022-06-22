@@ -15,7 +15,10 @@ function Success() {
     const form = useRef();
 
     useEffect(()=>{
-        dispatch(clearCarrito([]))
+        clearCarrito([]).then((action) => {
+            dispatch(action);
+        }
+        )
     }, [])
 
     let user = myUser;
