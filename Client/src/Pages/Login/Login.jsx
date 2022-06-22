@@ -3,19 +3,36 @@ import { useAuth0 } from "@auth0/auth0-react";
 import style from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 import logo from "./YourJobs.png";
-import { useDispatch } from "react-redux";
-import { logOut } from "../../Redux/Actions/Actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCompanyByEmail,
+  getUserByEmail,
+  logOut,
+} from "../../Redux/Actions/Actions";
+import { useEffect } from "react";
 export default function Login() {
-  const {
-    loginWithRedirect,
-    loginWithPopup,
-    user,
-    isAuthenticated,
-    isLoading,
-    logout,
-  } = useAuth0();
+  const { loginWithPopup, user, isAuthenticated, isLoading, logout } =
+    useAuth0();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loggedUser = useSelector((state) => state.myUser);
+  const loggedCompany = useSelector((state) => state.myCompany);
+
+  useEffect(() => {
+    dispatch(getCompanyByEmail(user?.email));
+    dispatch(getUserByEmail(user?.email));
+  }, [user]);
+
+  const validate = () => {
+    if (
+      loggedUser.hasOwnProperty("error") &&
+      loggedCompany.hasOwnProperty("error")
+    ) {
+      navigate("/onboarding");
+    } else {
+      navigate("/home");
+    }
+  };
 
   const exit = () => {
     dispatch(logOut());
@@ -30,7 +47,7 @@ export default function Login() {
         <img src={logo} alt="" width={"300px"} />
       </aside>
       <main className={style.main}>
-        <h1>Join to Yourjob</h1>
+        <h1>Join Yourjob</h1>
         <div className={style.profile}>
           {isLoading ? (
             <img
@@ -49,7 +66,7 @@ export default function Login() {
                   <h2 className={style.profile__name}>{user.name}</h2>
                   <button
                     className={`${style.button} ${style.continue}`}
-                    onClick={() => navigate("/home")}
+                    onClick={() => validate()}
                   >
                     Continue
                   </button>
