@@ -167,7 +167,7 @@ export function getAllCompanies() {
 
 export async function updatePremiumPlan(userID, premiumService) {
   try {
-    let numero = null
+    let numero = 0
     if(premiumService.map(element => element.includes("1"))){
       numero = 1;
     }
