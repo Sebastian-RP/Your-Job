@@ -1,6 +1,4 @@
 import React, {useRef} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { clearCarrito } from '../../Redux/Actions/Actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import emailjs from '@emailjs/browser';
@@ -10,32 +8,33 @@ import styled from 'styled-components';
 function Success() {
     const myUser = useSelector(state => state.myUser)
     const myCompany = useSelector(state => state.myCompany)
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
     const form = useRef();
-
-    useEffect(()=>{
-        clearCarrito([]).then((action) => {
-            dispatch(action);
-        }
-        )
-        console.log(myCompany)
-    }, [])
+    var flag = 0;
 
     let user = myUser;
     if(myUser.hasOwnProperty('error')){
         user = myCompany
     }
 
+    useEffect(()=>{
+        if(flag === 0){
+            emailjs.sendForm('service_db1lpkd', 'template_upt9d5c', form.current, 'F-jlerFc9kQmnHiSA')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+            flag = 1
+        }
+    }, [user])
+
+ 
+
     async function handledHome(e) {
         e.preventDefault();
-        // console.log(user)
-        emailjs.sendForm('service_db1lpkd', 'template_upt9d5c', form.current, 'F-jlerFc9kQmnHiSA')
-        .then((result) => {
-            navigate(`/home`);
-        }, (error) => {
-            console.log(error.text);
-        });
+        var daddy = window.self;
+        daddy.opener = window.self;
+        daddy.close();
     }
 
 
@@ -45,7 +44,7 @@ function Success() {
             <h1>Success!</h1>
             <h2>You can click in the botton to go home to be redirect</h2>
             <p>We gone to seend you to your email acount {user? user.email : "(loading acount...)"} your ticket of purchase</p>
-            <Button onClick={handledHome}>Home</Button>
+            <Button onClick={handledHome}>Close</Button>
             <Form ref={form} onSubmit={handledHome}>
                 <input type="text" name="from_name" value={user?user.name:"Esperando"} />
                 <input type="email" name="reply_to" value={user?user.email:"Esperando"}/>

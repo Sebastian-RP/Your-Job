@@ -9,6 +9,7 @@ import {
   getAllPost,
   getAllPostsFromCompany,
   getAllProducts,
+  getActivePlans
 } from "../../Redux/Actions/Actions";
 import { Card } from "react-bootstrap";
 import style from "./homeCompany.module.css";
@@ -21,7 +22,7 @@ export default function HomeCompany() {
   const { user } = useAuth0();
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
-  const companies = [...selector.companies];
+  // const companies = [...selector.companies];
   const allTechnologies = [...selector.technologies];
 
   const posts = [...selector.companyPosts];
@@ -33,6 +34,7 @@ export default function HomeCompany() {
   useEffect(() => {
     dispatch(getAllCompanies());
     dispatch(getAllPost());
+    dispatch(getActivePlans(user));
     // eslint-disable-next-line
   }, []);
 

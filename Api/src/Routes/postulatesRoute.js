@@ -1,17 +1,14 @@
 const { Router } = require("express");
 
-const {
-  postulatesPost,
-  getPostulates,
-  getPostulatesofPost,
-} = require("../Controllers/postulatesController.js");
+const { postulatesPost, getPostulates, getPostulatesofPost } = require("../Controllers/postulatesController.js");
 
 const router = Router();
 
 router.post("/", async (req, res) => {
-  const { name, url, companyPostId } = req.body;
+  const { name, url, postId, companyId } = req.body;
+  console.log(Object.keys(req.body));
   try {
-    res.send(await postulatesPost(name, url, companyPostId));
+    res.send(await postulatesPost(name, url, postId, companyId));
   } catch (error) {
     res.send({ message: error.message });
   }

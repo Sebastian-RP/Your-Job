@@ -28,8 +28,9 @@ async function createCheckoutSession(uid, cart) {
       let url = snapshots.data().url;
       if (url) {
         cancelarStreaming();
-        window.location.href = url;
+        // window.location.href = url;
         // window.open(url, "_blank", "noopener,noreferrer");
+        window.open(url, 'Checkout-Stripe', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=1000,left = 390,top = 50');
       }
     }
   );

@@ -1,36 +1,32 @@
 import React from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom';
+import { clearCarrito } from '../../Redux/Actions/Actions'
+import { useDispatch } from 'react-redux';
+
 
 function Canceled() {
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
-  function resolveAfter5Seconds(x) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(x);
-      }, 5000);
-    });
-  }
-  
-  async function f1() {
-    var x = await resolveAfter5Seconds(10);
-    if(x === 10) {
-      navigate('/home')
+  useEffect(()=>{
+    clearCarrito([]).then((action) => {
+        dispatch(action);
     }
-  }
-  f1()
+    )
+  }, [])
 
   function handledHome(e) {
     e.preventDefault();
-    navigate(`/home`);
+    var daddy = window.self;
+    daddy.opener = window.self;
+    daddy.close();
   }
 
   return (
     <Body>
       <h1>Your purchase has been canceled!</h1>
-      <p>You can click in the botton to go home or wait 5 seconds to be redirect</p>
-      <Button onClick={handledHome}>Home</Button>
+      <p>You can close this window</p>
+      <Button onClick={handledHome}>Close</Button>
     </Body>
   )
 }
