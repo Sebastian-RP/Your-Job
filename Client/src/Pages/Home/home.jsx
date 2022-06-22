@@ -31,16 +31,18 @@ export default function Home() {
     // eslint-disable-next-line
   }, [user]);
   useEffect(() => {
-    if (!loggedCompany.hasOwnProperty("error")) {
-      setIsUser(false);
-    } else {
-      if (!loggedUser.hasOwnProperty("error")) {
-        setIsUser(true);
+    setTimeout(() => {
+      if (!loggedCompany.hasOwnProperty("error")) {
+        setIsUser(false);
       } else {
-        setIsUser("nada");
-        console.log(isUser);
+        if (!loggedUser.hasOwnProperty("error")) {
+          setIsUser(true);
+        } else {
+          setIsUser("nada");
+          console.log(isUser);
+        }
       }
-    }
+    }, 1000);
   }, [loggedUser, loggedCompany]);
   return isUser && loggedUser?.Account === "Admin" ? (
     <HomeAdmin />

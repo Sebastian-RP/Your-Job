@@ -23,6 +23,8 @@ export const UPDATE_USER = "UPDATE_USER";
 export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY";
 export const DELETE_FORUM_POST = "DELETE_FORUM_POST";
 export const DELETE_USER = "DELETE_USER";
+export const DELETE_COMPANY = "DELETE_COMPANY";
+export const ADD_TECHNOLOGY = "ADD_TECHNOLOGY";
 
 export function getAllEmployees() {
   return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
@@ -328,7 +330,29 @@ export function deleteUser(id) {
   return async function (dispatch) {
     try {
       const deletedUser = await axios.delete(`/users/${id}`);
-      return;
+      return deletedUser;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
+
+export function deleteCompany(id) {
+  return async function (dispatch) {
+    try {
+      const deletedCompany = await axios.delete(`/company/${id}`);
+      return deletedCompany;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
+
+export function addTechnology(name) {
+  return async function (dispatch) {
+    try {
+      const addedTech = await axios.post(`/technology`, { name: name });
+      return addedTech;
     } catch (error) {
       console.error(error.message);
     }
