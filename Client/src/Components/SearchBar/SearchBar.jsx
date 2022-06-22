@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllUsers } from "../../Redux/Actions/Actions";
+import { getAllUsers, getUserInfo } from "../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
+import swal from "sweetalert";
 import style from "./SearchBar.module.css";
 
 function inputHandler(e, setUsersFiltered, users, setSelected, setFocus) {
@@ -13,7 +14,9 @@ function inputHandler(e, setUsersFiltered, users, setSelected, setFocus) {
   } else {
     setUsersFiltered(
       users.filter((user) => {
-        return new RegExp(`^${inputValue.toLowerCase()}`).test(user.toLowerCase());
+        return new RegExp(`^${inputValue.toLowerCase()}`).test(
+          user.toLowerCase()
+        );
       })
     );
   }
@@ -24,7 +27,9 @@ function keyDownHandler(e, setSelected, selected, usersFiltered) {
     if (selected + 1 >= usersFiltered.length) {
       setSelected(0);
     } else {
-      setSelected(selected + 1 <= usersFiltered.length - 1 ? selected + 1 : selected);
+      setSelected(
+        selected + 1 <= usersFiltered.length - 1 ? selected + 1 : selected
+      );
     }
   } else if (e.code === "ArrowUp") {
     if (selected - 1 < 0) {
@@ -32,13 +37,6 @@ function keyDownHandler(e, setSelected, selected, usersFiltered) {
     } else {
       setSelected(selected - 1 >= 0 ? selected - 1 : selected);
     }
-  }
-}
-function submitHandler(e, userSelected, navigate) {
-  e.preventDefault();
-  let inputTextValue = e.target[0]?.value || e.target.innerText;
-  if (inputTextValue.length > 0) {
-    navigate(`/users/${userSelected ? userSelected : inputTextValue}`);
   }
 }
 
@@ -51,12 +49,35 @@ export default function SearchBar() {
   }
   const [usersFiltered, setUsersFiltered] = useState([]);
   const [focus, setFocus] = useState(false);
+  const [nameUser, setNameUser] = useState(""); //estado que contendra el texto de la barra de busqueda
   const dispatch = useDispatch();
+
   window.onclick = (e) => {
     if (!e.target.className.split("_").includes("SearchBar")) {
       setFocus(false);
     }
   };
+
+  function submitHandler(e, userSelected, navigate, nameUsers, nameUser) {
+    e.preventDefault();
+    let existUserInDB = nameUsers.includes(nameUser);
+    if (existUserInDB) {
+      navigate(`/users/${userSelected ? userSelected : nameUser}`);
+      
+      getUserInfo(nameUser).then((action) => {
+        dispatch(action);
+      });
+      setNameUser("")
+    } else {
+      swal({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })
+    }
+  }
+
+
   useEffect(() => {
     getAllUsers().then((data) => dispatch(data));
     // eslint-disable-next-line
@@ -65,12 +86,25 @@ export default function SearchBar() {
   const navigate = useNavigate();
 
   return (
-    <form className={style.form} onSubmit={(e) => submitHandler(e, usersFiltered[selected], navigate)}>
+    <form
+      className={style.form}
+      onSubmit={(e) =>
+        submitHandler(e, usersFiltered[selected], navigate, users, nameUser)
+      }
+    >
       <div className={style.container}>
         <input
-          onChange={(e) => inputHandler(e, setUsersFiltered, users, setSelected, setFocus)}
-          onFocus={(e) => inputHandler(e, setUsersFiltered, users, setSelected, setFocus)}
-          onKeyDown={(e) => keyDownHandler(e, setSelected, selected, usersFiltered)}
+          onChange={(e) => {
+            setNameUser(e.target.value);
+            inputHandler(e, setUsersFiltered, users, setSelected, setFocus)
+          }}
+          onFocus={(e) =>
+            inputHandler(e, setUsersFiltered, users, setSelected, setFocus)
+          }
+          onKeyDown={(e) =>
+            keyDownHandler(e, setSelected, selected, usersFiltered)
+          }
+          value={nameUser}
           className={style.input}
           type="text"
           name=""
@@ -78,7 +112,9 @@ export default function SearchBar() {
           placeholder={"Type the name of the user or company"}
         />
         <button className={style.button}>
-          <i className={"fa-solid fa-magnifying-glass " + style.button__glass}></i>
+          <i
+            className={"fa-solid fa-magnifying-glass " + style.button__glass}
+          ></i>
         </button>
       </div>
       {usersFiltered.length > 0 && focus ? (
@@ -87,8 +123,12 @@ export default function SearchBar() {
             return index <= 4 ? (
               <li
                 key={user + "_" + index}
-                onClick={(e) => submitHandler(e, usersFiltered[selected], navigate)}
-                className={`${style.suggestion__item} ${selected === index ? style.suggestion__itemSelected : ""}`}
+                onClick={(e) =>
+                  setNameUser(e.target.innerHTML)
+                }
+                className={`${style.suggestion__item} ${
+                  selected === index ? style.suggestion__itemSelected : ""
+                }`}
               >
                 {user}
               </li>
