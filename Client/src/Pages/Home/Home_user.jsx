@@ -24,7 +24,7 @@ const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
 const salario = ["Min-salary", "Max-salary"];
 
 export default function HomeUser() {
-  const { logout, user, isAuthenticated, loginWithPopup } = useAuth0();
+  const { user, isAuthenticated, loginWithPopup } = useAuth0();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,7 +38,6 @@ export default function HomeUser() {
   const logged = useSelector((state) => state.myUser);
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
   const postulatesUser = selector.postulatesUser;
-  const activePlans = selector.activePlans;
 
   useEffect(() => {
     dispatch(getAllPost());
@@ -56,7 +55,6 @@ export default function HomeUser() {
     getAllProducts("usuario").then((res) => {
       dispatch(res);
     });
-    dispatch(updatePremiumPlan(user.name, activePlans));
     dispatch(getActivePlans(user))
     // eslint-disable-next-line
   }, [user]);
