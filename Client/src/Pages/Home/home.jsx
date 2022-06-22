@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCompanies, getAllPost, getCompanyByEmail, getUserByEmail } from "../../Redux/Actions/Actions";
+import {
+  getAllCompanies,
+  getAllPost,
+  getCompanyByEmail,
+  getUserByEmail,
+} from "../../Redux/Actions/Actions";
 import HomeCompany from "./Home_company";
 import HomeUser from "./Home_user.jsx";
 import HomeAdmin from "./Home_admin";
@@ -25,9 +30,7 @@ export default function Home() {
     // eslint-disable-next-line
   }, [user]);
   useEffect(() => {
-
     if (!isLoading) {
-
       if (!loggedCompany.hasOwnProperty("error")) {
         setIsUser(false);
       } else {
@@ -38,11 +41,12 @@ export default function Home() {
           console.log(isUser);
         }
       }
-
     }
   }, [loggedUser, loggedCompany, isLoading]);
-    
-  return isUser && loggedUser?.Account === "Admin" ? (
+
+  return isUser &&
+    (loggedUser?.Account === "Admin" ||
+      loggedUser?.Account === "SuperAdmin") ? (
     <HomeAdmin />
   ) : isUser === true ? (
     <HomeUser />
