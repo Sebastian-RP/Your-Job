@@ -13,6 +13,7 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
+  updatePremiumPlan
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -37,6 +38,8 @@ export default function HomeUser() {
   const logged = useSelector((state) => state.myUser);
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
   const postulatesUser = selector.postulatesUser;
+  const activePlans = selector.activePlans;
+
   useEffect(() => {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
@@ -53,6 +56,7 @@ export default function HomeUser() {
     getAllProducts("usuario").then((res) => {
       dispatch(res);
     });
+    dispatch(updatePremiumPlan(user.name, activePlans));
     dispatch(getActivePlans(user))
     // eslint-disable-next-line
   }, [user]);
