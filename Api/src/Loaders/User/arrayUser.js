@@ -13,7 +13,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -26,7 +26,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -39,7 +39,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -52,7 +52,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -65,7 +65,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -78,7 +78,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -91,7 +91,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -104,7 +104,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -117,7 +117,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -130,7 +130,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -143,7 +143,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -156,7 +156,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -169,7 +169,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -182,7 +182,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -195,7 +195,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -208,7 +208,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -221,7 +221,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -234,7 +234,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -247,7 +247,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -260,7 +260,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -273,7 +273,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -286,7 +286,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -299,7 +299,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -312,7 +312,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -325,7 +325,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -338,7 +338,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -351,7 +351,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -364,7 +364,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -377,7 +377,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -390,7 +390,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -403,7 +403,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -416,7 +416,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -429,7 +429,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -442,7 +442,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -455,7 +455,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
 
   [
@@ -469,7 +469,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -482,7 +482,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -495,7 +495,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -508,7 +508,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -521,7 +521,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     "usuarioMartinez@gmail.com",
@@ -534,7 +534,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     "usuarioHernandez@gmail.com",
@@ -547,7 +547,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     "usuarioCastiblanco@gmail.com",
@@ -560,7 +560,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     "usuarioZamudio@gmail.com",
@@ -573,7 +573,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     "usuarioTriana@gmail.com",
@@ -586,7 +586,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     "usuarioRios@gmail.com",
@@ -599,7 +599,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.domain(),
     chance.url({ extensions: ["pdf"] }),
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
 ];
 
