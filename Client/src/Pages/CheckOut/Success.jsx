@@ -19,7 +19,6 @@ function Success() {
             dispatch(action);
         }
         )
-        console.log(myCompany)
     }, [])
 
     let user = myUser;
@@ -32,7 +31,7 @@ function Success() {
         // console.log(user)
         emailjs.sendForm('service_db1lpkd', 'template_upt9d5c', form.current, 'F-jlerFc9kQmnHiSA')
         .then((result) => {
-            navigate(`/home`);
+            navigate('/home')
         }, (error) => {
             console.log(error.text);
         });

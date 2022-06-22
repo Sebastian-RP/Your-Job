@@ -12,6 +12,7 @@ import {
   getUserByEmail,
   postulateJob,
   getAllProducts,
+  getActivePlans,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,6 +42,7 @@ export default function HomeUser() {
     dispatch(getAllCompanies());
     dispatch(getAllTechnologies());
     dispatch(getUserByEmail(user?.email));
+    dispatch(getActivePlans(user));
     // eslint-disable-next-line
   }, [dispatch]);
 
@@ -52,6 +54,7 @@ export default function HomeUser() {
     getAllProducts("usuario").then((res) => {
       dispatch(res);
     });
+    dispatch(getActivePlans(user))
     // eslint-disable-next-line
   }, [user]);
 

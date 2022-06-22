@@ -1,6 +1,7 @@
 import { db } from "../../Components/Firebase/credenciales.js";
 import axios from "axios";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import getAllPayments from "../../Components/Firebase/getAllPayments.js";
 
 export const GET_ALL_EMPLOYEES = "GET_ALL_EMPLOYEES";
 export const GET_USER_INFO = "GET_USER_INFO";
@@ -20,8 +21,9 @@ export const GET_COMPANY_BY_EMAIL = "GET_COMPANY_BY_EMAIL";
 export const CREATE_COMPANY = "CREATE_COMPANY";
 export const LOG_OUT = "LOG_OUT";
 export const UPDATE_USER = "UPDATE_USER";
-export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY";
-export const DELETE_FORUM_POST = "DELETE_FORUM_POST";
+export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY"
+export const DELETE_FORUM_POST = "DELETE_FORUM_POST" 
+export const GET_PLANS = "GET_PLANS" 
 export const DELETE_USER = "DELETE_USER";
 
 export function getAllEmployees() {
@@ -331,6 +333,29 @@ export function deleteUser(id) {
       console.error(error.message);
     }
   };
+}
+
+export function getActivePlans(user){
+  return async function (dispatch){
+    try {
+      let UserPlans = await getAllPayments(user);
+      // if(UserPlans.length > 1) {
+      //   let newArray = UserPlans.map(item => item.items[0].price.product.name)
+      //   return dispatch({type:GET_PLANS, payload: newArray})
+      // }
+      // if(UserPlans.length===1){
+      //   if(UserPlans.includes(item => item.items.length > 1)){
+      //     return dispatch({type:GET_PLANS, payload: newArray})
+      //   }
+      //   else{
+          return dispatch({type:GET_PLANS, payload: UserPlans})
+        // }
+      // }
+           
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 }
 
 // export function deleteForumPost(id){
