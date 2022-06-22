@@ -13,7 +13,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [1, 2],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -26,7 +26,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [3, 4],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -39,7 +39,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [5, 6],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -52,7 +52,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [7, 8],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -65,7 +65,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [9, 10],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -78,7 +78,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [11, 12],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -91,7 +91,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [13, 14],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -104,7 +104,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [15, 16],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -117,7 +117,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [17, 18],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -130,7 +130,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [19, 20],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -143,7 +143,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [21, 22],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -156,7 +156,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [23, 24],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -169,7 +169,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [25, 26],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -182,7 +182,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [27, 28],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -195,7 +195,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [29, 30],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -208,7 +208,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [31, 32],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
   [
     chance.email(),
@@ -221,7 +221,7 @@ const fakeUserData = [
     chance.country({ full: true }),
     chance.sentence(),
     [33, 34],
-    1,
+    chance.integer({ min: 0, max: 2 })
   ],
 ];
 
