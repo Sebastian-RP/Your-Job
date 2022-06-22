@@ -19,17 +19,17 @@ root.render(
   <Provider store={store}>
     <Router>
       <React.StrictMode>
-        <PersistGate persistor={persistor}>
-          <Auth0Provider
-            domain="dev-zgaxo6rs.us.auth0.com"
-            clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
-            // redirectUri="https://your-job-seven.vercel.app/home"
-            // redirectUri="http://localhost:3000/home"
-            redirectUri={window.location.origin}
-          >
+        <Auth0Provider
+          domain="dev-zgaxo6rs.us.auth0.com"
+          clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
+          // redirectUri="https://your-job-seven.vercel.app/home"
+          // redirectUri="http://localhost:3000/home"
+          redirectUri={window.location.origin}
+        >
+          <PersistGate persistor={persistor}>
             <App />
-          </Auth0Provider>
-        </PersistGate>
+          </PersistGate>
+        </Auth0Provider>
       </React.StrictMode>
     </Router>
   </Provider>

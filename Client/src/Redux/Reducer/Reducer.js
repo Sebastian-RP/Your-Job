@@ -16,7 +16,8 @@ import {
   CREATE_COMPANY,
   LOG_OUT,
   UPDATE_USER,
-  DELETE_TECHNOLOGY
+  DELETE_TECHNOLOGY,
+  GET_PLANS
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
   conversations: [],
   myUser: [],
   myCompany: [],
+  activePlans: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -126,6 +128,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         technologies: action.payload
+      }
+    case GET_PLANS:
+      return {
+        ...state,
+        activePlans: action.payload
       }
     default:
       return { ...state };
