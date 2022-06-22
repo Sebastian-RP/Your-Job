@@ -170,8 +170,18 @@ export function getAllCompanies() {
 
 export async function updatePremiumPlan(userID, premiumService) {
   try {
+    let numero = 0
+    if(premiumService.map(element => element.includes("1"))){
+      numero = 1;
+    }
+    if(premiumService.map(element => element.includes("2"))){
+      numero = 2;
+    }
+    if(premiumService.length === 2){
+      numero = 3;
+    }
     const user = await axios.put(`/users/${userID}`, {
-      premium: premiumService,
+      premium: numero,
     });
     return user;
   } catch (e) {

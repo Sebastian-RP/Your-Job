@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import style from "./perfil.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserInfo, getActivePlans } from "../../Redux/Actions/Actions";
+import { getUserInfo, getActivePlans, updatePremiumPlan } from "../../Redux/Actions/Actions";
 import { useState } from "react";
 import axios from "axios";
 import Navbar from "../../Components/NavBar/NavBar";
@@ -33,6 +33,9 @@ export default function Users() {
       setOwnProfile(true);
     }
     dispatch(getActivePlans(user));
+    updatePremiumPlan(loggedUser?.id, userData.plans).then((res) => {
+      dispatch(res);
+    });
     //eslint-disable-next-line
   }, []);
 

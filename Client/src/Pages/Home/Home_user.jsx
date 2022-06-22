@@ -13,6 +13,7 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
+  updatePremiumPlan
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +24,7 @@ const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
 const salario = ["Min-salary", "Max-salary"];
 
 export default function HomeUser() {
-  const { logout, user, isAuthenticated, loginWithPopup } = useAuth0();
+  const { user, isAuthenticated, loginWithPopup } = useAuth0();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ export default function HomeUser() {
   const logged = useSelector((state) => state.myUser);
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
   const postulatesUser = selector.postulatesUser;
+
   useEffect(() => {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
