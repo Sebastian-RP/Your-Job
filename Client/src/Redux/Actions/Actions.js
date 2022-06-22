@@ -21,9 +21,9 @@ export const GET_COMPANY_BY_EMAIL = "GET_COMPANY_BY_EMAIL";
 export const CREATE_COMPANY = "CREATE_COMPANY";
 export const LOG_OUT = "LOG_OUT";
 export const UPDATE_USER = "UPDATE_USER";
-export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY"
-export const DELETE_FORUM_POST = "DELETE_FORUM_POST" 
-export const GET_PLANS = "GET_PLANS" 
+export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY";
+export const DELETE_FORUM_POST = "DELETE_FORUM_POST";
+export const GET_PLANS = "GET_PLANS";
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_COMPANY = "DELETE_COMPANY";
 export const ADD_TECHNOLOGY = "ADD_TECHNOLOGY";
@@ -48,7 +48,10 @@ export async function getAllProducts(selector) {
   return async function (dispatch) {
     try {
       const collectionRef = collection(db, "products");
-      const filtradoActivos = query(collectionRef, where("metadata.tipo", "==", selector));
+      const filtradoActivos = query(
+        collectionRef,
+        where("metadata.tipo", "==", selector)
+      );
       const snaps = await getDocs(filtradoActivos);
       const products = [];
       for await (const snap of snaps.docs) {
@@ -307,6 +310,7 @@ export function updateUser(id, changes) {
         image: changes.image,
         technologiesName: changes.technologiesName,
         nationality: changes.nationality,
+        Account: changes.Account,
       });
       return dispatch({ type: UPDATE_USER, payload: updated.data });
     } catch (error) {
@@ -359,8 +363,8 @@ export function addTechnology(name) {
   };
 }
 
-export function getActivePlans(user){
-  return async function (dispatch){
+export function getActivePlans(user) {
+  return async function (dispatch) {
     try {
       let UserPlans = await getAllPayments(user);
       // if(UserPlans.length > 1) {
@@ -372,14 +376,13 @@ export function getActivePlans(user){
       //     return dispatch({type:GET_PLANS, payload: newArray})
       //   }
       //   else{
-          return dispatch({type:GET_PLANS, payload: UserPlans})
-        // }
+      return dispatch({ type: GET_PLANS, payload: UserPlans });
       // }
-           
+      // }
     } catch (error) {
       console.error(error.message);
     }
-  }
+  };
 }
 
 // export function deleteForumPost(id){

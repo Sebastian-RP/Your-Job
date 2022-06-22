@@ -17,7 +17,7 @@ import {
   LOG_OUT,
   UPDATE_USER,
   DELETE_TECHNOLOGY,
-  GET_PLANS
+  GET_PLANS,
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -34,7 +34,7 @@ const initialState = {
   conversations: [],
   myUser: [],
   myCompany: [],
-  activePlans: []
+  activePlans: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -120,6 +120,11 @@ export default function rootReducer(state = initialState, action) {
       };
     case UPDATE_USER:
       console.log(action.payload);
+      if (action.payload.email !== state.myUser.email) {
+        return {
+          ...state,
+        };
+      }
       return {
         ...state,
         myUser: action.payload,
@@ -127,13 +132,13 @@ export default function rootReducer(state = initialState, action) {
     case DELETE_TECHNOLOGY:
       return {
         ...state,
-        technologies: action.payload
-      }
+        technologies: action.payload,
+      };
     case GET_PLANS:
       return {
         ...state,
-        activePlans: action.payload
-      }
+        activePlans: action.payload,
+      };
     default:
       return { ...state };
   }
