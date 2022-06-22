@@ -28,8 +28,8 @@ async function createCheckoutSession(uid, cart) {
       let url = snapshots.data().url;
       if (url) {
         cancelarStreaming();
-        window.location.href = url;
-        // window.open(url, "_blank", "noopener,noreferrer");
+        // window.location.href = url;
+        window.open(url, "_blank", "noopener,noreferrer");
       }
     }
   );
