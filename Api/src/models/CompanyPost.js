@@ -13,12 +13,7 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM(["Training", "Junior", "Semi-Senior", "Senior"]), //concordar los termino a usar
     },
     typeof_contract: {
-      type: DataTypes.ENUM([
-        "Seasonal",
-        "Indeterminate",
-        "termino fijo",
-        "termino indefinido",
-      ]),
+      type: DataTypes.ENUM(["Seasonal", "Indeterminate", "termino fijo", "termino indefinido"]),
     },
     companyId: {
       type: DataTypes.UUID, //con el id podemos consultar el nombre de la empresa
@@ -49,6 +44,10 @@ module.exports = (sequelize) => {
     },
     url: {
       type: DataTypes.STRING,
+    },
+    companyId: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   });
 };

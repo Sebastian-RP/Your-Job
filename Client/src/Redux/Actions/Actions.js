@@ -46,10 +46,7 @@ export async function getAllProducts(selector) {
   return async function (dispatch) {
     try {
       const collectionRef = collection(db, "products");
-      const filtradoActivos = query(
-        collectionRef,
-        where("metadata.tipo", "==", selector)
-      );
+      const filtradoActivos = query(collectionRef, where("metadata.tipo", "==", selector));
       const snaps = await getDocs(filtradoActivos);
       const products = [];
       for await (const snap of snaps.docs) {
@@ -198,6 +195,7 @@ export function postulateJob(value) {
         name: value.name,
         url: value.url,
         postId: value.postId,
+        companyId: value.companyId,
       });
       return newPostulate;
     } catch (e) {

@@ -3,10 +3,11 @@ import style from "./perfil.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserInfo } from "../../Redux/Actions/Actions";
-import image from "./perfilPicture.png";
+// import image from "./perfilPicture.png";
 import { useState } from "react";
 import axios from "axios";
 import Navbar from "../../Components/NavBar/NavBar";
+import { getPostulates } from "../../Redux/Actions/Actions";
 
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -16,11 +17,12 @@ export default function Users() {
   const { username } = useParams();
   const loggedUser = useSelector((state) => state.myUser);
   const [ownProfile, setOwnProfile] = useState(false);
-
+  const userData = useSelector((state) => {
+    // console.log(state);
+    return { ...state.user, postulates: [...state.postulatesUser] };
+  });
+  console.log(userData);
   useEffect(() => {
-    console.log(username);
-    console.log(loggedUser.name);
-    console.log(ownProfile);
     getUserInfo(username).then((action) => {
       dispatch(action);
     });
@@ -31,8 +33,6 @@ export default function Users() {
   }, []);
 
   //----------------------------------
-  const userData = useSelector((state) => state.user);
-
   const sendMessage = async () => {
     try {
       const res = await axios.get(`/users/` + username);
@@ -62,7 +62,7 @@ export default function Users() {
           <h2>About</h2>
           <hr />
           <div className={style.picture}>
-            <img src={userData?.image} alt="perfil" />
+            <img src={userData.image ? userData.image : "https://icon-library.com/images/profile-png-icon/profile-png-icon-24.jpg"} alt="perfil" />
             <h2>{userData?.name}</h2>
           </div>
           <div className={style.about}>
@@ -78,11 +78,7 @@ export default function Users() {
             </ul>
             <p>
               Linkedin/etc... :{" "}
-              <a
-                href={"https://" + userData.url}
-                target="_blank"
-                rel="noopener,noreferrer"
-              >
+              <a href={"https://" + userData.url} target="_blank" rel="noopener , noreferrer">
                 {userData.url}
               </a>
             </p>
@@ -98,22 +94,14 @@ export default function Users() {
             >
               Go to home
             </button>
-            <button
-              className={style.Button}
-              onClick={() => sendMessage()}
-              style={{ display: !ownProfile ? "" : "none" }}
-            >
+            <button className={style.Button} onClick={() => sendMessage()} style={{ display: !ownProfile ? "" : "none" }}>
               Message
             </button>
-            <button
-              className={style.Button}
-              style={{ display: ownProfile ? "" : "none" }}
-              onClick={() => navigate(`/users/${loggedUser.name}/edit`)}
-            >
+            <button className={style.Button} style={{ display: ownProfile ? "" : "none" }} onClick={() => navigate(`/users/${loggedUser.name}/edit`)}>
               Edit Profile
             </button>
           </div>
-          <h2>Suggestions</h2>
+          <h2>My posts</h2>
         </div>
         <div className={style.perfilInfo}>
           <div className={style.info}>
