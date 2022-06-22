@@ -86,7 +86,7 @@ export default function HomeUser() {
     setPosts(posts.filter((data) => data.technologiesId.includes(id)));
   };
   const filterByCompany = (name) => {
-    setPosts(posts.filter((data) => data.company.name === name));
+    setPosts(selector.posts.filter((data) => data.company.name === name));
   };
   const filterByModality = (data) => {
     setPosts(posts.filter((d) => d.modality === data));
@@ -95,7 +95,7 @@ export default function HomeUser() {
     setPosts(posts.filter((d) => d.experience === data));
   };
   const filterBySalary = (data) => {
-    const salary = selector.posts;
+    const salary = posts;
     if (data === "min-salary") {
       for (let i = 0; i < salary.length - 1; i++) {
         for (let j = i + 1; j < salary.length; j++) {
