@@ -41,7 +41,7 @@ function Success() {
 
     return (
         <Body>
-            <h1>Success!</h1>
+            <h1>Your purchase has been success!</h1>
             <h2>You can click in the botton to go home to be redirect</h2>
             <p>We gone to seend you to your email acount {user? user.email : "(loading acount...)"} your ticket of purchase</p>
             <Button onClick={handledHome}>Close</Button>
