@@ -18,8 +18,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import image from "../Users/perfilPicture.png";
 
-const Modality = ["remoto", "presencial"];
-const Experience = ["trainig", "junior", "semi-senior", "senior"];
+const Modality = ["Remote", "Presential"];
+const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
 const salario = ["min-salary", "max-salary"];
 
 export default function HomeUser() {
