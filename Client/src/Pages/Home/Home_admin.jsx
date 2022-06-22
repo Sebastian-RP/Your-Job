@@ -18,6 +18,7 @@ import {
   deletePost,
   deleteTech,
   addTechnology,
+  updateUser,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -88,66 +89,6 @@ export default function HomeAdmin() {
     }, 2000);
   }, []);
 
-  // const getFilterByTechnologies = (id) => {
-  //   console.log(id);
-  //   setPosts(posts.filter((data) => data.technologiesId.includes(id)));
-  // };
-  // const filterByCompany = (name) => {
-  //   setPosts(posts.filter((data) => data.company.name === name));
-  // };
-  // const filterByModality = (data) => {
-  //   setPosts(posts.filter((d) => d.modality === data));
-  // };
-  // const filterByExperience = (data) => {
-  //   setPosts(posts.filter((d) => d.experience === data));
-  // };
-  // const filterBySalary = (data) => {
-  //   const salary = selector.posts;
-  //   if (data === "min-salary") {
-  //     for (let i = 0; i < salary.length - 1; i++) {
-  //       for (let j = i + 1; j < salary.length; j++) {
-  //         if (salary[j].max_salary < salary[i].max_salary) {
-  //           let current = salary[i];
-  //           salary[i] = salary[j];
-  //           salary[j] = current;
-  //         }
-  //       }
-  //     }
-  //     setPosts([...salary]);
-  //   } else {
-  //     for (let i = 0; i < salary.length - 1; i++) {
-  //       for (let j = i + 1; j < salary.length; j++) {
-  //         if (salary[j].max_salary > salary[i].max_salary) {
-  //           let current = salary[i];
-  //           salary[i] = salary[j];
-  //           salary[j] = current;
-  //         }
-  //       }
-  //     }
-  //     setPosts([...salary]);
-  //   }
-  // };
-  // const handlerPostulate = (val) => {
-  //   if (!isAuthenticated) {
-  //     return loginWithPopup();
-  //   } else {
-  //     if (logged.error) {
-  //       return swal({
-  //         title: "Oops!",
-  //         text: "It seems like you haven't finished your profile, click Ok to finish it!",
-  //         icon: "error",
-  //       }).then(() => {
-  //         navigate("/onboarding");
-  //       });
-  //     }
-  //   }
-  //   const { name, url, postId } = val;
-
-  //   dispatch(postulateJob({ name, url, postId }))
-  //     .then((res) => swal("Listo!", res.data, "success"))
-  //     .then(() => dispatch(getPostulates(user.email)));
-  // };
-
   const sendMessage = async (username) => {
     try {
       const res = await axios.get(`/users/` + username);
@@ -161,6 +102,30 @@ export default function HomeAdmin() {
 
   const banQuestion = (user) => {
     setToBan(user);
+  };
+
+  const setAdmin = (user) => {
+    dispatch(updateUser(user.id, { Account: "Admin" }));
+    swal({
+      title: "Administrator Added!",
+      text: `${user.name} has been added to the admin team`,
+      icon: "success",
+    });
+    setTimeout(() => {
+      getAllUsers().then((data) => dispatch(data));
+    }, 1500);
+  };
+
+  const removeAdmin = (user) => {
+    dispatch(updateUser(user.id, { Account: "User" }));
+    swal({
+      title: "Administrator Removed!",
+      text: `${user.name} has been removed from the admin team`,
+      icon: "success",
+    });
+    setTimeout(() => {
+      getAllUsers().then((data) => dispatch(data));
+    }, 1500);
   };
 
   const handleChangeTech = (e) => {
@@ -313,6 +278,16 @@ export default function HomeAdmin() {
                   >
                     Technologies
                   </Button>
+                  {logged.Account === "SuperAdmin" && (
+                    <Button
+                      variant="light"
+                      onClick={() => {
+                        setAdminView("admin");
+                      }}
+                    >
+                      Admins
+                    </Button>
+                  )}
                 </ButtonGroup>
               </div>
               <div className={style.infoPost}>
@@ -361,6 +336,17 @@ export default function HomeAdmin() {
                                   >
                                     Ban
                                   </Button>
+                                  {logged.Account === "SuperAdmin" &&
+                                    user.Account === "User" && (
+                                      <Button
+                                        variant="success"
+                                        onClick={() => {
+                                          setAdmin(user);
+                                        }}
+                                      >
+                                        Make Admin
+                                      </Button>
+                                    )}
                                 </div>
                               </Card.Body>
                             </Card>
@@ -505,6 +491,61 @@ export default function HomeAdmin() {
                       })
                     ) : (
                       <h2>No technologies available</h2>
+                    )}
+                  </div>
+                )}
+                {adminView === "admin" && (
+                  <div className={style.columnPost}>
+                    {users.length ? (
+                      users.map((user, index) => {
+                        if (user.Account !== "User")
+                          return (
+                            <div
+                              className={style.cardPost}
+                              key={index}
+                              onMouseOver={() => {
+                                setShowInfo(user);
+                              }}
+                            >
+                              <Card>
+                                <Card.Header as="h5">{user.name}</Card.Header>
+                                <Card.Body>
+                                  <div className={style.userOptions}>
+                                    <Button
+                                      onClick={() =>
+                                        navigate(`/users/${user.name}`)
+                                      }
+                                    >
+                                      Profile
+                                    </Button>
+                                    <Button
+                                      onClick={() => sendMessage(user.name)}
+                                    >
+                                      Message
+                                    </Button>
+                                    <Button
+                                      variant="danger"
+                                      onClick={() => banQuestion(user)}
+                                    >
+                                      Ban
+                                    </Button>
+
+                                    <Button
+                                      variant="danger"
+                                      onClick={() => {
+                                        removeAdmin(user);
+                                      }}
+                                    >
+                                      Remove Admin
+                                    </Button>
+                                  </div>
+                                </Card.Body>
+                              </Card>
+                            </div>
+                          );
+                      })
+                    ) : (
+                      <h2>No Users Available</h2>
                     )}
                   </div>
                 )}
