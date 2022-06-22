@@ -367,20 +367,26 @@ export function getActivePlans(user) {
   return async function (dispatch) {
     try {
       let UserPlans = await getAllPayments(user);
-      // if(UserPlans.length > 1) {
-      //   let newArray = UserPlans.map(item => item.items[0].price.product.name)
-      //   return dispatch({type:GET_PLANS, payload: newArray})
-      // }
-      // if(UserPlans.length===1){
-      //   if(UserPlans.includes(item => item.items.length > 1)){
-      //     return dispatch({type:GET_PLANS, payload: newArray})
-      //   }
-      //   else{
-      return dispatch({ type: GET_PLANS, payload: UserPlans });
-      // }
-      // }
+
+
+      if(UserPlans.length > 1) {
+        let newArray = UserPlans.map(item => item.items[0].price.product.name)
+        return dispatch({type:GET_PLANS, payload: newArray})
+      }
+      if(UserPlans.length === 1){
+        if(UserPlans[0].items.length > 1){
+          let newArray = UserPlans[0].items.map(item => item.price.product.name)
+          return dispatch({type:GET_PLANS, payload: newArray})
+        }
+        else{
+          return dispatch({type:GET_PLANS, payload: [UserPlans[0].items[0].price.product.name]})
+        }
+      }
+      return dispatch({type:GET_PLANS, payload: ["You don't have any plan"]})
+
     } catch (error) {
       console.error(error.message);
+      return dispatch({type:GET_PLANS, payload: ["To see your plans, please log in"]})
     }
   };
 }

@@ -70,9 +70,17 @@
   transition: all 300ms;
 }
 .Button:hover {
+  border: 1px solid black;
   color: #222222;
   background-color: #ffffff;
 }
+
+.Button:disabled {
+  color: #222222;
+  background-color: #ffffff;
+  cursor: not-allowed;
+}
+
 .containerTechnologies li {
   border-radius: 5px;
   list-style-type: none;

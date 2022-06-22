@@ -20,7 +20,7 @@ import image from "../Users/perfilPicture.png";
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
-const salario = ["min-salary", "max-salary"];
+const salario = ["Min-salary", "Max-salary"];
 
 export default function HomeUser() {
   const { logout, user, isAuthenticated, loginWithPopup } = useAuth0();
@@ -42,7 +42,6 @@ export default function HomeUser() {
     dispatch(getAllCompanies());
     dispatch(getAllTechnologies());
     dispatch(getUserByEmail(user?.email));
-    dispatch(getActivePlans(user));
     // eslint-disable-next-line
   }, [dispatch]);
 
