@@ -48,11 +48,9 @@ export default function Home() {
     (loggedUser?.Account === "Admin" ||
       loggedUser?.Account === "SuperAdmin") ? (
     <HomeAdmin />
-  ) : isUser === true ? (
+  ) : isUser ? (
     <HomeUser />
-  ) : isUser !== "nada" ? (
-    <HomeCompany />
   ) : (
-    <Onboarding />
+    <HomeCompany />
   );
 }

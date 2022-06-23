@@ -55,13 +55,17 @@ export default function Navbar() {
       <Title2 onClick={() => navigate("/home")}>YourJob</Title2>
       <SearchBar />
       <div>
+        {loggedUser.hasOwnProperty("error") &&
+          loggedCompany.hasOwnProperty("error") && (
+            <Button onClick={() => navigate("/login")}>Log In</Button>
+          )}
         <Button onClick={() => navigate("/carrito")}>
           <FaShoppingCart /> {carrito.length}
         </Button>
         <Button onClick={() => navigate("/products")}>
           <AiOutlineStar /> | Premium
         </Button>
-        { !loggedUser.hasOwnProperty("error") ? (
+        {!loggedUser.hasOwnProperty("error") ? (
           <>
             <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
               <AiOutlineUser />
@@ -70,8 +74,8 @@ export default function Navbar() {
               <AiOutlinePoweroff />
             </ButtonOff>
           </>
-        ): null}
-        { !loggedCompany.hasOwnProperty("error") ? (
+        ) : null}
+        {!loggedCompany.hasOwnProperty("error") ? (
           <>
             <Button onClick={() => navigate(`/company/${loggedCompany.name}`)}>
               <AiOutlineUser />
@@ -80,7 +84,7 @@ export default function Navbar() {
               <AiOutlinePoweroff />
             </ButtonOff>
           </>
-        ): null}
+        ) : null}
       </div>
     </div>
   );
