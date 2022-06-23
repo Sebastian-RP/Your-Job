@@ -266,7 +266,7 @@ export default function RegisterCompany({ props }) {
 
     dispatch(createCompany(newCompany));
 
-    navigate(-1);
+    navigate("/");
   };
 
   return (

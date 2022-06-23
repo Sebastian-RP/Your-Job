@@ -311,7 +311,7 @@ export default function RegisterUser({ props }) {
 
     dispatch(await createUser(newUser));
 
-    navigate(-1);
+    navigate("/");
   };
 
   return (
