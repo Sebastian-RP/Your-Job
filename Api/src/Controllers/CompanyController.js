@@ -68,8 +68,14 @@ const getEmployees = async (ids) => {
 
 const deleteCompany = async (id) => {
   const company = await findCompany(id);
-
   await company.update({ status: "disabled" });
+  return company;
+};
+
+const updateCompany = async (email, changes) => {
+  let company = await findCompanyEmail(email);
+  console.log(company);
+  await company.update(changes);
   return company;
 };
 
@@ -80,4 +86,5 @@ module.exports = {
   findCompany,
   findCompanyEmail,
   deleteCompany,
+  updateCompany
 };

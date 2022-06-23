@@ -9,7 +9,8 @@ import {
   getAllPost,
   getAllPostsFromCompany,
   getAllProducts,
-  getActivePlans
+  getActivePlans,
+  updatePremiumPlanCompany
 } from "../../Redux/Actions/Actions";
 import { Card } from "react-bootstrap";
 import style from "./homeCompany.module.css";
@@ -27,6 +28,7 @@ export default function HomeCompany() {
 
   const posts = [...selector.companyPosts];
   const company = useSelector((state) => state.myCompany);
+  const plans = useSelector((state) => state.activePlans);
   const [showFormPost, setShowFormPost] = useState(false);
   const [showList, setShowList] = useState(false);
   const [listPostulates, setListPostulates] = useState(null);
@@ -34,7 +36,6 @@ export default function HomeCompany() {
   useEffect(() => {
     dispatch(getAllCompanies());
     dispatch(getAllPost());
-    dispatch(getActivePlans(user));
     // eslint-disable-next-line
   }, []);
 
@@ -45,6 +46,11 @@ export default function HomeCompany() {
     getAllProducts("empresa").then((res) => {
       dispatch(res);
     });
+    updatePremiumPlanCompany(user.email, plans).then((res) => {
+      dispatch(res);
+    });
+    dispatch(getActivePlans(user));
+
     // eslint-disable-next-line
   }, [company]);
 
