@@ -6,6 +6,7 @@ const {
   findCompany,
   findCompanyEmail,
   deleteCompany,
+  updateCompany
 } = require("../Controllers/CompanyController.js");
 
 const router = Router();
@@ -66,6 +67,17 @@ router.post("/login", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   res.send(await deleteCompany(id));
+});
+
+router.put("/:email", async (req, res) => {
+  try{
+    console.log("HOLA")
+    const { email } = req.params;
+    const changes = req.body;
+    res.send(await updateCompany(email, changes));
+  } catch (error) {
+    console.log("Error in updateCompany:", error.message);
+  }
 });
 
 module.exports = router;

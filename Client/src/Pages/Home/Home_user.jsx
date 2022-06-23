@@ -13,11 +13,12 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
-  updatePremiumPlan
+  updatePremiumPlan,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import image from "../Users/perfilPicture.png";
+import { AiFillStar } from "react-icons/ai";
+const profileDefaultImage = "https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png";
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
@@ -29,7 +30,7 @@ export default function HomeUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selector = useSelector((state) => state);
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [num, setNum] = useState(null);
   const [postId, setPostId] = useState([]);
   const [showPage, setShowPage] = useState(false);
@@ -59,7 +60,7 @@ export default function HomeUser() {
     getAllProducts("usuario").then((res) => {
       dispatch(res);
     });
-    dispatch(getActivePlans(user))
+    dispatch(getActivePlans(user));
     // eslint-disable-next-line
   }, [user]);
 
@@ -81,17 +82,15 @@ export default function HomeUser() {
   }, [postulatesUser]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setShowPage(true);
-    }, 2000);
+    setShowPage(true);
   }, []);
 
   const getFilterByTechnologies = (id) => {
     // console.log(id);
-    setPosts(posts.filter((data) => data.technologiesId.includes(id)));
+    setPosts({ filtered: true, list: posts.list.filter((data) => data.technologiesId.includes(id)) });
   };
   const filterByCompany = (name) => {
-    setPosts(selector.posts.filter((data) => data.company.name === name));
+    setPosts({ filtered: true, list: selector.posts.filter((data) => data.company.name === name) });
   };
   const [ dataRep, setDataRep] = useState([]);
   const filterByModality = (data) => {
@@ -139,7 +138,7 @@ export default function HomeUser() {
 
 
   const filterBySalary = (data) => {
-    const salary = posts;
+    const salary = posts.list;
     if (data === "min-salary") {
       for (let i = 0; i < salary.length - 1; i++) {
         for (let j = i + 1; j < salary.length; j++) {
@@ -150,7 +149,6 @@ export default function HomeUser() {
           }
         }
       }
-      setPosts([...salary]);
     } else {
       for (let i = 0; i < salary.length - 1; i++) {
         for (let j = i + 1; j < salary.length; j++) {
@@ -161,11 +159,10 @@ export default function HomeUser() {
           }
         }
       }
-      setPosts([...salary]);
     }
+    setPosts({ filtered: true, list: [...salary] });
   };
   const handlerPostulate = (val) => {
-    console.log(val);
     if (!isAuthenticated) {
       return loginWithPopup();
     } else {
@@ -188,13 +185,18 @@ export default function HomeUser() {
   return (
     <div className={style.containerHome}>
       <>
-        <Navbar />
+        <Navbar home={true} />
         {showPage ? (
           <>
             <div className={style.containerActions}>
               <div className={style.filters}>
                 <div className={style.image}>
-                  <img src={logged?.image + "-/resize/200x200/"} alt="profile_picture" />
+                  <img
+                    src={logged?.image ? logged.image + "-/resize/200x200/" : profileDefaultImage}
+                    alt="profile_picture"
+                    width={"200px"}
+                    height={"200px"}
+                  />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
                   {posts !== selector.posts && (
                     <Button variant="success" onClick={() => {
@@ -217,7 +219,11 @@ export default function HomeUser() {
                     >
                       {companies.map((d, i) => {
                         return (
-                          <Accordion.Body style={{ padding: "2px" }} key={i} onClick={() => filterByCompany(d.name)}>
+                          <Accordion.Body
+                            style={{ padding: "2px" }}
+                            key={i}
+                            onClick={() => filterByCompany(d.name)}
+                          >
                             {d.name}
                             <hr />
                           </Accordion.Body>
@@ -249,7 +255,11 @@ export default function HomeUser() {
                     <Accordion.Header>Modality</Accordion.Header>
                     {Modality.map((data, index) => {
                       return (
-                        <Accordion.Body key={index} onClick={() => filterByModality(data)} style={{ cursor: "pointer" }}>
+                        <Accordion.Body
+                          key={index}
+                          onClick={() => filterByModality(data)}
+                          style={{ cursor: "pointer" }}
+                        >
                           {data}
                           <hr />
                         </Accordion.Body>
@@ -260,7 +270,11 @@ export default function HomeUser() {
                     <Accordion.Header>Experience</Accordion.Header>
                     {Experience.map((data, index) => {
                       return (
-                        <Accordion.Body key={index} onClick={() => filterByExperience(data)} style={{ cursor: "pointer" }}>
+                        <Accordion.Body
+                          key={index}
+                          onClick={() => filterByExperience(data)}
+                          style={{ cursor: "pointer" }}
+                        >
                           {data}
                           <hr />
                         </Accordion.Body>
@@ -274,7 +288,13 @@ export default function HomeUser() {
                   <h3>Suggestions</h3>
                   <>
                     {suggestions.map((data, index) => (
-                      <Card bg="secondary" key={index} text="light" style={{ width: "18rem" }} className="mb-2">
+                      <Card
+                        bg="secondary"
+                        key={index}
+                        text="light"
+                        style={{ width: "18rem" }}
+                        className="mb-2"
+                      >
                         <Card.Header>
                           <strong>Email:</strong> {data.email}
                           <br />
@@ -290,10 +310,17 @@ export default function HomeUser() {
                   <div className={style.columInfo}></div>
                 </div>
                 <div className={style.columnPost}>
-                  {posts.length ? (
-                    posts.map((data, index) => {
+                  {posts.list.length ? (
+                    posts.list.map((data, index) => {
                       return (
-                        <div className={style.cardPost} key={index}>
+                        <div
+                          className={
+                            data.company.premium === 1
+                              ? style.cardPostPremium
+                              : style.cardPost
+                          }
+                          key={index}
+                        >
                           <Card>
                             <Card.Header as="h5">
                               <label>Job Offer</label> -{" "}
@@ -305,6 +332,11 @@ export default function HomeUser() {
                               >
                                 {" "}
                                 {data.company?.name}{" "}
+                                {data.company.premium === 1 ? (
+                                  <AiFillStar />
+                                ) : (
+                                  ""
+                                )}
                               </label>
                             </Card.Header>
                             <Card.Body>
@@ -333,7 +365,11 @@ export default function HomeUser() {
                               </Card.Text>
                               <button
                                 className={style.Button}
-                                variant={postId.includes(data.id) ? "secondary" : "primary"}
+                                variant={
+                                  postId.includes(data.id)
+                                    ? "secondary"
+                                    : "primary"
+                                }
                                 onClick={() => {
                                   handlerPostulate({
                                     name: logged.name,
@@ -342,9 +378,13 @@ export default function HomeUser() {
                                     companyId: data.companyId,
                                   });
                                 }}
-                                disabled={postId.includes(data.id) ? true : false}
+                                disabled={
+                                  postId.includes(data.id) ? true : false
+                                }
                               >
-                                {postId.includes(data.id) ? "Request sent" : "Apply"}
+                                {postId.includes(data.id)
+                                  ? "Request sent"
+                                  : "Apply"}
                               </button>
                             </Card.Body>
                           </Card>

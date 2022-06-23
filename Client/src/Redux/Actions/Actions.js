@@ -189,6 +189,27 @@ export async function updatePremiumPlan(userID, premiumService) {
   }
 }
 
+export async function updatePremiumPlanCompany(email, premiumService) {
+  try {
+    let numero = 0
+    if(premiumService.map(element => element.includes("1"))){
+      numero = 1;
+    }
+    if(premiumService.map(element => element.includes("2"))){
+      numero = 2;
+    }
+    if(premiumService.length === 2){
+      numero = 3;
+    }
+    const company = await axios.put(`/company/${email}`, {
+      premium: numero,
+    });
+    return company;
+  } catch (e) {
+    console.error("Error: " + e.message);
+  }
+}
+
 export function getAllPostsFromCompany(id) {
   return async function (dispatch) {
     try {
@@ -377,8 +398,9 @@ export function getActivePlans(user) {
   return async function (dispatch) {
     try {
       let UserPlans = await getAllPayments(user);
-
-
+      if (UserPlans === 0) {
+        return dispatch({type:GET_PLANS, payload: ["You don't have any plan"]})
+      }
       if(UserPlans.length > 1) {
         let newArray = UserPlans.map(item => item.items[0].price.product.name)
         return dispatch({type:GET_PLANS, payload: newArray})
@@ -392,8 +414,6 @@ export function getActivePlans(user) {
           return dispatch({type:GET_PLANS, payload: [UserPlans[0].items[0].price.product.name]})
         }
       }
-      return dispatch({type:GET_PLANS, payload: ["You don't have any plan"]})
-
     } catch (error) {
       console.error(error.message);
       return dispatch({type:GET_PLANS, payload: ["To see your plans, please log in"]})

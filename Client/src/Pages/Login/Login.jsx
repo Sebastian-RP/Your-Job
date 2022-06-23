@@ -19,9 +19,17 @@ export default function Login() {
   const loggedCompany = useSelector((state) => state.myCompany);
 
   useEffect(() => {
+    if (isAuthenticated) {
+      validate();
+    }
+    // eslint-disable-next-line
+  }, [loggedUser]);
+
+  useEffect(() => {
     dispatch(getCompanyByEmail(user?.email));
     dispatch(getUserByEmail(user?.email));
-  }, [user]);
+    // eslint-disable-next-line
+  }, [user, isAuthenticated]);
 
   const validate = () => {
     if (
@@ -36,7 +44,6 @@ export default function Login() {
 
   const exit = () => {
     dispatch(logOut());
-    console.log("logout");
     logout({ returnTo: window.location.origin });
   };
 
@@ -53,6 +60,7 @@ export default function Login() {
             <img
               src="https://ucarecdn.com/eeaa3fc1-0bea-4ed1-97e5-f78b1f2aac76/"
               width={"100px"}
+              alt="Your Job"
             />
           ) : (
             <>
@@ -64,12 +72,12 @@ export default function Login() {
                     className={style.profile__image}
                   />
                   <h2 className={style.profile__name}>{user.name}</h2>
-                  <button
+                  {/* <button
                     className={`${style.button} ${style.continue}`}
                     onClick={() => validate()}
                   >
                     Continue
-                  </button>
+                  </button> */}
                   <button
                     className={`${style.button} ${style.logout}`}
                     onClick={() => exit()}
