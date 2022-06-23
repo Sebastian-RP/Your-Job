@@ -94,3 +94,32 @@
   background-color: rgba(247, 75, 75, 0.411);
   cursor: pointer;
 }
+
+.employee {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 10px;
+  width: 70%;
+  border-radius: 5px;
+  border: solid;
+  border-image-slice: 1;
+  border-width: 5px;
+  border-image-source: linear-gradient(
+    to right,
+    #1c5d99,
+    #15fd00,
+    rgb(248, 18, 18),
+    yellow,
+    purple,
+    orange
+  );
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.employee:hover {
+  background-color: rgba(247, 75, 75, 0.411);
+  cursor: pointer;
+}
