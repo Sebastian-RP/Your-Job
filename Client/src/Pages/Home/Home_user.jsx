@@ -13,11 +13,11 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
-  updatePremiumPlan
+  updatePremiumPlan,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import image from "../Users/perfilPicture.png";
+const profileDefaultImage = "https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png";
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
@@ -29,7 +29,7 @@ export default function HomeUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selector = useSelector((state) => state);
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState({ filtered: false, list: [] });
   const [num, setNum] = useState(null);
   const [postId, setPostId] = useState([]);
   const [showPage, setShowPage] = useState(false);
@@ -55,7 +55,7 @@ export default function HomeUser() {
     getAllProducts("usuario").then((res) => {
       dispatch(res);
     });
-    dispatch(getActivePlans(user))
+    dispatch(getActivePlans(user));
     // eslint-disable-next-line
   }, [user]);
 
@@ -63,7 +63,7 @@ export default function HomeUser() {
   //empresas no sean la mismas siempre.
   // y setea los posts en un estado local para hacer los filtros desde acá
   useEffect(() => {
-    setPosts(selector.posts);
+    setPosts({ filtered: false, list: selector.posts });
     setNum(Math.random() * (companies.length - 3));
     // eslint-disable-next-line
   }, [selector]);
@@ -77,26 +77,24 @@ export default function HomeUser() {
   }, [postulatesUser]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setShowPage(true);
-    }, 2000);
+    setShowPage(true);
   }, []);
 
   const getFilterByTechnologies = (id) => {
     // console.log(id);
-    setPosts(posts.filter((data) => data.technologiesId.includes(id)));
+    setPosts({ filtered: true, list: posts.list.filter((data) => data.technologiesId.includes(id)) });
   };
   const filterByCompany = (name) => {
-    setPosts(selector.posts.filter((data) => data.company.name === name));
+    setPosts({ filtered: true, list: selector.posts.filter((data) => data.company.name === name) });
   };
   const filterByModality = (data) => {
-    setPosts(posts.filter((d) => d.modality === data));
+    setPosts({ filtered: true, list: posts.list.filter((d) => d.modality === data) });
   };
   const filterByExperience = (data) => {
-    setPosts(posts.filter((d) => d.experience === data));
+    setPosts({ filtered: true, list: posts.list.filter((d) => d.experience === data) });
   };
   const filterBySalary = (data) => {
-    const salary = posts;
+    const salary = posts.list;
     if (data === "min-salary") {
       for (let i = 0; i < salary.length - 1; i++) {
         for (let j = i + 1; j < salary.length; j++) {
@@ -107,7 +105,6 @@ export default function HomeUser() {
           }
         }
       }
-      setPosts([...salary]);
     } else {
       for (let i = 0; i < salary.length - 1; i++) {
         for (let j = i + 1; j < salary.length; j++) {
@@ -118,11 +115,10 @@ export default function HomeUser() {
           }
         }
       }
-      setPosts([...salary]);
     }
+    setPosts({ filtered: true, list: [...salary] });
   };
   const handlerPostulate = (val) => {
-    console.log(val);
     if (!isAuthenticated) {
       return loginWithPopup();
     } else {
@@ -151,13 +147,23 @@ export default function HomeUser() {
             <div className={style.containerActions}>
               <div className={style.filters}>
                 <div className={style.image}>
-                  <img src={logged?.image + "-/resize/200x200/"} alt="profile_picture" />
+                  <img
+                    src={logged?.image ? logged.image + "-/resize/200x200/" : profileDefaultImage}
+                    alt="profile_picture"
+                    width={"200px"}
+                    height={"200px"}
+                  />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
-                  {posts !== selector.posts && (
-                    <Button variant="success" onClick={() => setPosts(selector.posts)}>
+                  {posts.filtered ? (
+                    <Button
+                      variant="success"
+                      onClick={() => {
+                        setPosts({ filtered: false, list: selector.posts });
+                      }}
+                    >
                       Clear Filter
                     </Button>
-                  )}
+                  ) : null}
                 </div>
                 <Accordion>
                   <Accordion.Item eventKey="0">
@@ -244,8 +250,8 @@ export default function HomeUser() {
                   <div className={style.columInfo}></div>
                 </div>
                 <div className={style.columnPost}>
-                  {posts.length ? (
-                    posts.map((data, index) => {
+                  {posts.list.length ? (
+                    posts.list.map((data, index) => {
                       return (
                         <div className={style.cardPost} key={index}>
                           <Card>

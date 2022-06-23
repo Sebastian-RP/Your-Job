@@ -4,11 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
-import {
-  AiOutlineUser,
-  AiOutlinePoweroff,
-  AiOutlineStar,
-} from "react-icons/ai";
+import { AiOutlineUser, AiOutlinePoweroff, AiOutlineStar } from "react-icons/ai";
 import swal from "sweetalert";
 import styled from "styled-components";
 import { logOut } from "../../Redux/Actions/Actions";
@@ -19,9 +15,7 @@ export default function Navbar() {
   const carrito = useSelector((state) => state.carrito);
   const loggedUser = useSelector((state) => state.myUser);
   const loggedCompany = useSelector((state) => state.myCompany);
-
   const dispatch = useDispatch();
-
   const handlerPerfile = () => {
     if (loggedUser.error) {
       return swal({
@@ -46,7 +40,6 @@ export default function Navbar() {
 
   const exit = () => {
     dispatch(logOut());
-    console.log("logout");
     logout({ returnTo: window.location.origin });
   };
 
@@ -55,36 +48,23 @@ export default function Navbar() {
       <Title2 onClick={() => navigate("/home")}>YourJob</Title2>
       <SearchBar />
       <div>
-        {loggedUser.hasOwnProperty("error") &&
-          loggedCompany.hasOwnProperty("error") && (
-            <Button onClick={() => navigate("/login")}>Log In</Button>
-          )}
+        {loggedUser.hasOwnProperty("error") && loggedCompany.hasOwnProperty("error") && <Button onClick={() => navigate("/login")}>Log In</Button>}
         <Button onClick={() => navigate("/carrito")}>
           <FaShoppingCart /> {carrito.length}
         </Button>
         <Button onClick={() => navigate("/products")}>
           <AiOutlineStar /> | Premium
         </Button>
-        {!loggedUser.hasOwnProperty("error") ? (
+        {loggedUser.error && loggedCompany.error ? null : (
           <>
-            <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
+            <Button onClick={() => navigate(!loggedCompany.hasOwnProperty("error") ? `/company/${loggedCompany.name}` : `/users/${loggedUser.name}`)}>
               <AiOutlineUser />
             </Button>
             <ButtonOff onClick={() => exit()}>
               <AiOutlinePoweroff />
             </ButtonOff>
           </>
-        ) : null}
-        {!loggedCompany.hasOwnProperty("error") ? (
-          <>
-            <Button onClick={() => navigate(`/company/${loggedCompany.name}`)}>
-              <AiOutlineUser />
-            </Button>
-            <ButtonOff onClick={() => exit()}>
-              <AiOutlinePoweroff />
-            </ButtonOff>
-          </>
-        ) : null}
+        )}
       </div>
     </div>
   );
