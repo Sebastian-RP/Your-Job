@@ -26,10 +26,16 @@
   width: 80%;
   height: 90vh;
 }
-
+.image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .image img {
   border-radius: 50%;
   margin: 5px;
+  border: 2px solid #fff;
 }
 .image > p {
   color: #ffffff;

@@ -44,7 +44,6 @@ export default function Login() {
 
   const exit = () => {
     dispatch(logOut());
-    console.log("logout");
     logout({ returnTo: window.location.origin });
   };
 
