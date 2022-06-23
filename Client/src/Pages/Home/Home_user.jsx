@@ -13,12 +13,12 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
-  updatePremiumPlan,
+
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import image from "../Users/perfilPicture.png";
 import { AiFillStar } from "react-icons/ai";
+
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];

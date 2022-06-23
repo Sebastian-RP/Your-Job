@@ -22,11 +22,13 @@ export default function Login() {
     if (isAuthenticated) {
       validate();
     }
+    // eslint-disable-next-line
   }, [loggedUser]);
 
   useEffect(() => {
     dispatch(getCompanyByEmail(user?.email));
     dispatch(getUserByEmail(user?.email));
+    // eslint-disable-next-line
   }, [user, isAuthenticated]);
 
   const validate = () => {
@@ -59,6 +61,7 @@ export default function Login() {
             <img
               src="https://ucarecdn.com/eeaa3fc1-0bea-4ed1-97e5-f78b1f2aac76/"
               width={"100px"}
+              alt="Your Job"
             />
           ) : (
             <>
