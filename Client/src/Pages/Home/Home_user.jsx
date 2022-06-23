@@ -87,10 +87,10 @@ export default function HomeUser() {
 
   const getFilterByTechnologies = (id) => {
     // console.log(id);
-    setPosts({ filtered: true, list: posts.list.filter((data) => data.technologiesId.includes(id)) });
+    setPosts(posts.filter((data) => data.technologiesId.includes(id)));
   };
   const filterByCompany = (name) => {
-    setPosts({ filtered: true, list: selector.posts.filter((data) => data.company.name === name) });
+    setPosts( selector.posts.filter((data) => data.company.name === name));
   };
   const [ dataRep, setDataRep] = useState([]);
   const filterByModality = (data) => {
@@ -138,7 +138,7 @@ export default function HomeUser() {
 
 
   const filterBySalary = (data) => {
-    const salary = posts.list;
+    const salary = posts;
     if (data === "min-salary") {
       for (let i = 0; i < salary.length - 1; i++) {
         for (let j = i + 1; j < salary.length; j++) {
@@ -160,7 +160,7 @@ export default function HomeUser() {
         }
       }
     }
-    setPosts({ filtered: true, list: [...salary] });
+    setPosts([...salary]);
   };
   const handlerPostulate = (val) => {
     if (!isAuthenticated) {
@@ -310,8 +310,8 @@ export default function HomeUser() {
                   <div className={style.columInfo}></div>
                 </div>
                 <div className={style.columnPost}>
-                  {posts.list.length ? (
-                    posts.list.map((data, index) => {
+                  {posts.length ? (
+                    posts.map((data, index) => {
                       return (
                         <div
                           className={
