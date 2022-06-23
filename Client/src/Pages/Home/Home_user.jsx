@@ -38,6 +38,10 @@ export default function HomeUser() {
   const logged = useSelector((state) => state.myUser);
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
   const postulatesUser = selector.postulatesUser;
+  const [filterMod, setFilterMod] = useState([]);
+  const [mode, setMode] = useState('');
+  const [filterExp, setFilterExp] = useState([]);
+  const [ modeExp, setModeExp ] = useState('');
 
   useEffect(() => {
     dispatch(getAllPost());
@@ -89,12 +93,51 @@ export default function HomeUser() {
   const filterByCompany = (name) => {
     setPosts(selector.posts.filter((data) => data.company.name === name));
   };
+  const [ dataRep, setDataRep] = useState([]);
   const filterByModality = (data) => {
-    setPosts(posts.filter((d) => d.modality === data));
+    if(mode !== data){
+      if(!filterMod.length && selector.posts.length !== posts.length && mode !== '') {
+        
+        setPosts(dataRep.filter(d => d.modality === data));
+        setFilterMod([...dataRep])
+      }
+      else if(!filterMod.length){
+
+        setFilterMod([...posts]);
+        setPosts(posts.filter(d => d.modality === data));
+      }else if(filterMod.length) {
+        setPosts(filterMod.filter(d => d.modality === data));
+        setDataRep([...filterMod])
+        setFilterMod([]);
+      }
+      setMode(data)
+    
+    }
+  
   };
+  const [dataRepExp, setDataRepExp] = useState([]);
   const filterByExperience = (data) => {
-    setPosts(posts.filter((d) => d.experience === data));
+    if(modeExp !== data){
+      if(!filterExp.length && selector.posts.length !== posts.length && modeExp !== '') {
+        
+        setPosts(dataRepExp.filter(d => d.experience === data));
+        setFilterExp([...dataRepExp])
+      }
+      else if(!filterExp.length){
+
+        setFilterExp([...posts]);
+        setPosts(posts.filter(d => d.experience === data));
+      }else if(filterExp.length) {
+        setPosts(filterExp.filter(d => d.experience === data));
+        setDataRepExp([...filterExp])
+        setFilterExp([]);
+      }
+      setModeExp(data)
+    
+    }
   };
+
+
   const filterBySalary = (data) => {
     const salary = posts;
     if (data === "min-salary") {
@@ -154,33 +197,16 @@ export default function HomeUser() {
                   <img src={logged?.image + "-/resize/200x200/"} alt="profile_picture" />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
                   {posts !== selector.posts && (
-                    <Button variant="success" onClick={() => setPosts(selector.posts)}>
+                    <Button variant="success" onClick={() => {
+                      setModeExp('')
+                      setMode('')
+                      setPosts(selector.posts)}}>
                       Clear Filter
                     </Button>
                   )}
                 </div>
                 <Accordion>
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>Technologies</Accordion.Header>
-                    {allTechnologies?.map((d, i) => {
-                      return (
-                        <Accordion.Body style={{ padding: "5px", cursor: "pointer" }} key={i} onClick={() => getFilterByTechnologies(d.id)}>
-                          {d.name}
-                        </Accordion.Body>
-                      );
-                    })}
-                  </Accordion.Item>
-                  <Accordion.Item eventKey="1">
-                    <Accordion.Header>Salary</Accordion.Header>
-                    {salario.map((data, index) => {
-                      return (
-                        <Accordion.Body key={index} onClick={() => filterBySalary(data)} style={{ cursor: "pointer" }}>
-                          {data}
-                        </Accordion.Body>
-                      );
-                    })}
-                  </Accordion.Item>
-                  <Accordion.Item eventKey="2">
+                <Accordion.Item eventKey="0">
                     <Accordion.Header>Company</Accordion.Header>
                     <div
                       style={{
@@ -198,6 +224,26 @@ export default function HomeUser() {
                         );
                       })}
                     </div>
+                  </Accordion.Item>
+                  <Accordion.Item eventKey="1">
+                    <Accordion.Header>Technologies</Accordion.Header>
+                    {allTechnologies?.map((d, i) => {
+                      return (
+                        <Accordion.Body style={{ padding: "5px", cursor: "pointer" }} key={i} onClick={() => getFilterByTechnologies(d.id)}>
+                          {d.name}
+                        </Accordion.Body>
+                      );
+                    })}
+                  </Accordion.Item>
+                  <Accordion.Item eventKey="2">
+                    <Accordion.Header>Salary</Accordion.Header>
+                    {salario.map((data, index) => {
+                      return (
+                        <Accordion.Body key={index} onClick={() => filterBySalary(data)} style={{ cursor: "pointer" }}>
+                          {data}
+                        </Accordion.Body>
+                      );
+                    })}
                   </Accordion.Item>
                   <Accordion.Item eventKey="3">
                     <Accordion.Header>Modality</Accordion.Header>
