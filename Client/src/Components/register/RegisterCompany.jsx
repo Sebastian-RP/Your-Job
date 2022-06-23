@@ -272,7 +272,7 @@ export default function RegisterCompany({ props }) {
   return (
     <div className={style.containerRegisterUser}>
       <div className={style.containerCard}>
-        <h2> Please fill out the following form with your information</h2>
+        <h2>Company Info</h2>
 
         <Card className="text-center" style={{ width: "80%", padding: "20px" }}>
           <form
