@@ -23,7 +23,6 @@ const getCompanyPosts = async () => {
       },
     });
 
-    // const premiumPosts = PostCreated.filter(p => p.company.premium !== 2)
     const now = new Date();
     let Priority = [[], [], [], [], []];
 
