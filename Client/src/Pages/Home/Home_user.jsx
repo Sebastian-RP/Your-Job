@@ -21,7 +21,7 @@ import image from "../Users/perfilPicture.png";
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
-const salario = ["Min-salary", "Max-salary"];
+const salario = ["min-salary", "max-salary"];
 
 export default function HomeUser() {
   const { user, isAuthenticated, loginWithPopup } = useAuth0();

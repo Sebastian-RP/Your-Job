@@ -18,14 +18,15 @@ function App() {
   return (
     <Routes>
       <Route
-        path={"/home"}
+        path={"/login"}
         element={
           <div className="App">
-            <Home />
+            <Login />
           </div>
         }
       />
-      <Route path={"/"} element={<Login />} />
+      <Route path={"/"} element={<Home />} />
+      <Route path={"/home"} element={<Home />} />
       <Route path={"/users/:username"} element={<Users />} />
       <Route path={"/users/:username/edit"} element={<UsersEdit />} />
       <Route path={"/onboarding"} element={<Onboarding />} />
