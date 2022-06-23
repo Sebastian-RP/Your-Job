@@ -30,7 +30,7 @@ export default function HomeUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selector = useSelector((state) => state);
-  const [posts, setPosts] = useState({ filtered: false, list: [] });
+  const [posts, setPosts] = useState([]);
   const [num, setNum] = useState(null);
   const [postId, setPostId] = useState([]);
   const [showPage, setShowPage] = useState(false);
@@ -39,6 +39,10 @@ export default function HomeUser() {
   const logged = useSelector((state) => state.myUser);
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
   const postulatesUser = selector.postulatesUser;
+  const [filterMod, setFilterMod] = useState([]);
+  const [mode, setMode] = useState('');
+  const [filterExp, setFilterExp] = useState([]);
+  const [ modeExp, setModeExp ] = useState('');
 
   useEffect(() => {
     dispatch(getAllPost());
@@ -64,7 +68,7 @@ export default function HomeUser() {
   //empresas no sean la mismas siempre.
   // y setea los posts en un estado local para hacer los filtros desde acá
   useEffect(() => {
-    setPosts({ filtered: false, list: selector.posts });
+    setPosts(selector.posts);
     setNum(Math.random() * (companies.length - 3));
     // eslint-disable-next-line
   }, [selector]);
@@ -83,19 +87,58 @@ export default function HomeUser() {
 
   const getFilterByTechnologies = (id) => {
     // console.log(id);
-    setPosts({ filtered: true, list: posts.list.filter((data) => data.technologiesId.includes(id)) });
+    setPosts(posts.filter((data) => data.technologiesId.includes(id)));
   };
   const filterByCompany = (name) => {
-    setPosts({ filtered: true, list: selector.posts.filter((data) => data.company.name === name) });
+    setPosts( selector.posts.filter((data) => data.company.name === name));
   };
+  const [ dataRep, setDataRep] = useState([]);
   const filterByModality = (data) => {
-    setPosts({ filtered: true, list: posts.list.filter((d) => d.modality === data) });
+    if(mode !== data){
+      if(!filterMod.length && selector.posts.length !== posts.length && mode !== '') {
+        
+        setPosts(dataRep.filter(d => d.modality === data));
+        setFilterMod([...dataRep])
+      }
+      else if(!filterMod.length){
+
+        setFilterMod([...posts]);
+        setPosts(posts.filter(d => d.modality === data));
+      }else if(filterMod.length) {
+        setPosts(filterMod.filter(d => d.modality === data));
+        setDataRep([...filterMod])
+        setFilterMod([]);
+      }
+      setMode(data)
+    
+    }
+  
   };
+  const [dataRepExp, setDataRepExp] = useState([]);
   const filterByExperience = (data) => {
-    setPosts({ filtered: true, list: posts.list.filter((d) => d.experience === data) });
+    if(modeExp !== data){
+      if(!filterExp.length && selector.posts.length !== posts.length && modeExp !== '') {
+        
+        setPosts(dataRepExp.filter(d => d.experience === data));
+        setFilterExp([...dataRepExp])
+      }
+      else if(!filterExp.length){
+
+        setFilterExp([...posts]);
+        setPosts(posts.filter(d => d.experience === data));
+      }else if(filterExp.length) {
+        setPosts(filterExp.filter(d => d.experience === data));
+        setDataRepExp([...filterExp])
+        setFilterExp([]);
+      }
+      setModeExp(data)
+    
+    }
   };
+
+
   const filterBySalary = (data) => {
-    const salary = posts.list;
+    const salary = posts;
     if (data === "min-salary") {
       for (let i = 0; i < salary.length - 1; i++) {
         for (let j = i + 1; j < salary.length; j++) {
@@ -117,7 +160,7 @@ export default function HomeUser() {
         }
       }
     }
-    setPosts({ filtered: true, list: [...salary] });
+    setPosts([...salary]);
   };
   const handlerPostulate = (val) => {
     if (!isAuthenticated) {
@@ -155,47 +198,17 @@ export default function HomeUser() {
                     height={"200px"}
                   />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
-                  {posts.filtered ? (
-                    <Button
-                      variant="success"
-                      onClick={() => {
-                        setPosts({ filtered: false, list: selector.posts });
-                      }}
-                    >
+                  {posts !== selector.posts && (
+                    <Button variant="success" onClick={() => {
+                      setModeExp('')
+                      setMode('')
+                      setPosts(selector.posts)}}>
                       Clear Filter
                     </Button>
-                  ) : null}
+                  )}
                 </div>
                 <Accordion>
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>Technologies</Accordion.Header>
-                    {allTechnologies?.map((d, i) => {
-                      return (
-                        <Accordion.Body
-                          style={{ padding: "5px", cursor: "pointer" }}
-                          key={i}
-                          onClick={() => getFilterByTechnologies(d.id)}
-                        >
-                          {d.name}
-                        </Accordion.Body>
-                      );
-                    })}
-                  </Accordion.Item>
-                  <Accordion.Item eventKey="1">
-                    <Accordion.Header>Salary</Accordion.Header>
-                    {salario.map((data, index) => {
-                      return (
-                        <Accordion.Body
-                          key={index}
-                          onClick={() => filterBySalary(data)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {data}
-                        </Accordion.Body>
-                      );
-                    })}
-                  </Accordion.Item>
-                  <Accordion.Item eventKey="2">
+                <Accordion.Item eventKey="0">
                     <Accordion.Header>Company</Accordion.Header>
                     <div
                       style={{
@@ -217,6 +230,26 @@ export default function HomeUser() {
                         );
                       })}
                     </div>
+                  </Accordion.Item>
+                  <Accordion.Item eventKey="1">
+                    <Accordion.Header>Technologies</Accordion.Header>
+                    {allTechnologies?.map((d, i) => {
+                      return (
+                        <Accordion.Body style={{ padding: "5px", cursor: "pointer" }} key={i} onClick={() => getFilterByTechnologies(d.id)}>
+                          {d.name}
+                        </Accordion.Body>
+                      );
+                    })}
+                  </Accordion.Item>
+                  <Accordion.Item eventKey="2">
+                    <Accordion.Header>Salary</Accordion.Header>
+                    {salario.map((data, index) => {
+                      return (
+                        <Accordion.Body key={index} onClick={() => filterBySalary(data)} style={{ cursor: "pointer" }}>
+                          {data}
+                        </Accordion.Body>
+                      );
+                    })}
                   </Accordion.Item>
                   <Accordion.Item eventKey="3">
                     <Accordion.Header>Modality</Accordion.Header>
@@ -277,8 +310,8 @@ export default function HomeUser() {
                   <div className={style.columInfo}></div>
                 </div>
                 <div className={style.columnPost}>
-                  {posts.list.length ? (
-                    posts.list.map((data, index) => {
+                  {posts.length ? (
+                    posts.map((data, index) => {
                       return (
                         <div
                           className={
