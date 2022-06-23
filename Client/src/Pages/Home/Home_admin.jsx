@@ -192,6 +192,15 @@ export default function HomeAdmin() {
         dispatch(deleteUser(toBan.id));
       if (toBan.Account && toBan.Account === "Company")
         dispatch(deleteCompany(toBan.id));
+      if (
+        toBan.Account &&
+        (toBan.Account === "Admin" || toBan.Account === "SuperAdmin")
+      )
+        return swal({
+          title: "Action not Permitted",
+          text: `${toBan.name} cannot be banned, as they are an Admin`,
+          icon: "warning",
+        });
       swal({
         title: "Account deleted",
         text: `${toBan.name} has been deleted successfully`,
