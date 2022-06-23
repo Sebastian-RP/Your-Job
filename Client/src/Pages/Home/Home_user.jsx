@@ -13,12 +13,10 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
-
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
-
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
@@ -80,7 +78,7 @@ export default function HomeUser() {
   useEffect(() => {
     setTimeout(() => {
       setShowPage(true);
-    }, 2000);
+    }, 1000);
   }, []);
 
   const getFilterByTechnologies = (id) => {
@@ -146,7 +144,7 @@ export default function HomeUser() {
   return (
     <div className={style.containerHome}>
       <>
-        <Navbar />
+        <Navbar home={true} />
         {showPage ? (
           <>
             <div className={style.containerActions}>
