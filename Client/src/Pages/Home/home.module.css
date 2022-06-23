@@ -40,7 +40,7 @@
   flex-direction: column;
   margin-right: 55px;
   width: 65%;
-  height: 90vh;
+  height: calc(100vh - 60px);
   overflow-y: auto;
 }
 .columnPost .cardPost {

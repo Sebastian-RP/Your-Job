@@ -46,7 +46,7 @@ export default function HomeCompany() {
     getAllProducts("empresa").then((res) => {
       dispatch(res);
     });
-    updatePremiumPlanCompany(user.email, plans).then((res) => {
+    updatePremiumPlanCompany(user?.email, plans).then((res) => {
       dispatch(res);
     });
     dispatch(getActivePlans(user));
