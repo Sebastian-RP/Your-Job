@@ -8,9 +8,7 @@ import {
   getAllCompanies,
   getAllPost,
   getAllTechnologies,
-  getPostulates,
   getUserByEmail,
-  postulateJob,
   getAllProducts,
   deleteUser,
   getAllUsers,
@@ -22,7 +20,6 @@ import {
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import image from "../Users/perfilPicture.png";
 import axios from "axios";
 
 // const Modality = ["remoto", "presencial"];
@@ -30,7 +27,7 @@ import axios from "axios";
 // const salario = ["min-salary", "max-salary"];
 
 export default function HomeAdmin() {
-  const { logout, user, isAuthenticated, loginWithPopup } = useAuth0();
+  const { user } = useAuth0();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -506,6 +503,7 @@ export default function HomeAdmin() {
                 {adminView === "admin" && (
                   <div className={style.columnPost}>
                     {users.length ? (
+                      // eslint-disable-next-line
                       users.map((user, index) => {
                         if (user.Account !== "User")
                           return (
