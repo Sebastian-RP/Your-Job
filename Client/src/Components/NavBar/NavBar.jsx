@@ -9,7 +9,7 @@ import swal from "sweetalert";
 import styled from "styled-components";
 import { logOut } from "../../Redux/Actions/Actions";
 
-export default function Navbar() {
+export default function Navbar({ home }) {
   const { logout } = useAuth0();
   const navigate = useNavigate();
   const carrito = useSelector((state) => state.carrito);
@@ -48,6 +48,23 @@ export default function Navbar() {
       <Title2 onClick={() => navigate("/home")}>YourJob</Title2>
       <SearchBar />
       <div>
+        {home ? (
+          <Button
+            onClick={() => {
+              navigate("/forum");
+            }}
+          >
+            Forum
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
+            Home
+          </Button>
+        )}
         {loggedUser.hasOwnProperty("error") && loggedCompany.hasOwnProperty("error") && <Button onClick={() => navigate("/login")}>Log In</Button>}
         <Button onClick={() => navigate("/carrito")}>
           <FaShoppingCart /> {carrito.length}

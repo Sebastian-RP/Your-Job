@@ -142,7 +142,7 @@ export default function HomeUser() {
   return (
     <div className={style.containerHome}>
       <>
-        <Navbar />
+        <Navbar home={true} />
         {showPage ? (
           <>
             <div className={style.containerActions}>
