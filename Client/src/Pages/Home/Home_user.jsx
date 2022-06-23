@@ -13,9 +13,12 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
+
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AiFillStar } from "react-icons/ai";
+
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
@@ -277,7 +280,14 @@ export default function HomeUser() {
                   {posts.length ? (
                     posts.map((data, index) => {
                       return (
-                        <div className={style.cardPost} key={index}>
+                        <div
+                          className={
+                            data.company.premium === 1
+                              ? style.cardPostPremium
+                              : style.cardPost
+                          }
+                          key={index}
+                        >
                           <Card>
                             <Card.Header as="h5">
                               <label>Job Offer</label> -{" "}
@@ -289,6 +299,11 @@ export default function HomeUser() {
                               >
                                 {" "}
                                 {data.company?.name}{" "}
+                                {data.company.premium === 1 ? (
+                                  <AiFillStar />
+                                ) : (
+                                  ""
+                                )}
                               </label>
                             </Card.Header>
                             <Card.Body>

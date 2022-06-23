@@ -47,6 +47,16 @@
   margin: 5px;
   padding: 5px;
 }
+
+.cardPostPremium {
+  margin: 5px;
+  padding: 5px;
+  border: solid;
+  border-color: rgb(221, 221, 33);
+  border-radius: 5px;
+  /* background-color: yellow; */
+}
+
 .columnInfoRight {
   display: flex;
   flex-direction: column;
