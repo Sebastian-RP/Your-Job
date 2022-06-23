@@ -31,14 +31,14 @@ export default function Onboarding() {
         <Card.Body>
           <Card.Title>Please choose your use preference</Card.Title>
           <Card.Text>You can choose between these two options</Card.Text>
-          <Button variant="primary" onClick={handlerUserTrue}>
+          <button className={style.Button} onClick={handlerUserTrue}>
             User
-          </Button>
+          </button>
           <br />
           <br />
-          <Button variant="primary" onClick={handlerCompanyTrue}>
+          <button className={style.Button} onClick={handlerCompanyTrue}>
             Company
-          </Button>
+          </button>
         </Card.Body>
         <Card.Footer className="text-muted"></Card.Footer>
       </Card>

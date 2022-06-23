@@ -317,12 +317,13 @@ export default function RegisterUser({ props }) {
   return (
     <div className={style.containerRegisterUser}>
       <div className={style.containerCard}>
-        <h2> Please fill out the following form with your information</h2>
+        <h2>User Info</h2>
         <Card className="text-center" style={{ width: "80%", padding: "20px" }}>
           <form
             className={style.containeForm}
             onSubmit={(e) => handleSubmit(e)}
           >
+            <label>Name: </label>
             <input
               name="name"
               onChange={(e) => handleChange(e)}
@@ -355,10 +356,10 @@ export default function RegisterUser({ props }) {
                 handleChange(e);
               }}
             />
-
             <span className={style.danger}>{errors.age}</span>
             <br />
             <div className={style.containerTechnologies}>
+              <label>Technologies:</label>
               <Dropdown className="d-inline mx-2" autoClose="outside">
                 <Dropdown.Toggle id="dropdown-autoclose-outside">
                   Select Technologies
@@ -380,7 +381,7 @@ export default function RegisterUser({ props }) {
                     })}
                 </Dropdown.Menu>
               </Dropdown>
-              <label>Technologies:</label>
+              
               <ul>
                 {selectedTechs?.map((tech, index) => (
                   <div key={index}>
@@ -404,6 +405,7 @@ export default function RegisterUser({ props }) {
                 gap: "10px",
               }}
             >
+              <label>Country of Origin: {country}</label>
               <DropdownButton
                 id="dropdown-basic-button"
                 title="Select Country"
@@ -424,7 +426,7 @@ export default function RegisterUser({ props }) {
                   })}
                 </div>
               </DropdownButton>
-              <label>Country of Origin: {country}</label>
+              
             </div>
             <br />
             <br />
