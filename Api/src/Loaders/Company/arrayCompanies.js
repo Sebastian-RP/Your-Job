@@ -4,7 +4,7 @@ const chance = new Chance();
 const fakeUserData = [
   [
     "jsarabialugo@gmail.com",
-    chance.company() + " company",
+    "Winn Dixie Stores Inc" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -17,7 +17,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Avon Products, Inc." + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -30,7 +30,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Aon Corporation" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -43,7 +43,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Lam Research Corporation" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -56,7 +56,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Union Planters Corp" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -69,7 +69,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "NSTAR" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -82,7 +82,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Calpine Corp" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -95,7 +95,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "National Service Industries Inc" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -108,7 +108,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "ALLETE, Inc" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -121,7 +121,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Archer Daniels Midland" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -134,7 +134,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Harley-Davidson Inc" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -147,7 +147,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Murphy Oil Corporation" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -160,7 +160,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Amerada Hess Corporation" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -173,7 +173,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Unified Western Grocers Inc" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -186,7 +186,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "AdvancePCS, Inc" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -199,7 +199,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "AmSouth Bancorp" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),
@@ -212,7 +212,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.company() + " company",
+    "Universal Forest Products Inc" + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
     chance.address(),

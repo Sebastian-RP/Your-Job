@@ -4,7 +4,7 @@ const chance = new Chance();
 const fakeUserData = [
   [
     "t0mshaster5@gmail.com",
-    chance.name(),
+    "Gregory Jenkins",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -17,7 +17,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Daisy Chavez",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -30,7 +30,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Catherine Lindsey",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -43,7 +43,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Daniel Tate",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -56,7 +56,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Donald Watson",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -69,7 +69,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Ronald Lamb",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -82,7 +82,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Philip Carpenter",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -95,7 +95,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Cole Kelly",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -108,7 +108,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Jerome Colon",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -121,7 +121,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Anthony Graham",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -134,7 +134,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Bobby Ramsey",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -147,7 +147,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Lilly Ray",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -160,7 +160,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Helen Russell",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -173,7 +173,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Patrick Thornton",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -186,7 +186,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Mario Fuentes",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -199,7 +199,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Eugenia Chavez",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -212,7 +212,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Genevieve Cole",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -225,7 +225,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Glen Holmes",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -238,7 +238,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Gussie McCarthy",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -251,7 +251,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Herbert Simpson",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -264,7 +264,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Howard Allison",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -277,7 +277,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Jeanette Franklin",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -290,7 +290,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Jesse Swanson",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -303,7 +303,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "John Valdez",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -316,7 +316,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Jonathan Singleton",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -329,7 +329,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Lucille Murray",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -342,7 +342,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Elizabeth Larson",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -355,7 +355,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Mamie Wheeler",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -368,7 +368,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Mark Stone",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -381,7 +381,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Max Cohen",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -394,7 +394,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Michael Drake",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -407,7 +407,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Mittie Gross",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -420,7 +420,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Nell Richardson",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -433,7 +433,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Olive Sandoval",
     "empleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -446,7 +446,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Ora Hunt",
     "desempleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -460,7 +460,7 @@ const fakeUserData = [
 
   [
     chance.email(),
-    chance.name(),
+    "Ralph Alvarez",
     "desempleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -473,7 +473,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Tom Lindsey",
     "desempleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -486,7 +486,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Vernon Smith",
     "desempleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -499,7 +499,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Willie Flowers",
     "desempleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
@@ -512,7 +512,7 @@ const fakeUserData = [
   ],
   [
     chance.email(),
-    chance.name(),
+    "Leona Henderson",
     "desempleado",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
