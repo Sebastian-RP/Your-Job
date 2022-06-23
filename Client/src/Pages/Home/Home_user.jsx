@@ -13,11 +13,12 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
-  updatePremiumPlan
+  updatePremiumPlan,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import image from "../Users/perfilPicture.png";
+import { AiFillStar } from "react-icons/ai";
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
@@ -55,7 +56,7 @@ export default function HomeUser() {
     getAllProducts("usuario").then((res) => {
       dispatch(res);
     });
-    dispatch(getActivePlans(user))
+    dispatch(getActivePlans(user));
     // eslint-disable-next-line
   }, [user]);
 
@@ -151,10 +152,16 @@ export default function HomeUser() {
             <div className={style.containerActions}>
               <div className={style.filters}>
                 <div className={style.image}>
-                  <img src={logged?.image + "-/resize/200x200/"} alt="profile_picture" />
+                  <img
+                    src={logged?.image + "-/resize/200x200/"}
+                    alt="profile_picture"
+                  />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
                   {posts !== selector.posts && (
-                    <Button variant="success" onClick={() => setPosts(selector.posts)}>
+                    <Button
+                      variant="success"
+                      onClick={() => setPosts(selector.posts)}
+                    >
                       Clear Filter
                     </Button>
                   )}
@@ -164,7 +171,11 @@ export default function HomeUser() {
                     <Accordion.Header>Technologies</Accordion.Header>
                     {allTechnologies?.map((d, i) => {
                       return (
-                        <Accordion.Body style={{ padding: "5px", cursor: "pointer" }} key={i} onClick={() => getFilterByTechnologies(d.id)}>
+                        <Accordion.Body
+                          style={{ padding: "5px", cursor: "pointer" }}
+                          key={i}
+                          onClick={() => getFilterByTechnologies(d.id)}
+                        >
                           {d.name}
                         </Accordion.Body>
                       );
@@ -174,7 +185,11 @@ export default function HomeUser() {
                     <Accordion.Header>Salary</Accordion.Header>
                     {salario.map((data, index) => {
                       return (
-                        <Accordion.Body key={index} onClick={() => filterBySalary(data)} style={{ cursor: "pointer" }}>
+                        <Accordion.Body
+                          key={index}
+                          onClick={() => filterBySalary(data)}
+                          style={{ cursor: "pointer" }}
+                        >
                           {data}
                         </Accordion.Body>
                       );
@@ -191,7 +206,11 @@ export default function HomeUser() {
                     >
                       {companies.map((d, i) => {
                         return (
-                          <Accordion.Body style={{ padding: "2px" }} key={i} onClick={() => filterByCompany(d.name)}>
+                          <Accordion.Body
+                            style={{ padding: "2px" }}
+                            key={i}
+                            onClick={() => filterByCompany(d.name)}
+                          >
                             {d.name}
                             <hr />
                           </Accordion.Body>
@@ -203,7 +222,11 @@ export default function HomeUser() {
                     <Accordion.Header>Modality</Accordion.Header>
                     {Modality.map((data, index) => {
                       return (
-                        <Accordion.Body key={index} onClick={() => filterByModality(data)} style={{ cursor: "pointer" }}>
+                        <Accordion.Body
+                          key={index}
+                          onClick={() => filterByModality(data)}
+                          style={{ cursor: "pointer" }}
+                        >
                           {data}
                           <hr />
                         </Accordion.Body>
@@ -214,7 +237,11 @@ export default function HomeUser() {
                     <Accordion.Header>Experience</Accordion.Header>
                     {Experience.map((data, index) => {
                       return (
-                        <Accordion.Body key={index} onClick={() => filterByExperience(data)} style={{ cursor: "pointer" }}>
+                        <Accordion.Body
+                          key={index}
+                          onClick={() => filterByExperience(data)}
+                          style={{ cursor: "pointer" }}
+                        >
                           {data}
                           <hr />
                         </Accordion.Body>
@@ -228,7 +255,13 @@ export default function HomeUser() {
                   <h3>Suggestions</h3>
                   <>
                     {suggestions.map((data, index) => (
-                      <Card bg="secondary" key={index} text="light" style={{ width: "18rem" }} className="mb-2">
+                      <Card
+                        bg="secondary"
+                        key={index}
+                        text="light"
+                        style={{ width: "18rem" }}
+                        className="mb-2"
+                      >
                         <Card.Header>
                           <strong>Email:</strong> {data.email}
                           <br />
@@ -247,7 +280,14 @@ export default function HomeUser() {
                   {posts.length ? (
                     posts.map((data, index) => {
                       return (
-                        <div className={style.cardPost} key={index}>
+                        <div
+                          className={
+                            data.company.premium === 1
+                              ? style.cardPostPremium
+                              : style.cardPost
+                          }
+                          key={index}
+                        >
                           <Card>
                             <Card.Header as="h5">
                               <label>Job Offer</label> -{" "}
@@ -259,6 +299,11 @@ export default function HomeUser() {
                               >
                                 {" "}
                                 {data.company?.name}{" "}
+                                {data.company.premium === 1 ? (
+                                  <AiFillStar />
+                                ) : (
+                                  ""
+                                )}
                               </label>
                             </Card.Header>
                             <Card.Body>
@@ -287,7 +332,11 @@ export default function HomeUser() {
                               </Card.Text>
                               <button
                                 className={style.Button}
-                                variant={postId.includes(data.id) ? "secondary" : "primary"}
+                                variant={
+                                  postId.includes(data.id)
+                                    ? "secondary"
+                                    : "primary"
+                                }
                                 onClick={() => {
                                   handlerPostulate({
                                     name: logged.name,
@@ -296,9 +345,13 @@ export default function HomeUser() {
                                     companyId: data.companyId,
                                   });
                                 }}
-                                disabled={postId.includes(data.id) ? true : false}
+                                disabled={
+                                  postId.includes(data.id) ? true : false
+                                }
                               >
-                                {postId.includes(data.id) ? "Request sent" : "Apply"}
+                                {postId.includes(data.id)
+                                  ? "Request sent"
+                                  : "Apply"}
                               </button>
                             </Card.Body>
                           </Card>
