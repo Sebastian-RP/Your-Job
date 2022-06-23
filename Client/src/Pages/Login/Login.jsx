@@ -19,9 +19,15 @@ export default function Login() {
   const loggedCompany = useSelector((state) => state.myCompany);
 
   useEffect(() => {
+    if (isAuthenticated) {
+      validate();
+    }
+  }, [loggedUser]);
+
+  useEffect(() => {
     dispatch(getCompanyByEmail(user?.email));
     dispatch(getUserByEmail(user?.email));
-  }, [user]);
+  }, [user, isAuthenticated]);
 
   const validate = () => {
     if (
@@ -64,12 +70,12 @@ export default function Login() {
                     className={style.profile__image}
                   />
                   <h2 className={style.profile__name}>{user.name}</h2>
-                  <button
+                  {/* <button
                     className={`${style.button} ${style.continue}`}
                     onClick={() => validate()}
                   >
                     Continue
-                  </button>
+                  </button> */}
                   <button
                     className={`${style.button} ${style.logout}`}
                     onClick={() => exit()}
