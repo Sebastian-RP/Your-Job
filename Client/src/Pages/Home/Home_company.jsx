@@ -10,7 +10,7 @@ import {
   getAllPostsFromCompany,
   getAllProducts,
   getActivePlans,
-  updatePremiumPlanCompany
+  updatePremiumPlanCompany,
 } from "../../Redux/Actions/Actions";
 import { Card } from "react-bootstrap";
 import style from "./homeCompany.module.css";
@@ -18,6 +18,7 @@ import PostForm from "./postForm";
 import ListPostulates from "./listPostulates";
 import Image from "../Users/perfilPicture.png";
 import styled from "styled-components";
+import swal from "sweetalert";
 
 export default function HomeCompany() {
   const { user } = useAuth0();
@@ -66,10 +67,18 @@ export default function HomeCompany() {
   const handlerDelete = (value) => {
     dispatch(deletePost(value)).then((data) => {
       if (data.status === 200) {
-        alert("Job offer successsfully deleted");
+        swal({
+          title: "Post deleted",
+          text: "The post has been successfully deleted",
+          icon: "success",
+        });
         dispatch(getAllPostsFromCompany(company.id));
       } else {
-        alert("The operation could not be carried out, please try again");
+        swal({
+          title: "Error",
+          text: `Sorry something seems to have gone wrong, please try again later`,
+          icon: "error",
+        });
       }
     });
   };
@@ -95,9 +104,7 @@ export default function HomeCompany() {
               <strong>Address:</strong> {company?.address}
             </p>
           </div>
-          <Button onClick={() => setShowFormPost(true)}>
-            Create Post
-          </Button>
+          <Button onClick={() => setShowFormPost(true)}>Create Post</Button>
           {showFormPost && (
             <ButtonCanceled
               // className={style.buttonCancel}
@@ -207,7 +214,7 @@ const ButtonCanceled = styled.button`
   position: fixed;
   z-index: 4;
   top: 15px;
-  right:20px;
+  right: 20px;
   &:hover {
     color: white;
     background-color: #1c5d99;

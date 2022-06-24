@@ -27,8 +27,8 @@ export default function Login() {
   const validate = async () => {
     dispatch(logIn(user.email)).then((res) => {
       if (
-        !res.payload.loggedUser.data.hasOwnProperty("error") ||
-        !res.payload.loggedCompany.data.hasOwnProperty("error")
+        !res.payload.loggedUser.hasOwnProperty("error") ||
+        !res.payload.loggedCompany.hasOwnProperty("error")
       ) {
         // console.log("ok");
         navigate("/home");

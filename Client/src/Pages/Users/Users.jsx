@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import style from "./perfil.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserInfo, getActivePlans, updatePremiumPlan } from "../../Redux/Actions/Actions";
+import {
+  getUserInfo,
+  getActivePlans,
+  updatePremiumPlan,
+} from "../../Redux/Actions/Actions";
 import { useState } from "react";
 import axios from "axios";
 import Navbar from "../../Components/NavBar/NavBar";
@@ -11,7 +15,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
   // al hacer el login ya deberia de pasar la informacion al reducer.
-  const {user} = useAuth0();
+  const { user } = useAuth0();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username } = useParams();
@@ -19,9 +23,13 @@ export default function Users() {
   const [ownProfile, setOwnProfile] = useState(false);
   const userData = useSelector((state) => {
     // console.log(state);
-    return { ...state.user, postulates: [...state.postulatesUser], plans: [...state.activePlans] };
+    return {
+      ...state.user,
+      postulates: [...state.postulatesUser],
+      plans: [...state.activePlans],
+    };
   });
-  
+
   console.log(userData);
   useEffect(() => {
     getUserInfo(username).then((action) => {
@@ -67,7 +75,14 @@ export default function Users() {
           <h2>About</h2>
           <hr />
           <div className={style.picture}>
-            <img src={userData.image ? userData.image : "https://icon-library.com/images/profile-png-icon/profile-png-icon-24.jpg"} alt="perfil" />
+            <img
+              src={
+                userData.image
+                  ? userData.image
+                  : "https://icon-library.com/images/profile-png-icon/profile-png-icon-24.jpg"
+              }
+              alt="perfil"
+            />
             <h2>{userData?.name}</h2>
           </div>
           <div className={style.about}>
@@ -83,7 +98,11 @@ export default function Users() {
             </ul>
             <p>
               Linkedin/etc... :{" "}
-              <a href={"https://" + userData.url} target="_blank" rel="noopener , noreferrer">
+              <a
+                href={"https://" + userData.url}
+                target="_blank"
+                rel="noopener , noreferrer"
+              >
                 {userData.url}
               </a>
             </p>
@@ -99,35 +118,47 @@ export default function Users() {
             >
               Go to home
             </button>
-            <button className={style.Button} onClick={() => sendMessage()} style={{ display: !ownProfile ? "" : "none" }}>
+            <button
+              className={style.Button}
+              onClick={() => sendMessage()}
+              style={{ display: !ownProfile ? "" : "none" }}
+            >
               Message
             </button>
-            <button className={style.Button} style={{ display: ownProfile ? "" : "none" }} onClick={() => navigate(`/users/${loggedUser.name}/edit`)}>
+            <button
+              className={style.Button}
+              style={{ display: ownProfile ? "" : "none" }}
+              onClick={() => navigate(`/users/${loggedUser.name}/edit`)}
+            >
               Edit Profile
             </button>
           </div>
-          {userData.plans[0] !== "You don't have any plan" && userData.plans[0] !== "To see your plans, please log in" ?
+          {userData.plans[0] !== "You don't have any plan" &&
+          userData.plans[0] !== "To see your plans, please log in" ? (
             <>
               <h2>My posts</h2>
               <hr />
-              <button className={style.Button}>
-                Create a Post
-              </button>
-            </> : null
-          }
+              <button className={style.Button}>Create a Post</button>
+            </>
+          ) : null}
         </div>
         <div className={style.perfilInfo}>
           <div className={style.info}>
             <h2>Information</h2>
             <p>{userData?.description}</p>
             <hr />
-            {userData.plans? <h3>Your active plans </h3>: null}
+            {userData.plans ? <h3>Your active plans </h3> : null}
             {userData.plans?.map((d, i) => {
               return <p key={i}>{d}</p>;
             })}
             <button
               className={style.Button}
-              disabled={(userData.plans[0] === "You don't have any plan" || userData.plans[0] === "To see your plans, please log in") ? true : false}
+              disabled={
+                userData.plans[0] === "You don't have any plan" ||
+                userData.plans[0] === "To see your plans, please log in"
+                  ? true
+                  : false
+              }
             >
               Decline subscription
             </button>
@@ -136,7 +167,11 @@ export default function Users() {
               <button
                 className={style.Button}
                 onClick={() => {
-                  window.open(userData.cv, "_blank", "noopener,noreferrer");
+                  window.open(
+                    "https://" + userData.cv,
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
                 }}
               >
                 Download CV

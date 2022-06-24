@@ -8,6 +8,8 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createCompany } from "../../Redux/Actions/Actions";
+import { Widget } from "@uploadcare/react-widget";
+
 import style from "./register.module.css";
 import validateCompany from "./ValidateCompany";
 
@@ -211,6 +213,7 @@ export default function RegisterCompany({ props }) {
     "Zambia",
     "Zimbabwe",
   ];
+  const [uuidImage, setUuidImage] = useState(false);
   const [country, setCountry] = useState("");
   const [input, setInput] = useState({
     email: "",
@@ -251,12 +254,16 @@ export default function RegisterCompany({ props }) {
       console.log(errors);
       return;
     }
+    let image = undefined;
+    uuidImage
+      ? (image = `https://ucarecdn.com/${uuidImage}/`)
+      : (image = user?.picture);
     let newCompany = {
       email: user?.email,
       name: input.name,
       propietary_name: input.prop_name,
       phone: parseInt(input.phone),
-      image: user?.picture,
+      image: image,
       address: input.address,
       url: input.linkedin,
       nationality: country,
@@ -279,6 +286,8 @@ export default function RegisterCompany({ props }) {
             className={style.containeForm}
             onSubmit={(e) => handleSubmit(e)}
           >
+            <label htmlFor="name">Company Name:</label>
+            <br />
             <input
               name="name"
               onChange={(e) => handleChange(e)}
@@ -287,6 +296,7 @@ export default function RegisterCompany({ props }) {
               required
             />
             <br />
+            <label htmlFor="prop_name">Propietary Name:</label>
             <br />
             <input
               name="prop_name"
@@ -296,6 +306,7 @@ export default function RegisterCompany({ props }) {
               required
             />
             <br />
+            <label htmlFor="email">Email:</label>
             <br />
             <input
               name="email"
@@ -306,6 +317,7 @@ export default function RegisterCompany({ props }) {
             />
             <br />
             <span className={style.danger}>{errors.email}</span>
+            <label>Phone number:</label>
             <br />
             <input
               type={"number"}
@@ -341,7 +353,16 @@ export default function RegisterCompany({ props }) {
             </div>
             <br />
             <br />
+            <label> Address:</label>
+            <br />
 
+            <input
+              type="text"
+              name="address"
+              placeholder="City, Street"
+              onChange={(e) => handleChange(e)}
+            />
+            <label>Linkedin Profile or similar:</label>
             <input
               name="linkedin"
               onChange={(e) => handleChange(e)}
@@ -351,14 +372,26 @@ export default function RegisterCompany({ props }) {
             />
             <br />
             <span className={style.danger}>{errors.linkedin}</span>
+            <label> Description </label>
             <br />
-
             <textarea
               name="desc"
               onChange={(e) => handleChange(e)}
               placeholder="Description"
               cols="40"
               autoComplete="off"
+            />
+            <br />
+            <label>Upload a Profile Picture</label>
+            <br />
+            <Widget
+              publicKey="de7dc23d760e287d1cb0"
+              clearable
+              imagesOnly
+              crop=""
+              onChange={(file) => {
+                setUuidImage(file.uuid);
+              }}
             />
             <br />
             <br />
