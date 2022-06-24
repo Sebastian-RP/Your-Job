@@ -2,11 +2,11 @@ const { Postulates, Company } = require("../db.js");
 
 const postulatesPost = async (name, url, postId, companyId) => {
   try {
-    console.clear();
     await Postulates.create({
       name,
       url,
-      postId
+      companyPostId: postId,
+      companyId,
     });
 
     return "Successful postulation";

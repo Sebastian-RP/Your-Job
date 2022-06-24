@@ -37,21 +37,9 @@ export default function Home() {
       }
     }
   }, [loggedUser, loggedCompany, isLoading]);
+  console.log();
   return isLoading ? (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        backgroundColor: "#1c5d99",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
-      <h1 style={{ color: "#fff" }}>Loading</h1>
-      <img src="https://ucarecdn.com/eeaa3fc1-0bea-4ed1-97e5-f78b1f2aac76/" width={"100px"} alt="Your Job" />
-    </div>
+    <h1>Loading...</h1>
   ) : isUser && (loggedUser?.Account === "Admin" || loggedUser?.Account === "SuperAdmin") ? (
     <HomeAdmin />
   ) : (loggedUser.error && loggedCompany.error) || !loggedUser.error ? (
