@@ -19,6 +19,7 @@ import {
   GET_PLANS,
   GET_COMPANY_INFO,
   GET_ALL_EMPLOYEES_FROM_COMPANY,
+  LOG_IN,
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -119,6 +120,14 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         myCompany: action.payload,
       };
+
+    case LOG_IN:
+      return {
+        ...state,
+        myUser: action.payload.loggedUser,
+        myCompany: action.payload.loggedCompany,
+      };
+
     case LOG_OUT:
       return {
         ...state,
