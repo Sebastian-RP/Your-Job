@@ -160,8 +160,16 @@ export default function HomeUser() {
           title: "Oops!",
           text: "It seems like you haven't finished your profile, click Ok to finish it!",
           icon: "error",
-        }).then(() => {
-          navigate("/onboarding");
+          buttons: true,
+        }).then((willDelete) => {
+          if (willDelete) {
+            navigate(`/onboarding`);
+          } else {
+            swal({
+              title: "Are you sure?",
+              icon: "warning",
+            });
+          }
         });
       }
     }
