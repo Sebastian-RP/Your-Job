@@ -8,9 +8,9 @@ module.exports = (sequelize) => {
     url: {
       type: DataTypes.STRING,
     },
-    companyId: {
-      type: DataTypes.STRING,
-      allowNull: true,
+    postId: {
+      type: DataTypes.UUID,
+      allowNull: false,
     },
   });
 };
