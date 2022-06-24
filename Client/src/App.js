@@ -13,6 +13,7 @@ import UsersEdit from "./Pages/Users/UsersEdit";
 import Forum from "./Pages/Forum/Forum.jsx";
 import Success from "./Pages/CheckOut/Success.jsx";
 import Canceled from "./Pages/CheckOut/Cancel.jsx";
+import Companies from "./Pages/Companies/Companies";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       />
       <Route path={"/"} element={<Home />} />
       <Route path={"/home"} element={<Home />} />
+      <Route path={"/company/:companyname"} element={<Companies />} />
       <Route path={"/users/:username"} element={<Users />} />
       <Route path={"/users/:username/edit"} element={<UsersEdit />} />
       <Route path={"/onboarding"} element={<Onboarding />} />

@@ -13,7 +13,7 @@ export default function Conversation({ conversation, currentUser }) {
     const getFriend = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/users/id/` + friendId
+          `/users/id/` + Number(friendId)
         );
         setUsuario(res.data);
       } catch (error) {
@@ -29,7 +29,7 @@ export default function Conversation({ conversation, currentUser }) {
         src={
           usuario?.image
             ? usuario.image
-            : "https://randomuser.me/api/portraits/women/19.jpg"
+            : "https://vinasderoaabogados.es/wp-content/uploads/2015/11/usuario-sin-foto.gif"
         }
         alt="user profile pic"
       />

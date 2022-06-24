@@ -3,33 +3,45 @@ import axios from "axios";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import getAllPayments from "../../Components/Firebase/getAllPayments.js";
 
-export const GET_ALL_EMPLOYEES = "GET_ALL_EMPLOYEES";
 export const GET_USER_INFO = "GET_USER_INFO";
+export const GET_COMPANY_INFO = "GET_COMPANY_INFO";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_ALL_TECHNOLOGIES = "GET_ALL_TECHNOLOGIES";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ALL_POST = "GET_ALL_POST";
 export const GET_ALL_COMPANIES = "GET_ALL_COMPANIES";
+export const GET_ALL_EMPLOYEES_FROM_COMPANY = "GET_ALL_EMPLOYEES_FROM_COMPANY";
 export const GET_ALL_POSTS_FROM_COMPANY = "GET_ALL_POSTS_FROM_COMPANY";
 export const GET_ALL_POSTULATES = "GET_ALL_POSTULATES";
-export const ADD_CARRITO = "ADD_CARRITO";
 export const GET_ALL_POSTULATES_FROM_POST = "GET_ALL_POSTULATES_FROM_POST";
-export const CLEAR_CARRITO = "CLEAR_CARRITO";
 export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const GET_COMPANY_BY_EMAIL = "GET_COMPANY_BY_EMAIL";
+export const GET_PLANS = "GET_PLANS";
+export const ADD_CARRITO = "ADD_CARRITO";
+export const CLEAR_CARRITO = "CLEAR_CARRITO";
 export const CREATE_COMPANY = "CREATE_COMPANY";
 export const LOG_OUT = "LOG_OUT";
 export const UPDATE_USER = "UPDATE_USER";
 export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY";
 export const DELETE_FORUM_POST = "DELETE_FORUM_POST";
-export const GET_PLANS = "GET_PLANS";
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_COMPANY = "DELETE_COMPANY";
 export const ADD_TECHNOLOGY = "ADD_TECHNOLOGY";
 
-export function getAllEmployees() {
-  return { type: GET_ALL_EMPLOYEES, payload: ["empleado1", "empleado2"] };
+export async function getAllEmployeesCompany(id) {
+  return async function (dispatch) {
+    try {
+      const employees = await axios.get(`/company/employees/${id}`);
+      console.log(employees.data);
+      return dispatch({
+        type: GET_ALL_EMPLOYEES_FROM_COMPANY,
+        payload: employees.data,
+      });
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  };
 }
 
 export async function getUserInfo(userName) {
@@ -42,6 +54,19 @@ export async function getUserInfo(userName) {
   } catch (e) {
     console.error("Error: " + e.message);
   }
+}
+
+export function getCompanyInfo(companyname) {
+  return async function (dispatch) {
+    try {
+      const companyData = await axios.get(
+        `/company/profile?companyname=${companyname}`
+      );
+      return dispatch({ type: GET_COMPANY_INFO, payload: companyData.data });
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  };
 }
 
 export async function getAllProducts(selector) {
@@ -170,14 +195,14 @@ export function getAllCompanies() {
 
 export async function updatePremiumPlan(userID, premiumService) {
   try {
-    let numero = 0
-    if(premiumService.map(element => element.includes("1"))){
+    let numero = 0;
+    if (premiumService.map((element) => element.includes("1"))) {
       numero = 1;
     }
-    if(premiumService.map(element => element.includes("2"))){
+    if (premiumService.map((element) => element.includes("2"))) {
       numero = 2;
     }
-    if(premiumService.length === 2){
+    if (premiumService.length === 2) {
       numero = 3;
     }
     const user = await axios.put(`/users/${userID}`, {
@@ -191,14 +216,14 @@ export async function updatePremiumPlan(userID, premiumService) {
 
 export async function updatePremiumPlanCompany(email, premiumService) {
   try {
-    let numero = 0
-    if(premiumService.map(element => element.includes("1"))){
+    let numero = 0;
+    if (premiumService.map((element) => element.includes("1"))) {
       numero = 1;
     }
-    if(premiumService.map(element => element.includes("2"))){
+    if (premiumService.map((element) => element.includes("2"))) {
       numero = 2;
     }
-    if(premiumService.length === 2){
+    if (premiumService.length === 2) {
       numero = 3;
     }
     const company = await axios.put(`/company/${email}`, {
@@ -399,24 +424,36 @@ export function getActivePlans(user) {
     try {
       let UserPlans = await getAllPayments(user);
       if (UserPlans === 0) {
-        return dispatch({type:GET_PLANS, payload: ["You don't have any plan"]})
+        return dispatch({
+          type: GET_PLANS,
+          payload: ["You don't have any plan"],
+        });
       }
-      if(UserPlans.length > 1) {
-        let newArray = UserPlans.map(item => item.items[0].price.product.name)
-        return dispatch({type:GET_PLANS, payload: newArray})
+      if (UserPlans.length > 1) {
+        let newArray = UserPlans.map(
+          (item) => item.items[0].price.product.name
+        );
+        return dispatch({ type: GET_PLANS, payload: newArray });
       }
-      if(UserPlans.length === 1){
-        if(UserPlans[0].items.length > 1){
-          let newArray = UserPlans[0].items.map(item => item.price.product.name)
-          return dispatch({type:GET_PLANS, payload: newArray})
-        }
-        else{
-          return dispatch({type:GET_PLANS, payload: [UserPlans[0].items[0].price.product.name]})
+      if (UserPlans.length === 1) {
+        if (UserPlans[0].items.length > 1) {
+          let newArray = UserPlans[0].items.map(
+            (item) => item.price.product.name
+          );
+          return dispatch({ type: GET_PLANS, payload: newArray });
+        } else {
+          return dispatch({
+            type: GET_PLANS,
+            payload: [UserPlans[0].items[0].price.product.name],
+          });
         }
       }
     } catch (error) {
       console.error(error.message);
-      return dispatch({type:GET_PLANS, payload: ["To see your plans, please log in"]})
+      return dispatch({
+        type: GET_PLANS,
+        payload: ["To see your plans, please log in"],
+      });
     }
   };
 }
