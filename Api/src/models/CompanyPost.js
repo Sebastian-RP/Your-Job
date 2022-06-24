@@ -1,12 +1,7 @@
-const { DataTypes, UUIDV4 } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("companyPost", {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: UUIDV4,
-      primaryKey: true,
-    },
     titlePost: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -22,7 +17,6 @@ module.exports = (sequelize) => {
     },
     companyId: {
       type: DataTypes.UUID, //con el id podemos consultar el nombre de la empresa
-      allowNull: false,
     },
     descripcion: {
       type: DataTypes.TEXT,
@@ -41,6 +35,19 @@ module.exports = (sequelize) => {
     status: {
       type: DataTypes.ENUM(["active", "disabled"]),
       defaultValue: "active",
+    },
+  });
+
+  sequelize.define("postulates", {
+    name: {
+      type: DataTypes.STRING,
+    },
+    url: {
+      type: DataTypes.STRING,
+    },
+    companyId: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   });
 };

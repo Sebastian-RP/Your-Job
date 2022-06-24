@@ -1,6 +1,6 @@
 const { Router } = require("express");
 
-const { postulatesPost, getPostulates } = require("../Controllers/postulatesController.js");
+const { postulatesPost, getPostulates, getPostulatesofPost } = require("../Controllers/postulatesController.js");
 
 const router = Router();
 
@@ -15,8 +15,9 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  const { id } = req.query;
   try {
-    res.send(await getPostulates());
+    res.send(await getPostulatesofPost(id));
   } catch (error) {
     res.send({ message: error.message });
   }
