@@ -15,6 +15,7 @@ import {
   getCompanyInfo,
   updatePremiumPlanCompany,
 } from "../../Redux/Actions/Actions";
+import { Card } from "react-bootstrap";
 
 export default function Companies() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -144,14 +145,24 @@ export default function Companies() {
             <hr />
             {companyData.employees ? (
               companyData.employees.length > 0 ? (
-                companyData.employees.map((employee) => {
+                companyData.employees.map((employee, index) => {
                   return (
-                    <div className={style.employee}>
-                      <img src={employee.image} alt="perfil" />
-                      <p>{employee.name}</p>
-                      <p>{employee.nationality}</p>
-                      <p>{employee.description}</p>
-                    </div>
+                    <Card key={index}>
+                      <Card.Header
+                        as="h2"
+                        className={style.employeeName}
+                        onClick={() => {
+                          navigate(`/users/${employee.name}`);
+                        }}
+                      >
+                        {employee.name}
+                      </Card.Header>
+                      <Card.Body>
+                        <img src={employee.image} alt="perfil" />
+                        <p>{employee.nationality}</p>
+                        <p>{employee.description}</p>
+                      </Card.Body>
+                    </Card>
                   );
                 })
               ) : (
