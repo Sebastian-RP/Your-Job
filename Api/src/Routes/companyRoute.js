@@ -6,7 +6,8 @@ const {
   findCompany,
   findCompanyEmail,
   deleteCompany,
-  updateCompany
+  updateCompany,
+  findCompanyName,
 } = require("../Controllers/CompanyController.js");
 
 const router = Router();
@@ -16,8 +17,9 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/profile", async (req, res) => {
-  const { email } = req.query;
-  res.send(await findCompanyEmail(email));
+  const { email, companyname } = req.query;
+  if (email) res.send(await findCompanyEmail(email));
+  if (companyname) res.send(await findCompanyName(companyname));
 });
 
 router.get("/:id", async (req, res) => {
@@ -70,8 +72,8 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.put("/:email", async (req, res) => {
-  try{
-    console.log("HOLA")
+  try {
+    console.log("HOLA");
     const { email } = req.params;
     const changes = req.body;
     res.send(await updateCompany(email, changes));
