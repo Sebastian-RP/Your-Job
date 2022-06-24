@@ -132,6 +132,7 @@ export function createUser(user) {
         nationality: user.nationality,
         url: user.url,
         cv: user.cv,
+        image: user.image,
         premium: null,
       });
       return newUser;
@@ -466,7 +467,10 @@ export function logIn(email) {
       let loggedCompany = await axios.get("/company/profile?email=" + email);
       return dispatch({
         type: LOG_IN,
-        payload: { loggedUser, loggedCompany },
+        payload: {
+          loggedUser: loggedUser.data,
+          loggedCompany: loggedCompany.data,
+        },
       });
     } catch (error) {
       console.error(error.message);

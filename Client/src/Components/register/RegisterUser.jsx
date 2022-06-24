@@ -215,6 +215,7 @@ export default function RegisterUser({ props }) {
   const allTechnologies = useSelector((state) => state.technologies);
   const [technologies, setTechnologies] = useState([]);
   const [employ, setEmploy] = useState(false);
+  const [uuidImage, setUuidImage] = useState(false);
   const [selectedTechs, setSelected] = useState([]);
   const [country, setCountry] = useState("");
   const [uuid, setUuid] = useState("");
@@ -294,12 +295,16 @@ export default function RegisterUser({ props }) {
     }
     console.log(user?.email);
     let dob = new Date(input.age);
+    let image = undefined;
+    uuidImage
+      ? (image = `https://ucarecdn.com/${uuidImage}/`)
+      : (image = user?.picture);
     let newUser = {
       email: user?.email,
       name: input.name,
       employment_status: empleado,
       age: dob,
-      image: user?.picture,
+      image: image,
       description: input.desc,
       technologies: selectedTechs,
       nationality: country,
@@ -324,6 +329,7 @@ export default function RegisterUser({ props }) {
             onSubmit={(e) => handleSubmit(e)}
           >
             <label>Name: </label>
+            <br />
             <input
               name="name"
               onChange={(e) => handleChange(e)}
@@ -333,6 +339,8 @@ export default function RegisterUser({ props }) {
             />
             <br />
             <span className={style.danger}>{errors.name}</span>
+            <br />
+            <label>Email:</label>
             <br />
             <input
               name="email"
@@ -347,20 +355,23 @@ export default function RegisterUser({ props }) {
             <br />
             <span className={style.danger}>{errors.email}</span>
             <br />
-            <Form.Control
+            <label>Date of Birth:</label>
+            <br />
+            <input
               type="date"
               name="age"
-              error={errors.date_of_birth}
               required
               onChange={(e) => {
                 handleChange(e);
+                // console.log(e.target.value);
               }}
             />
-            <span className={style.danger}>{errors.age}</span>
+            <br />
             <br />
             <div className={style.containerTechnologies}>
-              <label>Technologies:</label>
               <Dropdown className="d-inline mx-2" autoClose="outside">
+                <label>Technologies:</label>
+                <br />
                 <Dropdown.Toggle id="dropdown-autoclose-outside">
                   Select Technologies
                 </Dropdown.Toggle>
@@ -381,7 +392,7 @@ export default function RegisterUser({ props }) {
                     })}
                 </Dropdown.Menu>
               </Dropdown>
-              
+
               <ul>
                 {selectedTechs?.map((tech, index) => (
                   <div key={index}>
@@ -397,6 +408,7 @@ export default function RegisterUser({ props }) {
               </ul>
             </div>
             <br />
+            <label>Country of Origin: {country}</label>
             <div
               style={{
                 display: "flex",
@@ -405,7 +417,6 @@ export default function RegisterUser({ props }) {
                 gap: "10px",
               }}
             >
-              <label>Country of Origin: {country}</label>
               <DropdownButton
                 id="dropdown-basic-button"
                 title="Select Country"
@@ -426,7 +437,6 @@ export default function RegisterUser({ props }) {
                   })}
                 </div>
               </DropdownButton>
-              
             </div>
             <br />
             <br />
@@ -476,6 +486,16 @@ export default function RegisterUser({ props }) {
                   }}
                 />
               </div>
+              <label>Profile Picture:</label>
+              <Widget
+                publicKey="de7dc23d760e287d1cb0"
+                clearable
+                imagesOnly
+                crop=""
+                onChange={(file) => {
+                  setUuidImage(file.uuid);
+                }}
+              />
             </div>
             {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
             <Button variant="primary" size="small" type="submit">
