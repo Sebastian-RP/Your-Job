@@ -66,7 +66,7 @@ const findCompanyName = async (name) => {
 
 const getEmployees = async (ids) => {
   const employees = [];
-  for (let i = 0; i < ids.length; i++) {
+  for (let i = 0; i < ids?.length; i++) {
     const element = ids[i];
     let employee = await findUserId(element);
     employees.push(employee);
@@ -82,7 +82,6 @@ const deleteCompany = async (id) => {
 
 const updateCompany = async (email, changes) => {
   let company = await findCompanyEmail(email);
-  console.log(company);
   await company.update(changes);
   return company;
 };
