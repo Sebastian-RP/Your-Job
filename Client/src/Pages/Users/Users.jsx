@@ -39,9 +39,11 @@ export default function Users() {
       setOwnProfile(true);
     }
     dispatch(getActivePlans(user));
-    updatePremiumPlan(loggedUser?.id, userData.plans).then((res) => {
-      dispatch(res);
-    });
+    if (loggedUser.id) {
+      updatePremiumPlan(loggedUser?.id, userData.plans).then((res) => {
+        dispatch(res);
+      });
+    }
     //eslint-disable-next-line
   }, []);
 
