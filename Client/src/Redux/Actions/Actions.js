@@ -21,6 +21,7 @@ export const GET_PLANS = "GET_PLANS";
 export const ADD_CARRITO = "ADD_CARRITO";
 export const CLEAR_CARRITO = "CLEAR_CARRITO";
 export const CREATE_COMPANY = "CREATE_COMPANY";
+export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
 export const UPDATE_USER = "UPDATE_USER";
 export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY";
@@ -454,6 +455,21 @@ export function getActivePlans(user) {
         type: GET_PLANS,
         payload: ["To see your plans, please log in"],
       });
+    }
+  };
+}
+
+export function logIn(email) {
+  return async function (dispatch) {
+    try {
+      let loggedUser = await axios.get("/users/profile?email=" + email);
+      let loggedCompany = await axios.get("/company/profile?email=" + email);
+      return dispatch({
+        type: LOG_IN,
+        payload: { loggedUser, loggedCompany },
+      });
+    } catch (error) {
+      console.error(error.message);
     }
   };
 }
