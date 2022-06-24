@@ -18,7 +18,8 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
-const profileDefaultImage = "https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png";
+const profileDefaultImage =
+  "https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png";
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
@@ -40,9 +41,9 @@ export default function HomeUser() {
   const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
   const postulatesUser = selector.postulatesUser;
   const [filterMod, setFilterMod] = useState([]);
-  const [mode, setMode] = useState('');
+  const [mode, setMode] = useState("");
   const [filterExp, setFilterExp] = useState([]);
-  const [ modeExp, setModeExp ] = useState('');
+  const [modeExp, setModeExp] = useState("");
 
   useEffect(() => {
     dispatch(getAllPost());
@@ -90,52 +91,50 @@ export default function HomeUser() {
     setPosts(posts.filter((data) => data.technologiesId.includes(id)));
   };
   const filterByCompany = (name) => {
-    setPosts( selector.posts.filter((data) => data.company.name === name));
+    setPosts(selector.posts.filter((data) => data.company.name === name));
   };
-  const [ dataRep, setDataRep] = useState([]);
+  const [dataRep, setDataRep] = useState([]);
   const filterByModality = (data) => {
-    if(mode !== data){
-      if(!filterMod.length && selector.posts.length !== posts.length && mode !== '') {
-        
-        setPosts(dataRep.filter(d => d.modality === data));
-        setFilterMod([...dataRep])
-      }
-      else if(!filterMod.length){
-
+    if (mode !== data) {
+      if (
+        !filterMod.length &&
+        selector.posts.length !== posts.length &&
+        mode !== ""
+      ) {
+        setPosts(dataRep.filter((d) => d.modality === data));
+        setFilterMod([...dataRep]);
+      } else if (!filterMod.length) {
         setFilterMod([...posts]);
-        setPosts(posts.filter(d => d.modality === data));
-      }else if(filterMod.length) {
-        setPosts(filterMod.filter(d => d.modality === data));
-        setDataRep([...filterMod])
+        setPosts(posts.filter((d) => d.modality === data));
+      } else if (filterMod.length) {
+        setPosts(filterMod.filter((d) => d.modality === data));
+        setDataRep([...filterMod]);
         setFilterMod([]);
       }
-      setMode(data)
-    
+      setMode(data);
     }
-  
   };
   const [dataRepExp, setDataRepExp] = useState([]);
   const filterByExperience = (data) => {
-    if(modeExp !== data){
-      if(!filterExp.length && selector.posts.length !== posts.length && modeExp !== '') {
-        
-        setPosts(dataRepExp.filter(d => d.experience === data));
-        setFilterExp([...dataRepExp])
-      }
-      else if(!filterExp.length){
-
+    if (modeExp !== data) {
+      if (
+        !filterExp.length &&
+        selector.posts.length !== posts.length &&
+        modeExp !== ""
+      ) {
+        setPosts(dataRepExp.filter((d) => d.experience === data));
+        setFilterExp([...dataRepExp]);
+      } else if (!filterExp.length) {
         setFilterExp([...posts]);
-        setPosts(posts.filter(d => d.experience === data));
-      }else if(filterExp.length) {
-        setPosts(filterExp.filter(d => d.experience === data));
-        setDataRepExp([...filterExp])
+        setPosts(posts.filter((d) => d.experience === data));
+      } else if (filterExp.length) {
+        setPosts(filterExp.filter((d) => d.experience === data));
+        setDataRepExp([...filterExp]);
         setFilterExp([]);
       }
-      setModeExp(data)
-    
+      setModeExp(data);
     }
   };
-
 
   const filterBySalary = (data) => {
     const salary = posts;
@@ -164,25 +163,13 @@ export default function HomeUser() {
   };
   const handlerPostulate = (val) => {
     if (!isAuthenticated) {
-      return loginWithPopup();
-    } else {
-      if (logged.error) {
-        return swal({
-          title: "Oops!",
-          text: "It seems like you haven't finished your profile, click Ok to finish it!",
-          icon: "error",
-          buttons: true,
-        }).then((willDelete) => {
-          if (willDelete) {
-            navigate(`/onboarding`);
-          } else {
-            swal({
-              title: "Are you sure?",
-              icon: "warning",
-            });
-          }
-        });
-      }
+      return swal({
+        title: "Oops!",
+        text: "You need to bo logged in to Apply for jobs",
+        icon: "error",
+      }).then(() => {
+        navigate("/login");
+      });
     }
     const { name, url, postId, companyId } = val;
     dispatch(postulateJob({ name, url, postId, companyId }))
@@ -219,23 +206,31 @@ export default function HomeUser() {
               <div className={style.filters}>
                 <div className={style.image}>
                   <img
-                    src={logged?.image ? logged.image + "-/resize/200x200/" : profileDefaultImage}
+                    src={
+                      logged?.image
+                        ? logged.image + "-/resize/200x200/"
+                        : profileDefaultImage
+                    }
                     alt="profile_picture"
                     width={"200px"}
                     height={"200px"}
                   />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
                   {posts !== selector.posts && (
-                    <Button variant="success" onClick={() => {
-                      setModeExp('')
-                      setMode('')
-                      setPosts(selector.posts)}}>
+                    <Button
+                      variant="success"
+                      onClick={() => {
+                        setModeExp("");
+                        setMode("");
+                        setPosts(selector.posts);
+                      }}
+                    >
                       Clear Filter
                     </Button>
                   )}
                 </div>
                 <Accordion>
-                <Accordion.Item eventKey="0">
+                  <Accordion.Item eventKey="0">
                     <Accordion.Header>Company</Accordion.Header>
                     <div
                       style={{
@@ -275,7 +270,11 @@ export default function HomeUser() {
                     <Accordion.Header>Salary</Accordion.Header>
                     {salario.map((data, index) => {
                       return (
-                        <Accordion.Body key={index} onClick={() => filterBySalary(data)} style={{ cursor: "pointer" }}>
+                        <Accordion.Body
+                          key={index}
+                          onClick={() => filterBySalary(data)}
+                          style={{ cursor: "pointer" }}
+                        >
                           {data}
                         </Accordion.Body>
                       );

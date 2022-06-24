@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getCompanyByEmail,
   getUserByEmail,
+  logIn,
   logOut,
 } from "../../Redux/Actions/Actions";
 import { useEffect } from "react";
@@ -15,31 +16,27 @@ export default function Login() {
     useAuth0();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedUser = useSelector((state) => state.myUser);
-  const loggedCompany = useSelector((state) => state.myCompany);
 
   useEffect(() => {
     if (isAuthenticated) {
       validate();
     }
     // eslint-disable-next-line
-  }, [loggedUser]);
+  }, [isAuthenticated]);
 
-  useEffect(() => {
-    dispatch(getCompanyByEmail(user?.email));
-    dispatch(getUserByEmail(user?.email));
-    // eslint-disable-next-line
-  }, [user, isAuthenticated]);
-
-  const validate = () => {
-    if (
-      loggedUser.hasOwnProperty("error") &&
-      loggedCompany.hasOwnProperty("error")
-    ) {
-      navigate("/onboarding");
-    } else {
-      navigate("/home");
-    }
+  const validate = async () => {
+    dispatch(logIn(user.email)).then((res) => {
+      if (
+        !res.payload.loggedUser.data.hasOwnProperty("error") ||
+        !res.payload.loggedCompany.data.hasOwnProperty("error")
+      ) {
+        // console.log("ok");
+        navigate("/home");
+      } else {
+        // console.log("bad");
+        navigate("/onboarding");
+      }
+    });
   };
 
   const exit = () => {
