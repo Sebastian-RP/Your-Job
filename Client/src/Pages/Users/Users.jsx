@@ -8,8 +8,6 @@ import axios from "axios";
 import Navbar from "../../Components/NavBar/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
 
-
-
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
   // al hacer el login ya deberia de pasar la informacion al reducer.
@@ -23,7 +21,7 @@ export default function Users() {
     // console.log(state);
     return { ...state.user, postulates: [...state.postulatesUser], plans: [...state.activePlans] };
   });
-
+  
   console.log(userData);
   useEffect(() => {
     getUserInfo(username).then((action) => {

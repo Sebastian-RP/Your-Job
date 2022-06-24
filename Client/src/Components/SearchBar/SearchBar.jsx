@@ -41,12 +41,25 @@ function keyDownHandler(e, setSelected, selected, usersFiltered) {
 }
 
 export default function SearchBar() {
-  let usersList = useSelector((state) => [...state.users, ...state.companies]);
-  usersList = usersList.map((user) => user.name);
-  const [users, setUsers] = useState(usersList);
+  let MyUserAccount = useSelector((state) => state.myUser)
+  let myCompany = useSelector((state) => state.myCompany)
+  let onlyUsers = useSelector((state) => state.users);
+  let userNameList = onlyUsers.map((user) => user.name);
+  let onlyCompanies = useSelector((state) => state.companies);
+  let companyNameList = onlyCompanies.map((comp) => comp.name);
+  let usersList = [];
+
+  if (companyNameList?.includes(myCompany.name)) {//si es compañia
+    usersList = userNameList
+  }if(userNameList?.includes(MyUserAccount.name)){
+    usersList = companyNameList
+  }
+
+  const [users, setUsers] = useState(usersList);//usuarios a filtrar
   if (users.length < usersList.length) {
     setUsers(usersList);
   }
+
   const [usersFiltered, setUsersFiltered] = useState([]);
   const [focus, setFocus] = useState(false);
   const [nameUser, setNameUser] = useState(""); //estado que contendra el texto de la barra de busqueda
@@ -60,19 +73,28 @@ export default function SearchBar() {
 
   function submitHandler(e, userSelected, navigate, nameUsers, nameUser) {
     e.preventDefault();
-    let existUserInDB = nameUsers.includes(nameUser);
-    if (existUserInDB) {
-      navigate(`/users/${userSelected ? userSelected : nameUser}`);
-      
-      getUserInfo(nameUser).then((action) => {
-        dispatch(action);
-      });
-      setNameUser("")
+    if (nameUsers.includes(nameUser)) {//el nombre buscado existe
+      if (companyNameList.includes(myCompany?.name)) {
+        console.log("soy compañia");//aca debe ir la accion que llama la data de la tabla de compañias
+        navigate(`/users/${userSelected ? userSelected : nameUser}`);
+        getUserInfo(nameUser).then((action) => {
+          dispatch(action);
+        });
+        setNameUser("")
+      }if(userNameList.includes(MyUserAccount?.name)){
+        console.log("soy usuario");
+        console.log(nameUser);
+        navigate(`/users/${userSelected ? userSelected : nameUser}`);
+        getUserInfo(nameUser).then((action) => {
+          dispatch(action);
+        });
+        setNameUser("")
+      }
     } else {
       swal({
         icon: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!',
+        text: 'User not found!',
       })
     }
   }
@@ -82,6 +104,7 @@ export default function SearchBar() {
     getAllUsers().then((data) => dispatch(data));
     // eslint-disable-next-line
   }, []);
+  
   const [selected, setSelected] = useState(-1);
   const navigate = useNavigate();
 
