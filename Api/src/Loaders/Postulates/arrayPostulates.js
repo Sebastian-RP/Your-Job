@@ -1,29 +1,34 @@
 const Chance = require("chance"); //genera datos aleatoriamente, para llenar los campos de la BD
+const axios = require("axios");
 const chance = new Chance();
-
-const fakePostulatesData = [
-  ["Juan Pablo Martinez","usuarioMartinez@gmail.com", 1],
-  ["Juan Pablo Martinez", "usuarioMartinez@gmail.com", 2],
-  ["Juan Pablo Martinez", "usuarioMartinez@gmail.com", 3],
-  ["Ana Maria Hernandez", "usuarioHernandez@gmail.com", 4],
-  ["Ana Maria Hernandez", "usuarioHernandez@gmail.com", 5],
-  ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", 6,],
-  ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", 7,],
-  ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", 8,],
-  ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", 9,],
-  ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", 10,],
-  ["Diego Esteban Zamudio", "usuarioZamudio@gmail.com", 11,],
-  ["Diego Esteban Zamudio", "usuarioZamudio@gmail.com", 12,],
-  ["Diego Esteban Zamudio", "usuarioZamudio@gmail.com", 13],
-  ["Angie tatiana Triana", "usuarioTriana@gmail.com", 14,],
-  ["Angie tatiana Triana", "usuarioTriana@gmail.com", 15],
-  ["Angie tatiana Triana", "usuarioTriana@gmail.com", 16,],
-  ["Karen Eleana Rios", "usuarioRios@gmail.com", 17,],
-  ["Karen Eleana Rios", "usuarioRios@gmail.com", 18,],
-  ["Karen Eleana Rios", "usuarioRios@gmail.com", 19,],
-  ["Karen Eleana Rios", "usuarioRios@gmail.com", 20,],
-];
+let fakePostulatesData = [];
+const getFakeData = async () => {
+  let posts = await axios.get("http://localhost:3001/companyPost/");
+  fakePostulatesData = [
+    ["Juan Pablo Martinez", "usuarioMartinez@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Juan Pablo Martinez", "usuarioMartinez@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Juan Pablo Martinez", "usuarioMartinez@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Ana Maria Hernandez", "usuarioHernandez@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Ana Maria Hernandez", "usuarioHernandez@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Dario Nicolas Castiblanco", "usuarioCastiblanco@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Diego Esteban Zamudio", "usuarioZamudio@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Diego Esteban Zamudio", "usuarioZamudio@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Diego Esteban Zamudio", "usuarioZamudio@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Angie tatiana Triana", "usuarioTriana@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Angie tatiana Triana", "usuarioTriana@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Angie tatiana Triana", "usuarioTriana@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Karen Eleana Rios", "usuarioRios@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Karen Eleana Rios", "usuarioRios@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Karen Eleana Rios", "usuarioRios@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+    ["Karen Eleana Rios", "usuarioRios@gmail.com", posts.data[Math.round(Math.random() * posts.data.length - 1)].id],
+  ];
+  return fakePostulatesData;
+};
 
 module.exports = {
-  fakePostulatesData,
+  fakePostulatesData: getFakeData(),
 };

@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.INTEGER), //id de los empleados asociados a dicha empresa
     },
     posts: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.ARRAY(DataTypes.UUID),
     },
     premium: {
       type: DataTypes.INTEGER,
