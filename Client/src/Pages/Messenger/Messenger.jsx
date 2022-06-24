@@ -22,9 +22,8 @@ export default function Messenger() {
   const scrollRef = useRef()
 // ----------------------------------------------------------------------------------------------------------//
   useEffect(() => {
-    socket.current = io("ws://localhost:8900")
+    socket.current = io("https://socket-for-chat.herokuapp.com/")
     socket.current.on("getMessage", data => {
-      console.log("data",data)
       setArrivalMessage({
         sender: data.sender,
         texto: data.texto,
@@ -36,13 +35,11 @@ export default function Messenger() {
   useEffect(()  => {
     arrivalMessage && currentChat?.members.includes(Number(arrivalMessage.sender)) &&
     setMessages((prev) => [...prev, [arrivalMessage]])
-    console.log("ArrivalMessage", arrivalMessage)
   }, [arrivalMessage, currentChat])
 
   useEffect(()=> {
     socket.current.emit("addUser", user.id);
     socket.current.on("getUsers", (users) => {
-      console.log("usuarios",users)
     })
   })
 
@@ -51,8 +48,10 @@ export default function Messenger() {
     const obtenerConversacion = async () => {
       try{
         const res = await axios.get(`/conversation/` + Number(user.id))
-        setConversations(res.data)
-        console.log("resp",res.data)
+        setTimeout(() => {
+          setConversations(res.data)
+        }, 1000);
+        
       }catch(error){
         console.log(error)
       }
@@ -65,7 +64,6 @@ export default function Messenger() {
     const getMessages = async () => {
       try{
         const res = await axios.get(`/conversation/id/` + Number(currentChat?.id))
-        console.log("2121",res.data)
         setMessages(((res.data)?.text))
       }catch(error){
         console.log(error)
@@ -73,7 +71,6 @@ export default function Messenger() {
     }
     getMessages()
   }, [currentChat])
-  console.log("mensaje",messages)
 // ----------------------------------------------------------------------------------------------------------//
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,14 +88,12 @@ export default function Messenger() {
     })
     try{
       const res = await axios.post("/conversation/" , message)
-      console.log("setmessage",res.data)
       setMessages( messages ? [...messages, res.data] : [res.data] )
       setNewMessage("")
     }catch(error){
       console.log(error)
     }
   }
-  console.log("current",currentChat);
 
 // ----------------------------------------------------------------------------------------------------------//
   useEffect(() => {
@@ -133,7 +128,7 @@ export default function Messenger() {
         {
           messages ? messages.map(x => x.map((m) => (
             <div ref={scrollRef}>
-            <Message message={m} own={Number(m.sender) === Number(user.id)} />
+            <Message message={m} friend={(m.sender !== user.id) ? m.sender : null } own={Number(m.sender) === Number(user.id)} />
             </div>
           ))) : null
         }

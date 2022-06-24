@@ -38,22 +38,30 @@ const createCompany = async (
 
 const getCompanies = async () => {
   const companies = await Company.findAll({
-    where: { status: "active" }
+    where: { status: "active" },
   });
   return companies;
 };
 
 const findCompany = async (id) => {
   const company = await Company.findByPk(id);
-  if (company && company.status === "disabled") return { warning: "company deleted" };
+  if (company && company.status === "disabled")
+    return { warning: "company deleted" };
   return company || { error: "company not found" };
 };
 
 const findCompanyEmail = async (email) => {
   const company = await Company.findOne({ where: { email: email } });
-  if (company && company.status === "disabled") return { warning: "company deleted" };
+  if (company && company.status === "disabled")
+    return { warning: "company deleted" };
   return company || { error: "company not found" };
+};
 
+const findCompanyName = async (name) => {
+  const company = await Company.findOne({ where: { name: name } });
+  if (company && company.status === "disabled")
+    return { warning: "company deleted" };
+  return company || { error: "company not found" };
 };
 
 const getEmployees = async (ids) => {
@@ -86,5 +94,6 @@ module.exports = {
   findCompany,
   findCompanyEmail,
   deleteCompany,
-  updateCompany
+  updateCompany,
+  findCompanyName,
 };

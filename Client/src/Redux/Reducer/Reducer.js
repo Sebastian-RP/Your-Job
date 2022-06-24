@@ -1,5 +1,4 @@
 import {
-  GET_ALL_EMPLOYEES,
   GET_USER_INFO,
   GET_ALL_PRODUCTS,
   GET_ALL_TECHNOLOGIES,
@@ -18,10 +17,13 @@ import {
   UPDATE_USER,
   DELETE_TECHNOLOGY,
   GET_PLANS,
+  GET_COMPANY_INFO,
+  GET_ALL_EMPLOYEES_FROM_COMPANY,
 } from "../Actions/Actions.js";
 
 const initialState = {
   user: [],
+  company: [],
   employees: [],
   companies: [],
   products: [],
@@ -39,7 +41,7 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_ALL_EMPLOYEES:
+    case GET_ALL_EMPLOYEES_FROM_COMPANY:
       return {
         ...state,
         employees: action.payload,
@@ -48,6 +50,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         user: action.payload,
+      };
+    case GET_COMPANY_INFO:
+      return {
+        ...state,
+        company: action.payload,
       };
     case GET_ALL_PRODUCTS:
       return {
