@@ -16,7 +16,7 @@ const fakeUserData = [
     chance.integer({ min: 0, max: 2 }),
   ],
   [
-    chance.email(),
+    "t0mshaster4@gmail.com",
     "Avon Products, Inc." + " company",
     chance.integer({ min: 10000000, max: 99999999 }),
     chance.name(),
