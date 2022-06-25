@@ -115,6 +115,7 @@ export default function HomeCompany() {
           )}
         </div>
         <div className={style.infoPost}>
+          <h2>Your Posts</h2>
           {posts?.map((data, index) => {
             return (
               <div className={style.cardPost} key={index}>

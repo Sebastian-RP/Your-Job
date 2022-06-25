@@ -1,8 +1,9 @@
 .containerCompany {
     width: 100%;
-    height: 100vh;
     margin: 0;
     padding: 0;
+    background: rgb(187,205,229);
+    background: linear-gradient(90deg, rgba(187,205,229,1) 0%, rgba(255,255,255,1) 50%, rgba(187,205,229,1) 100%);
 }
 .containerInfo {
     display: flex;
@@ -10,11 +11,10 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 8vh);
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 .cardPost {
     cursor: pointer;
@@ -29,8 +29,15 @@
     background-color: #1c5d99;
 }
 .infoPost {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
     flex-grow: 3;
-    max-height:80%;
+
+}
+
+.infoPost h2 {
+    text-align: center;
 }
 
 .info {
@@ -40,14 +47,13 @@
     align-items: center;
 }
 
-.info  li {
+.info li {
     list-style: none;
     padding: 5px;
     border: 1px solid;
     border-radius: 10px;
     font-weight: 500;
     background-color: #1c5d99;
-
 }
 .imageCompany {
     width: 250px;
