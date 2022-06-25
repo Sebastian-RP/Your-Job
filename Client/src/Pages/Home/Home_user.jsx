@@ -176,25 +176,25 @@ export default function HomeUser() {
       .then((res) => swal("Listo!", res.data, "success"))
       .then(() => dispatch(getPostulates(user.email)));
   };
-  
+
   const dataFilter = (data, searchMode) => {
     let lengthdata = posts?.reduce((acc, item) => {
-      if(item[searchMode] === data) {
-        acc.push(item)
+      if (item[searchMode] === data) {
+        acc.push(item);
       }
-      return acc
-    },[])
-    return lengthdata
-  }
+      return acc;
+    }, []);
+    return lengthdata;
+  };
   const dataFilterByTechnology = (data) => {
     let lengthData = posts?.reduce((acc, item) => {
-      if(item.technologiesId.includes(data)) {
+      if (item.technologiesId.includes(data)) {
         acc.push(item);
-      } 
-        return acc
-    },[])
+      }
+      return acc;
+    }, []);
     return lengthData;
-  }
+  };
 
   return (
     <div className={style.containerHome}>
@@ -257,11 +257,17 @@ export default function HomeUser() {
                     <Accordion.Header>Technologies</Accordion.Header>
                     {allTechnologies?.map((d, i) => {
                       return (
-                        <Accordion.Body 
-                          style={{ padding: "5px", cursor: "pointer" }} key={i} 
-                          onClick={() => getFilterByTechnologies(d.id)}>
-                          <p className={style.lengthDat}>{d.name}
-                          <strong>{dataFilterByTechnology(d.id).length}</strong></p>
+                        <Accordion.Body
+                          style={{ padding: "5px", cursor: "pointer" }}
+                          key={i}
+                          onClick={() => getFilterByTechnologies(d.id)}
+                        >
+                          <p className={style.lengthDat}>
+                            {d.name}
+                            <strong>
+                              {dataFilterByTechnology(d.id).length}
+                            </strong>
+                          </p>
                         </Accordion.Body>
                       );
                     })}
@@ -289,8 +295,13 @@ export default function HomeUser() {
                           onClick={() => filterByModality(data)}
                           style={{ cursor: "pointer" }}
                         >
-                         <p className={style.lengthDat}> {data}
-                          <strong>{dataFilter(data, 'modality').length}</strong></p>
+                          <p className={style.lengthDat}>
+                            {" "}
+                            {data}
+                            <strong>
+                              {dataFilter(data, "modality").length}
+                            </strong>
+                          </p>
                           <hr />
                         </Accordion.Body>
                       );
@@ -305,8 +316,12 @@ export default function HomeUser() {
                           onClick={() => filterByExperience(data)}
                           style={{ cursor: "pointer" }}
                         >
-                          <p className={style.lengthDat}>{data}
-                          <strong>{dataFilter(data, 'experience').length}</strong></p>
+                          <p className={style.lengthDat}>
+                            {data}
+                            <strong>
+                              {dataFilter(data, "experience").length}
+                            </strong>
+                          </p>
                           <hr />
                         </Accordion.Body>
                       );
@@ -358,7 +373,7 @@ export default function HomeUser() {
                               <label
                                 className={style.companyName}
                                 onClick={() => {
-                                  navigate(`/users/${data.company?.name}`);
+                                  navigate(`/company/${data.company?.name}`);
                                 }}
                               >
                                 {" "}

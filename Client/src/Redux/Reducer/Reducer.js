@@ -53,6 +53,7 @@ export default function rootReducer(state = initialState, action) {
         user: action.payload,
       };
     case GET_COMPANY_INFO:
+      // console.log(action.payload);
       return {
         ...state,
         company: action.payload,

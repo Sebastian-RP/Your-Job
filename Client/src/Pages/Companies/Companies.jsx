@@ -6,6 +6,7 @@ import {
   getActivePlans,
   updatePremiumPlan,
   getAllEmployeesCompany,
+  getAllPostsFromCompany,
 } from "../../Redux/Actions/Actions";
 import { useState } from "react";
 import axios from "axios";
@@ -25,7 +26,11 @@ export default function Companies() {
   const navigate = useNavigate();
   const { companyname } = useParams();
   const loggedCompany = useSelector((state) => state.myCompany);
+  const allTechnologies = useSelector((state) => state.technologies);
   const [ownProfile, setOwnProfile] = useState(false);
+  const [showPosts, setShowPosts] = useState(false);
+  const posts = useSelector((state) => state.companyPosts);
+
   const companyData = useSelector((state) => {
     // console.log(state);
     return {
@@ -36,23 +41,28 @@ export default function Companies() {
     };
   });
 
-  console.log(companyData);
   useEffect(() => {
-    dispatch(getCompanyInfo(companyname));
+    dispatch(getCompanyInfo(companyname)).then((data) => {
+      getAllEmployeesCompany(data.payload.id).then((res) => {
+        dispatch(res);
+      });
+      dispatch(getAllPostsFromCompany(data.payload.id));
+      // console.log(data);
+    });
     if (loggedCompany.name === companyname) {
       setOwnProfile(true);
     }
-    dispatch(getActivePlans(user));
-    updatePremiumPlanCompany(loggedCompany?.email, companyData.plans).then(
-      (res) => {
-        dispatch(res);
-      }
-    );
-    getAllEmployeesCompany(companyData?.id).then((res) => {
-      dispatch(res);
-    });
+    if (ownProfile) {
+      dispatch(getActivePlans(user));
+      updatePremiumPlanCompany(loggedCompany?.email, companyData.plans).then(
+        (res) => {
+          dispatch(res);
+        }
+      );
+    }
+
     //eslint-disable-next-line
-  }, []);
+  }, [companyname]);
 
   //----------------------------------
   const sendMessage = async () => {
@@ -131,16 +141,73 @@ export default function Companies() {
             >
               Edit Profile
             </button>
+            <button
+              className={style.Button}
+              onClick={() => {
+                setShowPosts(!showPosts);
+              }}
+            >
+              {showPosts ? "Company Employees" : "Company Posts"}
+            </button>
           </div>
-          {companyData.plans[0] !== "You don't have any plan" &&
-          companyData.plans[0] !== "To see your plans, please log in" ? (
-            <>
-              <h2>My posts</h2>
-              <hr />
-              <button className={style.Button}>Create a Post</button>
-            </>
-          ) : null}
-          <div>
+
+          <div style={{ display: showPosts ? "" : "none" }}>
+            <h2>Company posts</h2>
+            <hr />
+            {posts &&
+              posts.map((data, index) => {
+                // console.log(data);
+                return (
+                  <Card key={index}>
+                    <Card.Header as="h2">{data.titlePost}</Card.Header>
+                    <Card.Body>
+                      <Card.Title>{data.TitlePost}</Card.Title>
+                      <Card.Text style={{ textAlign: "start" }}>
+                        {data.descripcion}
+                        <br />
+                        <strong>Experience:</strong> {data.experience}
+                        <br />
+                        <strong>Min-Salary:</strong> {data.min_salary}
+                        <br />
+                        <strong>Max-Salary:</strong> {data.max_salary}
+                        <br />
+                        <strong>Modality:</strong> {data.modality}
+                        <br />
+                        <strong>Technologies:</strong>
+                        <>
+                          {data.technologiesId.map((data, i) => {
+                            let tech = allTechnologies.find(
+                              // eslint-disable-next-line
+                              (t) => t.id == data
+                            );
+                            return <li key={i}>{tech?.name}</li>;
+                          })}
+                        </>
+                      </Card.Text>
+                      {/* <button
+                      className={style.Button}
+                      variant={
+                        postId.includes(data.id) ? "secondary" : "primary"
+                      }
+                      onClick={() => {
+                        handlerPostulate({
+                          name: logged.name,
+                          url: logged.email,
+                          postId: data.id,
+                          companyId: data.companyId,
+                        });
+                      }}
+                      disabled={postId.includes(data.id) ? true : false}
+                    >
+                      {postId.includes(data.id) ? "Request sent" : "Apply"}
+                    </button> */}
+                    </Card.Body>
+                  </Card>
+                );
+              })}
+          </div>
+
+          <div style={{ display: !showPosts ? "" : "none" }}>
             <h2>Employees</h2>
             <hr />
             {companyData.employees ? (
