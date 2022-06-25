@@ -87,8 +87,6 @@ export default function Companies() {
       <Navbar />
       <div className={style.containerPerfil}>
         <div className={style.header}>
-          <h2>About the company</h2>
-          <hr />
           <div className={style.picture}>
             <img
               src={
@@ -98,7 +96,7 @@ export default function Companies() {
               }
               alt="perfil"
             />
-            <h2>{companyData?.name}</h2>
+            <h3>{companyData?.name}</h3>
           </div>
           <div className={style.about}>
             <p>Email: {companyData?.email}</p>
@@ -151,15 +149,14 @@ export default function Companies() {
             </button>
           </div>
 
-          <div style={{ display: showPosts ? "" : "none" }}>
+          <div style={{ display: showPosts ? "" : "none" }} className={style.suggestionsBody}>
             <h2>Company posts</h2>
-            <hr />
             {posts &&
               posts.map((data, index) => {
                 // console.log(data);
                 return (
-                  <Card key={index}>
-                    <Card.Header as="h2">{data.titlePost}</Card.Header>
+                  <Card key={index} className={style.cards}>
+                    <Card.Header as="h3">{data.titlePost}</Card.Header>
                     <Card.Body>
                       <Card.Title>{data.TitlePost}</Card.Title>
                       <Card.Text style={{ textAlign: "start" }}>
@@ -207,16 +204,15 @@ export default function Companies() {
               })}
           </div>
 
-          <div style={{ display: !showPosts ? "" : "none" }}>
+          <div style={{ display: !showPosts ? "" : "none" }} className={style.suggestionsBody}>
             <h2>Employees</h2>
-            <hr />
             {companyData.employees ? (
               companyData.employees.length > 0 ? (
                 companyData.employees.map((employee, index) => {
                   return (
-                    <Card key={index}>
+                    <Card key={index} className={style.cards}>
                       <Card.Header
-                        as="h2"
+                        as="h3"
                         className={style.employeeName}
                         onClick={() => {
                           navigate(`/users/${employee.name}`);
