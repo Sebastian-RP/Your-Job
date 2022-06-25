@@ -36,15 +36,18 @@ export default function HomeUser() {
   const [postId, setPostId] = useState([]);
   const [showPage, setShowPage] = useState(false);
   const allTechnologies = [...selector.technologies];
-  const companies = [...selector.companies];
+  const companies = [...selector.companies].filter(data => data.premium === 2);
   const logged = useSelector((state) => state.myUser);
-  const suggestions = companies.slice(Math.floor(num), Math.floor(num) + 2);
+  const suggestions = companies.slice(num, num + 2);
   const postulatesUser = selector.postulatesUser;
   const [filterMod, setFilterMod] = useState([]);
   const [mode, setMode] = useState("");
   const [filterExp, setFilterExp] = useState([]);
   const [modeExp, setModeExp] = useState("");
 
+  // console.log(companies);
+  // console.log(suggestions);
+  // console.log(num);
   useEffect(() => {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
@@ -70,7 +73,7 @@ export default function HomeUser() {
   // y setea los posts en un estado local para hacer los filtros desde acá
   useEffect(() => {
     setPosts(selector.posts);
-    setNum(Math.random() * (companies.length - 3));
+    setNum(Math.floor(Math.random() * (companies.length - 3)));
     // eslint-disable-next-line
   }, [selector]);
   //----------------------------------------------------
