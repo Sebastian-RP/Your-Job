@@ -167,8 +167,9 @@ export default function HomeUser() {
         title: "Oops!",
         text: "You need to bo logged in to Apply for jobs",
         icon: "error",
-      }).then(() => {
-        navigate("/login");
+        buttons:true
+      }).then((data) => {
+        if(data) navigate("/login");
       });
     }
     const { name, url, postId, companyId } = val;
@@ -403,7 +404,7 @@ export default function HomeUser() {
                                   {data.technologiesId.map((data, i) => {
                                     let tech = allTechnologies.find(
                                       // eslint-disable-next-line
-                                      (t) => t.id == data
+                                      (t) => t.id == data,
                                     );
                                     return <li key={i}>{tech?.name}</li>;
                                   })}
