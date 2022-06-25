@@ -44,9 +44,9 @@ export default function HomeUser() {
   const [filterExp, setFilterExp] = useState([]);
   const [ modeExp, setModeExp ] = useState('');
 
-  console.log(companies);
-  console.log(suggestions);
-  console.log(num);
+  // console.log(companies);
+  // console.log(suggestions);
+  // console.log(num);
   useEffect(() => {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
