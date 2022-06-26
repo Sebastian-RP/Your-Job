@@ -15,6 +15,7 @@ module.exports = (sequelize) => {
       likes: { type: DataTypes.INTEGER, defaultValue: 0 },
       dislikes: { type: DataTypes.INTEGER, defaultValue: 0 },
       comments: { type: DataTypes.ARRAY(DataTypes.STRING), defaultValue: [] },
+      picture: { type: DataTypes.STRING, defaultValue: "" },
     },
     { timestamps: true }
   );

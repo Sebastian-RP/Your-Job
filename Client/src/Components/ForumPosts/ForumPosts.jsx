@@ -14,7 +14,7 @@ export default function ForumPosts() {
   return (
     <section className={style.container}>
       <h2>Posts</h2>
-      <hr />
+      <hr className={style.divition} />
       <ul className={style.posts}>
         {posts.map((post, index) => {
           return <Post key={post.user + "_" + index} data={post} />;
