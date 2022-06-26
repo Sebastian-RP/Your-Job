@@ -12,6 +12,8 @@ import { useState } from "react";
 import axios from "axios";
 import Navbar from "../../Components/NavBar/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
+import canceledSubscription from "../../Components/Firebase/canceledSubscription";
+
 
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -81,7 +83,24 @@ export default function Users() {
     return Math.abs(Math.round(diff / 365.25));
   };
 
+  const handlerCanceledSubscription = async () => {
+    try {
+      canceledSubscription(user?.email)
+      .then((res) => {
+        console.log(res);
+      }
+      )
+      .catch((err) => {
+        console.log(err);
+      }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   //----------------------------------
+  console.log(userPostulates)
   return (
     <>
       <Navbar />
@@ -186,6 +205,7 @@ export default function Users() {
                   ? true
                   : false
               }
+              onClick={handlerCanceledSubscription}
             >
               Decline subscription
             </button>
