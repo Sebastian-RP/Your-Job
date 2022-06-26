@@ -82,6 +82,7 @@ export default function Users() {
   };
 
   //----------------------------------
+  console.log(userPostulates)
   return (
     <>
       <Navbar />

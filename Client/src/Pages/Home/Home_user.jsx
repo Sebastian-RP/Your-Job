@@ -34,19 +34,20 @@ export default function HomeUser() {
   const navigate = useNavigate();
   const selector = useSelector((state) => state);
   const [posts, setPosts] = useState([]);
-  const [num, setNum] = useState(null);
+  const [num, setNum] = useState(0);
   const [postId, setPostId] = useState([]);
   const [showPage, setShowPage] = useState(false);
   const allTechnologies = [...selector.technologies];
-  const companies = [...selector.companies].filter(data => data.premium === 2);
+  const companiesPremium = [...selector.companies].filter(data => data.premium === 2);
+  const companies = [...selector.companies]
   const logged = useSelector((state) => state.myUser);
-  const suggestions = companies.slice(num, num + 2);
+  const suggestions = companiesPremium.slice(num, num + 2);
   const postulatesUser = selector.postulatesUser;
   const [filterMod, setFilterMod] = useState([]);
   const [mode, setMode] = useState("");
   const [filterExp, setFilterExp] = useState([]);
   const [modeExp, setModeExp] = useState("");
-
+  const [buttonClear, setButtonClear] = useState(false);
 
   useEffect(() => {
     dispatch(getUserByEmail(user?.email));
@@ -60,7 +61,7 @@ export default function HomeUser() {
   // y setea los posts en un estado local para hacer los filtros desde acá
   useEffect(() => {
     setPosts(selector.posts);
-    setNum(Math.floor(Math.random() * (companies.length - 3)));
+      !num&&setNum(Math.floor(Math.random() * (companiesPremium.length - 3)));
     // eslint-disable-next-line
   }, [selector]);
   //----------------------------------------------------
@@ -74,11 +75,11 @@ export default function HomeUser() {
   }, [postulatesUser]);
 
   useEffect(() => {
-    setShowPage(true);
     dispatch(getAllPost());
     dispatch(getAllTechnologies());
     dispatch(getAllCompanies());
     dispatch(getAllProducts("usuario"))
+    setShowPage(true);
 
     // eslint-disable-next-line
   }, []);
@@ -214,10 +215,11 @@ export default function HomeUser() {
                     height={"200px"}
                   />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
-                  {posts !== selector.posts && (
+                  {buttonClear && (
                     <Button
                       variant="success"
                       onClick={() => {
+                        setButtonClear(false);
                         setModeExp("");
                         setMode("");
                         setPosts(selector.posts);
@@ -242,7 +244,9 @@ export default function HomeUser() {
                           <Accordion.Body
                             style={{ padding: "2px" }}
                             key={i}
-                            onClick={() => filterByCompany(d.name)}
+                            onClick={() => {
+                              setButtonClear(true)
+                              filterByCompany(d.name)}}
                           >
                             {d.name}
                             <hr />
@@ -258,7 +262,9 @@ export default function HomeUser() {
                         <Accordion.Body
                           style={{ padding: "5px", cursor: "pointer" }}
                           key={i}
-                          onClick={() => getFilterByTechnologies(d.id)}
+                          onClick={() => {
+                            setButtonClear(true);
+                            getFilterByTechnologies(d.id)}}
                         >
                           <p className={style.lengthDat}>
                             {d.name}
@@ -276,7 +282,9 @@ export default function HomeUser() {
                       return (
                         <Accordion.Body
                           key={index}
-                          onClick={() => filterBySalary(data)}
+                          onClick={() => {
+                            setButtonClear(true);
+                            filterBySalary(data)}}
                           style={{ cursor: "pointer" }}
                         >
                           {data}
@@ -290,7 +298,9 @@ export default function HomeUser() {
                       return (
                         <Accordion.Body
                           key={index}
-                          onClick={() => filterByModality(data)}
+                          onClick={() => {
+                            setButtonClear(true);
+                            filterByModality(data)}}
                           style={{ cursor: "pointer" }}
                         >
                           <p className={style.lengthDat}>
@@ -311,7 +321,9 @@ export default function HomeUser() {
                       return (
                         <Accordion.Body
                           key={index}
-                          onClick={() => filterByExperience(data)}
+                          onClick={() => {
+                            setButtonClear(true);
+                            filterByExperience(data)}}
                           style={{ cursor: "pointer" }}
                         >
                           <p className={style.lengthDat}>
