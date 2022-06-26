@@ -29,6 +29,7 @@ export const DELETE_FORUM_POST = "DELETE_FORUM_POST";
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_COMPANY = "DELETE_COMPANY";
 export const ADD_TECHNOLOGY = "ADD_TECHNOLOGY";
+export const USER_POSTULATES = "USER_POSTULATES";
 
 export async function getAllEmployeesCompany(id) {
   return async function (dispatch) {
@@ -488,3 +489,18 @@ export function logIn(email) {
 //     }
 //   }
 // }
+
+export function allPostulatesUser(name) {
+  return async function(dispatch) {
+    try {
+      const dataPostsUser = await axios.get(`/userPost/${name}`);
+      return dispatch({
+        type: USER_POSTULATES,
+        payload: dataPostsUser.data
+      });
+      
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+}

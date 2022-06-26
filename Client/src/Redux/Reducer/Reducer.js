@@ -20,10 +20,12 @@ import {
   GET_COMPANY_INFO,
   GET_ALL_EMPLOYEES_FROM_COMPANY,
   LOG_IN,
+  USER_POSTULATES
 } from "../Actions/Actions.js";
 
 const initialState = {
   user: [],
+  userPostulates: [],
   company: [],
   employees: [],
   companies: [],
@@ -116,7 +118,6 @@ export default function rootReducer(state = initialState, action) {
         myCompany: action.payload,
       };
     case CREATE_COMPANY:
-      console.log(action.payload);
       return {
         ...state,
         myCompany: action.payload,
@@ -136,7 +137,6 @@ export default function rootReducer(state = initialState, action) {
         myCompany: [],
       };
     case UPDATE_USER:
-      console.log(action.payload);
       if (action.payload.email !== state.myUser.email) {
         return {
           ...state,
@@ -156,6 +156,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         activePlans: action.payload,
       };
+    case USER_POSTULATES: 
+      return {
+        ...state,
+        userPostulates : action.payload
+      }
     default:
       return { ...state };
   }
