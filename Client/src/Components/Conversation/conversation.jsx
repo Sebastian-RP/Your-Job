@@ -5,22 +5,38 @@ import { useState, useEffect } from "react";
 
 export default function Conversation({ conversation, currentUser }) {
   const [usuario, setUsuario] = useState(null);
-
   useEffect(() => {
-    const friendId = Number(
-      conversation.members.find((x) => Number(x) !== Number(currentUser.id))
-    );
-    const getFriend = async () => {
-      try {
-        const res = await axios.get(
-          `/users/id/` + Number(friendId)
+    try {
+      if (Number(currentUser.id)) {
+        let friendId = conversation.members.find(
+          (x) => x !== currentUser.id.toString()
         );
-        setUsuario(res.data);
-      } catch (error) {
-        console.log(error);
+        const getFriend = async () => {
+          if (friendId.length < 10) {
+            let res = await axios.get(`/users/id/` + friendId);
+            setUsuario(res.data);
+          } else {
+            let rest = await axios.get(`/company/` + friendId);
+            setUsuario(rest.data);
+          }
+        };
+        getFriend();
+      } else {
+        let friendId2 = conversation.members.find((x) => x !== currentUser.id);
+        const getFriend = async () => {
+          if (friendId2.length < 10) {
+            let res = await axios.get(`/users/id/` + friendId2);
+            setUsuario(res.data);
+          } else {
+            let res = await axios.get(`/company/` + friendId2);
+            setUsuario(res.data);
+          }
+        };
+        getFriend();
       }
-    };
-    getFriend();
+    } catch (error) {
+      console.log(error);
+    }
   }, [conversation, currentUser]);
   return (
     <div className={style.conversation}>
@@ -32,6 +48,11 @@ export default function Conversation({ conversation, currentUser }) {
             : "https://vinasderoaabogados.es/wp-content/uploads/2015/11/usuario-sin-foto.gif"
         }
         alt="user profile pic"
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src =
+            "https://vinasderoaabogados.es/wp-content/uploads/2015/11/usuario-sin-foto.gif";
+        }}
       />
       <span className={style.conversationName}>{usuario?.name}</span>
     </div>
