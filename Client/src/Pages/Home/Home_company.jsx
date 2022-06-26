@@ -44,14 +44,11 @@ export default function HomeCompany() {
     if (company) {
       dispatch(getAllPostsFromCompany(company.id));
     }
-    getAllProducts("empresa").then((res) => {
-      dispatch(res);
-    });
+    dispatch(getAllProducts("empresa")) 
     updatePremiumPlanCompany(user?.email, plans).then((res) => {
       dispatch(res);
     });
     dispatch(getActivePlans(user));
-
     // eslint-disable-next-line
   }, [company]);
 

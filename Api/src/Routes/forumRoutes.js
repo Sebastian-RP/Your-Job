@@ -12,8 +12,8 @@ router.get("/post", async (req, res) => {
   res.send(await getPost(title));
 });
 router.post("/post", async (req, res) => {
-  const { title, content, user } = req.body;
-  res.send(await createPost(title, content, user));
+  const { title, content, user, picture } = req.body;
+  res.send(await createPost(title, content, user, picture));
 });
 
 router.put("/post", (req, res) => {

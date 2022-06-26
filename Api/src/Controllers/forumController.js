@@ -7,8 +7,9 @@ const getPost = async (title) => {
   return await ForumPost.findOne({ where: { title } });
 };
 
-const createPost = async (title, content, user = "Jose") => {
-  const [data, created] = await ForumPost.findOrCreate({ where: { title }, defaults: { title, content, user } });
+const createPost = async (title, content, user = "Jose", picture) => {
+  console.log(picture)
+  const [data, created] = await ForumPost.findOrCreate({ where: { title }, defaults: { title, content, user, picture } });
   return data;
 };
 

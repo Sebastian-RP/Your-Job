@@ -25,7 +25,6 @@ export default function Users() {
   const [ownProfile, setOwnProfile] = useState(false);
   const userPostulates = useSelector(state => state.userPostulates)
   const userData = useSelector((state) => {
-    // console.log(state);
     return {
       ...state.user,
       postulates: [...state.postulatesUser],

@@ -71,7 +71,7 @@ export function getCompanyInfo(companyname) {
   };
 }
 
-export async function getAllProducts(selector) {
+export function getAllProducts(selector) {
   return async function (dispatch) {
     try {
       const collectionRef = collection(db, "products");

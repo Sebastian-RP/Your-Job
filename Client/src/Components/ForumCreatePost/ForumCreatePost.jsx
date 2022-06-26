@@ -26,7 +26,12 @@ function changeHandler(e, state, setState) {
 
 export default function ForumCreatePost() {
   const { isAuthenticated, user } = useAuth0();
-  const [state, setState] = useState({ title: "", content: "", user: isAuthenticated ? user.name : "Guest" });
+  const [state, setState] = useState({
+    title: "",
+    content: "",
+    user: isAuthenticated ? user.name : "Guest",
+    picture: isAuthenticated ? user.picture : "https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg",
+  });
   if (!user?.name && isAuthenticated) setState({ ...state, user: user.name });
   return (
     <section className={style.container}>

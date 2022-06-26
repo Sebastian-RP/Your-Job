@@ -31,7 +31,14 @@ const Carrito = () => {
             } 
         }
         if(!isAuthenticated){
-            swal ( "Oops" ,  "To make a purchase you must be authenticated" ,  "error" )   
+            swal({
+                title: "Oops!",
+                text: "To make a purchase you must add items to the cart",
+                icon: "error",
+                buttons:true
+                }).then((data) => {
+                if(data) navigate("/login");
+            });
         }
         if(carrito.length === 0){
             swal ( "Oops" ,  "To make a purchase you must add items to the cart" ,  "error" )   
