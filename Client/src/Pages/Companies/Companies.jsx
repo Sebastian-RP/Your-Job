@@ -25,6 +25,7 @@ export default function Companies() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { companyname } = useParams();
+  const loggedUser = useSelector((state) => state.myUser);
   const loggedCompany = useSelector((state) => state.myCompany);
   const allTechnologies = useSelector((state) => state.technologies);
   const [ownProfile, setOwnProfile] = useState(false);
@@ -67,13 +68,24 @@ export default function Companies() {
   //----------------------------------
   const sendMessage = async () => {
     try {
-      const res = await axios.get(`/users/` + companyname);
-      let conversation = {
-        senderId: loggedCompany.id,
-        receiverId: res.data.id,
-      };
-      await axios.post("/conversation/", conversation);
-      navigate("/messenger");
+      const res = await axios.get(
+        `/company/profile?companyname=` + companyname
+      );
+      if (loggedUser.id) {
+        let conversationUser = {
+          senderId: loggedUser.id,
+          receiverId: res.data?.id,
+        };
+        await axios.post("/conversation/", conversationUser);
+        navigate("/messenger");
+      } else {
+        let conversationCompany = {
+          senderId: loggedCompany.id,
+          receiverId: res.data.id,
+        };
+        await axios.post("/conversation/", conversationCompany);
+        navigate("/messenger");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -149,7 +161,10 @@ export default function Companies() {
             </button>
           </div>
 
-          <div style={{ display: showPosts ? "" : "none" }} className={style.suggestionsBody}>
+          <div
+            style={{ display: showPosts ? "" : "none" }}
+            className={style.suggestionsBody}
+          >
             <h2>Company posts</h2>
             {posts &&
               posts.map((data, index) => {
@@ -204,7 +219,10 @@ export default function Companies() {
               })}
           </div>
 
-          <div style={{ display: !showPosts ? "" : "none" }} className={style.suggestionsBody}>
+          <div
+            style={{ display: !showPosts ? "" : "none" }}
+            className={style.suggestionsBody}
+          >
             <h2>Employees</h2>
             {companyData.employees ? (
               companyData.employees.length > 0 ? (

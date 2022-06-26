@@ -40,7 +40,7 @@ const createConversation = async (senderId, receiverId) => {
          members: [userId] 
       })
       let mapValues = conversation.map(x=>x.dataValues)
-      let onlyUser = mapValues.filter(user => user.members.includes(Number(userId)))
+      let onlyUser = mapValues.filter(user => user.members.includes((userId)))
 
       return onlyUser
     }catch (error){

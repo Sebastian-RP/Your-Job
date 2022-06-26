@@ -20,6 +20,7 @@ export default function Users() {
   const navigate = useNavigate();
   const { username } = useParams();
   const loggedUser = useSelector((state) => state.myUser);
+  const loggedCompany = useSelector((state) => state.myCompany);
   const [ownProfile, setOwnProfile] = useState(false);
   const userData = useSelector((state) => {
     return {
@@ -49,9 +50,21 @@ export default function Users() {
   const sendMessage = async () => {
     try {
       const res = await axios.get(`/users/` + username);
-      let conversation = { senderId: loggedUser.id, receiverId: res.data.id };
-      await axios.post("/conversation/", conversation);
-      navigate("/messenger");
+      if (loggedUser.id) {
+        let conversationUser = {
+          senderId: loggedUser.id,
+          receiverId: res.data.id,
+        };
+        await axios.post("/conversation/", conversationUser);
+        navigate("/messenger");
+      } else {
+        let conversationCompany = {
+          senderId: loggedCompany.id,
+          receiverId: res.data.id,
+        };
+        await axios.post("/conversation/", conversationCompany);
+        navigate("/messenger");
+      }
     } catch (error) {
       console.log(error);
     }
