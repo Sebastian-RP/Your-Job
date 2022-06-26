@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
     sequelize.define('conversation', {
         members:{
-            type: DataTypes.ARRAY(DataTypes.INTEGER),
+            type: DataTypes.ARRAY(DataTypes.STRING),
             allowNull: false,
         },
         text: {

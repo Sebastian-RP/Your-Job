@@ -1,4 +1,5 @@
 import Navbar from "../../Components/NavBar/NavBar";
+import Loading from "../../Components/Loading/Loading"
 import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -449,7 +450,7 @@ export default function HomeUser() {
             </div>
           </>
         ) : (
-          <p>Loading...</p>
+          <Loading />
         )}
       </>
     </div>
