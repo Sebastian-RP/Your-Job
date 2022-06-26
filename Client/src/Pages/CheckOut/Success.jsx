@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import styled from 'styled-components';

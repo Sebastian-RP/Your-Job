@@ -5,7 +5,8 @@ import { getAllCompanies, getAllPost, getCompanyByEmail, getUserByEmail } from "
 import HomeCompany from "./Home_company";
 import HomeUser from "./Home_user.jsx";
 import HomeAdmin from "./Home_admin";
-import Onboarding from "../Onboarding/Onboarding";
+import Loading from "../../Components/Loading/Loading";
+
 
 export default function Home() {
   const { user, isLoading } = useAuth0();
@@ -37,9 +38,8 @@ export default function Home() {
       }
     }
   }, [loggedUser, loggedCompany, isLoading]);
-  console.log();
   return isLoading ? (
-    <h1>Loading...</h1>
+    <Loading/>
   ) : isUser && (loggedUser?.Account === "Admin" || loggedUser?.Account === "SuperAdmin") ? (
     <HomeAdmin />
   ) : (loggedUser.error && loggedCompany.error) || !loggedUser.error ? (

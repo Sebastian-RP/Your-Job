@@ -23,7 +23,6 @@ export default function Users() {
   const loggedCompany = useSelector((state) => state.myCompany);
   const [ownProfile, setOwnProfile] = useState(false);
   const userData = useSelector((state) => {
-    // console.log(state);
     return {
       ...state.user,
       postulates: [...state.postulatesUser],
@@ -31,7 +30,6 @@ export default function Users() {
     };
   });
 
-  console.log(userData);
   useEffect(() => {
     getUserInfo(username).then((action) => {
       dispatch(action);

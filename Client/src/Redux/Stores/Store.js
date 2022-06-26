@@ -16,6 +16,8 @@ const persistConfig = {
     "posts",
     "products",
     "companyPosts",
+    "myUser",
+    "myCompany",
   ],
   stateReconciler: autoMergeLevel2, // see "Merge Process" section for details.
 };
