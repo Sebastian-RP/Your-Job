@@ -18,12 +18,14 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
+import Loading from "../../Components/Loading/Loading";
 const profileDefaultImage =
   "https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png";
 
 const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
 const salario = ["min-salary", "max-salary"];
+
 
 export default function HomeUser() {
   const { user, isAuthenticated, loginWithPopup } = useAuth0();
@@ -45,26 +47,11 @@ export default function HomeUser() {
   const [filterExp, setFilterExp] = useState([]);
   const [modeExp, setModeExp] = useState("");
 
-  // console.log(companies);
-  // console.log(suggestions);
-  // console.log(num);
-  useEffect(() => {
-    dispatch(getAllPost());
-    dispatch(getAllCompanies());
-    dispatch(getAllTechnologies());
-    dispatch(getUserByEmail(user?.email));
-    // eslint-disable-next-line
-  }, [dispatch]);
 
   useEffect(() => {
-    // console.log(selector);
-    // console.log(user?.email);
-    // console.log(logged);
     dispatch(getUserByEmail(user?.email));
-    getAllProducts("usuario").then((res) => {
-      dispatch(res);
-    });
     dispatch(getActivePlans(user));
+    dispatch(getUserByEmail(user?.email));
     // eslint-disable-next-line
   }, [user]);
 
@@ -82,11 +69,18 @@ export default function HomeUser() {
       postulatesUser.map((data) => {
         return setPostId([...postId, data.companyPostId]);
       });
+    
     // eslint-disable-next-line
   }, [postulatesUser]);
 
   useEffect(() => {
     setShowPage(true);
+    dispatch(getAllPost());
+    dispatch(getAllTechnologies());
+    dispatch(getAllCompanies());
+    dispatch(getAllProducts("usuario"))
+
+    // eslint-disable-next-line
   }, []);
 
   const getFilterByTechnologies = (id) => {
@@ -449,7 +443,7 @@ export default function HomeUser() {
             </div>
           </>
         ) : (
-          <p>Loading...</p>
+          <Loading />
         )}
       </>
     </div>
