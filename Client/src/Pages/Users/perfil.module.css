@@ -154,3 +154,9 @@
   text-align: center;
   background-color: #1c5d99;
 }
+.CardPost {
+  width: 95%;
+  padding: 10px;
+  box-shadow: inset 0 0 5px gray, 0 0 5px;
+  margin: 2px;
+}

@@ -6,6 +6,7 @@ import {
   getUserInfo,
   getActivePlans,
   updatePremiumPlan,
+  allPostulatesUser
 } from "../../Redux/Actions/Actions";
 import { useState } from "react";
 import axios from "axios";
@@ -22,6 +23,7 @@ export default function Users() {
   const loggedUser = useSelector((state) => state.myUser);
   const loggedCompany = useSelector((state) => state.myCompany);
   const [ownProfile, setOwnProfile] = useState(false);
+  const userPostulates = useSelector(state => state.userPostulates)
   const userData = useSelector((state) => {
     return {
       ...state.user,
@@ -31,6 +33,7 @@ export default function Users() {
   });
 
   useEffect(() => {
+    dispatch(allPostulatesUser(username))
     getUserInfo(username).then((action) => {
       dispatch(action);
     });
@@ -79,7 +82,6 @@ export default function Users() {
   };
 
   //----------------------------------
-
   return (
     <>
       <Navbar />
@@ -154,6 +156,18 @@ export default function Users() {
               <button className={style.Button}>Create a Post</button>
             </>
           ) : null}
+          {
+            userPostulates?.map((data, index) => {
+              return (
+                <div key={index} className={style.CardPost}>
+                  <strong>{data.titlePost}</strong>
+                  <hr />
+                  <p>Experience: {data.experience}</p>
+                  <p>Modality: {data.modality}</p>
+                </div>
+              )
+            })
+          }
         </div>
         <div className={style.perfilInfo}>
           <div className={style.info}>

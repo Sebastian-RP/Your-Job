@@ -1,4 +1,4 @@
-const { UserPost, User } = require("../db.js");
+const { UserPost, User, CompanyPost, Postulates } = require("../db.js");
 
 const getUserPosts = async () => {
     try {
@@ -30,7 +30,6 @@ const getUserPosts = async () => {
         let diff = now.getSeconds() - timeA;
   
         if (A.user.premium === 1) diff = Math.floor(diff / 2);
-        console.log(diff,  A.user.premium);
         if (diff < 6) Priority[0].push(A);
         if (6 <= diff < 10) Priority[1].push(A);
         if (10 <= diff < 13) Priority[2].push(A);
@@ -76,9 +75,29 @@ const deleteUserPost = async (id) => {
   return userDelete;
 }
 
+const allPostsUser = async (nameUser) => {
+
+  try {
+    const dataUser = await CompanyPost.findAll({
+      include:{
+        model:Postulates,
+        where :{
+          name: nameUser
+        }
+
+      }
+    })
+    return dataUser;
+  }
+  catch(error) {
+    return ({message: error.message})
+  }
+}
+
 module.exports = {
     getUserPosts,
     createPostUser,
-    deleteUserPost
+    deleteUserPost,
+    allPostsUser
 };
   
