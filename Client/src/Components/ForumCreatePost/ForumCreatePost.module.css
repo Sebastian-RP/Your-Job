@@ -32,3 +32,11 @@
 .button {
   margin: 0px 20px;
 }
+
+.form {
+  width: 100%;
+}
+.error {
+  color: #f00;
+  text-transform: uppercase;
+}
