@@ -49,18 +49,18 @@
 }
 
 .selectUsersCompanies {
-  border-left: 3px;
+  margin: 0 3px;
   color: white;
-  border-radius: 7px;
+  /* border-radius: 7px; */
   background-color: #1c5d99;
-  border: 2px solid black;
+  border: 1px solid grey;
 }
 
 .selectUsersCompanies:hover {
   cursor: pointer;
   color: #1c5d99;
   background-color: white;
-  transition: all 500ms;
+  transition: all 100ms;
 }
 
 .suggestion__container {
