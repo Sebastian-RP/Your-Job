@@ -16,6 +16,9 @@ import {
   updatePremiumPlanCompany,
 } from "../../Redux/Actions/Actions";
 import { Card } from "react-bootstrap";
+import canceledSubscription from "../../Components/Firebase/canceledSubscription";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import {AiOutlineDelete} from 'react-icons/ai'
 
 export default function Companies() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -30,6 +33,7 @@ export default function Companies() {
   const [ownProfile, setOwnProfile] = useState(false);
   const [showPosts, setShowPosts] = useState(false);
   const posts = useSelector((state) => state.companyPosts);
+
 
   const companyData = useSelector((state) => {
     // console.log(state);
@@ -91,6 +95,22 @@ export default function Companies() {
       console.log(error);
     }
   };
+
+  const handlerCanceledSubscription = async () => {
+    try {
+      canceledSubscription(user?.email)
+      .then((res) => {
+        console.log(res);
+      }
+      )
+      .catch((err) => {
+        console.log(err);
+      }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   //----------------------------------
   //Ideas: Colocar una seccion donde puedan ver las interacciones de usuarios mas recientes
@@ -255,14 +275,25 @@ export default function Companies() {
         </div>
         <div className={style.perfilInfo}>
           <div>
-            <h2>Information</h2>
+            <h2>Information <IoMdInformationCircleOutline/></h2>
             <div className={style.info}>
               <p>{companyData?.description}</p>
             </div>
             <hr />
             {companyData.plans ? <h3>Your active plans </h3> : null}
             {companyData.plans?.map((d, i) => {
-              return <p key={i}>{d}</p>;
+              return(<div>
+                  <>
+                    <p key={i}>{d}</p>
+                  </>
+                  { (companyData.plans[0] !== "You don't have any plan" &&
+                    companyData.plans[0] !== "To see your plans, please log in") ? (
+                      <div className={style.ButtonX} 
+                      onClick={handlerCanceledSubscription}
+                      >
+                        <AiOutlineDelete/>
+                      </div>) : null}
+              </div>)
             })}
             <button
               className={style.Button}
@@ -272,8 +303,9 @@ export default function Companies() {
                   ? true
                   : false
               }
+              onClick={handlerCanceledSubscription}
             >
-              Decline subscription
+              Decline all subscriptions
             </button>
           </div>
         </div>

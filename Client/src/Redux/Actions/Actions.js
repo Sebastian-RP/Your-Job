@@ -30,7 +30,9 @@ export const DELETE_USER = "DELETE_USER";
 export const DELETE_COMPANY = "DELETE_COMPANY";
 export const ADD_TECHNOLOGY = "ADD_TECHNOLOGY";
 export const USER_POSTULATES = "USER_POSTULATES";
+export const SET_EMAIL_DATA = "SET_EMAIL_DATA";
 export const HIRE = "HIRE";
+
 
 export async function getAllEmployeesCompany(id) {
   return async function (dispatch) {
@@ -519,5 +521,15 @@ export function allPostulatesUser(name) {
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }
 }
+
+export function setEmailData(user) {
+  return async function (dispatch) {
+    return dispatch({
+      type: SET_EMAIL_DATA,
+      payload: user
+    });
+  }
+} 
+

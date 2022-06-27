@@ -13,7 +13,8 @@ import axios from "axios";
 import Navbar from "../../Components/NavBar/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
 import canceledSubscription from "../../Components/Firebase/canceledSubscription";
-
+import {AiOutlineDelete} from 'react-icons/ai'
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -190,14 +191,26 @@ export default function Users() {
         </div>
         <div className={style.perfilInfo}>
           <div>
-            <h2>Information</h2>
+            <h2>Information <IoMdInformationCircleOutline/></h2>
             <div className={style.info}>
               <p>{userData?.description}</p>
             </div>
             <hr />
             {userData.plans ? <h3>Your active plans </h3> : null}
             {userData.plans?.map((d, i) => {
-              return <p key={i}>{d}</p>;
+              return (
+                <div className={style.subscriptions}>
+                  <>
+                    <p key={i}>{d}</p>
+                  </>
+                  { (userData.plans[0] !== "You don't have any plan" &&
+                    userData.plans[0] !== "To see your plans, please log in") ? (
+                      <div className={style.ButtonX} 
+                      onClick={handlerCanceledSubscription}
+                      >
+                        <AiOutlineDelete/>
+                      </div>) : null}
+                </div>);
             })}
             <button
               className={style.Button}
@@ -209,7 +222,7 @@ export default function Users() {
               }
               onClick={handlerCanceledSubscription}
             >
-              Decline subscription
+              Decline all subscriptions
             </button>
             <hr />
             <div>

@@ -5,7 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import loginEmail from '../../Components/Firebase/loginEmail';
 import createCheckoutSession from '../../Components/Firebase/createACheckoutSession';
 import { useDispatch, useSelector } from "react-redux";
-import { addCarrito, clearCarrito } from "../../Redux/Actions/Actions";
+import { addCarrito, clearCarrito, setEmailData } from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import styled from "styled-components";
 
@@ -19,6 +19,7 @@ const Carrito = () => {
 
     const autenticate = async () => {
         if(isAuthenticated && carrito.length > 0){  
+            dispatch(setEmailData(user))
             const result = await loginEmail(user,"123456", carrito)
             if(Array.isArray(result)){
                 result.map(item =>
