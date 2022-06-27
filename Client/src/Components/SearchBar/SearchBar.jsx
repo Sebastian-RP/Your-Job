@@ -47,13 +47,7 @@ export default function SearchBar() {
   let userNameList = onlyUsers.map((user) => user.name);
   let onlyCompanies = useSelector((state) => state.companies);
   let companyNameList = onlyCompanies.map((comp) => comp.name);
-  let usersList = [];
-
-  if (companyNameList?.includes(myCompany.name)) {//si es compañia
-    usersList = userNameList
-  }if(userNameList?.includes(MyUserAccount.name)){
-    usersList = companyNameList
-  }
+  let [usersList, setUsersList] = useState([]);
 
   const [users, setUsers] = useState(usersList);//usuarios a filtrar
   if (users.length < usersList.length) {
@@ -63,6 +57,7 @@ export default function SearchBar() {
   const [usersFiltered, setUsersFiltered] = useState([]);
   const [focus, setFocus] = useState(false);
   const [nameUser, setNameUser] = useState(""); //estado que contendra el texto de la barra de busqueda
+  const [filterSearch ,setFilterSearchBar] = useState("all");
   const dispatch = useDispatch();
 
   window.onclick = (e) => {
@@ -99,11 +94,41 @@ export default function SearchBar() {
     }
   }
 
+  const handleSelectChange = (e) => {
+    if (e.target.value === "all") {
+      setFilterSearchBar("all")
+      setUsersList([...userNameList, ...companyNameList]);
+    } 
+    if(e.target.value === "users"){
+      setFilterSearchBar("users")
+      setUsersList(userNameList);
+    }
+    if (e.target.value === "companies") {
+      setFilterSearchBar("companies")
+      setUsersList(companyNameList);
+    }
+  }
+
 
   useEffect(() => {
     getAllUsers().then((data) => dispatch(data));
+    setUsersList([...userNameList, ...companyNameList]);
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (filterSearch === "all") {
+      setUsersList([...userNameList, ...companyNameList]);
+    } 
+    if(filterSearch === "users"){
+      setUsersList(userNameList);
+    }
+    if (filterSearch === "companies") {
+      setUsersList(companyNameList);
+    }
+    setUsers(usersList);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterSearch])
   
   const [selected, setSelected] = useState(-1);
   const navigate = useNavigate();
@@ -139,6 +164,11 @@ export default function SearchBar() {
             className={"fa-solid fa-magnifying-glass " + style.button__glass}
           ></i>
         </button>
+        <select name="AFilter" id="AccountToFilter" onChange={(e) => handleSelectChange(e)}>
+          <option value="all">All</option>
+          <option value="users">Users</option>
+          <option value="companies">Companies</option>
+        </select>
       </div>
       {usersFiltered.length > 0 && focus ? (
         <ul className={style.suggestion__container}>
