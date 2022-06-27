@@ -20,7 +20,8 @@ import {
   GET_COMPANY_INFO,
   GET_ALL_EMPLOYEES_FROM_COMPANY,
   LOG_IN,
-  USER_POSTULATES
+  USER_POSTULATES,
+  SET_EMAIL_DATA
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -129,7 +130,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         myUser: action.payload.loggedUser,
         myCompany: action.payload.loggedCompany,
-        emailData: [...action.payload.loggedUser, ...action.payload.loggedCompany],
+        
       };
 
     case LOG_OUT:
@@ -162,6 +163,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         userPostulates : action.payload
+      }
+    case SET_EMAIL_DATA: 
+      return {
+        ...state,
+        emailData : action.payload
       }
     default:
       return { ...state };

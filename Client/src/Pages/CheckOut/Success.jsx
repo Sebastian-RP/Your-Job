@@ -6,15 +6,10 @@ import styled from 'styled-components';
 
 
 function Success() {
-    const myUser = useSelector(state => state.myUser)
-    const myCompany = useSelector(state => state.myCompany)
+    const user = useSelector(state => state.emailData)
     const form = useRef();
     var flag = 0;
 
-    let user = myUser;
-    if(myUser.hasOwnProperty('error')){
-        user = myCompany
-    }
 
     useEffect(()=>{
         if(flag === 0){
