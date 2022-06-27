@@ -9,6 +9,7 @@ const {
   updateCompany,
   findCompanyName,
   hireUser,
+  fireEmployee,
 } = require("../Controllers/CompanyController.js");
 
 const router = Router();
@@ -78,6 +79,15 @@ router.put("/hire", async (req, res) => {
     res.send(await hireUser(userId, companyId));
   } catch (error) {
     console.log("Error in hireUser:", error.message);
+  }
+});
+
+router.put("/fire", async (req, res) => {
+  const { employeeId, companyId } = req.body;
+  try {
+    res.send(await fireEmployee(employeeId, companyId));
+  } catch (error) {
+    console.log("Error in fireEmployee:", error.message);
   }
 });
 

@@ -104,6 +104,20 @@ const hireUser = async (userId, companyId) => {
   return upcompany.employees;
 };
 
+const fireEmployee = async (employeeId, companyId) => {
+  let company = await findCompany(companyId);
+  // let user = await findUserId(employeeId)
+  if (company.employees.includes(parseInt(employeeId))) {
+    let index = company.employees.indexOf(parseInt(employeeId));
+    company.employees.splice(index, 1);
+  }
+  company.changed("employees", true);
+  console.log(company.changed());
+
+  await company.save();
+  return company;
+};
+
 module.exports = {
   createCompany,
   getCompanies,
@@ -114,4 +128,5 @@ module.exports = {
   updateCompany,
   findCompanyName,
   hireUser,
+  fireEmployee,
 };
