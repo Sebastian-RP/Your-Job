@@ -29,7 +29,17 @@ const getPostulates = async (email) => {
   }
 };
 
+const getPostulatebyId = async (id) => {
+  try {
+    const postulate = await Postulates.findByPk(id);
+    return postulate;
+  } catch (error) {
+    console.error("error un getPostulatebyId:", error.message);
+  }
+};
+
 module.exports = {
   postulatesPost,
   getPostulates,
+  getPostulatebyId,
 };
