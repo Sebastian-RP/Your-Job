@@ -9,7 +9,6 @@ router.get("/posts", async (req, res) => {
 
 router.get("/post/:title", async (req, res) => {
   const { title } = req.params;
-  console.log(title)
   res.send(await getPost(title));
 });
 router.post("/post", async (req, res) => {
