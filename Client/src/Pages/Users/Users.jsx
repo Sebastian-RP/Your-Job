@@ -15,6 +15,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import canceledSubscription from "../../Components/Firebase/canceledSubscription";
 import {AiOutlineDelete} from 'react-icons/ai'
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import swal from "sweetalert";
 
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -52,6 +53,7 @@ export default function Users() {
     //eslint-disable-next-line
   }, []);
 
+
   //----------------------------------
   const sendMessage = async () => {
     try {
@@ -84,24 +86,60 @@ export default function Users() {
     return Math.abs(Math.round(diff / 365.25));
   };
 
-  const handlerCanceledSubscription = async () => {
+  const handlerCanceledSubscription = async (e) => {
     try {
-      canceledSubscription(user?.email)
-      .then((res) => {
-        console.log(res);
+      if(e === "todo"){
+        canceledSubscription(user?.email, e)
+        .then((res) => {
+          swal({
+            title: "Success!",
+            text: "All the subscription has been canceled",
+            icon: "success",
+            buttons:true
+          }).then((data) => {
+            if(data) navigate("/home");
+          });
+        }
+        )
+        .catch((err) => {
+          console.log(err);
+        }
+        );
+      } else{
+        canceledSubscription(user?.email, e)
+        .then((res) => {
+          swal({
+            title: "Success!",
+            text: `The subscription ${e} has been canceled`,
+            icon: "success",
+            buttons:true
+          }).then((data) => {
+            if(data) navigate("/home");
+          });
+        }
+        )
+        .catch((err) => {
+          swal({
+            title: "Opps!",
+            text: `Something gones wrong, please try again later`,
+            icon: "error",
+            buttons:true
+          }).then((data) => {
+            if(data) navigate("/home");
+          });        
+        }
+        );
       }
-      )
-      .catch((err) => {
-        console.log(err);
-      }
-      );
+      dispatch(getActivePlans(user));
+      updatePremiumPlan(loggedUser?.id, userData.plans).then((res) => {
+        dispatch(res);
+      }); 
     } catch (error) {
       console.log(error);
     }
   }
 
   //----------------------------------
-  console.log(userPostulates)
   return (
     <>
       <Navbar />
@@ -206,7 +244,7 @@ export default function Users() {
                   { (userData.plans[0] !== "You don't have any plan" &&
                     userData.plans[0] !== "To see your plans, please log in") ? (
                       <div className={style.ButtonX} 
-                      onClick={handlerCanceledSubscription}
+                      onClick={() => handlerCanceledSubscription(d)}
                       >
                         <AiOutlineDelete/>
                       </div>) : null}
@@ -220,7 +258,7 @@ export default function Users() {
                   ? true
                   : false
               }
-              onClick={handlerCanceledSubscription}
+              onClick={() => handlerCanceledSubscription("todo")}
             >
               Decline all subscriptions
             </button>
