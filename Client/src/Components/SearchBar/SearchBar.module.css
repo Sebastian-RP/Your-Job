@@ -45,6 +45,22 @@
 .button__glass {
   font-size: 1.3em;
   color: #222;
+  font-size: 1.2rem;
+}
+
+.selectUsersCompanies {
+  border-left: 3px;
+  color: white;
+  border-radius: 7px;
+  background-color: #1c5d99;
+  border: 2px solid black;
+}
+
+.selectUsersCompanies:hover {
+  cursor: pointer;
+  color: #1c5d99;
+  background-color: white;
+  transition: all 500ms;
 }
 
 .suggestion__container {

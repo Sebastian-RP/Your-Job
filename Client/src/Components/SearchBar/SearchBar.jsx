@@ -98,7 +98,7 @@ export default function SearchBar() {
     if (e.target.value === "all") {
       setFilterSearchBar("all")
       setUsersList([...userNameList, ...companyNameList]);
-    } 
+    }
     if(e.target.value === "users"){
       setFilterSearchBar("users")
       setUsersList(userNameList);
@@ -109,7 +109,6 @@ export default function SearchBar() {
     }
   }
 
-
   useEffect(() => {
     getAllUsers().then((data) => dispatch(data));
     setUsersList([...userNameList, ...companyNameList]);
@@ -119,7 +118,7 @@ export default function SearchBar() {
   useEffect(() => {
     if (filterSearch === "all") {
       setUsersList([...userNameList, ...companyNameList]);
-    } 
+    }
     if(filterSearch === "users"){
       setUsersList(userNameList);
     }
@@ -164,12 +163,14 @@ export default function SearchBar() {
             className={"fa-solid fa-magnifying-glass " + style.button__glass}
           ></i>
         </button>
-        <select name="AFilter" id="AccountToFilter" onChange={(e) => handleSelectChange(e)}>
-          <option value="all">All</option>
-          <option value="users">Users</option>
-          <option value="companies">Companies</option>
-        </select>
+          <select name="AFilter" id="AccountToFilter" className={style.selectUsersCompanies} onChange={(e) => handleSelectChange(e)}>
+            <option value="all">All</option>
+            <option value="users">Users</option>
+            <option value="companies">Companies</option>
+          </select>
+
       </div>
+
       {usersFiltered.length > 0 && focus ? (
         <ul className={style.suggestion__container}>
           {usersFiltered.map((user, index) => {
