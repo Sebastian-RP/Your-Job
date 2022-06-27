@@ -40,6 +40,7 @@ const initialState = {
   myUser: [],
   myCompany: [],
   activePlans: [],
+  emailData: [],	
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -128,6 +129,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         myUser: action.payload.loggedUser,
         myCompany: action.payload.loggedCompany,
+        emailData: [...action.payload.loggedUser, ...action.payload.loggedCompany],
       };
 
     case LOG_OUT:
