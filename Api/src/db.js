@@ -49,7 +49,7 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { User, Company, CompanyPost, Technology, Conversation, Postulates, UserPost } = sequelize.models; // acá van los modelos, con la primera letra en mayúscula
+const { User, Company, CompanyPost, Technology, Conversation, Postulates, UserPost, ForumPosts, CommentForumPosts } = sequelize.models; // acá van los modelos, con la primera letra en mayúscula
 
 //acá van las conexiones entre los modelos
 
@@ -64,6 +64,9 @@ Postulates.belongsTo(CompanyPost);
 
 User.hasMany(UserPost);
 UserPost.belongsTo(User);
+
+ForumPosts.hasMany(CommentForumPosts);
+CommentForumPosts.belongsTo(ForumPosts);
 
 Technology.belongsToMany(User, { through: "UserTechnologies" });
 User.belongsToMany(Technology, { through: "UserTechnologies" });

@@ -1,16 +1,34 @@
-const { ForumPost } = require("../db.js");
+const { ForumPosts, CommentForumPosts } = require("../db.js");
 const getPosts = async () => {
-  return await ForumPost.findAll({});
+  return await ForumPosts.findAll({
+    include: ["CommentForumPosts"]
+  });
 };
 
 const getPost = async (title) => {
-  return await ForumPost.findOne({ where: { title } });
+  return await ForumPosts.findOne({ 
+    where: { title },
+    include: ["CommentForumPosts"]
+  });
 };
 
 const createPost = async (title, content, user = "Jose", picture) => {
-  console.log(picture)
-  const [data, created] = await ForumPost.findOrCreate({ where: { title }, defaults: { title, content, user, picture } });
+  const [data, created] = await ForumPosts.findOrCreate({ where: { title }, defaults: { title, content, user, picture } });
   return data;
 };
 
-module.exports = { getPosts, getPost, createPost };
+const createComment = async (id, content, user, picture) => {
+  try {
+    const data = await CommentForumPosts.create({
+      content,
+      user,
+      picture,
+      ForumPostId: id
+    })
+    return data
+  } catch (error) {
+    return ({message: error.message})
+  }
+}
+
+module.exports = { getPosts, getPost, createPost, createComment};
