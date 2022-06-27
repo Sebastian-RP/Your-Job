@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllUsers, getUserInfo } from "../../Redux/Actions/Actions";
+import { getAllUsers, getUserInfo, getCompanyInfo } from "../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import style from "./SearchBar.module.css";
@@ -41,8 +41,6 @@ function keyDownHandler(e, setSelected, selected, usersFiltered) {
 }
 
 export default function SearchBar() {
-  let MyUserAccount = useSelector((state) => state.myUser)
-  let myCompany = useSelector((state) => state.myCompany)
   let onlyUsers = useSelector((state) => state.users);
   let userNameList = onlyUsers.map((user) => user.name);
   let onlyCompanies = useSelector((state) => state.companies);
@@ -68,22 +66,19 @@ export default function SearchBar() {
 
   function submitHandler(e, userSelected, navigate, nameUsers, nameUser) {
     e.preventDefault();
-    if (nameUsers.includes(nameUser)) {//el nombre buscado existe
-      if (companyNameList.includes(myCompany?.name)) {
-        console.log("soy compañia");//aca debe ir la accion que llama la data de la tabla de compañias
+    if (nameUsers.includes(nameUser)) {
+      if (companyNameList.includes(nameUser)) {
+        navigate(`/company/${userSelected ? userSelected : nameUser}`);
+        getCompanyInfo(nameUser).then((action) => {
+          dispatch(action);
+        });
+        setNameUser("");
+      }if(userNameList.includes(nameUser)){
         navigate(`/users/${userSelected ? userSelected : nameUser}`);
         getUserInfo(nameUser).then((action) => {
           dispatch(action);
         });
-        setNameUser("")
-      }if(userNameList.includes(MyUserAccount?.name)){
-        console.log("soy usuario");
-        console.log(nameUser);
-        navigate(`/users/${userSelected ? userSelected : nameUser}`);
-        getUserInfo(nameUser).then((action) => {
-          dispatch(action);
-        });
-        setNameUser("")
+        setNameUser("");
       }
     } else {
       swal({
@@ -92,6 +87,8 @@ export default function SearchBar() {
         text: 'User not found!',
       })
     }
+    console.log("nombre usuarios");
+    console.log(nameUsers);
   }
 
   const handleSelectChange = (e) => {
