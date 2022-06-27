@@ -1,5 +1,6 @@
 const { Company, User } = require("../db.js");
-const { findUserId } = require("./UserController.js");
+const { getPostulatebyId } = require("./postulatesController.js");
+const { findUserId, findUserEmail } = require("./UserController.js");
 // const User = require("../models/User.js");
 
 const createCompany = async (
@@ -86,6 +87,23 @@ const updateCompany = async (email, changes) => {
   return company;
 };
 
+const hireUser = async (userId, companyId) => {
+  let company = await findCompany(companyId);
+  let postulation = await getPostulatebyId(userId);
+  let user = await findUserEmail(postulation.url);
+
+  await company.employees.push(parseInt(user.id));
+  company.changed("employees", true);
+  console.log(company.changed());
+
+  await company.save();
+  await postulation.destroy();
+  console.log(company.employees);
+
+  let upcompany = await findCompany(companyId);
+  return upcompany.employees;
+};
+
 module.exports = {
   createCompany,
   getCompanies,
@@ -95,4 +113,5 @@ module.exports = {
   deleteCompany,
   updateCompany,
   findCompanyName,
+  hireUser,
 };

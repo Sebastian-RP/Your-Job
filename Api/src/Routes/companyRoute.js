@@ -8,6 +8,7 @@ const {
   deleteCompany,
   updateCompany,
   findCompanyName,
+  hireUser,
 } = require("../Controllers/CompanyController.js");
 
 const router = Router();
@@ -69,6 +70,15 @@ router.post("/login", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   res.send(await deleteCompany(id));
+});
+
+router.put("/hire", async (req, res) => {
+  const { userId, companyId } = req.body;
+  try {
+    res.send(await hireUser(userId, companyId));
+  } catch (error) {
+    console.log("Error in hireUser:", error.message);
+  }
 });
 
 router.put("/:email", async (req, res) => {
