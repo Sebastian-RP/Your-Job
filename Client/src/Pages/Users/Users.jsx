@@ -189,9 +189,11 @@ export default function Users() {
           }
         </div>
         <div className={style.perfilInfo}>
-          <div className={style.info}>
+          <div>
             <h2>Information</h2>
-            <p>{userData?.description}</p>
+            <div className={style.info}>
+              <p>{userData?.description}</p>
+            </div>
             <hr />
             {userData.plans ? <h3>Your active plans </h3> : null}
             {userData.plans?.map((d, i) => {

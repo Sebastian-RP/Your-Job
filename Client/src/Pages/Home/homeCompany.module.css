@@ -119,13 +119,13 @@
 }
 .buttonSubmit {
     position: absolute;
-    top: 15px;
-    right: 120px;
+    top: 55px;
+    right: 100px;
 }
 .buttonReset {
     position: absolute;
-    top: 15px;
-    right: 220px;
+    top: 55px;
+    right: 200px;
 }
 .infoCard {
     display: flex;

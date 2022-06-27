@@ -211,8 +211,8 @@ const ButtonCanceled = styled.button`
   transition: all 300ms;
   position: fixed;
   z-index: 4;
-  top: 15px;
-  right: 20px;
+  top: 55px;
+  right: 0px;
   &:hover {
     color: white;
     background-color: #1c5d99;

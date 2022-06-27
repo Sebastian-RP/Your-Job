@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   getActivePlans,
-  updatePremiumPlan,
   getAllEmployeesCompany,
   getAllPostsFromCompany,
 } from "../../Redux/Actions/Actions";
@@ -50,20 +49,22 @@ export default function Companies() {
       dispatch(getAllPostsFromCompany(data.payload.id));
       // console.log(data);
     });
+    //eslint-disable-next-line
+  }, [companyname]);
+
+  useEffect(() => {
     if (loggedCompany.name === companyname) {
       setOwnProfile(true);
     }
-    if (ownProfile) {
-      dispatch(getActivePlans(user));
-      updatePremiumPlanCompany(loggedCompany?.email, companyData.plans).then(
-        (res) => {
-          dispatch(res);
-        }
-      );
-    }
-
+    dispatch(getActivePlans(user))
+    updatePremiumPlanCompany(loggedCompany?.email, companyData.plans).then(
+      (res) => {
+        dispatch(res);
+      }
+    );
     //eslint-disable-next-line
-  }, [companyname]);
+  }, []);
+
 
   //----------------------------------
   const sendMessage = async () => {
@@ -253,9 +254,11 @@ export default function Companies() {
           </div>
         </div>
         <div className={style.perfilInfo}>
-          <div className={style.info}>
+          <div>
             <h2>Information</h2>
-            <p>{companyData?.description}</p>
+            <div className={style.info}>
+              <p>{companyData?.description}</p>
+            </div>
             <hr />
             {companyData.plans ? <h3>Your active plans </h3> : null}
             {companyData.plans?.map((d, i) => {
