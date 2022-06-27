@@ -22,8 +22,9 @@ const Body = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 92vh;
+    height: 100vh;
     width: 100%;
+    overflow-y: hidden;
     background-color: #1c5d99;
     h1{
         font-size: 2rem;

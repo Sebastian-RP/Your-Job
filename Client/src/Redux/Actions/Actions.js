@@ -426,7 +426,7 @@ export function getActivePlans(user) {
   return async function (dispatch) {
     try {
       let UserPlans = await getAllPayments(user);
-      if (UserPlans === 0) {
+      if (UserPlans.length === 0) {
         return dispatch({
           type: GET_PLANS,
           payload: ["You don't have any plan"],
@@ -452,7 +452,7 @@ export function getActivePlans(user) {
         }
       }
     } catch (error) {
-      console.error(error.message);
+      console.error("Este error larga el getActivePlans",error.message);
       return dispatch({
         type: GET_PLANS,
         payload: ["To see your plans, please log in"],
