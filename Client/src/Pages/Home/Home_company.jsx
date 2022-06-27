@@ -44,7 +44,7 @@ export default function HomeCompany() {
     if (company) {
       dispatch(getAllPostsFromCompany(company.id));
     }
-    dispatch(getAllProducts("empresa")) 
+    dispatch(getAllProducts("empresa"));
     updatePremiumPlanCompany(user?.email, plans).then((res) => {
       dispatch(res);
     });
@@ -173,14 +173,14 @@ export default function HomeCompany() {
           >
             Back
           </ButtonCanceled>
-          <ListPostulates props={listPostulates} />
+          <ListPostulates props={[listPostulates, setShowList, company]} />
         </>
       )}
     </div>
   );
 }
 
-const Button = styled.button`
+export const Button = styled.button`
   background-color: #1c5d99;
   border-radius: 5px;
   color: white;
