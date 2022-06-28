@@ -1,22 +1,25 @@
 import style from "./ForumPosts.module.css";
 import Post from "../Post/Post";
-import { useState } from "react";
+// import { useState } from "react";
 import { useEffect } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllForumPost } from "../../Redux/Actions/Actions";
+
 
 export default function ForumPosts() {
-  const [posts, setPosts] = useState([]);
+ const selector = useSelector(state => state.allForumPost);
+ const dispatch = useDispatch()
   useEffect(() => {
-    axios.get("/forum/posts").then(({ data }) => {
-      setPosts(data.sort((a, b) => b.id - a.id));
-    });
+    
+    dispatch(getAllForumPost());
+    
   }, []);
   return (
     <section className={style.container}>
       <h2>Posts</h2>
       <hr className={style.divition} />
       <ul className={style.posts}>
-        {posts.map((post, index) => {
+        {selector?.map((post, index) => {
           return <Post key={post.user + "_" + index} data={post} />;
         })}
       </ul>

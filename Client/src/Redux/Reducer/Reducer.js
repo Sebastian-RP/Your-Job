@@ -21,7 +21,8 @@ import {
   GET_ALL_EMPLOYEES_FROM_COMPANY,
   LOG_IN,
   USER_POSTULATES,
-  SET_EMAIL_DATA
+  SET_EMAIL_DATA,
+  GET_ALL_FORUM_POST
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -41,7 +42,8 @@ const initialState = {
   myUser: [],
   myCompany: [],
   activePlans: [],
-  emailData: [],	
+  emailData: [],
+  allForumPost: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -168,6 +170,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         emailData : action.payload
+      }
+    case GET_ALL_FORUM_POST:
+      return {
+        ...state,
+        allForumPost: action.payload
       }
     default:
       return { ...state };

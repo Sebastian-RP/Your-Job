@@ -6,7 +6,6 @@ import ForumCreatePost from "../../Components/ForumCreatePost/ForumCreatePost";
 import Navbar from "../../Components/NavBar/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
 export default function Forum() {
-  const Follows = ["Jeronimo Perez", "Armando Lio", "Rodrigo Marte", "Benjamin Andujar", "asdad0", "dsasdasd"];
   const isCreatingPost = !useLocation().pathname.split("/").includes("create");
   const { isAuthenticated, user } = useAuth0();
   return (
@@ -37,51 +36,6 @@ export default function Forum() {
             <Link className={style.link} to={"../messenger"}>
               Messages
             </Link>
-          </div>
-          <hr />
-          <h4>Follows</h4>
-          <hr />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              paddingTop: "10%",
-              paddingLeft: "10%",
-              overflow: "auto",
-              width: "100%",
-            }}
-          >
-            {Follows.map((follow, index) => {
-              return (
-                <div
-                  key={`${follow}_${index}`}
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    width: "100%",
-                    marginTop: "20px",
-                  }}
-                >
-                  <img src="https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg" alt="" width={"50px"} />
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "flex-start",
-                      alignItems: "center",
-                      width: "80%",
-                    }}
-                  >
-                    <Link className={style.link} to="/" style={{ marginLeft: "20px", marginBottom: "0px" }}>
-                      {follow}
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </aside>
         {isCreatingPost ? (

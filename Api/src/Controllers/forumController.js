@@ -25,7 +25,7 @@ const createComment = async (id, content, user, picture) => {
       picture,
       ForumPostId: id
     })
-    return data
+    return "post created successfully"
   } catch (error) {
     return ({message: error.message})
   }

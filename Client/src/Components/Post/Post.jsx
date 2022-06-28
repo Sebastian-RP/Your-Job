@@ -13,7 +13,7 @@ function getTimeAgo(hours) {
 }
 
 export default function Post({ data }) {
-  const { user, content, title, likes = 0, dislikes = 0, comments = [], createdAt, picture, preview } = data;
+  const { user, content, title, CommentForumPosts = [], createdAt, picture, preview } = data;
   const date = new Date();
   const createdTime = createdAt;
   const currentTime = date.toISOString(date.getDate());
@@ -44,13 +44,7 @@ export default function Post({ data }) {
           <button className={`${style.button} ${style.know}`}>Know more</button>
           <ul className={style.menu__interaction}>
             <li>
-              <i className={"fa-regular fa-message " + style.commentIcon}></i> {comments.length}
-            </li>
-            <li>
-              <i className={"fa-regular fa-heart " + style.likeIcon}></i> {likes}
-            </li>
-            <li>
-              <i className={"fa-regular fa-face-angry " + style.dislikeIcon}></i> {dislikes}
+              <i className={"fa-regular fa-message " + style.commentIcon}></i> {CommentForumPosts.length}
             </li>
           </ul>
         </div>
