@@ -551,17 +551,15 @@ export function setEmailData(user) {
   }
 } 
 
-export function createForumPost(value){ 
-  return async function (dispatch) {
-    return await axios.post('/forum/post', {
-      value
-    })
-  }
-}
-
 export function getAllForumPost() {
   return async function (dispatch) {
     const dataPost = await axios.get('/forum/posts');
     return dispatch({type: GET_ALL_FORUM_POST, payload: dataPost.data})
+  }
+}
+
+export function createCommentPost(value) {
+  return async function(dispatch) {
+    return await axios.post('/forum/comment', value)
   }
 }

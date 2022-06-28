@@ -107,3 +107,19 @@
 .divition {
   background-color: #1c5d99;
 }
+.comment {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.comment textarea {
+  width: 100%;
+}
+.comment div {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
