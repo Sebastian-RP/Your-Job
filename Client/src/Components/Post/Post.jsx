@@ -64,6 +64,7 @@ export default function Post({ data }) {
           )}
         </div>
         <div className={style.container}>
+
           <h4 className={style.title}>
             {preview && title.length <= 0 ? "Title is empty" : title}
           </h4>
@@ -76,10 +77,14 @@ export default function Post({ data }) {
           >
             Know more
           </button>
+
           <ul className={style.menu__interaction}>
             <li>
               <i className={"fa-regular fa-message " + style.commentIcon}></i>{" "}
               {CommentForumPosts.length}
+            </li>
+            <li>
+              <button className={`${style.button} ${style.know}`} onClick={() => setShowComment(true)}>Know more</button>
             </li>
           </ul>
         </div>

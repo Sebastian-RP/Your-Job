@@ -5,6 +5,12 @@
     margin-top: 50px;
     padding: 10px;
 }
+.containerCommentCard .container {
+    height: 70%;
+    margin-bottom:10px;
+    padding: 5px;
+    overflow-y:scroll;
+}
 .cardComment {
     width: 100%;
     padding: 10px;
@@ -12,7 +18,19 @@
     padding: 10px;
     margin-bottom: 10px;
     box-shadow: inset 0 0 8px, 0 0 5px;
+    border-radius: 5px;
 }
 .cardComment img {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
+}
+.cardComment div:nth-child(1) {
+    text-align: center;
+    font-weight: 500;
+}
+
+.cardComment div:nth-child(1) p:hover {
+    cursor:pointer;
+    color: blue;
 }
