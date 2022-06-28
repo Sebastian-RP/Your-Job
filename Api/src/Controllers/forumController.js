@@ -19,7 +19,7 @@ const createPost = async (title, content, user = "Jose", picture) => {
 
 const createComment = async (id, content, user, picture) => {
   try {
-    const data = await CommentForumPosts.create({
+    await CommentForumPosts.create({
       content,
       user,
       picture,
