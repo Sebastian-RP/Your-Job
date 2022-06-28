@@ -64,19 +64,12 @@ export default function Post({ data }) {
           )}
         </div>
         <div className={style.container}>
-
           <h4 className={style.title}>
             {preview && title.length <= 0 ? "Title is empty" : title}
           </h4>
           <p className={style.description}>
             {preview && content.length <= 0 ? "Content is empty" : content}
           </p>
-          <button
-            className={`${style.button} ${style.know}`}
-            onClick={() => setShowComment(true)}
-          >
-            Know more
-          </button>
 
           <ul className={style.menu__interaction}>
             <li>
@@ -84,7 +77,12 @@ export default function Post({ data }) {
               {CommentForumPosts.length}
             </li>
             <li>
-              <button className={`${style.button} ${style.know}`} onClick={() => setShowComment(true)}>Know more</button>
+              <button
+                className={`${style.button} ${style.know}`}
+                onClick={() => setShowComment(true)}
+              >
+                Know more
+              </button>
             </li>
           </ul>
         </div>
