@@ -7,7 +7,6 @@
   align-items: center;
   flex-direction: column;
   z-index: 0;
-
 }
 .containerCard {
   margin-bottom: 0px;
@@ -20,6 +19,7 @@
   align-items: center;
   animation: normal 1s showRegister linear;
   position: absolute;
+  background-color: #ffffff;
 }
 
 @keyframes showRegister {
@@ -36,20 +36,26 @@
     transform: translate(0);
   }
 }
-
-.containeForm input {
+.containeForm{
+  display: flex;
+  flex-direction: column;
   width: 80%;
-  padding: 5px;
+  overflow-y: auto;
+}
+
+.containeForm input, textarea {
+  width: 70%;
+  padding: 2px;
+  margin-left: 5px;
 }
 
 .containerTechnologies {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
   height: 50px;
-  padding: 10px;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 .containerTechnologies ul {
   max-height: 100px;
@@ -66,10 +72,25 @@
   background-color: rgba(247, 75, 75, 0.411);
   cursor: pointer;
 }
-.containerCheck {
-  width: 100%;
+
+.containerCheck{
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px;
+}
+.employ{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+.employ input{
+  width: 15px;
+}
+
+.employ input:last-child{
+  width: 222px;
+  margin-bottom: 15px;
 }
 
 .danger {
@@ -80,3 +101,5 @@
   display: flex;
   border-radius: 0px;
 }
+
+  

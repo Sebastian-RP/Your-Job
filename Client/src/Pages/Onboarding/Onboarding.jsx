@@ -4,6 +4,7 @@ import { useState } from "react";
 import RegisterUser from "../../Components/register/RegisterUser";
 import RegisterCompany from "../../Components/register/RegisterCompany";
 import { useLocation } from "react-router-dom";
+import { FaUsers, FaUserAlt } from "react-icons/fa";
 
 export default function Onboarding() {
   const [user, setUser] = useState(false);
@@ -27,18 +28,24 @@ export default function Onboarding() {
   return (
     <div className={style.container}>
       <Card className="text-center">
-        <Card.Header>Hello new User!</Card.Header>
+        <h1>Hello new User!</h1>
         <Card.Body>
-          <Card.Title>Please choose your use preference</Card.Title>
-          <Card.Text>You can choose between these two options</Card.Text>
-          <button className={style.Button} onClick={handlerUserTrue}>
-            User
-          </button>
-          <br />
-          <br />
-          <button className={style.Button} onClick={handlerCompanyTrue}>
-            Company
-          </button>
+          <h3>Please choose your use preference</h3>
+          <p>You can choose between these two options</p>
+          <div className={style.buttons}>
+            <div>
+              <button className={style.Button} onClick={handlerUserTrue}>
+                <FaUserAlt />
+              </button>
+              <p><strong>User</strong></p>
+            </div>
+            <div>
+              <button className={style.Button} onClick={handlerCompanyTrue}>
+                <FaUsers />
+              </button>
+              <p><strong>Company</strong></p>
+            </div>
+          </div>
         </Card.Body>
         <Card.Footer className="text-muted"></Card.Footer>
       </Card>

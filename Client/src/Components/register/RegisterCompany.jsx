@@ -280,129 +280,136 @@ export default function RegisterCompany({ props }) {
     <div className={style.containerRegisterUser}>
       <div className={style.containerCard}>
         <h2>Company Info</h2>
-
-        <Card className="text-center" style={{ width: "80%", padding: "20px" }}>
           <form
             className={style.containeForm}
             onSubmit={(e) => handleSubmit(e)}
           >
-            <label htmlFor="name">Company Name:</label>
-            <br />
-            <input
-              name="name"
-              onChange={(e) => handleChange(e)}
-              placeholder="Company Name"
-              autoComplete="off"
-              required
-            />
-            <br />
-            <label htmlFor="prop_name">Propietary Name:</label>
-            <br />
-            <input
-              name="prop_name"
-              onChange={(e) => handleChange(e)}
-              placeholder="Propietary Name"
-              autoComplete="off"
-              required
-            />
-            <br />
-            <label htmlFor="email">Email:</label>
-            <br />
-            <input
-              name="email"
-              onChange={(e) => handleChange(e)}
-              value={user?.email}
-              autoComplete="off"
-              disabled
-            />
-            <br />
-            <span className={style.danger}>{errors.email}</span>
-            <label>Phone number:</label>
-            <br />
-            <input
-              type={"number"}
-              name="phone"
-              onChange={(e) => handleChange(e)}
-              placeholder="Phone Number"
-              autoComplete="off"
-              required
-            />
-            <br />
-            <label>Country of Origin: {country}</label>
             <div>
-              <DropdownButton
-                id="dropdown-basic-button"
-                title="Select Country"
-                style={{ height: "10px" }}
-              >
-                <div style={{ height: "150px", overflowY: "scroll" }}>
-                  {countries.map((country, index) => {
-                    return (
-                      <Dropdown.Item
-                        onClick={() => {
-                          addCountry(country);
-                        }}
-                        key={index}
-                      >
-                        {country}
-                      </Dropdown.Item>
-                    );
-                  })}
-                </div>
-              </DropdownButton>
+              <label htmlFor="name">Company Name:</label>
+              <input
+                name="name"
+                onChange={(e) => handleChange(e)}
+                placeholder="Company Name"
+                autoComplete="off"
+                required
+              />
             </div>
             <br />
+            <div>
+              <label htmlFor="prop_name">Propietary Name:</label>
+              <input
+                name="prop_name"
+                onChange={(e) => handleChange(e)}
+                placeholder="Propietary Name"
+                autoComplete="off"
+                required
+              />
+            </div>
             <br />
-            <label> Address:</label>
+            <div>
+              <label htmlFor="email">Email:</label>
+              <input
+                name="email"
+                onChange={(e) => handleChange(e)}
+                value={user?.email}
+                autoComplete="off"
+                disabled
+              />
+              <span className={style.danger}>{errors.email}</span>
+            </div>
             <br />
-
-            <input
-              type="text"
-              name="address"
-              placeholder="City, Street"
-              onChange={(e) => handleChange(e)}
-            />
-            <label>Linkedin Profile or similar:</label>
-            <input
-              name="linkedin"
-              onChange={(e) => handleChange(e)}
-              placeholder="Linkedin Profile"
-              autoComplete="off"
-              required
-            />
+            <div>
+              <label>Phone number:</label>
+              <input
+                type={"number"}
+                name="phone"
+                onChange={(e) => handleChange(e)}
+                placeholder="Phone Number"
+                autoComplete="off"
+                required
+              />
+            </div>
             <br />
-            <span className={style.danger}>{errors.linkedin}</span>
-            <label> Description </label>
+            <div className={style.containerTechnologies}>
+              <label>Country of Origin: {country}</label>
+              <div style={{marginLeft: "10px"}}>
+                <DropdownButton
+                  id="dropdown-basic-button"
+                  title="Select Country"
+                  style={{ height: "10px" }}
+                >
+                  <div style={{ height: "150px", overflowY: "scroll" }}>
+                    {countries.map((country, index) => {
+                      return (
+                        <Dropdown.Item
+                          onClick={() => {
+                            addCountry(country);
+                          }}
+                          key={index}
+                        >
+                          {country}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </div>
+                </DropdownButton>
+              </div>
+            </div>
             <br />
-            <textarea
-              name="desc"
-              onChange={(e) => handleChange(e)}
-              placeholder="Description"
-              cols="40"
-              autoComplete="off"
-            />
+            <div>
+              <label> Address:</label>
+              <input
+                type="text"
+                name="address"
+                placeholder="City, Street"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
             <br />
-            <label>Upload a Profile Picture</label>
+            <div>
+              <label>Linkedin Profile or similar:</label>
+              <input
+                name="linkedin"
+                onChange={(e) => handleChange(e)}
+                placeholder="Linkedin Profile"
+                autoComplete="off"
+                required
+              />
+              <br />
+              <span className={style.danger}>{errors.linkedin}</span>
+            </div>
+            <div>
+              <label> Description </label>
+              <br />
+              <textarea
+                name="desc"
+                onChange={(e) => handleChange(e)}
+                placeholder="Description"
+                cols="40"
+                autoComplete="off"
+              />
+            </div>
             <br />
-            <Widget
-              publicKey="de7dc23d760e287d1cb0"
-              clearable
-              imagesOnly
-              crop=""
-              onChange={(file) => {
-                setUuidImage(file.uuid);
-              }}
-            />
-            <br />
+            <div>
+              <label>Upload a Profile Picture</label>
+              <br />
+              <Widget
+                publicKey="de7dc23d760e287d1cb0"
+                clearable
+                imagesOnly
+                crop=""
+                onChange={(file) => {
+                  setUuidImage(file.uuid);
+                }}
+              />
+            </div>
+        
             <br />
             {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
             <Button variant="primary" size="small" type="submit">
               Submit
             </Button>
           </form>
-          <br />
-          <div></div>
-        </Card>
       </div>
     </div>
   );
