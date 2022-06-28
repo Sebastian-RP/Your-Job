@@ -20,11 +20,13 @@ import {
   getAllReports,
   getAllForumPost,
   deleteReport,
+  deleteForumPost,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Post from "../../Components/Post/Post";
+import emailjs from "@emailjs/browser";
 
 // const Modality = ["remoto", "presencial"];
 // const Experience = ["trainig", "junior", "semi-senior", "senior"];
@@ -51,7 +53,13 @@ export default function HomeAdmin() {
   const [showInfo, setShowInfo] = useState({});
   const [adminView, setAdminView] = useState("user");
   const [reportView, setReportView] = useState("users");
+  const [postView, setPostView] = useState("user");
   const logged = useSelector((state) => state.myUser);
+  const [toSend, setToSend] = useState({
+    from_name: "",
+    reply_to: "",
+    message: "",
+  });
 
   const postulatesUser = selector.postulatesUser;
 
@@ -68,7 +76,7 @@ export default function HomeAdmin() {
 
   useEffect(() => {
     dispatch(getAllReports());
-  }, [reportView]);
+  }, [reportView, adminView]);
 
   useEffect(() => {
     // console.log(selector);
@@ -111,6 +119,7 @@ export default function HomeAdmin() {
 
   const banQuestion = (user, report = false) => {
     setToBan(user);
+    console.log(user);
     setReportId(report);
   };
 
@@ -172,14 +181,53 @@ export default function HomeAdmin() {
     }, 1000);
   };
 
+  const sendEmail = () => {
+    emailjs
+      .send("service_db1lpkd", "template_upt9d5c", toSend, "F-jlerFc9kQmnHiSA")
+      .then((response) => {
+        console.log("SUCCESS!", response.status, response.text);
+      })
+      .catch((err) => {
+        console.log("FAILED...", err);
+      });
+  };
+
   const ban = (veredict) => {
     if (veredict) {
       dispatch(deleteReport(reportId));
       if (toBan.modality) {
-        dispatch(deletePost(toBan.id));
+        dispatch(deletePost(toBan.id)).then((data) => {
+          setToSend({
+            from_name: toBan.company.name,
+            reply_to: toBan.company.email,
+            message:
+              "Dear Company, your post has been deleted for violating our Terms of Service.",
+          });
+          sendEmail();
+        });
         swal({
           title: "Post deleted",
-          text: `${toBan.titlePost} has been deleted successfully`,
+          text: `${toBan.company.name}'s post has been deleted successfully`,
+          icon: "success",
+        });
+        return setTimeout(() => {
+          setToBan(false);
+          setReportId(false);
+        }, 1000);
+      }
+      if (toBan.CommentForumPosts) {
+        dispatch(deleteForumPost(toBan.id)).then((data) => {
+          setToSend({
+            from_name: toBan.company.name,
+            reply_to: toBan.company.email,
+            message:
+              "Dear User, your post has been deleted for violating our Terms of Service.",
+          });
+          sendEmail();
+        });
+        swal({
+          title: "Post deleted",
+          text: `${toBan.user}'s post has been deleted successfully`,
           icon: "success",
         });
         return setTimeout(() => {
@@ -202,9 +250,25 @@ export default function HomeAdmin() {
         }, 1000);
       }
       if (toBan.Account && toBan.Account === "User")
-        dispatch(deleteUser(toBan.id));
+        dispatch(deleteUser(toBan.id)).then((data) => {
+          setToSend({
+            from_name: toBan.name,
+            reply_to: toBan.email,
+            message:
+              "Dear User, your account has been banned for violating our Terms of Service.",
+          });
+          sendEmail();
+        });
       if (toBan.Account && toBan.Account === "Company")
-        dispatch(deleteCompany(toBan.id));
+        dispatch(deleteCompany(toBan.id)).then((data) => {
+          setToSend({
+            from_name: toBan.name,
+            reply_to: toBan.email,
+            message:
+              "Dear Company, your account has been banned for violating our Terms of Service.",
+          });
+          sendEmail();
+        });
       if (
         toBan.Account &&
         (toBan.Account === "Admin" || toBan.Account === "SuperAdmin")
@@ -219,11 +283,14 @@ export default function HomeAdmin() {
         text: `${toBan.name} has been deleted successfully`,
         icon: "success",
       });
-    }
-    setTimeout(() => {
+      setTimeout(() => {
+        setToBan(false);
+        setReportId(false);
+      }, 1000);
+    } else {
       setToBan(false);
       setReportId(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -235,8 +302,14 @@ export default function HomeAdmin() {
             {toBan && (
               <div className={style.confirmBan}>
                 <div>
-                  Are you sure you want to ban{" "}
-                  {toBan.name || toBan.company.name + "'s Post"}?
+                  {toBan.Account &&
+                  (toBan.Account === "User" || toBan.Account === "Company")
+                    ? `Are you sure you want to ban ${toBan.name}?`
+                    : toBan.modality || toBan.CommentForumPosts
+                    ? `Are you sure you want to delete ${
+                        toBan.modality ? toBan.company.name : toBan.user
+                      }'s post?`
+                    : `Are you sure you want to delete ${toBan.name}?`}
                 </div>
                 <div className={style.confirmButtons}>
                   <Button onClick={() => ban(false)}>No</Button>{" "}
@@ -270,7 +343,7 @@ export default function HomeAdmin() {
                 </div>
                 <ButtonGroup vertical>
                   <Button
-                    variant="light"
+                    variant={adminView === "user" ? "dark" : "light"}
                     onClick={() => {
                       setAdminView("user");
                     }}
@@ -278,7 +351,7 @@ export default function HomeAdmin() {
                     Users
                   </Button>
                   <Button
-                    variant="light"
+                    variant={adminView === "company" ? "dark" : "light"}
                     onClick={() => {
                       setAdminView("company");
                     }}
@@ -286,7 +359,7 @@ export default function HomeAdmin() {
                     Companies
                   </Button>
                   <Button
-                    variant="light"
+                    variant={adminView === "posts" ? "dark" : "light"}
                     onClick={() => {
                       setAdminView("posts");
                     }}
@@ -294,7 +367,7 @@ export default function HomeAdmin() {
                     Posts
                   </Button>
                   <Button
-                    variant="light"
+                    variant={adminView === "technology" ? "dark" : "light"}
                     onClick={() => {
                       setAdminView("technology");
                     }}
@@ -302,7 +375,7 @@ export default function HomeAdmin() {
                     Technologies
                   </Button>
                   <Button
-                    variant="light"
+                    variant={adminView === "reports" ? "dark" : "light"}
                     onClick={() => {
                       setAdminView("reports");
                     }}
@@ -311,7 +384,7 @@ export default function HomeAdmin() {
                   </Button>
                   {logged.Account === "SuperAdmin" && (
                     <Button
-                      variant="light"
+                      variant={adminView === "admin" ? "dark" : "light"}
                       onClick={() => {
                         setAdminView("admin");
                       }}
@@ -407,7 +480,7 @@ export default function HomeAdmin() {
                                 <div className={style.userOptions}>
                                   <Button
                                     onClick={() =>
-                                      navigate(`/users/${company.name}`)
+                                      navigate(`/company/${company.name}`)
                                     }
                                   >
                                     Profile
@@ -436,63 +509,108 @@ export default function HomeAdmin() {
                 )}
                 {adminView === "posts" && (
                   <div className={style.columnPost}>
-                    {posts.length ? (
-                      posts.map((data, index) => {
-                        return (
-                          <div className={style.cardPost} key={index}>
-                            <Card>
-                              <Card.Header as="h5">
-                                <label>Job Offer</label> -{" "}
-                                <label
-                                  className={style.companyName}
-                                  onClick={() => {
-                                    navigate(`/users/${data.company?.name}`);
-                                  }}
-                                >
-                                  {" "}
-                                  {data.company?.name}{" "}
-                                </label>
-                              </Card.Header>
-                              <Card.Body>
-                                <Card.Title>{data.TitlePost}</Card.Title>
-                                <Card.Text style={{ textAlign: "start" }}>
-                                  {data.descripcion}
-                                  <br />
-                                  <strong>Experience:</strong> {data.experience}
-                                  <br />
-                                  <strong>Min-Salary:</strong> {data.min_salary}
-                                  <br />
-                                  <strong>Max-Salary:</strong> {data.max_salary}
-                                  <br />
-                                  <strong>Modality:</strong> {data.modality}
-                                  <br />
-                                  <strong>Technologies:</strong>
-                                  <>
-                                    {data.technologiesId.map((data, i) => {
-                                      let tech = allTechnologies.find(
-                                        // eslint-disable-next-line
-                                        (t) => t.id == data
-                                      );
-                                      return <li key={i}>{tech?.name}</li>;
-                                    })}
-                                  </>
-                                </Card.Text>
+                    <ButtonGroup>
+                      <Button
+                        onClick={() => {
+                          setPostView("company");
+                        }}
+                      >
+                        Company Posts
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setPostView("user");
+                        }}
+                      >
+                        User Posts
+                      </Button>
+                    </ButtonGroup>
+                    {postView === "company" &&
+                      (posts.length ? (
+                        posts.map((data, index) => {
+                          return (
+                            <div className={style.cardPost} key={index}>
+                              <Card>
+                                <Card.Header as="h5">
+                                  <label>Job Offer</label> -{" "}
+                                  <label
+                                    className={style.companyName}
+                                    onClick={() => {
+                                      navigate(`/users/${data.company?.name}`);
+                                    }}
+                                  >
+                                    {" "}
+                                    {data.company?.name}{" "}
+                                  </label>
+                                </Card.Header>
+                                <Card.Body>
+                                  <Card.Title>{data.TitlePost}</Card.Title>
+                                  <Card.Text style={{ textAlign: "start" }}>
+                                    {data.descripcion}
+                                    <br />
+                                    <strong>Experience:</strong>{" "}
+                                    {data.experience}
+                                    <br />
+                                    <strong>Min-Salary:</strong>{" "}
+                                    {data.min_salary}
+                                    <br />
+                                    <strong>Max-Salary:</strong>{" "}
+                                    {data.max_salary}
+                                    <br />
+                                    <strong>Modality:</strong> {data.modality}
+                                    <br />
+                                    <strong>Technologies:</strong>
+                                    <>
+                                      {data.technologiesId.map((data, i) => {
+                                        let tech = allTechnologies.find(
+                                          // eslint-disable-next-line
+                                          (t) => t.id == data
+                                        );
+                                        return <li key={i}>{tech?.name}</li>;
+                                      })}
+                                    </>
+                                  </Card.Text>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                      banQuestion(data);
+                                    }}
+                                  >
+                                    Delete Post
+                                  </Button>
+                                </Card.Body>
+                              </Card>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <h2>No posts available</h2>
+                      ))}
+                    {postView === "user" &&
+                      (forumPosts.length ? (
+                        forumPosts.map((post, index) => {
+                          return (
+                            <>
+                              <Post
+                                key={post?.user + "_" + index}
+                                data={post}
+                              />
+                              <ButtonGroup>
                                 <Button
                                   variant="danger"
                                   onClick={() => {
-                                    banQuestion(data);
+                                    banQuestion(post);
                                   }}
                                 >
-                                  Delete Post
+                                  DeletePost
                                 </Button>
-                              </Card.Body>
-                            </Card>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <h2>No posts available</h2>
-                    )}
+                              </ButtonGroup>
+                            </>
+                          );
+                        })
+                      ) : (
+                        <h2>No posts available</h2>
+                      ))}
                   </div>
                 )}
                 {adminView === "technology" && (
@@ -671,7 +789,7 @@ export default function HomeAdmin() {
                             (post) => post.id == report.contentId
                           );
                           if (!post) {
-                            dispatch(deleteReport(report.id));
+                            // dispatch(deleteReport(report.id));
                             return <div> Error </div>;
                           } else if (post) {
                             return (
@@ -682,7 +800,14 @@ export default function HomeAdmin() {
                                   data={post}
                                 />
                                 <ButtonGroup>
-                                  <Button variant="danger">DeletePost</Button>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                      banQuestion(post, report.id);
+                                    }}
+                                  >
+                                    DeletePost
+                                  </Button>
                                 </ButtonGroup>
                                 Reasons:
                                 <ul>
