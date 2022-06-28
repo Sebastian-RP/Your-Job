@@ -26,10 +26,13 @@ let sequelize =
         },
         ssl: true,
       })
-    : new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {
-        logging: false,
-        native: false,
-      });
+    : new Sequelize(
+        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+        {
+          logging: false,
+          native: false,
+        }
+      );
 
 const basename = path.basename(__filename);
 
@@ -37,7 +40,10 @@ const modelDefiners = [];
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
 fs.readdirSync(path.join(__dirname, "/models"))
-  .filter((file) => file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js")
+  .filter(
+    (file) =>
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+  )
   .forEach((file) => {
     modelDefiners.push(require(path.join(__dirname, "/models", file)));
   });
@@ -46,10 +52,24 @@ fs.readdirSync(path.join(__dirname, "/models"))
 modelDefiners.forEach((model) => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
 let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
+let capsEntries = entries.map((entry) => [
+  entry[0][0].toUpperCase() + entry[0].slice(1),
+  entry[1],
+]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { User, Company, CompanyPost, Technology, Conversation, Postulates, UserPost, ForumPosts, CommentForumPosts } = sequelize.models; // acá van los modelos, con la primera letra en mayúscula
+const {
+  User,
+  Company,
+  CompanyPost,
+  Technology,
+  Conversation,
+  Postulates,
+  UserPost,
+  ForumPosts,
+  CommentForumPosts,
+  Report,
+} = sequelize.models; // acá van los modelos, con la primera letra en mayúscula
 
 //acá van las conexiones entre los modelos
 

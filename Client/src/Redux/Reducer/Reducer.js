@@ -22,7 +22,9 @@ import {
   LOG_IN,
   USER_POSTULATES,
   SET_EMAIL_DATA,
-  GET_ALL_FORUM_POST
+  GET_ALL_FORUM_POST,
+  GET_ALL_REPORTS,
+  DELETE_REPORT,
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -43,7 +45,8 @@ const initialState = {
   myCompany: [],
   activePlans: [],
   emailData: [],
-  allForumPost: []
+  allForumPost: [],
+  reports: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -132,7 +135,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         myUser: action.payload.loggedUser,
         myCompany: action.payload.loggedCompany,
-        
       };
 
     case LOG_OUT:
@@ -161,21 +163,31 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         activePlans: action.payload,
       };
-    case USER_POSTULATES: 
+    case USER_POSTULATES:
       return {
         ...state,
-        userPostulates : action.payload
-      }
-    case SET_EMAIL_DATA: 
+        userPostulates: action.payload,
+      };
+    case SET_EMAIL_DATA:
       return {
         ...state,
-        emailData : action.payload
-      }
+        emailData: action.payload,
+      };
     case GET_ALL_FORUM_POST:
       return {
         ...state,
-        allForumPost: action.payload
-      }
+        allForumPost: action.payload,
+      };
+    case GET_ALL_REPORTS:
+      return {
+        ...state,
+        reports: action.payload,
+      };
+    case DELETE_REPORT:
+      return {
+        ...state,
+        reports: action.payload,
+      };
     default:
       return { ...state };
   }
