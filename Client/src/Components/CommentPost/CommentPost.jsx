@@ -1,10 +1,14 @@
 import Comment from './comment.jsx';
+import { useNavigate} from 'react-router-dom';
 import style from './CommentPost.module.css';
 
 export default function CommentPost ({props}) {
-    
+    const navigate = useNavigate();
     return (
         <div className={style.containerCommentCard}>
+            <h2>Comments</h2>
+            <div className={style.container}>
+
             {
               props.CommentForumPosts.length? props.CommentForumPosts.map((comment, index) => {
                     return (
@@ -12,7 +16,8 @@ export default function CommentPost ({props}) {
                             <div style={{borderRight:'solid 1px gray', paddingRight:'10px'}}>
 
                             <img src={comment.picture} alt="image comment" />
-                            <p>{comment.user}</p>
+                            <p onClick={() => navigate(`/users/${comment.user}`)}>{comment.user}</p>
+                            
                             </div>
                             <div>
 
@@ -21,8 +26,9 @@ export default function CommentPost ({props}) {
                             </div>
                         </div>
                     )
-                }): <h2>Not Comment found</h2>
+                }): <strong>Not Comment found</strong>
             }
+            </div>
             <Comment data={props.id}/>
         </div>
 
