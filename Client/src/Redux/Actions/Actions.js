@@ -32,6 +32,7 @@ export const ADD_TECHNOLOGY = "ADD_TECHNOLOGY";
 export const USER_POSTULATES = "USER_POSTULATES";
 export const SET_EMAIL_DATA = "SET_EMAIL_DATA";
 export const HIRE = "HIRE";
+export const GET_ALL_FORUM_POST = "ET_ALL_FORUM_POST";
 export const FIRE = "FIRE";
 
 export async function getAllEmployeesCompany(id) {
@@ -547,5 +548,20 @@ export function setEmailData(user) {
       type: SET_EMAIL_DATA,
       payload: user,
     });
-  };
+  }
+} 
+
+export function createForumPost(value){ 
+  return async function (dispatch) {
+    return await axios.post('/forum/post', {
+      value
+    })
+  }
+}
+
+export function getAllForumPost() {
+  return async function (dispatch) {
+    const dataPost = await axios.get('/forum/posts');
+    return dispatch({type: GET_ALL_FORUM_POST, payload: dataPost.data})
+  }
 }
