@@ -216,6 +216,14 @@ export default function HomeUser() {
     console.log(showReport);
     dispatch(report(showReport, "companyPost", reportInput));
     setShowReport(false);
+    setReportInput({
+      Illegal_Content: false,
+      Toxic_Content: false,
+      Fake_Company: false,
+      Fake_User: false,
+      User_Minor: false,
+      Other: false,
+    });
   };
 
   return (

@@ -642,6 +642,18 @@ export default function HomeAdmin() {
                                       >
                                         Ban
                                       </Button>
+                                      Reasons:
+                                      <ul>
+                                        {Object.keys(report.reasons).map(
+                                          (reason, index) => {
+                                            // console.log(report.reasons[reason]);
+                                            // console.log(reason);
+                                            if (report.reasons[reason]) {
+                                              return <li>{reason}</li>;
+                                            }
+                                          }
+                                        )}
+                                      </ul>
                                     </div>
                                   </Card.Body>
                                 </Card>
@@ -665,15 +677,25 @@ export default function HomeAdmin() {
                             return (
                               <>
                                 <div>Report Count {report.reportCount}</div>
-
                                 <Post
                                   key={post?.user + "_" + index}
                                   data={post}
                                 />
-
                                 <ButtonGroup>
                                   <Button variant="danger">DeletePost</Button>
                                 </ButtonGroup>
+                                Reasons:
+                                <ul>
+                                  {Object.keys(report.reasons).map(
+                                    (reason, index) => {
+                                      // console.log(report.reasons[reason]);
+                                      // console.log(reason);
+                                      if (report.reasons[reason]) {
+                                        return <li>{reason}</li>;
+                                      }
+                                    }
+                                  )}
+                                </ul>
                               </>
                             );
                           } else {
@@ -736,6 +758,18 @@ export default function HomeAdmin() {
                                         Ban
                                       </Button>
                                     </div>
+                                    Reasons:
+                                    <ul>
+                                      {Object.keys(report.reasons).map(
+                                        (reason, index) => {
+                                          // console.log(report.reasons[reason]);
+                                          // console.log(reason);
+                                          if (report.reasons[reason]) {
+                                            return <li>{reason}</li>;
+                                          }
+                                        }
+                                      )}
+                                    </ul>
                                   </Card.Body>
                                 </Card>
                               </div>
@@ -813,6 +847,19 @@ export default function HomeAdmin() {
                                     >
                                       Delete Post
                                     </Button>
+                                    <br />
+                                    Reasons:
+                                    <ul>
+                                      {Object.keys(report.reasons).map(
+                                        (reason, index) => {
+                                          // console.log(report.reasons[reason]);
+                                          // console.log(reason);
+                                          if (report.reasons[reason]) {
+                                            return <li>{reason}</li>;
+                                          }
+                                        }
+                                      )}
+                                    </ul>
                                   </Card.Body>
                                 </Card>
                               </div>
