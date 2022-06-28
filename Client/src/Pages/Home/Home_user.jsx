@@ -411,14 +411,16 @@ export default function HomeUser() {
                                     )}
                                   </label>
                                 </div>
-                                <Button
-                                  variant="danger"
-                                  onClick={() => {
-                                    setShowReport(data.id);
-                                  }}
-                                >
-                                  Report
-                                </Button>
+                                {!logged.hasOwnProperty("error") && (
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                      setShowReport(data.id);
+                                    }}
+                                  >
+                                    Report
+                                  </Button>
+                                )}
                               </div>
                             </Card.Header>
                             <Card.Body>
