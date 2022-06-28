@@ -378,6 +378,7 @@ export default function HomeUser() {
                   <div className={style.columInfo}></div>
                 </div>
                 <div className={style.columnPost}>
+                  <h1> Job Offers</h1>
                   {posts.length ? (
                     posts.map((data, index) => {
                       return (
@@ -393,7 +394,6 @@ export default function HomeUser() {
                             <Card.Header as="h5">
                               <div className={style.reportContainer}>
                                 <div>
-                                  <label>Job Offer</label> -{" "}
                                   <label
                                     className={style.companyName}
                                     onClick={() => {
@@ -424,7 +424,7 @@ export default function HomeUser() {
                               </div>
                             </Card.Header>
                             <Card.Body>
-                              <Card.Title>{data.TitlePost}</Card.Title>
+                              <Card.Title>{data.titlePost}</Card.Title>
                               <Card.Text style={{ textAlign: "start" }}>
                                 {data.descripcion}
                                 <br />
