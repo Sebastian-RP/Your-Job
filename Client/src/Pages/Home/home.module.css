@@ -3,8 +3,13 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: rgb(187,205,229);
-  background: linear-gradient(90deg, rgba(187,205,229,1) 0%, rgba(255,255,255,1) 50%, rgba(187,205,229,1) 100%);
+  background: rgb(187, 205, 229);
+  background: linear-gradient(
+    90deg,
+    rgba(187, 205, 229, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(187, 205, 229, 1) 100%
+  );
 }
 .containerActions {
   width: 100%;
@@ -105,6 +110,10 @@
   justify-content: space-around;
   flex-direction: column;
 }
+.reportContainer {
+  display: flex;
+  justify-content: space-between;
+}
 
 .confirmBan {
   position: absolute;
@@ -112,7 +121,7 @@
   z-index: 2;
   top: 50%;
   left: 50%;
-  height: 10rem;
+  height: 15rem;
   transform: translate(-50%, -50%);
   background-color: #1c5d99;
   color: white;

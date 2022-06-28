@@ -34,6 +34,9 @@ export const SET_EMAIL_DATA = "SET_EMAIL_DATA";
 export const HIRE = "HIRE";
 export const GET_ALL_FORUM_POST = "ET_ALL_FORUM_POST";
 export const FIRE = "FIRE";
+export const REPORT = "REPORT";
+export const GET_ALL_REPORTS = "GET_ALL_REPORTS";
+export const DELETE_REPORT = "DELETE_REPORT";
 
 export async function getAllEmployeesCompany(id) {
   return async function (dispatch) {
@@ -517,6 +520,49 @@ export function fire(employeeId, companyId) {
   };
 }
 
+export function report(id, contentType, reasons) {
+  return async function (dispatch) {
+    try {
+      const sentReport = axios.post("/report", {
+        contentId: id.toString(),
+        contentType: contentType,
+        reasons: reasons,
+      });
+      return sentReport;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
+export function getAllReports() {
+  return async function (dispatch) {
+    try {
+      const reports = await axios.get("/report");
+      return dispatch({
+        type: GET_ALL_REPORTS,
+        payload: reports.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
+export function deleteReport(id) {
+  return async function (dispatch) {
+    try {
+      const delReport = await axios.delete(`/report/${id}`);
+      return dispatch({
+        type: DELETE_REPORT,
+        payload: delReport.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
 // export function deleteForumPost(id){
 //   return async function (dispatch){
 //     try {
@@ -548,14 +594,14 @@ export function setEmailData(user) {
       type: SET_EMAIL_DATA,
       payload: user,
     });
-  }
-} 
+  };
+}
 
 export function getAllForumPost() {
   return async function (dispatch) {
-    const dataPost = await axios.get('/forum/posts');
-    return dispatch({type: GET_ALL_FORUM_POST, payload: dataPost.data})
-  }
+    const dataPost = await axios.get("/forum/posts");
+    return dispatch({ type: GET_ALL_FORUM_POST, payload: dataPost.data });
+  };
 }
 
 export function createCommentPost(value) {

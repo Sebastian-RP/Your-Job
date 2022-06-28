@@ -17,10 +17,14 @@ import {
   deleteTech,
   addTechnology,
   updateUser,
+  getAllReports,
+  getAllForumPost,
+  deleteReport,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Post from "../../Components/Post/Post";
 
 // const Modality = ["remoto", "presencial"];
 // const Experience = ["trainig", "junior", "semi-senior", "senior"];
@@ -38,11 +42,15 @@ export default function HomeAdmin() {
   const companies = [...selector.companies];
   const users = [...selector.users];
   const posts = [...selector.posts];
+  const forumPosts = [...selector.allForumPost];
+  const reports = useSelector((state) => state.reports);
   const [toBan, setToBan] = useState(false);
+  const [reportId, setReportId] = useState(false);
   const [showTechForm, setShowTechForm] = useState(false);
   const [techName, setTechName] = useState("");
   const [showInfo, setShowInfo] = useState({});
   const [adminView, setAdminView] = useState("user");
+  const [reportView, setReportView] = useState("users");
   const logged = useSelector((state) => state.myUser);
 
   const postulatesUser = selector.postulatesUser;
@@ -51,19 +59,23 @@ export default function HomeAdmin() {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
     dispatch(getAllTechnologies());
+    dispatch(getAllForumPost());
+    dispatch(getAllReports());
     getAllUsers().then((data) => dispatch(data));
     dispatch(getUserByEmail(user?.email));
     // eslint-disable-next-line
   }, [dispatch, toBan]);
 
   useEffect(() => {
+    dispatch(getAllReports());
+  }, [reportView]);
+
+  useEffect(() => {
     // console.log(selector);
     // console.log(user?.email);
     // console.log(logged);
     dispatch(getUserByEmail(user?.email));
-    getAllProducts("usuario").then((res) => {
-      dispatch(res);
-    });
+
     // eslint-disable-next-line
   }, [user]);
 
@@ -97,8 +109,9 @@ export default function HomeAdmin() {
     }
   };
 
-  const banQuestion = (user) => {
+  const banQuestion = (user, report = false) => {
     setToBan(user);
+    setReportId(report);
   };
 
   const setAdmin = (user) => {
@@ -161,6 +174,7 @@ export default function HomeAdmin() {
 
   const ban = (veredict) => {
     if (veredict) {
+      dispatch(deleteReport(reportId));
       if (toBan.modality) {
         dispatch(deletePost(toBan.id));
         swal({
@@ -170,6 +184,7 @@ export default function HomeAdmin() {
         });
         return setTimeout(() => {
           setToBan(false);
+          setReportId(false);
         }, 1000);
       }
       if (toBan.property && toBan.property === "Technology") {
@@ -183,6 +198,7 @@ export default function HomeAdmin() {
 
         return setTimeout(() => {
           setToBan(false);
+          setReportId(false);
         }, 1000);
       }
       if (toBan.Account && toBan.Account === "User")
@@ -206,6 +222,7 @@ export default function HomeAdmin() {
     }
     setTimeout(() => {
       setToBan(false);
+      setReportId(false);
     }, 1000);
   };
 
@@ -283,6 +300,14 @@ export default function HomeAdmin() {
                     }}
                   >
                     Technologies
+                  </Button>
+                  <Button
+                    variant="light"
+                    onClick={() => {
+                      setAdminView("reports");
+                    }}
+                  >
+                    Reports - {reports ? reports.flat().length : "?"}
                   </Button>
                   {logged.Account === "SuperAdmin" && (
                     <Button
@@ -554,6 +579,249 @@ export default function HomeAdmin() {
                     ) : (
                       <h2>No Users Available</h2>
                     )}
+                  </div>
+                )}
+                {adminView === "reports" && (
+                  <div className={style.columnPost}>
+                    <ButtonGroup>
+                      <Button onClick={() => setReportView("users")}>
+                        Users
+                      </Button>
+                      <Button onClick={() => setReportView("userposts")}>
+                        UserPosts
+                      </Button>
+                      <Button onClick={() => setReportView("companies")}>
+                        Companies
+                      </Button>
+                      <Button onClick={() => setReportView("companyposts")}>
+                        CompanyPosts
+                      </Button>
+                    </ButtonGroup>
+                    {reportView === "users" &&
+                      (reports[0]?.length > 0 ? (
+                        reports[0].map((report, index) => {
+                          let user = users.find(
+                            (user) => user.id == report.contentId
+                          );
+                          if (!user) {
+                            dispatch(deleteReport(report.id));
+                            return <div> Error </div>;
+                          } else {
+                            return (
+                              <div
+                                className={style.cardPost}
+                                key={index}
+                                onMouseOver={() => {
+                                  setShowInfo(user);
+                                }}
+                              >
+                                <Card>
+                                  <Card.Header as="h5">
+                                    {user?.name} - Report Count:{" "}
+                                    {report.reportCount}
+                                  </Card.Header>
+                                  <Card.Body>
+                                    <div className={style.userOptions}>
+                                      <Button
+                                        onClick={() =>
+                                          navigate(`/users/${user.name}`)
+                                        }
+                                      >
+                                        Profile
+                                      </Button>
+                                      <Button
+                                        onClick={() => sendMessage(user.name)}
+                                      >
+                                        Message
+                                      </Button>
+                                      <Button
+                                        variant="danger"
+                                        onClick={() =>
+                                          banQuestion(user, report.id)
+                                        }
+                                      >
+                                        Ban
+                                      </Button>
+                                    </div>
+                                  </Card.Body>
+                                </Card>
+                              </div>
+                            );
+                          }
+                        })
+                      ) : (
+                        <div>No Users Reported</div>
+                      ))}
+                    {reportView === "userposts" &&
+                      (reports[1]?.length > 0 ? (
+                        reports[1].map((report, index) => {
+                          let post = forumPosts.find(
+                            (post) => post.id == report.contentId
+                          );
+                          if (!post) {
+                            dispatch(deleteReport(report.id));
+                            return <div> Error </div>;
+                          } else if (post) {
+                            return (
+                              <>
+                                <div>Report Count {report.reportCount}</div>
+
+                                <Post
+                                  key={post?.user + "_" + index}
+                                  data={post}
+                                />
+
+                                <ButtonGroup>
+                                  <Button variant="danger">DeletePost</Button>
+                                </ButtonGroup>
+                              </>
+                            );
+                          } else {
+                            return (
+                              <div>
+                                {" "}
+                                Error getting post, please try again later{" "}
+                              </div>
+                            );
+                          }
+                        })
+                      ) : (
+                        <div>No Forum Post Reports</div>
+                      ))}
+                    {reportView === "companies" &&
+                      (reports[2]?.length > 0 ? (
+                        reports[2].map((report, index) => {
+                          let company = companies.find(
+                            (comp) => comp.id == report.contentId
+                          );
+                          if (!company) {
+                            dispatch(deleteReport(report.id));
+                            return <div> Error </div>;
+                          } else {
+                            return (
+                              <div
+                                className={style.cardPost}
+                                key={index}
+                                onMouseOver={() => {
+                                  setShowInfo(company);
+                                }}
+                              >
+                                <Card>
+                                  <Card.Header as="h5">
+                                    {company?.name} - Report Count:{" "}
+                                    {report.reportCount}
+                                  </Card.Header>
+                                  <Card.Body>
+                                    <div className={style.userOptions}>
+                                      <Button
+                                        onClick={() =>
+                                          navigate(`/users/${company?.name}`)
+                                        }
+                                      >
+                                        Profile
+                                      </Button>
+                                      <Button
+                                        onClick={() =>
+                                          sendMessage(company?.name)
+                                        }
+                                      >
+                                        Message
+                                      </Button>
+                                      <Button
+                                        variant="danger"
+                                        onClick={() =>
+                                          banQuestion(company, report.id)
+                                        }
+                                      >
+                                        Ban
+                                      </Button>
+                                    </div>
+                                  </Card.Body>
+                                </Card>
+                              </div>
+                            );
+                          }
+                        })
+                      ) : (
+                        <div>No Companies Reported</div>
+                      ))}
+                    {reportView === "companyposts" &&
+                      (reports[3]?.length > 0 ? (
+                        reports[3].map((report, index) => {
+                          let data = posts.find(
+                            (companyPosts) =>
+                              companyPosts.id == report.contentId
+                          );
+                          if (!data) {
+                            dispatch(deleteReport(report.id));
+                            return <div> Error </div>;
+                          } else {
+                            return (
+                              <div className={style.cardPost} key={index}>
+                                <Card>
+                                  <Card.Header as="h5">
+                                    <label>Job Offer</label> -{" "}
+                                    <label
+                                      className={style.companyName}
+                                      onClick={() => {
+                                        navigate(
+                                          `/users/${data.company?.name}`
+                                        );
+                                      }}
+                                    >
+                                      {" "}
+                                      {data.company?.name}
+                                    </label>
+                                    -
+                                    <label>
+                                      {" "}
+                                      Report Count: {report.reportCount}{" "}
+                                    </label>
+                                  </Card.Header>
+                                  <Card.Body>
+                                    <Card.Title>{data.TitlePost}</Card.Title>
+                                    <Card.Text style={{ textAlign: "start" }}>
+                                      {data.descripcion}
+                                      <br />
+                                      <strong>Experience:</strong>{" "}
+                                      {data.experience}
+                                      <br />
+                                      <strong>Min-Salary:</strong>{" "}
+                                      {data.min_salary}
+                                      <br />
+                                      <strong>Max-Salary:</strong>{" "}
+                                      {data.max_salary}
+                                      <br />
+                                      <strong>Modality:</strong> {data.modality}
+                                      <br />
+                                      <strong>Technologies:</strong>
+                                      <>
+                                        {data.technologiesId.map((data, i) => {
+                                          let tech = allTechnologies.find(
+                                            // eslint-disable-next-line
+                                            (t) => t.id == data
+                                          );
+                                          return <li key={i}>{tech?.name}</li>;
+                                        })}
+                                      </>
+                                    </Card.Text>
+                                    <Button
+                                      variant="danger"
+                                      onClick={() => {
+                                        banQuestion(data, report.id);
+                                      }}
+                                    >
+                                      Delete Post
+                                    </Button>
+                                  </Card.Body>
+                                </Card>
+                              </div>
+                            );
+                          }
+                        })
+                      ) : (
+                        <div>No Company Posts Reported</div>
+                      ))}
                   </div>
                 )}
               </div>
