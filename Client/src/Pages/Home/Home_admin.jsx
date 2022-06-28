@@ -261,6 +261,10 @@ export default function HomeAdmin() {
         });
       if (toBan.Account && toBan.Account === "Company")
         dispatch(deleteCompany(toBan.id)).then((data) => {
+          let toDelete = posts.filter((post) => post.company.id == toBan.id);
+          for (let post of toDelete) {
+            dispatch(deletePost(post.id));
+          }
           setToSend({
             from_name: toBan.name,
             reply_to: toBan.email,
