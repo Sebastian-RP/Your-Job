@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button, ButtonGroup } from "react-bootstrap";
 import swal from "sweetalert";
+import ReportForm from "../../Components/Report_Form/Report_Form";
 import {
   getAllCompanies,
   getAllPost,
@@ -38,14 +39,6 @@ export default function HomeUser() {
   const [postId, setPostId] = useState([]);
   const [showPage, setShowPage] = useState(false);
   const [showReport, setShowReport] = useState(false);
-  const [reportInput, setReportInput] = useState({
-    Illegal_Content: false,
-    Toxic_Content: false,
-    Fake_Company: false,
-    Fake_User: false,
-    User_Minor: false,
-    Other: false,
-  });
   const allTechnologies = [...selector.technologies];
   const companiesPremium = [...selector.companies].filter(
     (data) => data.premium === 2
@@ -205,26 +198,6 @@ export default function HomeUser() {
     }, []);
     return lengthData;
   };
-  const handleReportReason = (e, value) => {
-    setReportInput({
-      ...reportInput,
-      [e.target.name]: value,
-    });
-  };
-  const handleReportSubmit = (e) => {
-    e.preventDefault();
-    console.log(showReport);
-    dispatch(report(showReport, "companyPost", reportInput));
-    setShowReport(false);
-    setReportInput({
-      Illegal_Content: false,
-      Toxic_Content: false,
-      Fake_Company: false,
-      Fake_User: false,
-      User_Minor: false,
-      Other: false,
-    });
-  };
 
   return (
     <div className={style.containerHome}>
@@ -233,127 +206,7 @@ export default function HomeUser() {
         {showPage ? (
           <>
             {showReport && (
-              <div className={style.confirmBan}>
-                Why do you want to report this content?
-                <ul style={{ listStyleType: "none" }}>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Illegal_Content"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                        console.log(reportInput);
-                      }}
-                    />
-                    Illegal Content
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Toxic_Content"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    Toxic Content
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Fake_Company"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    Fake Company
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Fake_User"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    Fake User
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="User_minor"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    User is a minor
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Other"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    Other
-                  </li>
-                </ul>
-                <div className={style.confirmButtons}>
-                  <Button
-                    onClick={() => {
-                      setShowReport(false);
-                      setReportInput({
-                        Illegal_Content: false,
-                        Toxic_Content: false,
-                        Fake_Company: false,
-                        Fake_User: false,
-                        User_Minor: false,
-                        Other: false,
-                      });
-                    }}
-                    variant="danger"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    onClick={(e) => {
-                      handleReportSubmit(e);
-                    }}
-                  >
-                    Submit
-                  </Button>
-                </div>
-              </div>
+              <ReportForm props={[setShowReport, "companyPost", showReport]} />
             )}
             <div className={style.containerActions}>
               <div className={style.filters}>

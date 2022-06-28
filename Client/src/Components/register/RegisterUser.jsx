@@ -285,7 +285,7 @@ export default function RegisterUser({ props }) {
       console.log(errors);
       return;
     }
-    let empleado = employ ? "empleado" : "desempleado";
+    let empleado = employ ? "Employee" : "Unemployed";
     if (employ) {
       let company = input.employ;
       let descript = input.desc;
@@ -294,12 +294,13 @@ export default function RegisterUser({ props }) {
         desc: descript.concat(` This user Works at ${company}`),
       });
     }
-    console.log(user?.email);
+    
     let dob = new Date(input.age);
     let image = undefined;
     uuidImage
       ? (image = `https://ucarecdn.com/${uuidImage}/`)
       : (image = user?.picture);
+    
     let newUser = {
       email: user?.email,
       name: input.name,
