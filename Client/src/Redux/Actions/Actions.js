@@ -33,7 +33,7 @@ export const USER_POSTULATES = "USER_POSTULATES";
 export const SET_EMAIL_DATA = "SET_EMAIL_DATA";
 export const HIRE = "HIRE";
 export const GET_ALL_FORUM_POST = "ET_ALL_FORUM_POST";
-
+export const FIRE = "FIRE";
 
 export async function getAllEmployeesCompany(id) {
   return async function (dispatch) {
@@ -456,7 +456,7 @@ export function getActivePlans(user) {
         }
       }
     } catch (error) {
-      console.error("Este error larga el getActivePlans",error.message);
+      console.error("Este error larga el getActivePlans", error.message);
       return dispatch({
         type: GET_PLANS,
         payload: ["To see your plans, please log in"],
@@ -500,6 +500,23 @@ export function hire(userId, companyId) {
   };
 }
 
+export function fire(employeeId, companyId) {
+  return async function (dispatch) {
+    try {
+      let response = await axios.put("/company/fire", {
+        employeeId: employeeId,
+        companyId: companyId,
+      });
+      return dispatch({
+        type: FIRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
+
 // export function deleteForumPost(id){
 //   return async function (dispatch){
 //     try {
@@ -522,14 +539,14 @@ export function allPostulatesUser(name) {
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 }
 
 export function setEmailData(user) {
   return async function (dispatch) {
     return dispatch({
       type: SET_EMAIL_DATA,
-      payload: user
+      payload: user,
     });
   }
 } 

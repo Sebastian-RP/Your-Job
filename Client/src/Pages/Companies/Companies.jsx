@@ -3,6 +3,7 @@ import style from "../Users/perfil.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  fire,
   getActivePlans,
   getAllEmployeesCompany,
   getAllPostsFromCompany,
@@ -15,10 +16,13 @@ import {
   getCompanyInfo,
   updatePremiumPlanCompany,
 } from "../../Redux/Actions/Actions";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import canceledSubscription from "../../Components/Firebase/canceledSubscription";
 import { IoMdInformationCircleOutline } from "react-icons/io";
-import {AiOutlineDelete} from 'react-icons/ai'
+
+import { AiOutlineDelete } from "react-icons/ai";
+
+import swal from "sweetalert";
 
 export default function Companies() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -33,7 +37,6 @@ export default function Companies() {
   const [ownProfile, setOwnProfile] = useState(false);
   const [showPosts, setShowPosts] = useState(false);
   const posts = useSelector((state) => state.companyPosts);
-
 
   const companyData = useSelector((state) => {
     // console.log(state);
@@ -53,14 +56,16 @@ export default function Companies() {
       dispatch(getAllPostsFromCompany(data.payload.id));
       // console.log(data);
     });
+    if (loggedCompany.name === companyname) {
+      setOwnProfile(true);
+    } else {
+      setOwnProfile(false);
+    }
     //eslint-disable-next-line
   }, [companyname]);
 
   useEffect(() => {
-    if (loggedCompany.name === companyname) {
-      setOwnProfile(true);
-    }
-    dispatch(getActivePlans(user))
+    dispatch(getActivePlans(user));
     updatePremiumPlanCompany(loggedCompany?.email, companyData.plans).then(
       (res) => {
         dispatch(res);
@@ -69,8 +74,21 @@ export default function Companies() {
     //eslint-disable-next-line
   }, []);
 
-
   //----------------------------------
+
+  const handleFire = (employee, companyId) => {
+    dispatch(fire(employee.id, companyId)).then((res) => {
+      swal({
+        title: "Employee Fired!",
+        text: `${employee.name} has been fired.`,
+        icon: "success",
+      });
+      getAllEmployeesCompany(companyId).then((res) => {
+        dispatch(res);
+      });
+    });
+  };
+
   const sendMessage = async () => {
     try {
       const res = await axios.get(
@@ -96,21 +114,58 @@ export default function Companies() {
     }
   };
 
-  const handlerCanceledSubscription = async () => {
+  const handlerCanceledSubscription = async (e) => {
     try {
-      canceledSubscription(user?.email)
-      .then((res) => {
-        console.log(res);
+      if(e === "todo"){
+        canceledSubscription(user?.email, e)
+        .then((res) => {
+          swal({
+            title: "Success!",
+            text: "All the subscription has been canceled",
+            icon: "success",
+            buttons:true
+          }).then((data) => {
+            if(data) navigate("/home");
+          });
+        }
+        )
+        .catch((err) => {
+          console.log(err);
+        }
+        );
+      } else{
+        canceledSubscription(user?.email, e)
+        .then((res) => {
+          swal({
+            title: "Success!",
+            text: `The subscription ${e} has been canceled`,
+            icon: "success",
+            buttons:true
+          }).then((data) => {
+            if(data) navigate("/home");
+          });
+        }
+        )
+        .catch((err) => {
+          swal({
+            title: "Opps!",
+            text: `Something gones wrong, please try again later`,
+            icon: "error",
+            buttons:true
+          }).then((data) => {
+            if(data) navigate("/home");
+          });        
+        }
+        );
       }
-      )
-      .catch((err) => {
-        console.log(err);
-      }
-      );
+      dispatch(getActivePlans(user));
+      updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then((res) => {
+        dispatch(res);
+      }); 
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   //----------------------------------
   //Ideas: Colocar una seccion donde puedan ver las interacciones de usuarios mas recientes
@@ -264,6 +319,15 @@ export default function Companies() {
                         <p>{employee.nationality}</p>
                         <p>{employee.description}</p>
                       </Card.Body>
+                      <Button
+                        variant="danger"
+                        style={{ display: ownProfile ? "" : "none" }}
+                        onClick={() => {
+                          handleFire(employee, loggedCompany.id);
+                        }}
+                      >
+                        Fire
+                      </Button>
                     </Card>
                   );
                 })
@@ -275,25 +339,30 @@ export default function Companies() {
         </div>
         <div className={style.perfilInfo}>
           <div>
-            <h2>Information <IoMdInformationCircleOutline/></h2>
+            <h2>
+              Information <IoMdInformationCircleOutline />
+            </h2>
             <div className={style.info}>
               <p>{companyData?.description}</p>
             </div>
             <hr />
             {companyData.plans ? <h3>Your active plans </h3> : null}
             {companyData.plans?.map((d, i) => {
-              return(<div>
+              return (
+                <div>
                   <>
                     <p key={i}>{d}</p>
                   </>
+
                   { (companyData.plans[0] !== "You don't have any plan" &&
                     companyData.plans[0] !== "To see your plans, please log in") ? (
                       <div className={style.ButtonX} 
-                      onClick={handlerCanceledSubscription}
+                      onClick={()=>handlerCanceledSubscription(d)}
                       >
                         <AiOutlineDelete/>
                       </div>) : null}
               </div>)
+
             })}
             <button
               className={style.Button}
@@ -303,7 +372,7 @@ export default function Companies() {
                   ? true
                   : false
               }
-              onClick={handlerCanceledSubscription}
+              onClick={() => handlerCanceledSubscription("todo")}
             >
               Decline all subscriptions
             </button>
