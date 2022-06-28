@@ -117,6 +117,7 @@
 
 .confirmBan {
   position: absolute;
+  padding: 10px;
   display: flex;
   z-index: 2;
   top: 50%;
