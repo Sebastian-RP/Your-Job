@@ -52,6 +52,7 @@ export default function HomeUser() {
   const [filterExp, setFilterExp] = useState([]);
   const [modeExp, setModeExp] = useState("");
   const [buttonClear, setButtonClear] = useState(false);
+  const [dataFilterUl, setDataFilterUl] = useState('')
 
   useEffect(() => {
     dispatch(getUserByEmail(user?.email));
@@ -199,6 +200,14 @@ export default function HomeUser() {
     return lengthData;
   };
 
+  const handlerDataFilterUl = (key, value) => {
+    setDataFilterUl((data) => {
+      return {
+        ...data,
+        [key]: value
+      }
+    })
+  }
   return (
     <div className={style.containerHome}>
       <>
@@ -230,6 +239,7 @@ export default function HomeUser() {
                         setModeExp("");
                         setMode("");
                         setPosts(selector.posts);
+                        setDataFilterUl('');
                       }}
                     >
                       Clear Filter
@@ -254,6 +264,7 @@ export default function HomeUser() {
                             onClick={() => {
                               setButtonClear(true);
                               filterByCompany(d.name);
+                              handlerDataFilterUl('company', d.name)
                             }}
                           >
                             {d.name}
@@ -273,6 +284,8 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             getFilterByTechnologies(d.id);
+                            handlerDataFilterUl(`technologies ${i}`, d.name)
+
                           }}
                         >
                           <p className={style.lengthDat}>
@@ -294,6 +307,8 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             filterBySalary(data);
+                            handlerDataFilterUl('salary', data)
+
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -311,6 +326,8 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             filterByModality(data);
+                            handlerDataFilterUl('modality', data)
+
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -335,6 +352,8 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             filterByExperience(data);
+                            handlerDataFilterUl('experience', data)
+
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -378,6 +397,15 @@ export default function HomeUser() {
                   <div className={style.columInfo}></div>
                 </div>
                 <div className={style.columnPost}>
+                  {dataFilterUl !== ''&&<ul className={style.filterBy}>
+                  <p>Filter By: </p>
+                  {
+                  Object.keys(dataFilterUl).map((data, i) => {
+                    return (
+                      <li key={i}>{dataFilterUl[data]}</li>
+                    )
+                  })
+                  }</ul>}
                   {posts.length ? (
                     posts.map((data, index) => {
                       return (

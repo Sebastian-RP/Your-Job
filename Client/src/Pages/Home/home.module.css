@@ -140,3 +140,16 @@
   display: flex;
   justify-content: space-between;
 }
+.filterBy {
+  display: flex;
+  gap: 5px;
+  justify-content:left;
+  align-items: center;
+}
+.filterBy li {
+  list-style: none;
+  font-size: .6rem;
+  padding: 4px;
+  border-radius: 20px;
+  background-color: bisque;
+}
