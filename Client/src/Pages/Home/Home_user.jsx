@@ -41,7 +41,7 @@ export default function HomeUser() {
   const [showReport, setShowReport] = useState(false);
   const allTechnologies = [...selector.technologies];
   const companiesPremium = [...selector.companies].filter(
-    (data) => data.premium === 2
+    (data) => data.premium === 2,
   );
   const companies = [...selector.companies];
   const logged = useSelector((state) => state.myUser);
@@ -52,7 +52,7 @@ export default function HomeUser() {
   const [filterExp, setFilterExp] = useState([]);
   const [modeExp, setModeExp] = useState("");
   const [buttonClear, setButtonClear] = useState(false);
-  const [dataFilterUl, setDataFilterUl] = useState('')
+  const [dataFilterUl, setDataFilterUl] = useState("");
 
   useEffect(() => {
     dispatch(getUserByEmail(user?.email));
@@ -204,10 +204,10 @@ export default function HomeUser() {
     setDataFilterUl((data) => {
       return {
         ...data,
-        [key]: value
-      }
-    })
-  }
+        [key]: value,
+      };
+    });
+  };
   return (
     <div className={style.containerHome}>
       <>
@@ -239,7 +239,7 @@ export default function HomeUser() {
                         setModeExp("");
                         setMode("");
                         setPosts(selector.posts);
-                        setDataFilterUl('');
+                        setDataFilterUl("");
                       }}
                     >
                       Clear Filter
@@ -264,7 +264,7 @@ export default function HomeUser() {
                             onClick={() => {
                               setButtonClear(true);
                               filterByCompany(d.name);
-                              handlerDataFilterUl('company', d.name)
+                              handlerDataFilterUl("company", d.name);
                             }}
                           >
                             {d.name}
@@ -284,8 +284,7 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             getFilterByTechnologies(d.id);
-                            handlerDataFilterUl(`technologies ${i}`, d.name)
-
+                            handlerDataFilterUl(`technologies ${i}`, d.name);
                           }}
                         >
                           <p className={style.lengthDat}>
@@ -307,8 +306,7 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             filterBySalary(data);
-                            handlerDataFilterUl('salary', data)
-
+                            handlerDataFilterUl("salary", data);
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -326,8 +324,7 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             filterByModality(data);
-                            handlerDataFilterUl('modality', data)
-
+                            handlerDataFilterUl("modality", data);
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -352,8 +349,7 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             filterByExperience(data);
-                            handlerDataFilterUl('experience', data)
-
+                            handlerDataFilterUl("experience", data);
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -397,18 +393,15 @@ export default function HomeUser() {
                   <div className={style.columInfo}></div>
                 </div>
                 <div className={style.columnPost}>
-
-                  {dataFilterUl !== ''&&<ul className={style.filterBy}>
-                  <p>Filter By: </p>
-                  {
-                  Object.keys(dataFilterUl).map((data, i) => {
-                    return (
-                      <li key={i}>{dataFilterUl[data]}</li>
-                    )
-                  })
-                  }</ul>}
-                  
                   <h1> Job Offers</h1>
+                  {dataFilterUl !== "" && (
+                    <ul className={style.filterBy}>
+                      <p>Filter By: </p>
+                      {Object.keys(dataFilterUl).map((data, i) => {
+                        return <li key={i}>{dataFilterUl[data]}</li>;
+                      })}
+                    </ul>
+                  )}
 
                   {posts.length ? (
                     posts.map((data, index) => {
@@ -429,7 +422,7 @@ export default function HomeUser() {
                                     className={style.companyName}
                                     onClick={() => {
                                       navigate(
-                                        `/company/${data.company?.name}`
+                                        `/company/${data.company?.name}`,
                                       );
                                     }}
                                   >
@@ -472,7 +465,7 @@ export default function HomeUser() {
                                   {data.technologiesId.map((data, i) => {
                                     let tech = allTechnologies.find(
                                       // eslint-disable-next-line
-                                      (t) => t.id == data
+                                      (t) => t.id == data,
                                     );
                                     return <li key={i}>{tech?.name}</li>;
                                   })}
