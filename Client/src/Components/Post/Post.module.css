@@ -94,16 +94,6 @@
   cursor: pointer;
   color: #1674f0;
 }
-.likeIcon:hover {
-  text-shadow: 0 0 3px #ff528c;
-  cursor: pointer;
-  color: #ff528c;
-}
-.dislikeIcon:hover {
-  text-shadow: 0 0 3px #fa7217;
-  cursor: pointer;
-  color: #fa7217;
-}
 .divition {
   background-color: #1c5d99;
 }
@@ -121,8 +111,11 @@
 .comment div {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: left;
+  align-items: center;
+  gap: 20px;
 }
+
 .containerComment {
   width: 100vw;
   height: 100vh;
@@ -139,4 +132,16 @@
   position: absolute;
   top: 100px;
   right: 20px;
+}
+.containerComment button {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  color: #eee;
+  background-color:#1674f0 ;
+  border-color:#1674f0;
+}
+.containerComment button:hover {
+  color: azure;
+  background-color:#1c5d99 ;
 }
