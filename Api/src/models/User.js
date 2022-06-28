@@ -29,6 +29,10 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.TEXT,
     },
+    ocupation: {
+      type: DataTypes.STRING,
+      defaultValue: "This user works at"
+    },
     technologiesName: {
       type: DataTypes.ARRAY(DataTypes.STRING),
     },

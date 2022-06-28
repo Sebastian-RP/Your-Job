@@ -1,6 +1,6 @@
 import style from "./Forum.module.css";
 import { Link, useLocation } from "react-router-dom";
-import Advertisement from "../../Components/Advertisment/Advertisment";
+import Suggestions from "../../Components/Suggestions/Suggestions";
 import ForumPosts from "../../Components/ForumPosts/ForumPosts";
 import ForumCreatePost from "../../Components/ForumCreatePost/ForumCreatePost";
 import Navbar from "../../Components/NavBar/NavBar";
@@ -30,9 +30,6 @@ export default function Forum() {
             <Link className={style.link} to={"/forum/create"}>
               Create a post
             </Link>
-            <Link className={style.link} to={"/forum/create"}>
-              Advertisments
-            </Link>
             <Link className={style.link} to={"../messenger"}>
               Messages
             </Link>
@@ -41,7 +38,7 @@ export default function Forum() {
         {isCreatingPost ? (
           <>
             <ForumPosts />
-            <Advertisement />
+            <Suggestions />
           </>
         ) : (
           <ForumCreatePost user={user} />
