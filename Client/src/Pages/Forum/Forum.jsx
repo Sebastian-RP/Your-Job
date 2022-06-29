@@ -29,16 +29,13 @@ export default function Forum() {
       <Navbar home={false} />
       <main className={style.main}>
         <aside className={style.menu}>
+          <h1>Profile</h1>
           <img
             src={isAuthenticated ? user.picture : "https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg"}
             alt=""
-            width={"100px"}
             style={{ marginTop: "20px" }}
           />
           <h1 style={{ marginTop: "20px" }}>{isAuthenticated ? user.name : "Guest"}</h1>
-          <hr />
-          <h4>Profile</h4>
-          <hr />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Link className={style.link} to={"../forum"}>
               View posts

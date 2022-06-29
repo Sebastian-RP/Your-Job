@@ -144,7 +144,6 @@ export default function Users() {
       <div className={style.containerPerfil}>
         <div className={style.header}>
           <h1>User Profile</h1>
-          <hr />
           <div className={style.picture}>
             <img
               src={

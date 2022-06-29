@@ -32,14 +32,15 @@ export default function HomeCompany() {
   );
   const suggestions = usersPremium.slice(num, num + 3);
   const allTechnologies = [...selector.technologies];
-
   const posts = [...selector.companyPosts];
   const company = useSelector((state) => state.myCompany);
   const plans = useSelector((state) => state.activePlans);
   const [showFormPost, setShowFormPost] = useState(false);
   const [showList, setShowList] = useState(false);
   const [listPostulates, setListPostulates] = useState(null);
-  console.log(usersPremium);
+  const profileDefaultImage =
+  "https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png";
+
   useEffect(() => {
     dispatch(getAllCompanies());
     dispatch(getAllPost());
@@ -98,14 +99,25 @@ export default function HomeCompany() {
       {showFormPost && <PostForm props={company.id} />}
       <div className={style.containerInfo}>
         <div className={style.infoCompany}>
-          <h1>Company</h1>
           <div className={style.imageCompany}>
-            <img src={company?.image} alt={Image} />
+            <img
+              src={
+                company?.image
+                  ? company.image + "-/resize/200x200/"
+                  : profileDefaultImage
+              }
+              alt="profile_picture"
+              width={"200px"}
+              height={"200px"}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src =
+                profileDefaultImage;
+              }}
+            />         
+            <h1>Welcome{"  "}{company?.name}</h1> 
           </div>
           <div>
-            <p>
-              <strong>Name:</strong> {company?.name}
-            </p>
             <p>
               <strong>Email:</strong> {company?.email}
             </p>
