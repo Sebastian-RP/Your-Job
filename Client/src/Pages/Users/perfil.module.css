@@ -51,6 +51,8 @@
   align-items: center;
   width: 50%;
   margin: 5px;
+  overflow-y: auto;
+
 }
 .perfilInfo {
   display: flex;

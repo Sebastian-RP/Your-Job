@@ -180,12 +180,12 @@ export default function Companies() {
             <h1>{companyData?.name}</h1>
           </div>
           <div className={style.about}>
-            <p>Email: {companyData?.email}</p>
-            <p>Nationality: {companyData?.nationality}</p>
-            <p>Address: {companyData?.address}</p>
-            <p>Phone: {companyData?.phone} </p>
+            <p><strong>Email:</strong>{companyData?.email}</p>
+            <p><strong>Nationality:</strong>{companyData?.nationality}</p>
+            <p><strong>Address:</strong>{companyData?.address}</p>
+            <p><strong>Phone:</strong>{companyData?.phone} </p>
             <p>
-              Linkedin:{" "}
+            <strong>Linkedin:{" "}</strong>
               <a
                 href={"https://" + companyData.url}
                 target="_blank"
