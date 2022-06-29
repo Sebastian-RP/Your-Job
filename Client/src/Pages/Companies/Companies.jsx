@@ -39,9 +39,9 @@ export default function Companies() {
   const [showPosts, setShowPosts] = useState(false);
   const [showReport, setShowReport] = useState(false);
   const posts = useSelector((state) => state.companyPosts);
+  const imgDefault = "https://icon-library.com/images/profile-png-icon/profile-png-icon-24.jpg";
 
   const companyData = useSelector((state) => {
-    // console.log(state);
     return {
       ...state.company,
       postulates: [...state.postulatesUser],
@@ -112,7 +112,7 @@ export default function Companies() {
         navigate("/messenger");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -152,7 +152,7 @@ export default function Companies() {
         })
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -321,7 +321,7 @@ export default function Companies() {
                         {employee.name}
                       </Card.Header>
                       <Card.Body>
-                        <img src={employee.image} alt="perfil" />
+                        <img src={employee.image? employee.image: imgDefault} alt="perfil" />
                         <p>{employee.nationality}</p>
                         <p>{employee.description}</p>
                       </Card.Body>

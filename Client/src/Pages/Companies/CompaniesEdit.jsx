@@ -229,7 +229,6 @@ export default function CompaniesEdit() {
   });
 
   useEffect(() => {
-    console.log(companyname);
     dispatch(getCompanyInfo(companyname))
     if (loggedCompany.name === companyname) {
       setOwnProfile(true);
@@ -271,7 +270,6 @@ export default function CompaniesEdit() {
       phone: input.phone,
       address: input.address
     };
-    console.log(update)
     dispatch(updateCompany(companyData?.email, update));
     swal({
       title: "Success!",

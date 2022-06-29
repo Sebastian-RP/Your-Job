@@ -25,7 +25,6 @@ export default function ReportForm({ props }) {
 
   const handleReportSubmit = (e) => {
     e.preventDefault();
-    console.log(props[2]);
     dispatch(report(props[2], props[1], reportInput));
     setReportInput({
       Illegal_Content: false,
@@ -59,7 +58,6 @@ export default function ReportForm({ props }) {
               } else {
                 handleReportReason(e, false);
               }
-              console.log(reportInput);
             }}
           />
           Illegal Content

@@ -271,7 +271,6 @@ export default function RegisterUser({ props }) {
   const removeTech = (tech) => {
     let aux = selectedTechs.filter((element) => element !== tech);
     setSelected(aux);
-    console.log(aux);
   };
 
   const addCountry = (country) => {
@@ -280,9 +279,8 @@ export default function RegisterUser({ props }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(errors);
     if (Object.keys(errors).length > 0) {
-      console.log(errors);
+      console.error(errors);
       return;
     }
     let empleado = employ ? "Employee" : "Unemployed";
@@ -314,7 +312,6 @@ export default function RegisterUser({ props }) {
       cv: `ucarecdn.com/${uuid}/`,
       premium: 0,
     };
-    console.log(newUser);
 
     dispatch(await createUser(newUser));
 
@@ -366,7 +363,6 @@ export default function RegisterUser({ props }) {
                 required
                 onChange={(e) => {
                   handleChange(e);
-                  // console.log(e.target.value);
                 }}
               />          
             </div>    

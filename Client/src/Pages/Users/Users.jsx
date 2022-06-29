@@ -75,7 +75,7 @@ export default function Users() {
         navigate("/messenger");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -102,7 +102,7 @@ export default function Users() {
             });
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
       } else {
         canceledSubscription(user?.email, e)
@@ -132,7 +132,7 @@ export default function Users() {
         dispatch(res);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

@@ -87,8 +87,7 @@ export default function SearchBar() {
         text: 'User not found!',
       })
     }
-    console.log("nombre usuarios");
-    console.log(nameUsers);
+
   }
 
   const handleSelectChange = (e) => {

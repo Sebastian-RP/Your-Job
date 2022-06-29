@@ -15,9 +15,8 @@ function Success() {
         if(flag === 0){
             emailjs.sendForm('service_db1lpkd', 'template_upt9d5c', form.current, 'F-jlerFc9kQmnHiSA')
             .then((result) => {
-                console.log(result.text);
             }, (error) => {
-                console.log(error.text);
+                console.error(error.text);
             });
             flag = 1
         }

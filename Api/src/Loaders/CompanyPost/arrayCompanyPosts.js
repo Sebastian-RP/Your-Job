@@ -11,8 +11,6 @@ async function getIds() {
     idsCompany.push(comp.dataValues.id)
   });
 
-  console.log(idsCompany.length + " compañias agregadas");
-
 
   const fakeCompanyPostData = [
     [chance.sentence(), "Training", "Indeterminate",

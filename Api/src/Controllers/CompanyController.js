@@ -94,11 +94,9 @@ const hireUser = async (userId, companyId) => {
 
   await company.employees.push(parseInt(user.id));
   company.changed("employees", true);
-  console.log(company.changed());
 
   await company.save();
   await postulation.destroy();
-  console.log(company.employees);
 
   let upcompany = await findCompany(companyId);
   return upcompany.employees;
@@ -112,7 +110,6 @@ const fireEmployee = async (employeeId, companyId) => {
     company.employees.splice(index, 1);
   }
   company.changed("employees", true);
-  console.log(company.changed());
 
   await company.save();
   return company;

@@ -235,7 +235,6 @@ export default function UsersEdit() {
   });
 
   useEffect(() => {
-    console.log(username);
     getUserInfo(username).then((action) => {
       dispatch(action);
     });
@@ -273,7 +272,6 @@ export default function UsersEdit() {
   const removeTech = (tech) => {
     let aux = selectedTechs.filter((element) => element !== tech);
     setSelected(aux);
-    console.log(aux);
   };
 
   const addCountry = (country) => {
@@ -318,7 +316,6 @@ export default function UsersEdit() {
       nationality: country,
       employment_status: input.employment,
     };
-    console.log(update)
     dispatch(updateUser(userData?.id, update));
     swal({
       title: "Success!",
