@@ -42,6 +42,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    text-align: center;
     width: 20%;
     padding: 10px;
     height: 100%;
