@@ -10,8 +10,17 @@
     word-spacing: -5px;
     letter-spacing: -2px;
     font-weight: bolder;
-
+    
 }
+.columnInfoRight {
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+    padding: 10px;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #1c5d99;
+  }
 .containerInfo {
     display: flex;
     flex-direction: row;
@@ -25,6 +34,8 @@
 }
 .cardPost {
     cursor: pointer;
+    margin-bottom: 5px;
+    position: relative;
 }
 .infoCompany {
     display: flex;
@@ -40,7 +51,7 @@
     flex-direction: column;
     align-self: start;
     flex-grow: 3;
-
+    padding: 10px;
 }
 
 .infoPost h1 {
@@ -161,3 +172,4 @@
     transform: scale(1.1);
     color: blue;
 }
+  

@@ -400,7 +400,7 @@ export default function HomeUser() {
                       </Card>
                     ))}
                   </>
-                  <div className={style.columInfo}></div>
+                  {/* <div className={style.columInfo}></div> */}
                 </div>
                 <div className={style.columnPost}>
                   <h1> Job Offers</h1>

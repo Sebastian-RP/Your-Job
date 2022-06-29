@@ -24,6 +24,11 @@ export default function HomeCompany() {
   const { user } = useAuth0();
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
+  const [num, setNum] = useState(0);
+  const companiesPremium = [...selector.companies].filter(
+    (data) => data.premium === 2,
+  );
+  const suggestions = companiesPremium.slice(num, num + 2);
   // const companies = [...selector.companies];
   const allTechnologies = [...selector.technologies];
 
@@ -33,12 +38,18 @@ export default function HomeCompany() {
   const [showFormPost, setShowFormPost] = useState(false);
   const [showList, setShowList] = useState(false);
   const [listPostulates, setListPostulates] = useState(null);
-
+    console.log(selector);
   useEffect(() => {
     dispatch(getAllCompanies());
     dispatch(getAllPost());
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    !num && setNum(Math.floor(Math.random() * (companiesPremium.length - 3)));
+    // eslint-disable-next-line
+  }, [selector]);
+
 
   useEffect(() => {
     if (company) {
@@ -101,7 +112,7 @@ export default function HomeCompany() {
               <strong>Address:</strong> {company?.address}
             </p>
           </div>
-          <Button onClick={() => setShowFormPost(true)}>Create Post</Button>
+          <Button onClick={() => setShowFormPost(true)} style={{ padding:"7px 10px 7px 10px"}}>Create Post</Button>
           {showFormPost && (
             <ButtonCanceled
               // className={style.buttonCancel}
@@ -111,20 +122,22 @@ export default function HomeCompany() {
             </ButtonCanceled>
           )}
         </div>
+
         <div className={style.infoPost}>
           <h1>Your Posts</h1>
           {posts?.map((data, index) => {
             return (
               <div className={style.cardPost} key={index}>
-                <Button
-                  variant="danger"
-                  style={{ position: "absolute", zIndex: "2", right: "10px" }}
-                  onClick={() => handlerDelete(data.id)}
-                >
-                  X
-                </Button>
-                <Card onClick={() => handlerList(data.postulates)}>
-                  <Card.Header as="h6">{data.titlePost}</Card.Header>
+                    <Button
+                      variant="danger"
+                      style={{ position: "absolute", zIndex: "2", right: "10px", top: "4px" }}
+                      onClick={() => handlerDelete(data.id)}
+                    >
+                      X
+                    </Button>
+                <Card onClick={() => handlerList(data.postulates)} style={{zIndex:"1"}}>
+                  <Card.Header as="h6">{data.titlePost}
+                  </Card.Header>
                   <Card.Body>
                     {/* <Card.Title>{data.TitlePost}</Card.Title> */}
                     <Card.Text
@@ -162,6 +175,31 @@ export default function HomeCompany() {
             );
           })}
         </div>
+        <div className={style.columnInfoRight}>
+          <h1>Suggestions</h1>
+          <>
+            {suggestions.map((data, index) => (
+              <Card
+                bg="secondary"
+                key={index}
+                text="light"
+                style={{ width: "18rem" }}
+                className="mb-2"
+              >
+                <Card.Header>
+                  <strong>Email:</strong> {data.email}
+                  <br />
+                  <strong>Phone:</strong> {data.phone}
+                </Card.Header>
+                <Card.Body>
+                  <Card.Title> {data.name} </Card.Title>
+                  <Card.Text>{data.description}</Card.Text>
+                </Card.Body>
+              </Card>
+            ))}
+          </>
+          {/* <div className={style.columInfo}></div> */}
+        </div>
       </div>
 
       {showList && (
@@ -184,19 +222,17 @@ export const Button = styled.button`
   background-color: #1c5d99;
   border-radius: 5px;
   color: white;
-  padding: 7px 10px 7px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
   cursor: pointer;
   transition: all 300ms;
   &:hover {
     color: #222222;
     background-color: #ffffff;
   }
-`;
+  `;
 
 const ButtonCanceled = styled.button`
   background-color: white;
