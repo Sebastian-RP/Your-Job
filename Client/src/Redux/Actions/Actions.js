@@ -617,3 +617,9 @@ export function getAllNotificationPost(user) {
     return dispatch({ type: GET_NOTIFICATIONS, payload: dataNot.data });
   }
 }
+
+export function deleteNotification(user) {
+  return async function(dispatch) {
+    return await axios.delete(`/forum/notification/${user}`)
+  }
+}

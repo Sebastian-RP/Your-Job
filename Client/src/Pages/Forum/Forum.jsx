@@ -5,20 +5,25 @@ import ForumPosts from "../../Components/ForumPosts/ForumPosts";
 import ForumCreatePost from "../../Components/ForumCreatePost/ForumCreatePost";
 import Navbar from "../../Components/NavBar/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import NotificationPost from "../../Components/NotificationPost/NotificationPost";
+import { deleteNotification, getAllNotificationPost } from "../../Redux/Actions/Actions";
 export default function Forum() {
-  const selector = useSelector(state => state.notificationPost)
+  const selector = useSelector(state => state.notificationPost);
+  const selectorUser = useSelector(state => state.myUser);
   const isCreatingPost = !useLocation().pathname.split("/").includes("create");
   const { isAuthenticated, user } = useAuth0();
-  const [showNotification, setShowNotification] = useState(false)
+  const [showNotification, setShowNotification] = useState(false);
+  const dispatch = useDispatch();
 
   const handlerBackNotification = () => {
-    setShowNotification(false);
-    
+    dispatch(deleteNotification(selectorUser.name))
+    .then(() => {
+      dispatch(getAllNotificationPost(selectorUser.name))
+      setShowNotification(false);
+    })
   }
-
   return (
     <>
       <Navbar home={false} />
