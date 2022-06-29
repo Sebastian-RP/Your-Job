@@ -234,6 +234,11 @@ export default function HomeUser() {
                     alt="profile_picture"
                     width={"200px"}
                     height={"200px"}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                      profileDefaultImage;
+                    }}
                   />
                   <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
                   {buttonClear && (
