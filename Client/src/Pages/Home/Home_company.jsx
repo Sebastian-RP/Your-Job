@@ -19,17 +19,18 @@ import ListPostulates from "./listPostulates";
 import Image from "../Users/perfilPicture.png";
 import styled from "styled-components";
 import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 export default function HomeCompany() {
   const { user } = useAuth0();
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const [num, setNum] = useState(0);
-  const companiesPremium = [...selector.companies].filter(
-    (data) => data.premium === 2,
+  const navigate = useNavigate();
+  const usersPremium = [...selector.users].filter(
+    (data) => data.premium === 1,
   );
-  const suggestions = companiesPremium.slice(num, num + 2);
-  // const companies = [...selector.companies];
+  const suggestions = usersPremium.slice(num, num + 3);
   const allTechnologies = [...selector.technologies];
   const posts = [...selector.companyPosts];
   const company = useSelector((state) => state.myCompany);
@@ -47,7 +48,7 @@ export default function HomeCompany() {
   }, []);
 
   useEffect(() => {
-    !num && setNum(Math.floor(Math.random() * (companiesPremium.length - 3)));
+    !num && setNum(Math.floor(Math.random() * (usersPremium.length - 3)));
     // eslint-disable-next-line
   }, [selector]);
 
@@ -124,7 +125,7 @@ export default function HomeCompany() {
               <strong>Address:</strong> {company?.address}
             </p>
           </div>
-          <Button onClick={() => setShowFormPost(true)} style={{ padding:"7px 10px 7px 10px"}}>Create Post</Button>
+          <Button onClick={() => setShowFormPost(true)} style={{ padding: "7px 10px 7px 10px" }}>Create Post</Button>
           {showFormPost && (
             <ButtonCanceled
               // className={style.buttonCancel}
@@ -140,14 +141,14 @@ export default function HomeCompany() {
           {posts?.map((data, index) => {
             return (
               <div className={style.cardPost} key={index}>
-                    <Button
-                      variant="danger"
-                      style={{ position: "absolute", zIndex: "2", right: "10px", top: "4px" }}
-                      onClick={() => handlerDelete(data.id)}
-                    >
-                      X
-                    </Button>
-                <Card onClick={() => handlerList(data.postulates)} style={{zIndex:"1"}}>
+                <Button
+                  variant="danger"
+                  style={{ position: "absolute", zIndex: "2", right: "10px", top: "4px" }}
+                  onClick={() => handlerDelete(data.id)}
+                >
+                  X
+                </Button>
+                <Card onClick={() => handlerList(data.postulates)} style={{ zIndex: "1" }}>
                   <Card.Header as="h6">{data.titlePost}
                   </Card.Header>
                   <Card.Body>
@@ -195,13 +196,21 @@ export default function HomeCompany() {
                 bg="secondary"
                 key={index}
                 text="light"
-                style={{ width: "18rem" }}
+                style={{ width: "18rem", cursor: "pointer" }}
                 className="mb-2"
+                onClick={() => {
+                  navigate(
+                    `/users/${data.name}`
+                  );
+                }}
               >
                 <Card.Header>
                   <strong>Email:</strong> {data.email}
                   <br />
-                  <strong>Phone:</strong> {data.phone}
+                  <strong>Technologies: </strong> {data.technologiesName.map(A => {
+                    if (A !== data.technologiesName[data.technologiesName.length - 1]) return `${A}, `;
+                    return `${A}.`
+                  })}
                 </Card.Header>
                 <Card.Body>
                   <Card.Title> {data.name} </Card.Title>
