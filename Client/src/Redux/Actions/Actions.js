@@ -434,6 +434,7 @@ export function getActivePlans(user) {
   return async function (dispatch) {
     try {
       let UserPlans = await getAllPayments(user);
+      console.log(UserPlans);
       if (UserPlans.length === 0) {
         return dispatch({
           type: GET_PLANS,
