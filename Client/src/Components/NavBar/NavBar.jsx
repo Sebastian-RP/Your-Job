@@ -54,7 +54,7 @@ export default function Navbar({ home }) {
               navigate("/forum");
             }}
           >
-            Forum {home.notification > 0&&<span>{home.notification}</span>}
+            Forum {home.notification > 0&&<span className={style.notificationForo}>{home.notification}</span>}
           </Button>
         ) : (
           <Button
