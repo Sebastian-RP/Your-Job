@@ -25,6 +25,7 @@ import {
   GET_ALL_FORUM_POST,
   GET_ALL_REPORTS,
   DELETE_REPORT,
+  GET_NOTIFICATIONS
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -47,6 +48,7 @@ const initialState = {
   emailData: [],
   allForumPost: [],
   reports: [],
+  notificationPost: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -188,6 +190,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         reports: action.payload,
       };
+    case GET_NOTIFICATIONS: 
+      return {
+        ...state,
+        notificationPost: action.payload
+      }
     default:
       return { ...state };
   }

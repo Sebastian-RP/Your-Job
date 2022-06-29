@@ -29,7 +29,7 @@ export default function CommentPost ({props}) {
                 }): <strong>Not Comment found</strong>
             }
             </div>
-            <Comment data={props.id}/>
+            <Comment data={props}/>
         </div>
 
     )

@@ -17,6 +17,7 @@ import {
   getActivePlans,
   updatePremiumPlan,
   report,
+  getAllNotificationPost,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -47,6 +48,7 @@ export default function HomeUser() {
   const logged = useSelector((state) => state.myUser);
   const suggestions = companiesPremium.slice(num, num + 2);
   const postulatesUser = selector.postulatesUser;
+  const notification = selector.notificationPost;
   const [filterMod, setFilterMod] = useState([]);
   const [mode, setMode] = useState("");
   const [filterExp, setFilterExp] = useState([]);
@@ -61,9 +63,12 @@ export default function HomeUser() {
     // eslint-disable-next-line
   }, [user]);
 
-  // el useState llamado NUM y este useEffect hacen que la sugerencia de las
-  //empresas no sean la mismas siempre.
-  // y setea los posts en un estado local para hacer los filtros desde acá
+  useEffect(()=> {
+    if(!logged.error)
+      dispatch(getAllNotificationPost(logged.name))
+
+  },[logged])
+
   useEffect(() => {
     setPosts(selector.posts);
     !num && setNum(Math.floor(Math.random() * (companiesPremium.length - 3)));
@@ -211,7 +216,7 @@ export default function HomeUser() {
   return (
     <div className={style.containerHome}>
       <>
-        <Navbar home={true} />
+        <Navbar home={{boolean:true, notification: notification.length}} />
         {showPage ? (
           <>
             {showReport && (
