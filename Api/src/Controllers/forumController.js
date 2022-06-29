@@ -63,12 +63,12 @@ const getNotifications = async (user) => {
 
 const deleteNotification = async (user) => {
   try {
-    const deleteNot = await NotificationPosts.destroy({
+    await NotificationPosts.destroy({
       where: {
         user
       }
     })
-    console.log(deleteNot)
+    
   } catch (error) {
     return ({message: error.message});
   }
