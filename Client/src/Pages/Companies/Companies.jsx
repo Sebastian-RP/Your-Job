@@ -120,48 +120,37 @@ export default function Companies() {
     try {
       if (e === "todo") {
         canceledSubscription(user?.email, e)
-          .then((res) => {
-            swal({
-              title: "Success!",
-              text: "All the subscription has been canceled",
-              icon: "success",
-              buttons: true,
-            }).then((data) => {
-              if (data) navigate("/home");
-            });
-          })
-          .catch((err) => {
-            console.log(err);
+        .then((res) => {
+          dispatch(getActivePlans(user));
+          updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then((res) => {
+            dispatch(res);
+          }); 
+          swal({
+            title: "Success!",
+            text: "All the subscription has been canceled",
+            icon: "success",
+            buttons:true
+          }).then((data) => {
+            if(data) navigate("/home");
           });
+        })
       } else {
         canceledSubscription(user?.email, e)
-          .then((res) => {
-            swal({
-              title: "Success!",
-              text: `The subscription ${e} has been canceled`,
-              icon: "success",
-              buttons: true,
-            }).then((data) => {
-              if (data) navigate("/home");
-            });
-          })
-          .catch((err) => {
-            swal({
-              title: "Opps!",
-              text: `Something gones wrong, please try again later`,
-              icon: "error",
-              buttons: true,
-            }).then((data) => {
-              if (data) navigate("/home");
-            });
+        .then((res) => {
+          dispatch(getActivePlans(user));
+          updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then((res) => {
+            dispatch(res);
+          }); 
+          swal({
+            title: "Success!",
+            text: `The subscription ${e} has been canceled`,
+            icon: "success",
+            buttons:true
+          }).then((data) => {
+            if(data) navigate("/home");
           });
+        })
       }
-      dispatch(getActivePlans(user));
-      updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then(
-        (res) => {
-          dispatch(res);
-        }
-      );
     } catch (error) {
       console.log(error);
     }
