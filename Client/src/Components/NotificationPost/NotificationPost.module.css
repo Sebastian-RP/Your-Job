@@ -1,0 +1,9 @@
+.containerNotification {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    background-color: aliceblue;
+}
+.containerNotification div {
+    flex-grow: 1;
+}

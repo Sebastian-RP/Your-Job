@@ -5,9 +5,20 @@ import ForumPosts from "../../Components/ForumPosts/ForumPosts";
 import ForumCreatePost from "../../Components/ForumCreatePost/ForumCreatePost";
 import Navbar from "../../Components/NavBar/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import NotificationPost from "../../Components/NotificationPost/NotificationPost";
 export default function Forum() {
+  const selector = useSelector(state => state.notificationPost)
   const isCreatingPost = !useLocation().pathname.split("/").includes("create");
   const { isAuthenticated, user } = useAuth0();
+  const [showNotification, setShowNotification] = useState(false)
+
+  const handlerBackNotification = () => {
+    setShowNotification(false);
+    
+  }
+
   return (
     <>
       <Navbar home={false} />
@@ -33,6 +44,9 @@ export default function Forum() {
             <Link className={style.link} to={"../messenger"}>
               Messages
             </Link>
+            {selector.length > 0 && <p className={style.link} onClick={() => setShowNotification(true)}>
+              Notifications <span>{selector.length}</span>
+            </p>}
           </div>
         </aside>
         {isCreatingPost ? (
@@ -44,6 +58,10 @@ export default function Forum() {
           <ForumCreatePost user={user} />
         )}
       </main>
+      {showNotification && <div className={style.containerNotification}>
+        <button onClick={handlerBackNotification}>Back</button>
+        <NotificationPost data={selector}/>
+        </div>}
     </>
   );
 }
