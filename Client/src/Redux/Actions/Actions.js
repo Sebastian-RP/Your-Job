@@ -38,6 +38,7 @@ export const FIRE = "FIRE";
 export const REPORT = "REPORT";
 export const GET_ALL_REPORTS = "GET_ALL_REPORTS";
 export const DELETE_REPORT = "DELETE_REPORT";
+export const GET_NOTIFICATIONS = "GET_NOTIFICATIONS";
 
 export async function getAllEmployeesCompany(id) {
   return async function (dispatch) {
@@ -453,7 +454,6 @@ export function getActivePlans(user) {
   return async function (dispatch) {
     try {
       let UserPlans = await getAllPayments(user);
-      console.log(UserPlans);
       if (UserPlans.length === 0) {
         return dispatch({
           type: GET_PLANS,
@@ -629,4 +629,23 @@ export function createCommentPost(value) {
   return async function (dispatch) {
     return await axios.post("/forum/comment", value);
   };
+}
+
+export function getAllNotificationPost(user) {
+  return async function(dispatch) {
+    let dataNot = await axios.get(`/forum/notification/${user}`);
+    return dispatch({ type: GET_NOTIFICATIONS, payload: dataNot.data });
+  }
+}
+
+export function deleteNotification(user) {
+  return async function(dispatch) {
+    return await axios.delete(`/forum/notification/${user}`)
+  }
+}
+
+export function sendNotificationPost(value) {
+  return async function(dispatch) {
+    return await axios.post('/forum/notification', value)
+  }
 }

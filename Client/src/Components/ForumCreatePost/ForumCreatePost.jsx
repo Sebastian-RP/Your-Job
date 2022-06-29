@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import swal from "sweetalert";
 import Post from "../Post/Post.jsx";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 async function submitHandler(e, state, setState, navigate) {
   e.preventDefault();
   try {
@@ -36,16 +37,16 @@ function changeHandler(e, state, setState) {
 
 export default function ForumCreatePost() {
   const { isAuthenticated, user } = useAuth0();
+  const selector = useSelector(state => state.myUser);
   const navigate = useNavigate();
   const [state, setState] = useState({
     title: "",
     content: "",
-    user: isAuthenticated ? user.name : "Guest",
+    user: isAuthenticated ? selector.name : "Guest",
     picture: isAuthenticated ? user.picture : "https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg",
     error: {},
   });
   const [preview, setPreview] = useState(false);
-
   if (!user?.name && isAuthenticated) setState({ ...state, user: user.name });
   return (
     <section className={style.container}>

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { createCommentPost, getAllForumPost } from "../../Redux/Actions/Actions";
+import { createCommentPost, getAllForumPost, sendNotificationPost } from "../../Redux/Actions/Actions";
 import swal from 'sweetalert';
 import { useState } from "react";
 import style from "../Post/Post.module.css";
@@ -7,25 +7,26 @@ import style from "../Post/Post.module.css";
 
 
 export default function Comment({data}) {
-
-    
     const dispatch = useDispatch();
     const selector = useSelector(state => state.myUser);
     const [valueComment, setValueComment] = useState('');
     const [error, setError] = useState(false);
-
+  
     const handlerComment = () => {
         if(valueComment) {
 
             dispatch(createCommentPost({
-              id: data, 
+              id: data.id, 
               content: valueComment, 
               user: selector.error?"Anonimous":selector.name, 
               picture: selector.image
             })).then(val => {
               if(!val.data.message){
                 dispatch(getAllForumPost());
-                setError(false)
+                setError(false);
+                if(data.user !== selector.name) {
+                  dispatch(sendNotificationPost({id: data.id, user : data.user, title: data.title}));
+                }
               }else {
                 swal({
                   title: "Oops!",
