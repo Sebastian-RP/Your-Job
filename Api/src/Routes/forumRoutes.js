@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getPosts, getPost, createPost, createComment, notificationPost, getNotifications } = require("../Controllers/forumController");
+const { getPosts, getPost, createPost, createComment, notificationPost, getNotifications, deleteNotification } = require("../Controllers/forumController");
 
 const router = Router();
 
@@ -29,6 +29,11 @@ router.post('/notification', async (req, res) => {
 router.get('/notification/:user', async (req, res) => {
   const { user } = req.params;
   res.send(await getNotifications(user))
+})
+
+router.delete('/notification/:user', async (req, res) => {
+  const { user } = req.params;
+  res.send(await deleteNotification(user))
 })
 
 router.put("/post", (req, res) => {
