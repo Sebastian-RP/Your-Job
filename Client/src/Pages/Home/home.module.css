@@ -17,7 +17,7 @@
   word-spacing: -5px;
   letter-spacing: -2px;
   font-weight: bolder;
-
+  text-align: center;
 }
 
 .containerActions {
@@ -25,6 +25,9 @@
   height: calc(100vh - 8vh);
   display: flex;
   flex-direction: row;
+}
+.filters h1{
+  color: #ffffff;
 }
 .filters {
   display: flex;
@@ -37,7 +40,6 @@
 .infoPost {
   display: flex;
   flex-direction: row-reverse;
-  padding: 10px;
   flex-wrap: nowrap;
   width: 80%;
   height: 100%;
@@ -60,9 +62,10 @@
 .columnPost {
   display: flex;
   flex-direction: column;
-  margin-right: 55px;
+  margin-top: 20px;
+  margin-right: 25px;
   width: 65%;
-  height: calc(100% - 5px);
+  height: calc(100% - 25px);
   overflow-y: auto;
 }
 .columnPost .cardPost {
@@ -80,12 +83,15 @@
 }
 
 .columnInfoRight {
+  background-color: #1c5d99;
   display: flex;
   flex-direction: column;
-  margin-right: 15px;
-
-  width: 27%;
+  width: 30%;
+  padding: 20px;
   overflow-x: hidden;
+}
+.columnInfoRight h1{
+  color: #ffffff;
 }
 
 .companyName {

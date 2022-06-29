@@ -25,7 +25,6 @@
   height: calc(100vh - 8vh);
   position: sticky;
   top: 8vh;
-  border-right: 1px solid #222;
   overflow-y: hidden;
   background-color: #1c5d99;
   color: #fff;
@@ -42,7 +41,10 @@
   color: #e9f35d;
 }
 .menu > img {
-  border-radius: 50%;
+  border-radius: 100%;
+  border: 2px solid #fff;
+  width: 200px;
+  height: 200px;
 }
 
 hr {
