@@ -133,6 +133,7 @@ export default function Companies() {
           }).then((data) => {
             if(data) navigate("/home");
           });
+        })
       } else {
         canceledSubscription(user?.email, e)
         .then((res) => {
@@ -148,6 +149,7 @@ export default function Companies() {
           }).then((data) => {
             if(data) navigate("/home");
           });
+        })
       }
     } catch (error) {
       console.log(error);
