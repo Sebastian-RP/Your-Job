@@ -564,16 +564,16 @@ export function deleteReport(id) {
   };
 }
 
-// export function deleteForumPost(id){
-//   return async function (dispatch){
-//     try {
-//       const forumPostArray = await axios.delete(`/userPost/${id}`)
-//       return forumPostArray
-//     } catch (error) {
-//       console.error(error.message);
-//     }
-//   }
-// }
+export function deleteForumPost(id) {
+  return async function (dispatch) {
+    try {
+      const forumPostArray = await axios.delete(`/userPost/${id}`);
+      return forumPostArray;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
 
 export function allPostulatesUser(name) {
   return async function (dispatch) {
@@ -606,7 +606,7 @@ export function getAllForumPost() {
 }
 
 export function createCommentPost(value) {
-  return async function(dispatch) {
-    return await axios.post('/forum/comment', value)
-  }
+  return async function (dispatch) {
+    return await axios.post("/forum/comment", value);
+  };
 }

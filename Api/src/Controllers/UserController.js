@@ -12,23 +12,25 @@ const createUser = async (
   nationality,
   url,
   cv,
-  premium
-) => {
-  try {
-    await getTechnologies();
-
-    const newUser = await User.create({
-      email,
-      name,
-      employment_status,
-      age,
-      image,
-      description,
-      technologiesName,
-      nationality,
-      url,
-      cv,
-      premium,
+  premium,
+  ocupation
+  ) => {
+    try {
+      await getTechnologies();
+      
+      const newUser = await User.create({
+        email,
+        name,
+        employment_status,
+        age,
+        image,
+        description,
+        technologiesName,
+        nationality,
+        url,
+        cv,
+        premium,
+        ocupation
     });
     let userTechnologies = await Technology.findAll({
       where: { name: technologiesName },

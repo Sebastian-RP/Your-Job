@@ -48,10 +48,10 @@ export default function Comment({data}) {
     return (
         <div className={style.comment}>
         <textarea name="comment" placeholder="Comment here" onChange={(e) => setValueComment(e.target.value)} value={valueComment}/>
-        {error&&<p style={{color:'red'}}>it's Empty</p>}
         <br />
-        <div>
+        <div >
         <button onClick={handlerComment}>Send</button>
+        {error&&<p style={{color:'red'}}>it's Empty</p>}
         </div>
       </div>
     )

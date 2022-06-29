@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button, ButtonGroup } from "react-bootstrap";
 import swal from "sweetalert";
+import ReportForm from "../../Components/Report_Form/Report_Form";
 import {
   getAllCompanies,
   getAllPost,
@@ -38,17 +39,9 @@ export default function HomeUser() {
   const [postId, setPostId] = useState([]);
   const [showPage, setShowPage] = useState(false);
   const [showReport, setShowReport] = useState(false);
-  const [reportInput, setReportInput] = useState({
-    Illegal_Content: false,
-    Toxic_Content: false,
-    Fake_Company: false,
-    Fake_User: false,
-    User_Minor: false,
-    Other: false,
-  });
   const allTechnologies = [...selector.technologies];
   const companiesPremium = [...selector.companies].filter(
-    (data) => data.premium === 2
+    (data) => data.premium === 2,
   );
   const companies = [...selector.companies];
   const logged = useSelector((state) => state.myUser);
@@ -59,6 +52,7 @@ export default function HomeUser() {
   const [filterExp, setFilterExp] = useState([]);
   const [modeExp, setModeExp] = useState("");
   const [buttonClear, setButtonClear] = useState(false);
+  const [dataFilterUl, setDataFilterUl] = useState("");
 
   useEffect(() => {
     dispatch(getUserByEmail(user?.email));
@@ -205,27 +199,15 @@ export default function HomeUser() {
     }, []);
     return lengthData;
   };
-  const handleReportReason = (e, value) => {
-    setReportInput({
-      ...reportInput,
-      [e.target.name]: value,
-    });
-  };
-  const handleReportSubmit = (e) => {
-    e.preventDefault();
-    console.log(showReport);
-    dispatch(report(showReport, "companyPost", reportInput));
-    setShowReport(false);
-    setReportInput({
-      Illegal_Content: false,
-      Toxic_Content: false,
-      Fake_Company: false,
-      Fake_User: false,
-      User_Minor: false,
-      Other: false,
-    });
-  };
 
+  const handlerDataFilterUl = (key, value) => {
+    setDataFilterUl((data) => {
+      return {
+        ...data,
+        [key]: value,
+      };
+    });
+  };
   return (
     <div className={style.containerHome}>
       <>
@@ -233,127 +215,7 @@ export default function HomeUser() {
         {showPage ? (
           <>
             {showReport && (
-              <div className={style.confirmBan}>
-                Why do you want to report this content?
-                <ul style={{ listStyleType: "none" }}>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Illegal_Content"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                        console.log(reportInput);
-                      }}
-                    />
-                    Illegal Content
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Toxic_Content"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    Toxic Content
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Fake_Company"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    Fake Company
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Fake_User"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    Fake User
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="User_minor"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    User is a minor
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      name="Other"
-                      id=""
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          handleReportReason(e, true);
-                        } else {
-                          handleReportReason(e, false);
-                        }
-                      }}
-                    />
-                    Other
-                  </li>
-                </ul>
-                <div className={style.confirmButtons}>
-                  <Button
-                    onClick={() => {
-                      setShowReport(false);
-                      setReportInput({
-                        Illegal_Content: false,
-                        Toxic_Content: false,
-                        Fake_Company: false,
-                        Fake_User: false,
-                        User_Minor: false,
-                        Other: false,
-                      });
-                    }}
-                    variant="danger"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    onClick={(e) => {
-                      handleReportSubmit(e);
-                    }}
-                  >
-                    Submit
-                  </Button>
-                </div>
-              </div>
+              <ReportForm props={[setShowReport, "companyPost", showReport]} />
             )}
             <div className={style.containerActions}>
               <div className={style.filters}>
@@ -377,6 +239,7 @@ export default function HomeUser() {
                         setModeExp("");
                         setMode("");
                         setPosts(selector.posts);
+                        setDataFilterUl("");
                       }}
                     >
                       Clear Filter
@@ -401,6 +264,7 @@ export default function HomeUser() {
                             onClick={() => {
                               setButtonClear(true);
                               filterByCompany(d.name);
+                              handlerDataFilterUl("company", d.name);
                             }}
                           >
                             {d.name}
@@ -420,6 +284,7 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             getFilterByTechnologies(d.id);
+                            handlerDataFilterUl(`technologies ${i}`, d.name);
                           }}
                         >
                           <p className={style.lengthDat}>
@@ -441,6 +306,7 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             filterBySalary(data);
+                            handlerDataFilterUl("salary", data);
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -458,6 +324,7 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             filterByModality(data);
+                            handlerDataFilterUl("modality", data);
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -482,6 +349,7 @@ export default function HomeUser() {
                           onClick={() => {
                             setButtonClear(true);
                             filterByExperience(data);
+                            handlerDataFilterUl("experience", data);
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -525,6 +393,16 @@ export default function HomeUser() {
                   <div className={style.columInfo}></div>
                 </div>
                 <div className={style.columnPost}>
+                  <h1> Job Offers</h1>
+                  {dataFilterUl !== "" && (
+                    <ul className={style.filterBy}>
+                      <p>Filter By: </p>
+                      {Object.keys(dataFilterUl).map((data, i) => {
+                        return <li key={i}>{dataFilterUl[data]}</li>;
+                      })}
+                    </ul>
+                  )}
+
                   {posts.length ? (
                     posts.map((data, index) => {
                       return (
@@ -540,12 +418,11 @@ export default function HomeUser() {
                             <Card.Header as="h5">
                               <div className={style.reportContainer}>
                                 <div>
-                                  <label>Job Offer</label> -{" "}
                                   <label
                                     className={style.companyName}
                                     onClick={() => {
                                       navigate(
-                                        `/company/${data.company?.name}`
+                                        `/company/${data.company?.name}`,
                                       );
                                     }}
                                   >
@@ -558,18 +435,20 @@ export default function HomeUser() {
                                     )}
                                   </label>
                                 </div>
-                                <Button
-                                  variant="danger"
-                                  onClick={() => {
-                                    setShowReport(data.id);
-                                  }}
-                                >
-                                  Report
-                                </Button>
+                                {!logged.hasOwnProperty("error") && (
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                      setShowReport(data.id);
+                                    }}
+                                  >
+                                    Report
+                                  </Button>
+                                )}
                               </div>
                             </Card.Header>
                             <Card.Body>
-                              <Card.Title>{data.TitlePost}</Card.Title>
+                              <Card.Title>{data.titlePost}</Card.Title>
                               <Card.Text style={{ textAlign: "start" }}>
                                 {data.descripcion}
                                 <br />
@@ -586,7 +465,7 @@ export default function HomeUser() {
                                   {data.technologiesId.map((data, i) => {
                                     let tech = allTechnologies.find(
                                       // eslint-disable-next-line
-                                      (t) => t.id == data
+                                      (t) => t.id == data,
                                     );
                                     return <li key={i}>{tech?.name}</li>;
                                   })}

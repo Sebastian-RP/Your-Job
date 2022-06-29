@@ -23,6 +23,7 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { AiOutlineDelete } from "react-icons/ai";
 
 import swal from "sweetalert";
+import ReportForm from "../../Components/Report_Form/Report_Form";
 
 export default function Companies() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -36,6 +37,7 @@ export default function Companies() {
   const allTechnologies = useSelector((state) => state.technologies);
   const [ownProfile, setOwnProfile] = useState(false);
   const [showPosts, setShowPosts] = useState(false);
+  const [showReport, setShowReport] = useState(false);
   const posts = useSelector((state) => state.companyPosts);
 
   const companyData = useSelector((state) => {
@@ -116,7 +118,7 @@ export default function Companies() {
 
   const handlerCanceledSubscription = async (e) => {
     try {
-      if(e === "todo"){
+      if (e === "todo") {
         canceledSubscription(user?.email, e)
         .then((res) => {
           dispatch(getActivePlans(user));
@@ -131,13 +133,7 @@ export default function Companies() {
           }).then((data) => {
             if(data) navigate("/home");
           });
-        }
-        )
-        .catch((err) => {
-          console.log(err);
-        }
-        );
-      } else{
+      } else {
         canceledSubscription(user?.email, e)
         .then((res) => {
           dispatch(getActivePlans(user));
@@ -152,19 +148,6 @@ export default function Companies() {
           }).then((data) => {
             if(data) navigate("/home");
           });
-        }
-        )
-        .catch((err) => {
-          swal({
-            title: "Opps!",
-            text: `Something gones wrong, please try again later`,
-            icon: "error",
-            buttons:true
-          }).then((data) => {
-            if(data) navigate("/home");
-          });        
-        }
-        );
       }
     } catch (error) {
       console.log(error);
@@ -177,6 +160,9 @@ export default function Companies() {
   return (
     <>
       <Navbar />
+      {showReport && (
+        <ReportForm props={[setShowReport, "company", showReport]} />
+      )}
       <div className={style.containerPerfil}>
         <div className={style.header}>
           <div className={style.picture}>
@@ -224,6 +210,7 @@ export default function Companies() {
             >
               Message
             </button>
+
             <button
               className={style.Button}
               style={{ display: ownProfile ? "" : "none" }}
@@ -239,6 +226,18 @@ export default function Companies() {
             >
               {showPosts ? "Company Employees" : "Company Posts"}
             </button>
+            {!ownProfile &&
+              (!loggedCompany.hasOwnProperty("error") ||
+                !loggedUser.hasOwnProperty("error")) && (
+                <button
+                  className={style.ButtonDanger}
+                  onClick={() => {
+                    setShowReport(companyData.id);
+                  }}
+                >
+                  Report
+                </button>
+              )}
           </div>
 
           <div
@@ -358,15 +357,18 @@ export default function Companies() {
                     <p key={i}>{d}</p>
                   </>
 
-                  { (companyData.plans[0] !== "You don't have any plan" &&
-                    companyData.plans[0] !== "To see your plans, please log in") ? (
-                      <div className={style.ButtonX} 
-                      onClick={()=>handlerCanceledSubscription(d)}
-                      >
-                        <AiOutlineDelete/>
-                      </div>) : null}
-              </div>)
-
+                  {companyData.plans[0] !== "You don't have any plan" &&
+                  companyData.plans[0] !==
+                    "To see your plans, please log in" ? (
+                    <div
+                      className={style.ButtonX}
+                      onClick={() => handlerCanceledSubscription(d)}
+                    >
+                      <AiOutlineDelete />
+                    </div>
+                  ) : null}
+                </div>
+              );
             })}
             <button
               className={style.Button}
