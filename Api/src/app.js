@@ -50,7 +50,7 @@ const deleteDB = false;
 
 app.listen(process.env.PORT || 3001, () => {
   console.log("Server listening on port 3001!");
-  conn.sync({ force: true }).then(() => LoadData(deleteDB));
+  conn.sync({ force: false }).then(() => LoadData(deleteDB));
 
   // executeComand(deleteDB); //llena la Bd si deleteDB= true
 });
