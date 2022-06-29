@@ -68,7 +68,7 @@ const deleteNotification = async (user) => {
         user
       }
     })
-    
+    return 'ok'
   } catch (error) {
     return ({message: error.message});
   }
