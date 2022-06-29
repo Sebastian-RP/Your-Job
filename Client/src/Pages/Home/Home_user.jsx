@@ -386,7 +386,7 @@ export default function HomeUser() {
                         className="mb-2"
                         onClick={() => {
                           navigate(
-                            `/users/${data.name}`
+                            `/company/${data.name}`
                           );
                         }}
                       >
