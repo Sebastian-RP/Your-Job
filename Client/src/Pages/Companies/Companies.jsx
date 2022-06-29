@@ -119,6 +119,10 @@ export default function Companies() {
       if(e === "todo"){
         canceledSubscription(user?.email, e)
         .then((res) => {
+          dispatch(getActivePlans(user));
+          updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then((res) => {
+            dispatch(res);
+          }); 
           swal({
             title: "Success!",
             text: "All the subscription has been canceled",
@@ -136,6 +140,10 @@ export default function Companies() {
       } else{
         canceledSubscription(user?.email, e)
         .then((res) => {
+          dispatch(getActivePlans(user));
+          updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then((res) => {
+            dispatch(res);
+          }); 
           swal({
             title: "Success!",
             text: `The subscription ${e} has been canceled`,
@@ -158,10 +166,6 @@ export default function Companies() {
         }
         );
       }
-      dispatch(getActivePlans(user));
-      updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then((res) => {
-        dispatch(res);
-      }); 
     } catch (error) {
       console.log(error);
     }
