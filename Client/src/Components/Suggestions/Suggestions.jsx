@@ -20,7 +20,7 @@ export default function Suggestions() {
 
   return (
     <aside className={style.announces}>
-      <h2>Suggestions</h2>
+      <h1>Suggestions</h1>
       <ul>
         <hr />
         <>

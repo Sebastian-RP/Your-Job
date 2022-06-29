@@ -24,6 +24,7 @@ export const CREATE_COMPANY = "CREATE_COMPANY";
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
 export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_COMPANY = "UPDATE_COMPANY";
 export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY";
 export const DELETE_FORUM_POST = "DELETE_FORUM_POST";
 export const DELETE_USER = "DELETE_USER";
@@ -379,6 +380,25 @@ export function updateUser(id, changes) {
         Account: changes.Account,
       });
       return dispatch({ type: UPDATE_USER, payload: updated.data });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
+
+export function updateCompany(email, changes) {
+  return async function (dispatch) {
+    try {
+      const updated = await axios.put(`/company/${email}`, {
+        name: changes.name,
+        url: changes.url,
+        description: changes.description,
+        image: changes.image,
+        nationality: changes.nationality,
+        phone: changes.phone,
+        address: changes.address
+      });
+      return dispatch({ type: UPDATE_COMPANY, payload: updated.data });
     } catch (error) {
       console.error(error.message);
     }

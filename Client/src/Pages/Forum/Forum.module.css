@@ -58,3 +58,10 @@ hr {
   border: 1px solid #222;
   padding: 3px 20px;
 }
+
+.main h1{
+  font-size: 38px;
+  word-spacing: -5px;
+  letter-spacing: -2px;
+  font-weight: bolder;
+}

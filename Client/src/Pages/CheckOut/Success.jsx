@@ -87,9 +87,10 @@ const Body = styled.div`
     padding: 10px;
     transition: all 300ms;
     h1{
-        margin-bottom: 10px;
-        font-size: 2.5rem;
-        font-weight: bold;
+        font-size: 38px;
+        word-spacing: -5px;
+        letter-spacing: -2px;
+        font-weight: bolder;
     }
     h2{
         margin-bottom: 10px;

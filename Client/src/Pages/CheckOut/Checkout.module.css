@@ -11,7 +11,12 @@
     animation-duration: 4s;
     animation-iteration-count: 3;
 }
-
+.contenedor h1{
+    font-size: 38px;
+    word-spacing: -5px;
+    letter-spacing: -2px;
+    font-weight: bolder;
+}
 .contenedor > div {
     border: solid 1px #FFFFFF;
     border-radius: 5px;

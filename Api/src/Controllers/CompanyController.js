@@ -128,5 +128,5 @@ module.exports = {
   updateCompany,
   findCompanyName,
   hireUser,
-  fireEmployee,
+  fireEmployee
 };

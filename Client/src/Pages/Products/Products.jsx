@@ -72,7 +72,7 @@ const Products = () => {
               return (
                 <Link to={`/product/${e.id}`} className={style.Links}>
                   <div className={`bg-dark p-2 text-light bg-opacity-50 ${style.StyledProducts}`} key={index}>
-                    <h3><GiLaurelCrown className={style.Svg}></GiLaurelCrown> {e.name}</h3>
+                    <h1><GiLaurelCrown className={style.Svg}></GiLaurelCrown> {e.name}</h1>
                     <p>{e.description}</p>
                     <p>
                       <strong>Monthly plan of ${e.prices.unit_amount / 100} {e.prices.currency}</strong>  

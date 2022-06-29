@@ -5,6 +5,13 @@
     background: rgb(187,205,229);
     background: linear-gradient(90deg, rgba(187,205,229,1) 0%, rgba(255,255,255,1) 50%, rgba(187,205,229,1) 100%);
 }
+.containerCompany h1{
+    font-size: 38px;
+    word-spacing: -5px;
+    letter-spacing: -2px;
+    font-weight: bolder;
+
+}
 .containerInfo {
     display: flex;
     flex-direction: row;
@@ -36,7 +43,7 @@
 
 }
 
-.infoPost h2 {
+.infoPost h1 {
     text-align: center;
 }
 

@@ -143,7 +143,7 @@ export default function Users() {
       {showReport && <ReportForm props={[setShowReport, "user", showReport]} />}
       <div className={style.containerPerfil}>
         <div className={style.header}>
-          <h2>About</h2>
+          <h1>User Profile</h1>
           <hr />
           <div className={style.picture}>
             <img
@@ -154,7 +154,7 @@ export default function Users() {
               }
               alt="perfil"
             />
-            <h2>{userData?.name}</h2>
+            <h1>{userData?.name}</h1>
           </div>
           <div className={style.about}>
             <p>Status: {userData?.employment_status}</p>
@@ -219,7 +219,7 @@ export default function Users() {
           {userData.plans[0] !== "You don't have any plan" &&
           userData.plans[0] !== "To see your plans, please log in" ? (
             <>
-              <h2>My posts</h2>
+              <h1>My posts</h1>
               <hr />
               <button className={style.Button}>Create a Post</button>
             </>
@@ -237,9 +237,9 @@ export default function Users() {
         </div>
         <div className={style.perfilInfo}>
           <div>
-            <h2>
+            <h1>
               Information <IoMdInformationCircleOutline />
-            </h2>
+            </h1>
             <div className={style.info}>
               <p>{userData?.description}</p>
             </div>

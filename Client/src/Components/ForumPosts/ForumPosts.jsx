@@ -16,7 +16,7 @@ export default function ForumPosts() {
   }, []);
   return (
     <section className={style.container}>
-      <h2>Posts</h2>
+      <h1>Posts</h1>
       <hr className={style.divition} />
       <ul className={style.posts}>
         {selector?.map((post, index) => {
