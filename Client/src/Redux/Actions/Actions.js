@@ -434,7 +434,6 @@ export function getActivePlans(user) {
   return async function (dispatch) {
     try {
       let UserPlans = await getAllPayments(user);
-      console.log(UserPlans);
       if (UserPlans.length === 0) {
         return dispatch({
           type: GET_PLANS,
@@ -622,5 +621,11 @@ export function getAllNotificationPost(user) {
 export function deleteNotification(user) {
   return async function(dispatch) {
     return await axios.delete(`/forum/notification/${user}`)
+  }
+}
+
+export function sendNotificationPost(value) {
+  return async function(dispatch) {
+    return await axios.post('/forum/notification', value)
   }
 }
