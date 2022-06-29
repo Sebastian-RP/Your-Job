@@ -48,13 +48,13 @@ export default function Navbar({ home }) {
       <Title2 onClick={() => navigate("/home")}>YourJob</Title2>
       <SearchBar />
       <div>
-        {home ? (
+        {home?.boolean ? (
           <Button
             onClick={() => {
               navigate("/forum");
             }}
           >
-            Forum
+            Forum {home.notification > 0&&<span>{home.notification}</span>}
           </Button>
         ) : (
           <Button
