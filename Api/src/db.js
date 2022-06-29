@@ -69,6 +69,7 @@ const {
   ForumPosts,
   CommentForumPosts,
   Report,
+  NotificationPosts
 } = sequelize.models; // acá van los modelos, con la primera letra en mayúscula
 
 //acá van las conexiones entre los modelos
@@ -87,6 +88,9 @@ UserPost.belongsTo(User);
 
 ForumPosts.hasMany(CommentForumPosts);
 CommentForumPosts.belongsTo(ForumPosts);
+
+ForumPosts.hasMany(NotificationPosts);
+NotificationPosts.belongsTo(ForumPosts);
 
 Technology.belongsToMany(User, { through: "UserTechnologies" });
 User.belongsToMany(Technology, { through: "UserTechnologies" });
