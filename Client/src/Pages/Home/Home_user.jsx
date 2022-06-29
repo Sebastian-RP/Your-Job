@@ -234,6 +234,11 @@ export default function HomeUser() {
                     alt="profile_picture"
                     width={"200px"}
                     height={"200px"}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                      profileDefaultImage;
+                    }}
                   />
                   <h1>Welcome {logged.error ? "Guest" : logged.name}!</h1>
                   {buttonClear && (
@@ -395,7 +400,7 @@ export default function HomeUser() {
                       </Card>
                     ))}
                   </>
-                  <div className={style.columInfo}></div>
+                  {/* <div className={style.columInfo}></div> */}
                 </div>
                 <div className={style.columnPost}>
                   <h1> Job Offers</h1>
