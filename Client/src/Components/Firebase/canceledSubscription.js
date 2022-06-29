@@ -11,9 +11,6 @@ async function canceledSubscription(email, element) {
     let userID = result.user.uid;
     let array = await getPaymentsByUID(userID)
 
-    console.log(element)
-    console.log(array)
-
     if( element === "todo" ){
         if(array.length === 1){
             if(array[0].items.length > 1){

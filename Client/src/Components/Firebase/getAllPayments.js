@@ -20,7 +20,7 @@ async function getAllPayments(user) {
         let array = await getPaymentsByUID(userID);
         return array
     } catch (error) {
-        console.log(error)
+        console.error(error)
         return "error";
     }
 }

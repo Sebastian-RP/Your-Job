@@ -41,7 +41,7 @@ async function loginEmail(user, password, carrito) {
         }
         
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return error;
     }
 }

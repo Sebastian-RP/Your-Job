@@ -16,7 +16,6 @@ import { Card } from "react-bootstrap";
 import style from "./homeCompany.module.css";
 import PostForm from "./postForm";
 import ListPostulates from "./listPostulates";
-import Image from "../Users/perfilPicture.png";
 import styled from "styled-components";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
@@ -219,7 +218,6 @@ export default function HomeCompany() {
               </Card>
             ))}
           </>
-          {/* <div className={style.columInfo}></div> */}
         </div>
       </div>
 
@@ -227,7 +225,6 @@ export default function HomeCompany() {
         <>
           <ButtonCanceled
             variant="danger"
-            // className={style.buttonCancel}
             onClick={() => setShowList(false)}
           >
             Back

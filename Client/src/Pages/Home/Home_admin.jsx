@@ -79,9 +79,6 @@ export default function HomeAdmin() {
   }, [reportView, adminView]);
 
   useEffect(() => {
-    // console.log(selector);
-    // console.log(user?.email);
-    // console.log(logged);
     dispatch(getUserByEmail(user?.email));
 
     // eslint-disable-next-line
@@ -113,13 +110,12 @@ export default function HomeAdmin() {
       await axios.post("/conversation/", conversation);
       navigate("/messenger");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const banQuestion = (user, report = false) => {
     setToBan(user);
-    console.log(user);
     setReportId(report);
   };
 
@@ -185,10 +181,9 @@ export default function HomeAdmin() {
     emailjs
       .send("service_db1lpkd", "template_upt9d5c", toSend, "F-jlerFc9kQmnHiSA")
       .then((response) => {
-        console.log("SUCCESS!", response.status, response.text);
       })
       .catch((err) => {
-        console.log("FAILED...", err);
+        console.error("FAILED...", err);
       });
   };
 

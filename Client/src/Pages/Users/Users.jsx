@@ -75,7 +75,7 @@ export default function Users() {
         navigate("/messenger");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -102,7 +102,7 @@ export default function Users() {
             });
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
       } else {
         canceledSubscription(user?.email, e)
@@ -132,7 +132,7 @@ export default function Users() {
         dispatch(res);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -273,11 +273,17 @@ export default function Users() {
                 className={style.Button}
                 onClick={() => {
                   window.open(
-                    "https://" + userData.cv,
+                    userData.cv,
                     "_blank",
                     "noopener,noreferrer"
                   );
                 }}
+                disabled={
+                  !userData.cv.match(
+                    // eslint-disable-next-line
+                    /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi
+                  )
+                }
               >
                 Download CV
               </button>

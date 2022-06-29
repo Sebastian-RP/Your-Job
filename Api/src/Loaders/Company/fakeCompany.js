@@ -7,14 +7,10 @@ const loaderCompanyData = async () => {
         fakeUserData.forEach(user => {
             createCompany(user[0], user[1], user[2], user[3], user[4], user[5], user[6], user[7], user[8], user[9], user[10])
         })
-
-        console.log("data Company cargada");
     } catch (error) {
-        console.log( error );
+        console.error( error );
     }
 
-    // const value2 = await getCompanies();
-    // console.log(value2);
 }
 
 module.exports = {

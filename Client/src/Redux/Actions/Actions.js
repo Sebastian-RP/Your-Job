@@ -44,7 +44,6 @@ export async function getAllEmployeesCompany(id) {
   return async function (dispatch) {
     try {
       const employees = await axios.get(`/company/employees/${id}`);
-      console.log(employees.data);
       return dispatch({
         type: GET_ALL_EMPLOYEES_FROM_COMPANY,
         payload: employees.data,
@@ -130,7 +129,6 @@ export async function getAllUsers() {
 
 export function createUser(user) {
   return async function (dispatch) {
-    console.log(user);
     try {
       const newUser = await axios.post("/users/login", {
         email: user.email,
@@ -551,7 +549,7 @@ export function report(id, contentType, reasons) {
       });
       return sentReport;
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 }
@@ -565,7 +563,7 @@ export function getAllReports() {
         payload: reports.data,
       });
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 }
@@ -579,7 +577,7 @@ export function deleteReport(id) {
         payload: delReport.data,
       });
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 }
@@ -604,7 +602,7 @@ export function allPostulatesUser(name) {
         payload: dataPostsUser.data,
       });
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 }

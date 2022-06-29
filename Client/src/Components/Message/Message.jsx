@@ -12,7 +12,7 @@ export default function Message({ message, own, friend }) {
           const res = await axios.get(`/users/id/` + (friend));
           setFriend(res.data);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       };
       getFriend();

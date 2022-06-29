@@ -64,7 +64,7 @@ export default function Messenger() {
           setConversations(res.data);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     obtenerConversacion();
@@ -79,7 +79,7 @@ export default function Messenger() {
         );
         setMessages(res.data?.text);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     getMessages();
@@ -105,7 +105,7 @@ export default function Messenger() {
         setMessages(messages ? [...messages, res.data] : [res.data]);
         setNewMessage("");
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
   };
 

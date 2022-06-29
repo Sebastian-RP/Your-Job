@@ -249,9 +249,8 @@ export default function RegisterCompany({ props }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(errors);
     if (Object.keys(errors).length > 0) {
-      console.log(errors);
+      console.error(errors);
       return;
     }
     let image = undefined;
