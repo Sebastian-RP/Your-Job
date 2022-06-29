@@ -7,3 +7,50 @@
 .containerNotification div {
     flex-grow: 1;
 }
+.postsTitle {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid lightblue;
+}
+.postsTitle img {
+    height:200px;
+    border-radius: 50%;
+}
+.postsTitle h4 {
+    border:solid 1px lightblue;
+    padding:8px;
+    border-radius:8px;
+}
+.postsTitle h4:hover {
+    cursor:pointer;
+    border-color:crimson;
+}
+.newComment {
+    padding:10px;
+    overflow-y:scroll;
+}
+.newComment .comment {
+    width:100%;
+    display:flex;
+    align-items: center;
+    box-shadow: 0 0 5px;
+    margin-bottom:10px;
+    border-radius:5px;
+}
+.comment img {
+    border-radius:50%;
+    height:100px;
+}
+.comment .image {
+    flex-grow:1;
+    text-align:center;
+    border-right:solid 1px lightblue;
+    padding: 10px;
+
+}
+.comment .cmt {
+    flex-grow:3;
+    padding: 10px;
+}
