@@ -8,7 +8,6 @@ import Navbar from "../../Components/NavBar/NavBar.jsx";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import SearchBar from "../../Components/SearchBar/SearchBar.jsx";
 
 export default function Messenger() {
   const user = useSelector((state) => state.myUser);
@@ -116,13 +115,12 @@ export default function Messenger() {
 
   // ----------------------------------------------------------------------------------------------------------//
   return (
-    <div>
-      <div>
+
+      <div className={style.containerfull}>
         <Navbar />
         <div className={style.messenger}>
           <div className={style.chatMenu}>
             <div className={style.chatMenuContainer}>
-              <SearchBar />
               {conversations.map((c, index) => (
                 <div onClick={() => setCurrentChat(c)}>
                   <Conversation
@@ -179,7 +177,6 @@ export default function Messenger() {
           </div>
         </div>
       </div>
-      :
-    </div>
+    
   );
 }
