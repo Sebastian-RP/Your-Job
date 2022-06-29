@@ -20,8 +20,7 @@ export default function Messenger() {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const socket = useRef();
   const scrollRef = useRef();
-  console.log("LA COMPAÑIA", Company.name);
-  console.log("EL USUARIO", user);
+  const userId = user.id ? user.id : Company.id
   // ----------------------------------------------------------------------------------------------------------//
   useEffect(() => {
     socket.current = io("https://socket-for-chat.herokuapp.com/");
@@ -33,11 +32,10 @@ export default function Messenger() {
       });
     });
   }, []);
-
   useEffect(() => {
-    if (arrivalMessage && arrivalMessage.sender.length < 10) {
+    if (arrivalMessage && Number(arrivalMessage.sender)) {
       arrivalMessage &&
-        currentChat?.members.includes(Number(arrivalMessage.sender)) &&
+        currentChat?.members.includes((arrivalMessage.sender).toString()) &&
         setMessages((prev) => [...prev, [arrivalMessage]]);
     } else if (arrivalMessage) {
       currentChat?.members.includes(arrivalMessage.sender) &&
@@ -46,24 +44,23 @@ export default function Messenger() {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    if (user.id) {
-      socket.current.emit("addUser", user.id);
-    } else if (Company.id) {
-      socket.current.emit("addUser", Company.id);
+    if (user?.id) {
+      socket.current.emit("addUser", user?.id);
+    } else if (Company?.id) {
+      socket.current.emit("addUser", Company?.id);
     }
     socket.current.on("getUsers", (users) => {});
-  });
+  },[Company, user]);
 
   // ----------------------------------------------------------------------------------------------------------//
   useEffect(() => {
     const obtenerConversacion = async () => {
       try {
-        if (user.id) {
-          console.log("userId", user.id);
-          const res = await axios.get(`/conversation/` + Number(user.id));
+        if (user?.id) {
+          const res = await axios.get(`/conversation/` + (user?.id));
           setConversations(res.data);
-        } else if (Company.id) {
-          const res = await axios.get(`/conversation/` + Company.id);
+        } else if (Company?.id) {
+          const res = await axios.get(`/conversation/` + Company?.id);
           setConversations(res.data);
         }
       } catch (error) {
@@ -90,41 +87,26 @@ export default function Messenger() {
   // ----------------------------------------------------------------------------------------------------------//
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (user.id) {
-      var message = {
+    try {
+      let message = {
         id: currentChat.id,
-        senderId: user.id,
+        senderId: userId,
         texto: newMessage,
       };
-      const receiverId = currentChat.members.find(
-        (x) => Number(x) !== Number(user.id)
+      const receiverId = currentChat?.members.find(
+        (x) => (x).toString() !== (userId).toString()
       );
       socket.current.emit("sendMessage", {
-        sender: user.id,
+        sender: userId,
         texto: newMessage,
         receiverId,
       });
-    } else if (Company.id) {
-      message = {
-        id: currentChat.id,
-        senderId: Company.id,
-        texto: newMessage,
-      };
-      const receiverId = currentChat.members.find((x) => x !== Company.id);
-      socket.current.emit("sendMessage", {
-        sender: Company.id,
-        texto: newMessage,
-        receiverId,
-      });
-    }
-
-    try {
-      const res = await axios.post("/conversation/", message);
-      setMessages(messages ? [...messages, res.data] : [res.data]);
-      setNewMessage("");
-    } catch (error) {
-      console.log(error);
-    }
+        const res = await axios.post("/conversation/", message);
+        setMessages(messages ? [...messages, res.data] : [res.data]);
+        setNewMessage("");
+      } catch (error) {
+        console.log(error);
+      }
   };
 
   // ----------------------------------------------------------------------------------------------------------//
@@ -158,23 +140,21 @@ export default function Messenger() {
               <div>
                 <div className={style.chatBoxTop}>
                   {messages
-                    ? messages.map((x) =>
-                        x.map((m) => (
+                    ? 
+                    messages.map((x) =>
+                    x.map((m) => (
                           <div ref={scrollRef}>
                             <Message
                               message={m}
-                              friend={m.sender !== user.id ? m.sender : null}
-                              own={
-                                (m.sender.length < 10
-                                  ? Number(m.sender)
-                                  : m.sender) ===
-                                (user.id ? Number(user.id) : Company.id)
+                              friend={m.sender !== user?.id ? m.sender : null}
+                              own={ Number(m.sender) ? 
+                                Number(m.sender) === userId : (m.sender) === userId
                               }
                             />
                           </div>
                         ))
-                      )
-                    : null}
+                        )
+                      : null}
                 </div>
                 <div className={style.chatBoxBottom}>
                   <textarea
@@ -197,18 +177,8 @@ export default function Messenger() {
               </span>
             )}
           </div>
-          <div className={style.chatOnline}>
-            <div className={style.chatOnlineContainer}>Online</div>
-            <ChatOnline />
-            <ChatOnline />
-            <ChatOnline />
-            <ChatOnline />
-            <ChatOnline />
-            <ChatOnline />
-            <ChatOnline />
-          </div>
         </div>
-      </div>{" "}
+      </div>
       :
     </div>
   );

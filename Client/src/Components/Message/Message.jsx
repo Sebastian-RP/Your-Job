@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 
 export default function Message({ message, own, friend }) {
   const [friends, setFriend] = useState(null);
-  console.log(friends);
   useEffect(() => {
     if (friend !== null) {
       const getFriend = async () => {
