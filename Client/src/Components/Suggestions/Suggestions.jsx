@@ -22,7 +22,6 @@ export default function Suggestions() {
     <aside className={style.announces}>
       <h1>Suggestions</h1>
       <ul>
-        <hr />
         <>
           {suggestions.map((data, index) => (
             <Card

@@ -20,16 +20,21 @@
   width: 25%;
   background-color: #1c5d99;
   text-align: center;
+  align-items: center;
   color: #fff;
   overflow-y: auto;
 }
 .picture {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-left: 10px;
-  width: 70%;
-  font-size: 40px;
+  width: 60%;
+}
+
+.picture img {
+  border-radius: 100%;
+  border: 2px solid #fff;
+  width: 200px;
+  height: 200px;
 }
 
 .about {
@@ -39,16 +44,15 @@
   margin-left: 10px;
   width: 70%;
 }
-.picture img {
-  width: 120px;
-  margin-left: 50px;
-}
+
 .suggestions {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 50%;
   margin: 5px;
+  overflow-y: auto;
+
 }
 .perfilInfo {
   display: flex;

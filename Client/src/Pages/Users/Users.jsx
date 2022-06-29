@@ -144,7 +144,6 @@ export default function Users() {
       <div className={style.containerPerfil}>
         <div className={style.header}>
           <h1>User Profile</h1>
-          <hr />
           <div className={style.picture}>
             <img
               src={
@@ -216,15 +215,7 @@ export default function Users() {
               Edit Profile
             </button>
           </div>
-          {userData.plans[0] !== "You don't have any plan" &&
-          userData.plans[0] !== "To see your plans, please log in" ? (
-            <>
-              <h1>My posts</h1>
-              <hr />
-              <button className={style.Button}>Create a Post</button>
-            </>
-          ) : null}
-          <h3>My postulations</h3>
+          <h1>My postulations</h1>
           {userPostulates.length ?userPostulates.map((data, index) => {
             return (
               <div key={index} className={style.CardPost}>
@@ -234,7 +225,7 @@ export default function Users() {
                 <p>Modality: {data.modality}</p>
               </div>
             );
-          }): <strong>you have not applied to any offer yet.</strong>}
+          }): <strong>You have not applied to any offer yet.</strong>}
         </div>
         <div className={style.perfilInfo}>
           <div>

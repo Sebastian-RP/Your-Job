@@ -3,7 +3,7 @@ import Loading from "../../Components/Loading/Loading";
 import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
-import { Accordion, Card, Button, ButtonGroup } from "react-bootstrap";
+import { Accordion, Card, Button } from "react-bootstrap";
 import swal from "sweetalert";
 import ReportForm from "../../Components/Report_Form/Report_Form";
 import {
@@ -15,8 +15,6 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
-  updatePremiumPlan,
-  report,
   getAllNotificationPost,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
@@ -30,7 +28,7 @@ const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
 const salario = ["min-salary", "max-salary"];
 
 export default function HomeUser() {
-  const { user, isAuthenticated, loginWithPopup } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -63,11 +61,10 @@ export default function HomeUser() {
     // eslint-disable-next-line
   }, [user]);
 
-  useEffect(()=> {
-    if(!logged.error)
-      dispatch(getAllNotificationPost(logged.name))
-
-  },[logged])
+  useEffect(() => {
+    if (!logged.error) dispatch(getAllNotificationPost(logged.name))
+    // eslint-disable-next-line
+  }, [logged])
 
   useEffect(() => {
     setPosts(selector.posts);
@@ -216,7 +213,7 @@ export default function HomeUser() {
   return (
     <div className={style.containerHome}>
       <>
-        <Navbar home={{boolean:true, notification: notification.length}} />
+        <Navbar home={{ boolean: true, notification: notification.length }} />
         {showPage ? (
           <>
             {showReport && (
@@ -237,7 +234,7 @@ export default function HomeUser() {
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src =
-                      profileDefaultImage;
+                        profileDefaultImage;
                     }}
                   />
                   <h1>Welcome {logged.error ? "Guest" : logged.name}!</h1>
@@ -385,8 +382,13 @@ export default function HomeUser() {
                         bg="secondary"
                         key={index}
                         text="light"
-                        style={{ width: "18rem" }}
+                        style={{ width: "18rem", cursor: "pointer" }}
                         className="mb-2"
+                        onClick={() => {
+                          navigate(
+                            `/users/${data.name}`
+                          );
+                        }}
                       >
                         <Card.Header>
                           <strong>Email:</strong> {data.email}
@@ -520,6 +522,6 @@ export default function HomeUser() {
           <Loading />
         )}
       </>
-    </div>
+    </div >
   );
 }
