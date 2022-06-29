@@ -65,3 +65,10 @@
     left: 0;
     fill: #FFFFFF;
 }
+
+.Contenedor h1{
+    font-size: 38px;
+    word-spacing: -5px;
+    letter-spacing: -2px;
+    font-weight: bolder;
+}

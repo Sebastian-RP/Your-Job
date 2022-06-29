@@ -59,6 +59,12 @@ hr {
   padding: 3px 20px;
 }
 
+.main h1{
+  font-size: 38px;
+  word-spacing: -5px;
+  letter-spacing: -2px;
+  font-weight: bolder;
+}
 .link:nth-child(4) {
   animation: infinite 2s linear notification;
   cursor: pointer;

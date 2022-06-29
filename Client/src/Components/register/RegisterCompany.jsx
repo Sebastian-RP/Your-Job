@@ -279,7 +279,7 @@ export default function RegisterCompany({ props }) {
   return (
     <div className={style.containerRegisterUser}>
       <div className={style.containerCard}>
-        <h2>Company Info</h2>
+        <h1>Company Info</h1>
           <form
             className={style.containeForm}
             onSubmit={(e) => handleSubmit(e)}

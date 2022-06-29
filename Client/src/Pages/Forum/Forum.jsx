@@ -35,7 +35,7 @@ export default function Forum() {
             width={"100px"}
             style={{ marginTop: "20px" }}
           />
-          <h3 style={{ marginTop: "20px" }}>{isAuthenticated ? user.name : "Guest"}</h3>
+          <h1 style={{ marginTop: "20px" }}>{isAuthenticated ? user.name : "Guest"}</h1>
           <hr />
           <h4>Profile</h4>
           <hr />

@@ -86,7 +86,7 @@ export default function HomeCompany() {
       {showFormPost && <PostForm props={company.id} />}
       <div className={style.containerInfo}>
         <div className={style.infoCompany}>
-          <h2>Company</h2>
+          <h1>Company</h1>
           <div className={style.imageCompany}>
             <img src={company?.image} alt={Image} />
           </div>
@@ -112,7 +112,7 @@ export default function HomeCompany() {
           )}
         </div>
         <div className={style.infoPost}>
-          <h2>Your Posts</h2>
+          <h1>Your Posts</h1>
           {posts?.map((data, index) => {
             return (
               <div className={style.cardPost} key={index}>

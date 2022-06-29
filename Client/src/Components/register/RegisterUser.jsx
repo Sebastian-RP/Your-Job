@@ -324,7 +324,7 @@ export default function RegisterUser({ props }) {
   return (
     <div className={style.containerRegisterUser}>
       <div className={style.containerCard}>
-        <h2>User Info</h2>
+        <h1>User Info</h1>
           <form
             className={style.containeForm}
             onSubmit={(e) => handleSubmit(e)}

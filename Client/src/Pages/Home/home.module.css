@@ -11,6 +11,15 @@
     rgba(187, 205, 229, 1) 100%
   );
 }
+
+.containerHome h1{
+  font-size: 38px;
+  word-spacing: -5px;
+  letter-spacing: -2px;
+  font-weight: bolder;
+
+}
+
 .containerActions {
   width: 100%;
   height: calc(100vh - 8vh);

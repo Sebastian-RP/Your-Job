@@ -167,6 +167,7 @@ export default function Companies() {
       )}
       <div className={style.containerPerfil}>
         <div className={style.header}>
+          <h1>Company Profile</h1>
           <div className={style.picture}>
             <img
               src={
@@ -176,7 +177,7 @@ export default function Companies() {
               }
               alt="perfil"
             />
-            <h3>{companyData?.name}</h3>
+            <h1>{companyData?.name}</h1>
           </div>
           <div className={style.about}>
             <p>Email: {companyData?.email}</p>
@@ -216,7 +217,7 @@ export default function Companies() {
             <button
               className={style.Button}
               style={{ display: ownProfile ? "" : "none" }}
-              onClick={() => navigate(`/users/${loggedCompany.name}/edit`)}
+              onClick={() => navigate(`/company/${loggedCompany.name}/edit`)}
             >
               Edit Profile
             </button>
@@ -246,7 +247,7 @@ export default function Companies() {
             style={{ display: showPosts ? "" : "none" }}
             className={style.suggestionsBody}
           >
-            <h2>Company posts</h2>
+            <h1>Company posts</h1>
             {posts &&
               posts.map((data, index) => {
                 // console.log(data);
@@ -304,7 +305,7 @@ export default function Companies() {
             style={{ display: !showPosts ? "" : "none" }}
             className={style.suggestionsBody}
           >
-            <h2>Employees</h2>
+            <h1>Employees</h1>
             {companyData.employees ? (
               companyData.employees.length > 0 ? (
                 companyData.employees.map((employee, index) => {
@@ -344,9 +345,9 @@ export default function Companies() {
         </div>
         <div className={style.perfilInfo}>
           <div>
-            <h2>
+            <h1>
               Information <IoMdInformationCircleOutline />
-            </h2>
+            </h1>
             <div className={style.info}>
               <p>{companyData?.description}</p>
             </div>

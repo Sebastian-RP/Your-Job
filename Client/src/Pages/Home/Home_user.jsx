@@ -235,7 +235,7 @@ export default function HomeUser() {
                     width={"200px"}
                     height={"200px"}
                   />
-                  <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
+                  <h1>Welcome {logged.error ? "Guest" : logged.name}!</h1>
                   {buttonClear && (
                     <Button
                       variant="success"
@@ -373,7 +373,7 @@ export default function HomeUser() {
               </div>
               <div className={style.infoPost}>
                 <div className={style.columnInfoRight}>
-                  <h3>Suggestions</h3>
+                  <h1>Suggestions</h1>
                   <>
                     {suggestions.map((data, index) => (
                       <Card

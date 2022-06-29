@@ -6,7 +6,12 @@
     align-items: center;
     background-color: #1c5d99;
 }
-
+.container h1{
+    font-size: 38px;
+    word-spacing: -5px;
+    letter-spacing: -2px;
+    font-weight: bolder;
+  }
 .buttonCancel {
     position: absolute;
     top: 20px;

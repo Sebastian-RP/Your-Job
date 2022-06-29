@@ -25,6 +25,7 @@ import {
   GET_ALL_FORUM_POST,
   GET_ALL_REPORTS,
   DELETE_REPORT,
+  UPDATE_COMPANY,
   GET_NOTIFICATIONS
 } from "../Actions/Actions.js";
 
@@ -154,6 +155,16 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         myUser: action.payload,
+      };
+    case UPDATE_COMPANY:
+      if (action.payload.email !== state.myCompany.email) {
+        return {
+          ...state,
+        };
+      }
+      return {
+        ...state,
+        myCompany: action.payload,
       };
     case DELETE_TECHNOLOGY:
       return {
