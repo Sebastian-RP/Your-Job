@@ -20,8 +20,8 @@ root.render(
     <Router>
       <React.StrictMode>
         <Auth0Provider
-          domain="dev-zgaxo6rs.us.auth0.com"
-          clientId="CnkPocpsrnIuXCzhYT0WpiyU8LxsBx5J"
+          domain="dev-clxn9t-m.us.auth0.com"
+          clientId="gqWuEgS6f3ZbS4YORxOto42gTeinqtu1"
           // redirectUri="https://your-job-seven.vercel.app/home"
           // redirectUri="http://localhost:3000/home"
           redirectUri={window.location.origin}
