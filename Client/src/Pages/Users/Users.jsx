@@ -224,7 +224,8 @@ export default function Users() {
               <button className={style.Button}>Create a Post</button>
             </>
           ) : null}
-          {userPostulates?.map((data, index) => {
+          <h3>My postulations</h3>
+          {userPostulates.length ?userPostulates.map((data, index) => {
             return (
               <div key={index} className={style.CardPost}>
                 <strong>{data.titlePost}</strong>
@@ -233,7 +234,7 @@ export default function Users() {
                 <p>Modality: {data.modality}</p>
               </div>
             );
-          })}
+          }): <strong>you have not applied to any offer yet.</strong>}
         </div>
         <div className={style.perfilInfo}>
           <div>
