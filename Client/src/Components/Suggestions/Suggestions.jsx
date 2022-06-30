@@ -8,7 +8,7 @@ export default function Suggestions() {
   const selector = useSelector((state) => state);
   const [num, setNum] = useState(0);
   const companiesPremium = [...selector.companies].filter(
-    (data) => data.premium === 2
+    (data) => (data.premium === 2 || data.premium === 3)
   );
   const suggestions = companiesPremium.slice(num, num + 2);
 
@@ -32,7 +32,7 @@ export default function Suggestions() {
               className="mb-2"
               onClick={() => {
                 navigate(
-                  `/company/${data.company?.name}`
+                  `/company/${data?.name}`
                 );
               }}
             >
