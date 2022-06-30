@@ -24,20 +24,31 @@ const getUserPosts = async () => {
     let Priority = [[], [], [], [], []];
 
     allPosts.forEach((A) => {
-      const timeA = A.createdAt.getMinutes()
+      const timeA = A.createdAt.getMinutes();
       let diff = now.getMinutes() - timeA;
 
-      if (A.user.premium === 1 || A.user.premium === 3) diff = Math.floor(diff / 2);
-      if (diff < 3) Priority[0].push(A);
-      if (3 <= diff < 6) Priority[1].push(A);
-      if (6 <= diff < 10) Priority[2].push(A);
-      if (10 <= diff < 13) Priority[3].push(A);
-      if (diff >= 13) Priority[4].push(A);
+      if (A.user.premium === 1 || A.user.premium === 3)
+        diff = Math.floor(diff / 2);
+      if (diff < 3) return Priority[0].push(A);
+      if (3 <= diff < 6) return Priority[1].push(A);
+      if (6 <= diff < 10) return Priority[2].push(A);
+      if (10 <= diff < 13) return Priority[3].push(A);
+      if (diff >= 13) return Priority[4].push(A);
     });
     Priority = Priority.map((A) => {
       A.sort((a, b) => {
-        if (a.user.premium === 1 || a.user.premium === 3 && b.user.premium !== 1 || b.user.premium !== 3) return -1;
-        if (a.user.premium !== 1 || a.user.premium !== 3 && b.user.premium === 1 || b.user.premium === 3) return 1;
+        if (
+          a.user.premium === 1 ||
+          (a.user.premium === 3 && b.user.premium !== 1) ||
+          b.user.premium !== 3
+        )
+          return -1;
+        if (
+          a.user.premium !== 1 ||
+          (a.user.premium !== 3 && b.user.premium === 1) ||
+          b.user.premium === 3
+        )
+          return 1;
         return 0;
       });
       return A;
