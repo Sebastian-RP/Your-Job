@@ -216,16 +216,20 @@ export default function Users() {
             </button>
           </div>
           <h1>My postulations</h1>
-          {userPostulates.length ?userPostulates.map((data, index) => {
-            return (
-              <div key={index} className={style.CardPost}>
-                <strong>{data.titlePost}</strong>
-                <hr />
-                <p>Experience: {data.experience}</p>
-                <p>Modality: {data.modality}</p>
-              </div>
-            );
-          }): <strong>You have not applied to any offer yet.</strong>}
+          {userPostulates.length ? (
+            userPostulates.map((data, index) => {
+              return (
+                <div key={index} className={style.CardPost}>
+                  <strong>{data.titlePost}</strong>
+                  <hr />
+                  <p>Experience: {data.experience}</p>
+                  <p>Modality: {data.modality}</p>
+                </div>
+              );
+            })
+          ) : (
+            <strong>You have not applied to any offer yet.</strong>
+          )}
         </div>
         <div className={style.perfilInfo}>
           <div>
@@ -272,14 +276,10 @@ export default function Users() {
               <button
                 className={style.Button}
                 onClick={() => {
-                  window.open(
-                    userData.cv,
-                    "_blank",
-                    "noopener,noreferrer"
-                  );
+                  window.open(userData.cv, "_blank", "noopener,noreferrer");
                 }}
                 disabled={
-                  !userData.cv.match(
+                  !userData.cv?.match(
                     // eslint-disable-next-line
                     /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi
                   )

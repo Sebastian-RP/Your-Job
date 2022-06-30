@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FaFileUpload, FaFileImage } from "react-icons/fa";
 
-
 export default function RegisterUser({ props }) {
   const { user } = useAuth0();
   const countries = [
@@ -292,13 +291,13 @@ export default function RegisterUser({ props }) {
         desc: descript.concat(` This user Works at ${company}`),
       });
     }
-    
+
     let dob = new Date(input.age);
     let image = undefined;
     uuidImage
       ? (image = `https://ucarecdn.com/${uuidImage}/`)
       : (image = user?.picture);
-    
+
     let newUser = {
       email: user?.email,
       name: input.name,
@@ -309,7 +308,7 @@ export default function RegisterUser({ props }) {
       technologies: selectedTechs,
       nationality: country,
       url: input.linkedin,
-      cv: `ucarecdn.com/${uuid}/`,
+      cv: `https://ucarecdn.com/${uuid}/`,
       premium: 0,
     };
 
@@ -322,196 +321,193 @@ export default function RegisterUser({ props }) {
     <div className={style.containerRegisterUser}>
       <div className={style.containerCard}>
         <h1>User Info</h1>
-          <form
-            className={style.containeForm}
-            onSubmit={(e) => handleSubmit(e)}
-          >
-            <div>
-              <label>Name: </label>
-              <input
-                name="name"
-                onChange={(e) => handleChange(e)}
-                placeholder="Full name"
-                autoComplete="off"
-                required
-              />
-              <br />
-              <span className={style.danger}>{errors.name}</span>
-            </div>
+        <form className={style.containeForm} onSubmit={(e) => handleSubmit(e)}>
+          <div>
+            <label>Name: </label>
+            <input
+              name="name"
+              onChange={(e) => handleChange(e)}
+              placeholder="Full name"
+              autoComplete="off"
+              required
+            />
             <br />
-            <div>
-              <label>Email: </label>
-              <input
-                name="email"
-                value={user?.email}
-                placeholder="Email"
-                autoComplete="off"
-                onMouseEnter={(e) => {
-                  handleChange(e);
-                }}
-                disabled
-              />
-              <br />
-              <span className={style.danger}>{errors.email}</span>
-            </div>
-            <br />
-            <div>
-              <label>Date of Birth:</label>
-              <input
-                type="date"
-                name="age"
-                required
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />          
-            </div>    
-            <br />
-      
-            <div className={style.containerTechnologies}>
-              <div>
-                <label>Technologies:</label>
-              </div>
-              <div>
-                <Dropdown className="d-inline mx-2" autoClose="outside">
-                  <Dropdown.Toggle id="dropdown-autoclose-outside">
-                    Select Technologies
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    {technologies &&
-                      technologies.map((tech, index) => {
-                        return (
-                          <Dropdown.Item
-                            onClick={() => {
-                              addTechs(tech.name);
-                            }}
-                            key={index}
-                          >
-                            {tech.name}
-                          </Dropdown.Item>
-                        );
-                      })}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-              <div>
-                <ul>
-                  {selectedTechs?.map((tech, index) => (
-                    <div key={index}>
-                      <li
-                        onClick={() => {
-                          removeTech(tech);
-                        }}
-                      >
-                        {` ${tech} `}
-                      </li>
-                    </div>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <br />
-            <div className={style.containerTechnologies}>
-              <div style={{marginRight: "10px"}}>
-                <label>Country of Origin: {country}</label>
-              </div>
-              <div>
-                <Dropdown className="d-inline mx-2" autoClose="outside">
-                  <DropdownButton
-                    id="dropdown-basic-button"
-                    title="Select Country"
-                  >
-                    <div style={{ height: "150px", overflowY: "scroll" }}>
-                      {countries.map((country, index) => {
-                        return (
-                          <Dropdown.Item
-                            onClick={() => {
-                              addCountry(country);
-                            }}
-                            key={index}
-                          >
-                            {country}
-                          </Dropdown.Item>
-                        );
-                      })}
-                    </div>
-                  </DropdownButton>
-                </Dropdown>  
-              </div>
-            </div>
-            <br />
-            <div>
-              <label>Linkedin: </label>
-              <input
-                name="linkedin"
-                onChange={(e) => handleChange(e)}
-                placeholder="Linkedin Profile"
-                autoComplete="off"
-                required
-              />
-              <span className={style.danger}>{errors.linkedin}</span>
-            </div>
-            <br />
-            <div>
-              <label>Description: </label>
-              <textarea
-                name="desc"
-                onChange={(e) => handleChange(e)}
-                placeholder="Description"
-                cols="40"
-                style={{ marginLeft: "10px" }}
-              />
-            </div>
-            <br />
-            <div className={style.containerCheck}>
-              <div className={style.employ}>
-                <label>Are you employed?</label>
-                <input
-                  type="checkbox"
-                  name="employment"
-                  id=""
-                  onClick={() => setEmploy(!employ)}
-                />
-                <input
-                  type="text"
-                  name="employ"
-                  placeholder="Place of employment"
-                  style={{ display: employ ? "" : "none" }}
-                  onChange={(e) => handleChange(e)}
-                  autoComplete="off"
-                />
-              </div>
-              <div>
-                <label>CV </label>{" "}
-                <Widget
-                  publicKey="de7dc23d760e287d1cb0"
-                  clearable
-                  onChange={(file) => {
-                    setUuid(file.uuid);
-                  }}
-                />
-              </div>
-              <div>
-                <label>Profile Picture</label> {" "}
-                <Widget
-                  publicKey="de7dc23d760e287d1cb0"
-                  clearable
-                  imagesOnly
-                  crop=""
-                  onChange={(file) => {
-                    setUuidImage(file.uuid);
-                  }}
-                />
-              </div>
-            </div>
-            {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
-            <Button variant="primary" size="small" type="submit">
-              Submit
-            </Button>
-          </form>
+            <span className={style.danger}>{errors.name}</span>
+          </div>
           <br />
+          <div>
+            <label>Email: </label>
+            <input
+              name="email"
+              value={user?.email}
+              placeholder="Email"
+              autoComplete="off"
+              onMouseEnter={(e) => {
+                handleChange(e);
+              }}
+              disabled
+            />
+            <br />
+            <span className={style.danger}>{errors.email}</span>
+          </div>
+          <br />
+          <div>
+            <label>Date of Birth:</label>
+            <input
+              type="date"
+              name="age"
+              required
+              onChange={(e) => {
+                handleChange(e);
+              }}
+            />
+          </div>
+          <br />
+
+          <div className={style.containerTechnologies}>
+            <div>
+              <label>Technologies:</label>
+            </div>
+            <div>
+              <Dropdown className="d-inline mx-2" autoClose="outside">
+                <Dropdown.Toggle id="dropdown-autoclose-outside">
+                  Select Technologies
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {technologies &&
+                    technologies.map((tech, index) => {
+                      return (
+                        <Dropdown.Item
+                          onClick={() => {
+                            addTechs(tech.name);
+                          }}
+                          key={index}
+                        >
+                          {tech.name}
+                        </Dropdown.Item>
+                      );
+                    })}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+            <div>
+              <ul>
+                {selectedTechs?.map((tech, index) => (
+                  <div key={index}>
+                    <li
+                      onClick={() => {
+                        removeTech(tech);
+                      }}
+                    >
+                      {` ${tech} `}
+                    </li>
+                  </div>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <br />
+          <div className={style.containerTechnologies}>
+            <div style={{ marginRight: "10px" }}>
+              <label>Country of Origin: {country}</label>
+            </div>
+            <div>
+              <Dropdown className="d-inline mx-2" autoClose="outside">
+                <DropdownButton
+                  id="dropdown-basic-button"
+                  title="Select Country"
+                >
+                  <div style={{ height: "150px", overflowY: "scroll" }}>
+                    {countries.map((country, index) => {
+                      return (
+                        <Dropdown.Item
+                          onClick={() => {
+                            addCountry(country);
+                          }}
+                          key={index}
+                        >
+                          {country}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </div>
+                </DropdownButton>
+              </Dropdown>
+            </div>
+          </div>
+          <br />
+          <div>
+            <label>Linkedin: </label>
+            <input
+              name="linkedin"
+              onChange={(e) => handleChange(e)}
+              placeholder="Linkedin Profile"
+              autoComplete="off"
+              required
+            />
+            <span className={style.danger}>{errors.linkedin}</span>
+          </div>
+          <br />
+          <div>
+            <label>Description: </label>
+            <textarea
+              name="desc"
+              onChange={(e) => handleChange(e)}
+              placeholder="Description"
+              cols="40"
+              style={{ marginLeft: "10px" }}
+            />
+          </div>
+          <br />
+          <div className={style.containerCheck}>
+            <div className={style.employ}>
+              <label>Are you employed?</label>
+              <input
+                type="checkbox"
+                name="employment"
+                id=""
+                onClick={() => setEmploy(!employ)}
+              />
+              <input
+                type="text"
+                name="employ"
+                placeholder="Place of employment"
+                style={{ display: employ ? "" : "none" }}
+                onChange={(e) => handleChange(e)}
+                autoComplete="off"
+              />
+            </div>
+            <div>
+              <label>CV </label>{" "}
+              <Widget
+                publicKey="de7dc23d760e287d1cb0"
+                clearable
+                onChange={(file) => {
+                  setUuid(file.uuid);
+                }}
+              />
+            </div>
+            <div>
+              <label>Profile Picture</label>{" "}
+              <Widget
+                publicKey="de7dc23d760e287d1cb0"
+                clearable
+                imagesOnly
+                crop=""
+                onChange={(file) => {
+                  setUuidImage(file.uuid);
+                }}
+              />
+            </div>
+          </div>
+          {/* <input type={"file"} name="cv" onChange={(e) => handleChange(e)} /> */}
+          <Button variant="primary" size="small" type="submit">
+            Submit
+          </Button>
+        </form>
+        <br />
       </div>
     </div>
   );
