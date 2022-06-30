@@ -40,7 +40,7 @@ export default function HomeUser() {
   const [showReport, setShowReport] = useState(false);
   const allTechnologies = [...selector.technologies];
   const companiesPremium = [...selector.companies].filter(
-    (data) => data.premium === 2,
+    (data) => data.premium === 2 || data.premium === 3,
   );
   const companies = [...selector.companies];
   const logged = useSelector((state) => state.myUser);
@@ -53,7 +53,9 @@ export default function HomeUser() {
   const [modeExp, setModeExp] = useState("");
   const [buttonClear, setButtonClear] = useState(false);
   const [dataFilterUl, setDataFilterUl] = useState("");
-
+  console.log(companiesPremium)
+  console.log(suggestions)
+  console.log(selector.companies)
   useEffect(() => {
     dispatch(getUserByEmail(user?.email));
     dispatch(getActivePlans(user));
