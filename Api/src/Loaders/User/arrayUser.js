@@ -1,4 +1,4 @@
-const Chance = require("chance"); //genera datos aleatoriamente, para el llenado de los campos de la BD
+const Chance = require("chance"); //genera datos aleatoriamente, para llenar los campos de la BD.
 const chance = new Chance();
 
 const fakeUserData = [
