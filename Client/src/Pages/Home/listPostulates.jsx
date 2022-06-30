@@ -82,7 +82,7 @@ const ButtonCanceled = styled.button`
   text-align: center;
   text-decoration: none;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 10px 2px;
   cursor: pointer;
   transition: all 300ms;
   position: fixed;
