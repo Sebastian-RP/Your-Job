@@ -8,6 +8,7 @@ import { AiOutlineUser, AiOutlinePoweroff, AiOutlineStar } from "react-icons/ai"
 import swal from "sweetalert";
 import styled from "styled-components";
 import { logOut } from "../../Redux/Actions/Actions";
+import Notifications from "../Notifications/Notifications.jsx"
 
 export default function Navbar({ home }) {
   const { logout } = useAuth0();
@@ -16,6 +17,8 @@ export default function Navbar({ home }) {
   const loggedUser = useSelector((state) => state.myUser);
   const loggedCompany = useSelector((state) => state.myCompany);
   const dispatch = useDispatch();
+  
+
   const handlerPerfile = () => {
     if (loggedUser.error) {
       return swal({
@@ -37,17 +40,22 @@ export default function Navbar({ home }) {
       navigate(`/user/${loggedUser.name}`);
     }
   };
-
+  
   const exit = () => {
     dispatch(logOut());
     logout({ returnTo: window.location.origin });
   };
+
+  
 
   return (
     <div className={style.containerNavbar}>
       <Title2 onClick={() => navigate("/home")}>YourJob</Title2>
       <SearchBar />
       <div>
+        <div className={style.notificacion}>
+        <Notifications />
+        </div>
       <Button
             onClick={() => {
               navigate("/messenger");
