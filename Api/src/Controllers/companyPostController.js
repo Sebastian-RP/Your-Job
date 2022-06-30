@@ -30,7 +30,7 @@ const getCompanyPosts = async () => {
       const timeA = A.createdAt.getMinutes()
       let diff = now.getMinutes() - timeA;
 
-      if (A.company.premium === 1 || A.user.premium === 3) diff = Math.floor(diff / 2);
+      if (A.company.premium === 1 || A.company.premium === 3) diff = Math.floor(diff / 2);
       if (diff < 3) Priority[0].push(A);
       if (3 <= diff < 6) Priority[1].push(A);
       if (6 <= diff < 10) Priority[2].push(A);
