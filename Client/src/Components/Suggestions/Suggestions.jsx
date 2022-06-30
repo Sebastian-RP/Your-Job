@@ -11,6 +11,8 @@ export default function Suggestions() {
     (data) => data.premium === 2
   );
   const suggestions = companiesPremium.slice(num, num + 2);
+  console.log(companiesPremium)
+  console.log(suggestions)
 
   useEffect(() => {
 
