@@ -14,23 +14,23 @@ const createUser = async (
   cv,
   premium,
   ocupation
-  ) => {
-    try {
-      await getTechnologies();
-      
-      const newUser = await User.create({
-        email,
-        name,
-        employment_status,
-        age,
-        image,
-        description,
-        technologiesName,
-        nationality,
-        url,
-        cv,
-        premium,
-        ocupation
+) => {
+  try {
+    await getTechnologies();
+
+    const newUser = await User.create({
+      email,
+      name,
+      employment_status,
+      age,
+      image,
+      description,
+      technologiesName,
+      nationality,
+      url,
+      cv,
+      premium,
+      ocupation,
     });
     let userTechnologies = await Technology.findAll({
       where: { name: technologiesName },
@@ -54,17 +54,22 @@ const findUserEmail = async (email) => {
 };
 
 const findUserId = async (id) => {
-  const user = await User.findByPk(id);
-  if (user && user.status === "disabled") return { warning: "user deleted" };
-  return user || { error: "user not found" };
+  try {
+    const user = await User.findByPk(id);
+    if (user && user.status === "disabled") return { warning: "user deleted" };
+    return user || { error: "user not found" };
+  } catch (error) {
+    console.error("Error in findUserId:", error);
+  }
 };
 
 const getUsers = async () => {
   let users = await User.findAll({
-    include: { model: Technology,
+    include: {
+      model: Technology,
       through: {
-          attributes: []
-      }
+        attributes: [],
+      },
     },
     where: { status: "active" },
   });
