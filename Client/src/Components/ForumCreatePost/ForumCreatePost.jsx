@@ -43,7 +43,7 @@ export default function ForumCreatePost() {
     title: "",
     content: "",
     user: isAuthenticated ? selector.name : "Guest",
-    picture: isAuthenticated ? user.picture : "https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg",
+    picture: isAuthenticated ? selector.image : "https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg",
     error: {},
   });
   const [preview, setPreview] = useState(false);
