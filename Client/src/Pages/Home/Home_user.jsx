@@ -53,7 +53,8 @@ export default function HomeUser() {
   const [modeExp, setModeExp] = useState("");
   const [buttonClear, setButtonClear] = useState(false);
   const [dataFilterUl, setDataFilterUl] = useState("");
-
+  console.log(companiesPremium)
+  console.log(suggestions)
   useEffect(() => {
     dispatch(getUserByEmail(user?.email));
     dispatch(getActivePlans(user));
