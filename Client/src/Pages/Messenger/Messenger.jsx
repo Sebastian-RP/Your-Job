@@ -8,7 +8,7 @@ import Navbar from "../../Components/NavBar/NavBar.jsx";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import SearchBar from "../../Components/SearchBar/SearchBar.jsx";
+import { Button } from 'react-bootstrap';
 
 export default function Messenger() {
   const user = useSelector((state) => state.myUser);
@@ -116,13 +116,12 @@ export default function Messenger() {
 
   // ----------------------------------------------------------------------------------------------------------//
   return (
-    <div>
-      <div>
+
+      <div className={style.containerfull}>
         <Navbar />
         <div className={style.messenger}>
           <div className={style.chatMenu}>
             <div className={style.chatMenuContainer}>
-              <SearchBar />
               {conversations.map((c, index) => (
                 <div onClick={() => setCurrentChat(c)}>
                   <Conversation
@@ -135,7 +134,7 @@ export default function Messenger() {
             </div>
           </div>
           <div className={style.chatBox}>
-            <div className={style.chatBoxContainer}></div>
+          <div className={style.chatBoxContainer}>
             {currentChat ? (
               <div>
                 <div className={style.chatBoxTop}>
@@ -163,12 +162,13 @@ export default function Messenger() {
                     className={style.chatMessageInput}
                     placeholder="Write something..."
                   ></textarea>
-                  <button
+                  <Button
+                    variant='primary'
                     onClick={handleSubmit}
-                    className={style.chatSubmitButton}
+                  
                   >
                     Send
-                  </button>
+                  </Button>
                 </div>
               </div>
             ) : (
@@ -177,9 +177,9 @@ export default function Messenger() {
               </span>
             )}
           </div>
+          </div>
         </div>
       </div>
-      :
-    </div>
+    
   );
 }

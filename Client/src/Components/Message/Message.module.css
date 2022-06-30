@@ -1,10 +1,14 @@
 .message{
+    width:100%;
     display:flex;
     flex-direction:column;
-    margin-top: 20px;
+    text-align: center;
 }
 .messageTop{
-    display:flex
+    display:flex;
+}
+.message .messageBottom {
+    text-align: left;
 }
 .messageImg{
     width: 32px;
@@ -15,26 +19,31 @@
     margin-top:1px;
 }
 .messageText{
-    padding: 10px;
+    padding: 6px 10px;
     border-radius: 20px;
     background-color: rgb(149, 190, 86);
-    color:white;
     max-width: 300px;
 }
 .messageBottom{
     font-size: 12px;
-    margin-top: 10px;
+    margin-top: -10px;
+    margin-bottom: 20px;
 }
 .messageOwn{
+    width: 100%;
     display: flex;
     flex-direction:column;
-    margin-right: 200px;
     align-items: flex-end;
     text-align: center;
 }
 
 .messageOwn .messageText{
     background-color: aqua;
-    color:black;
+    margin-right: 10px;
     
+}
+.messageOwn .messageTop {
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items:center;
 }
