@@ -225,7 +225,9 @@ export default function UsersEdit() {
   const [country, setCountry] = useState(userData?.nationality);
   const [uuidImage, setUuidImage] = useState(userData?.image);
   const [uuidCV, setUuidCV] = useState(userData?.cv);
-  const [employ, setEmploy] = useState(userData?.employment_status === "Unemployed" ? false : true);
+  const [employ, setEmploy] = useState(
+    userData?.employment_status === "Unemployed" ? false : true
+  );
   const [input, setInput] = useState({
     name: username,
     age: userData?.age,
@@ -337,10 +339,17 @@ export default function UsersEdit() {
             <div className={style.containerPerfil}>
               <div className={style.headerEdit}>
                 <div>
-                  <button className={style.Button} onClick={() => navigate(`/users/${loggedUser.name}`)}>
+                  <button
+                    className={style.Button}
+                    onClick={() => navigate(`/users/${loggedUser.name}`)}
+                  >
                     Back
                   </button>
-                  <button className={style.Button} type="submit" onClick={(e) => handleUpdate(e)}>
+                  <button
+                    className={style.Button}
+                    type="submit"
+                    onClick={(e) => handleUpdate(e)}
+                  >
                     Update
                   </button>
                 </div>
@@ -355,22 +364,21 @@ export default function UsersEdit() {
                       setUuidImage(file.uuid);
                     }}
                   />
-                  <label>Name: {" "}</label>
-                    <input
-                      defaultValue={username}
-                      name="name"
-                      required
-                      onChange={(e) => {
-                        handleChange(e);
-                      }}
-                    />
+                  <label>Name: </label>
+                  <input
+                    defaultValue={username}
+                    name="name"
+                    required
+                    onChange={(e) => {
+                      handleChange(e);
+                    }}
+                  />
                 </div>
-
               </div>
               <div className={style.sugestionsEdit}>
                 <h1>Edit your profile info</h1>
                 <hr />
-                <label>Description: {" "}</label>
+                <label>Description: </label>
 
                 <div>
                   <textarea
@@ -395,7 +403,6 @@ export default function UsersEdit() {
                     }}
                   />
                 </div>
-
               </div>
               <div className={style.perfilInfo}>
                 <div className={style.about}>
@@ -477,19 +484,21 @@ export default function UsersEdit() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      {technologies &&
-                        technologies.map((tech, index) => {
-                          return (
-                            <Dropdown.Item
-                              onClick={() => {
-                                addTechs(tech.name);
-                              }}
-                              key={index}
-                            >
-                              {tech.name}
-                            </Dropdown.Item>
-                          );
-                        })}
+                      <div style={{ height: "150px", overflowY: "scroll" }}>
+                        {technologies &&
+                          technologies.map((tech, index) => {
+                            return (
+                              <Dropdown.Item
+                                onClick={() => {
+                                  addTechs(tech.name);
+                                }}
+                                key={index}
+                              >
+                                {tech.name}
+                              </Dropdown.Item>
+                            );
+                          })}
+                      </div>
                     </Dropdown.Menu>
                   </Dropdown>
                   <ul>
