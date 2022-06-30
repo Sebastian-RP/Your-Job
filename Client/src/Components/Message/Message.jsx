@@ -9,8 +9,13 @@ export default function Message({ message, own, friend }) {
     if (friend !== null) {
       const getFriend = async () => {
         try {
-          const res = await axios.get(`/users/id/` + (friend));
-          setFriend(res.data);
+          if(Number(friend)){
+            const res = await axios.get(`/users/id/` + (friend));
+            setFriend(res.data);
+          } else {
+            const res = await axios.get(`/company/` + (friend))
+            setFriend(res.data);
+          }
         } catch (error) {
           console.error(error);
         }
