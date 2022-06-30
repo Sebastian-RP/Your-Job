@@ -31,11 +31,11 @@ export default function Forum() {
         <aside className={style.menu}>
           <h1>Profile</h1>
           <img
-            src={isAuthenticated ? user.picture : "https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg"}
+            src={selectorUser? selectorUser.image : "https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg"}
             alt=""
             style={{ marginTop: "20px" }}
           />
-          <h1 style={{ marginTop: "20px" }}>{isAuthenticated ? user.name : "Guest"}</h1>
+          <h1 style={{ marginTop: "20px" }}>{isAuthenticated ? selectorUser.name : "Guest"}</h1>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Link className={style.link} to={"../forum"}>
               View posts
