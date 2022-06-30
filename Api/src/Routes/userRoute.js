@@ -67,8 +67,12 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.get("/id/:id", async (req, res) => {
-  const { id } = req.params;
-  res.send(await findUserId(id));
+  try {
+    const { id } = req.params;
+    res.send(await findUserId(id));
+  } catch (error) {
+    console.error("error in findUserId: ", error);
+  }
 });
 
 module.exports = router;
