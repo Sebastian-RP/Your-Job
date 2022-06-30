@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import NotificationPost from "../../Components/NotificationPost/NotificationPost";
 import { deleteNotification, getAllNotificationPost } from "../../Redux/Actions/Actions";
+
 export default function Forum() {
   const selector = useSelector(state => state.notificationPost);
   const selectorUser = useSelector(state => state.myUser);
@@ -16,6 +17,8 @@ export default function Forum() {
   const { isAuthenticated, user } = useAuth0();
   const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch();
+  const profileDefaultImage =
+  "https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png";
 
   const handlerBackNotification = () => {
     dispatch(deleteNotification(selectorUser.name))
@@ -31,11 +34,26 @@ export default function Forum() {
         <aside className={style.menu}>
           <h1>Profile</h1>
           <img
+            src={
+              selectorUser?.image
+                ? selectorUser.image + "-/resize/200x200/"
+                : profileDefaultImage
+            }
+            alt="profile_picture"
+            width={"200px"}
+            height={"200px"}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src =
+                profileDefaultImage;
+            }}
+          />
+          {/* <img
             src={selectorUser? selectorUser.image : "https://icon-library.com/images/profile-png-icon/profile-png-icon-2.jpg"}
             alt=""
             style={{ marginTop: "20px" }}
-          />
-          <h1 style={{ marginTop: "20px" }}>{isAuthenticated ? selectorUser.name : "Guest"}</h1>
+          /> */}
+          <h1 style={{ textAlign: "center" }}>{isAuthenticated ? selectorUser.name : "Guest"}</h1>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Link className={style.link} to={"../forum"}>
               View posts
