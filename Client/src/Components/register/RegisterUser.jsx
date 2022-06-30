@@ -375,19 +375,21 @@ export default function RegisterUser({ props }) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  {technologies &&
-                    technologies.map((tech, index) => {
-                      return (
-                        <Dropdown.Item
-                          onClick={() => {
-                            addTechs(tech.name);
-                          }}
-                          key={index}
-                        >
-                          {tech.name}
-                        </Dropdown.Item>
-                      );
-                    })}
+                  <div style={{ height: "150px", overflowY: "scroll" }}>
+                    {technologies &&
+                      technologies.map((tech, index) => {
+                        return (
+                          <Dropdown.Item
+                            onClick={() => {
+                              addTechs(tech.name);
+                            }}
+                            key={index}
+                          >
+                            {tech.name}
+                          </Dropdown.Item>
+                        );
+                      })}
+                  </div>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
