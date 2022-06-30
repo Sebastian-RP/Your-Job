@@ -26,7 +26,9 @@ import {
   GET_ALL_REPORTS,
   DELETE_REPORT,
   UPDATE_COMPANY,
-  GET_NOTIFICATIONS
+  GET_NOTIFICATIONS,
+  NOTIFICATIONS,
+  CLEANER
 } from "../Actions/Actions.js";
 
 const initialState = {
@@ -49,7 +51,8 @@ const initialState = {
   emailData: [],
   allForumPost: [],
   reports: [],
-  notificationPost: []
+  notificationPost: [],
+  notificationChat: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -205,7 +208,17 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         notificationPost: action.payload
-      }
+      };
+      case NOTIFICATIONS: 
+      return {
+        ...state,
+        notificationChat: [action.payload]
+      };
+      case CLEANER:
+        return {
+          ...state,
+          notificationChat: []
+        }
     default:
       return { ...state };
   }

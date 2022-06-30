@@ -39,6 +39,8 @@ export const REPORT = "REPORT";
 export const GET_ALL_REPORTS = "GET_ALL_REPORTS";
 export const DELETE_REPORT = "DELETE_REPORT";
 export const GET_NOTIFICATIONS = "GET_NOTIFICATIONS";
+export const NOTIFICATIONS = "NOTIFICATIONS";
+export const CLEANER = "CLEANER";
 
 export async function getAllEmployeesCompany(id) {
   return async function (dispatch) {
@@ -645,5 +647,17 @@ export function deleteNotification(user) {
 export function sendNotificationPost(value) {
   return async function(dispatch) {
     return await axios.post('/forum/notification', value)
+  }
+}
+
+export function sendNotificationChat(payload){
+  return async function(dispatch) {
+    return dispatch({ type: NOTIFICATIONS, payload })
+  }
+}
+
+export function cleanNotification(){
+  return async function(dispatch) {
+    return dispatch({ type: CLEANER })
   }
 }
