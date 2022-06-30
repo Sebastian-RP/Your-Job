@@ -8,6 +8,7 @@ import Navbar from "../../Components/NavBar/NavBar.jsx";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import { Button } from 'react-bootstrap';
 
 export default function Messenger() {
   const user = useSelector((state) => state.myUser);
@@ -133,7 +134,7 @@ export default function Messenger() {
             </div>
           </div>
           <div className={style.chatBox}>
-            <div className={style.chatBoxContainer}></div>
+          <div className={style.chatBoxContainer}>
             {currentChat ? (
               <div>
                 <div className={style.chatBoxTop}>
@@ -161,12 +162,13 @@ export default function Messenger() {
                     className={style.chatMessageInput}
                     placeholder="Write something..."
                   ></textarea>
-                  <button
+                  <Button
+                    variant='primary'
                     onClick={handleSubmit}
-                    className={style.chatSubmitButton}
+                  
                   >
                     Send
-                  </button>
+                  </Button>
                 </div>
               </div>
             ) : (
@@ -174,6 +176,7 @@ export default function Messenger() {
                 Open a conversation to start a chat
               </span>
             )}
+          </div>
           </div>
         </div>
       </div>

@@ -237,7 +237,7 @@ export default function HomeUser() {
                         profileDefaultImage;
                     }}
                   />
-                  <h1>Welcome {logged.error ? "Guest" : logged.name}!</h1>
+                  <h1>Welcome <br /> {logged.error ? "Guest" : logged.name}!</h1>
                   {buttonClear && (
                     <Button
                       variant="success"
