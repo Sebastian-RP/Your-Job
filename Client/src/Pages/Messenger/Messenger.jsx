@@ -18,10 +18,12 @@ export default function Messenger() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  const socket = useRef();
-  const scrollRef = useRef();
   const userId = user.id ? user.id : Company.id
+  const scrollRef = useRef();
   // ----------------------------------------------------------------------------------------------------------//
+  const socket = useRef()
+  
+  
   useEffect(() => {
     socket.current = io("https://socket-for-chat.herokuapp.com/");
     socket.current.on("getMessage", (data) => {
@@ -32,6 +34,7 @@ export default function Messenger() {
       });
     });
   }, []);
+  
   useEffect(() => {
     if (arrivalMessage && Number(arrivalMessage.sender)) {
       arrivalMessage &&
@@ -43,15 +46,15 @@ export default function Messenger() {
     }
   }, [arrivalMessage, currentChat]);
 
-  useEffect(() => {
-    if (user?.id) {
-      socket.current.emit("addUser", user?.id);
-    } else if (Company?.id) {
-      socket.current.emit("addUser", Company?.id);
-    }
-    socket.current.on("getUsers", (users) => {});
-  },[Company, user]);
-
+  // useEffect(() => {
+  //   if (user?.id) {
+  //     socket.current.emit("addUser", user?.id);
+  //   } else if (Company?.id) {
+  //     socket.current.emit("addUser", Company?.id);
+  //   }
+  //   socket.current.on("getUsers", (users) => {});
+  // },[Company, user]);
+  
   // ----------------------------------------------------------------------------------------------------------//
   useEffect(() => {
     const obtenerConversacion = async () => {
@@ -100,6 +103,10 @@ export default function Messenger() {
         sender: userId,
         texto: newMessage,
         receiverId,
+      });
+      socket.current.emit("notification", {
+        sender: userId,
+        texto: newMessage
       });
         const res = await axios.post("/conversation/", message);
         setMessages(messages ? [...messages, res.data] : [res.data]);
