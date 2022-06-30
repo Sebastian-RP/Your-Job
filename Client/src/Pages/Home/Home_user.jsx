@@ -179,7 +179,7 @@ export default function HomeUser() {
     }
     const { name, url, postId, companyId } = val;
     dispatch(postulateJob({ name, url, postId, companyId }))
-      .then((res) => swal("Listo!", res.data, "success"))
+      .then((res) => swal("Success!", res.data, "success"))
       .then(() => dispatch(getPostulates(user.email)));
   };
 
@@ -420,7 +420,7 @@ export default function HomeUser() {
                       return (
                         <div
                           className={
-                            data.company.premium === 1
+                            (data.company.premium === 1 || data.company.premium === 3)
                               ? style.cardPostPremium
                               : style.cardPost
                           }
@@ -440,7 +440,7 @@ export default function HomeUser() {
                                   >
                                     {" "}
                                     {data.company?.name}{" "}
-                                    {data.company.premium === 1 ? (
+                                    {(data.company.premium === 1 || data.company.premium === 3) ? (
                                       <AiFillStar />
                                     ) : (
                                       ""
