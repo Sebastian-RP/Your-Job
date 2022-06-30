@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 
 export default function Message({ message, own, friend }) {
   const [friends, setFriend] = useState(null);
-  console.log(friends);
   useEffect(() => {
     if (friend !== null) {
       const getFriend = async () => {
@@ -13,7 +12,7 @@ export default function Message({ message, own, friend }) {
           const res = await axios.get(`/users/id/` + (friend));
           setFriend(res.data);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       };
       getFriend();

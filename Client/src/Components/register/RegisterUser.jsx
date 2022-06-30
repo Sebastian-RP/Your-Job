@@ -271,7 +271,6 @@ export default function RegisterUser({ props }) {
   const removeTech = (tech) => {
     let aux = selectedTechs.filter((element) => element !== tech);
     setSelected(aux);
-    console.log(aux);
   };
 
   const addCountry = (country) => {
@@ -280,12 +279,11 @@ export default function RegisterUser({ props }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(errors);
     if (Object.keys(errors).length > 0) {
-      console.log(errors);
+      console.error(errors);
       return;
     }
-    let empleado = employ ? "empleado" : "desempleado";
+    let empleado = employ ? "Employee" : "Unemployed";
     if (employ) {
       let company = input.employ;
       let descript = input.desc;
@@ -294,12 +292,13 @@ export default function RegisterUser({ props }) {
         desc: descript.concat(` This user Works at ${company}`),
       });
     }
-    console.log(user?.email);
+    
     let dob = new Date(input.age);
     let image = undefined;
     uuidImage
       ? (image = `https://ucarecdn.com/${uuidImage}/`)
       : (image = user?.picture);
+    
     let newUser = {
       email: user?.email,
       name: input.name,
@@ -313,7 +312,6 @@ export default function RegisterUser({ props }) {
       cv: `ucarecdn.com/${uuid}/`,
       premium: 0,
     };
-    console.log(newUser);
 
     dispatch(await createUser(newUser));
 
@@ -323,7 +321,7 @@ export default function RegisterUser({ props }) {
   return (
     <div className={style.containerRegisterUser}>
       <div className={style.containerCard}>
-        <h2>User Info</h2>
+        <h1>User Info</h1>
           <form
             className={style.containeForm}
             onSubmit={(e) => handleSubmit(e)}
@@ -365,7 +363,6 @@ export default function RegisterUser({ props }) {
                 required
                 onChange={(e) => {
                   handleChange(e);
-                  // console.log(e.target.value);
                 }}
               />          
             </div>    

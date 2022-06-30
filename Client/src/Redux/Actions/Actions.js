@@ -24,6 +24,7 @@ export const CREATE_COMPANY = "CREATE_COMPANY";
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
 export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_COMPANY = "UPDATE_COMPANY";
 export const DELETE_TECHNOLOGY = "DELETE_TECHNOLOGY";
 export const DELETE_FORUM_POST = "DELETE_FORUM_POST";
 export const DELETE_USER = "DELETE_USER";
@@ -34,12 +35,15 @@ export const SET_EMAIL_DATA = "SET_EMAIL_DATA";
 export const HIRE = "HIRE";
 export const GET_ALL_FORUM_POST = "ET_ALL_FORUM_POST";
 export const FIRE = "FIRE";
+export const REPORT = "REPORT";
+export const GET_ALL_REPORTS = "GET_ALL_REPORTS";
+export const DELETE_REPORT = "DELETE_REPORT";
+export const GET_NOTIFICATIONS = "GET_NOTIFICATIONS";
 
 export async function getAllEmployeesCompany(id) {
   return async function (dispatch) {
     try {
       const employees = await axios.get(`/company/employees/${id}`);
-      console.log(employees.data);
       return dispatch({
         type: GET_ALL_EMPLOYEES_FROM_COMPANY,
         payload: employees.data,
@@ -125,7 +129,6 @@ export async function getAllUsers() {
 
 export function createUser(user) {
   return async function (dispatch) {
-    console.log(user);
     try {
       const newUser = await axios.post("/users/login", {
         email: user.email,
@@ -382,6 +385,25 @@ export function updateUser(id, changes) {
   };
 }
 
+export function updateCompany(email, changes) {
+  return async function (dispatch) {
+    try {
+      const updated = await axios.put(`/company/${email}`, {
+        name: changes.name,
+        url: changes.url,
+        description: changes.description,
+        image: changes.image,
+        nationality: changes.nationality,
+        phone: changes.phone,
+        address: changes.address
+      });
+      return dispatch({ type: UPDATE_COMPANY, payload: updated.data });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
+
 export function deleteTech(id) {
   return async function (dispatch) {
     try {
@@ -517,16 +539,59 @@ export function fire(employeeId, companyId) {
   };
 }
 
-// export function deleteForumPost(id){
-//   return async function (dispatch){
-//     try {
-//       const forumPostArray = await axios.delete(`/userPost/${id}`)
-//       return forumPostArray
-//     } catch (error) {
-//       console.error(error.message);
-//     }
-//   }
-// }
+export function report(id, contentType, reasons) {
+  return async function (dispatch) {
+    try {
+      const sentReport = axios.post("/report", {
+        contentId: id.toString(),
+        contentType: contentType,
+        reasons: reasons,
+      });
+      return sentReport;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
+
+export function getAllReports() {
+  return async function (dispatch) {
+    try {
+      const reports = await axios.get("/report");
+      return dispatch({
+        type: GET_ALL_REPORTS,
+        payload: reports.data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
+
+export function deleteReport(id) {
+  return async function (dispatch) {
+    try {
+      const delReport = await axios.delete(`/report/${id}`);
+      return dispatch({
+        type: DELETE_REPORT,
+        payload: delReport.data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
+
+export function deleteForumPost(id) {
+  return async function (dispatch) {
+    try {
+      const forumPostArray = await axios.delete(`/userPost/${id}`);
+      return forumPostArray;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+}
 
 export function allPostulatesUser(name) {
   return async function (dispatch) {
@@ -537,7 +602,7 @@ export function allPostulatesUser(name) {
         payload: dataPostsUser.data,
       });
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 }
@@ -548,20 +613,37 @@ export function setEmailData(user) {
       type: SET_EMAIL_DATA,
       payload: user,
     });
-  }
-} 
-
-export function createForumPost(value){ 
-  return async function (dispatch) {
-    return await axios.post('/forum/post', {
-      value
-    })
-  }
+  };
 }
 
 export function getAllForumPost() {
   return async function (dispatch) {
-    const dataPost = await axios.get('/forum/posts');
-    return dispatch({type: GET_ALL_FORUM_POST, payload: dataPost.data})
+    const dataPost = await axios.get("/forum/posts");
+    return dispatch({ type: GET_ALL_FORUM_POST, payload: dataPost.data });
+  };
+}
+
+export function createCommentPost(value) {
+  return async function (dispatch) {
+    return await axios.post("/forum/comment", value);
+  };
+}
+
+export function getAllNotificationPost(user) {
+  return async function(dispatch) {
+    let dataNot = await axios.get(`/forum/notification/${user}`);
+    return dispatch({ type: GET_NOTIFICATIONS, payload: dataNot.data });
+  }
+}
+
+export function deleteNotification(user) {
+  return async function(dispatch) {
+    return await axios.delete(`/forum/notification/${user}`)
+  }
+}
+
+export function sendNotificationPost(value) {
+  return async function(dispatch) {
+    return await axios.post('/forum/notification', value)
   }
 }

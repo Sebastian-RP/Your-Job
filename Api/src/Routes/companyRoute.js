@@ -9,7 +9,7 @@ const {
   updateCompany,
   findCompanyName,
   hireUser,
-  fireEmployee,
+  fireEmployee
 } = require("../Controllers/CompanyController.js");
 
 const router = Router();
@@ -93,7 +93,6 @@ router.put("/fire", async (req, res) => {
 
 router.put("/:email", async (req, res) => {
   try {
-    console.log("HOLA");
     const { email } = req.params;
     const changes = req.body;
     res.send(await updateCompany(email, changes));
@@ -101,5 +100,6 @@ router.put("/:email", async (req, res) => {
     console.log("Error in updateCompany:", error.message);
   }
 });
+
 
 module.exports = router;

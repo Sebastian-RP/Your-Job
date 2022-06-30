@@ -5,8 +5,13 @@
   width: 100%;
   height: 92vh;
   overflow-y: hidden;
-  background: rgb(187,205,229);
-  background: linear-gradient(90deg, rgba(187,205,229,1) 0%, rgba(255,255,255,1) 50%, rgba(187,205,229,1) 100%);
+  background: rgb(187, 205, 229);
+  background: linear-gradient(
+    90deg,
+    rgba(187, 205, 229, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(187, 205, 229, 1) 100%
+  );
 }
 .header {
   display: flex;
@@ -15,16 +20,21 @@
   width: 25%;
   background-color: #1c5d99;
   text-align: center;
+  align-items: center;
   color: #fff;
   overflow-y: auto;
 }
 .picture {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-left: 10px;
-  width: 70%;
-  font-size: 40px;
+  width: 60%;
+}
+
+.picture img {
+  border-radius: 100%;
+  border: 2px solid #fff;
+  width: 200px;
+  height: 200px;
 }
 
 .about {
@@ -34,16 +44,15 @@
   margin-left: 10px;
   width: 70%;
 }
-.picture img {
-  width: 120px;
-  margin-left: 50px;
-}
+
 .suggestions {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 50%;
   margin: 5px;
+  overflow-y: auto;
+
 }
 .perfilInfo {
   display: flex;
@@ -86,6 +95,37 @@
   cursor: not-allowed;
 }
 
+.ButtonDanger {
+  background-color: #991c1c;
+  border-radius: 5px;
+  border: 1px solid white;
+  color: white;
+  padding: 7px 10px 7px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: all 300ms;
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
+  -ms-transition: all 300ms;
+  -o-transition: all 300ms;
+}
+
+.ButtonDanger:hover {
+  border: 1px solid black;
+  color: #222222;
+  background-color: #ffffff;
+}
+
+.ButtonDanger:disabled {
+  color: #222222;
+  background-color: #ffffff;
+  cursor: not-allowed;
+}
+
 .containerTechnologies li {
   border-radius: 5px;
   list-style-type: none;
@@ -101,6 +141,12 @@
   cursor: pointer;
 }
 
+.employeeName img {
+  border-radius: 100%;
+  border: 2px solid #fff;
+  width: 50px;
+  height: 50px;
+}
 /* .employee {
   display: flex;
   flex-direction: column;
@@ -130,7 +176,7 @@
   cursor: pointer;
 }
 
-.suggestionsBody{
+.suggestionsBody {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -138,15 +184,21 @@
   margin: 5px;
   overflow-y: auto;
 }
-.cards{
+.containerPerfil h1{
+  font-size: 38px;
+  word-spacing: -5px;
+  letter-spacing: -2px;
+  font-weight: bolder;
+}
+.cards {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.cards h3{
-  color:#ffffff;
+.cards h3 {
+  color: #ffffff;
   font-size: 20px;
   width: 100%;
   display: flex;
@@ -161,7 +213,7 @@
   margin: 2px;
 }
 
-.subscriptions{
+.subscriptions {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -171,7 +223,7 @@
   align-items: baseline;
 }
 
-.ButtonX{
+.ButtonX {
   background-color: fill;
   border-radius: 100%;
   color: #ffffff;
@@ -192,4 +244,50 @@
   -moz-transform: scale(1.2);
   -ms-transform: scale(1.2);
   -o-transform: scale(1.2);
+}
+
+.headerEdit {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: flex-start;
+  padding: 20px;
+  width: 33%;
+  background-color: #1c5d99;
+  text-align: center;
+  color: #fff;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.pictureEdit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 10px;
+  width: 50%;
+  font-size: 20px;
+}
+.pictureEdit > div {
+  font-size: 20px;
+}
+
+.sugestionsEdit {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: flex-start;
+  padding: 20px;
+  width: 33%;
+  text-align: center;
+  color: #222222;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.sugestionsEdit h1{
+  font-size: 50px;
+  font-weight: bolder;
 }

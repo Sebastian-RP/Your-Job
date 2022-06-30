@@ -1,10 +1,11 @@
 import Navbar from "../../Components/NavBar/NavBar";
-import Loading from "../../Components/Loading/Loading"
+import Loading from "../../Components/Loading/Loading";
 import style from "./home.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Card, Button } from "react-bootstrap";
 import swal from "sweetalert";
+import ReportForm from "../../Components/Report_Form/Report_Form";
 import {
   getAllCompanies,
   getAllPost,
@@ -14,7 +15,7 @@ import {
   postulateJob,
   getAllProducts,
   getActivePlans,
-  updatePremiumPlan,
+  getAllNotificationPost,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,9 +27,8 @@ const Modality = ["Remote", "Presential"];
 const Experience = ["Training", "Junior", "Semi-Senior", "Senior"];
 const salario = ["min-salary", "max-salary"];
 
-
 export default function HomeUser() {
-  const { user, isAuthenticated, loginWithPopup } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,17 +37,22 @@ export default function HomeUser() {
   const [num, setNum] = useState(0);
   const [postId, setPostId] = useState([]);
   const [showPage, setShowPage] = useState(false);
+  const [showReport, setShowReport] = useState(false);
   const allTechnologies = [...selector.technologies];
-  const companiesPremium = [...selector.companies].filter(data => data.premium === 2);
-  const companies = [...selector.companies]
+  const companiesPremium = [...selector.companies].filter(
+    (data) => data.premium === 2,
+  );
+  const companies = [...selector.companies];
   const logged = useSelector((state) => state.myUser);
   const suggestions = companiesPremium.slice(num, num + 2);
   const postulatesUser = selector.postulatesUser;
+  const notification = selector.notificationPost;
   const [filterMod, setFilterMod] = useState([]);
   const [mode, setMode] = useState("");
   const [filterExp, setFilterExp] = useState([]);
   const [modeExp, setModeExp] = useState("");
   const [buttonClear, setButtonClear] = useState(false);
+  const [dataFilterUl, setDataFilterUl] = useState("");
 
   useEffect(() => {
     dispatch(getUserByEmail(user?.email));
@@ -56,12 +61,14 @@ export default function HomeUser() {
     // eslint-disable-next-line
   }, [user]);
 
-  // el useState llamado NUM y este useEffect hacen que la sugerencia de las
-  //empresas no sean la mismas siempre.
-  // y setea los posts en un estado local para hacer los filtros desde acá
+  useEffect(() => {
+    if (!logged.error) dispatch(getAllNotificationPost(logged.name))
+    // eslint-disable-next-line
+  }, [logged])
+
   useEffect(() => {
     setPosts(selector.posts);
-      !num&&setNum(Math.floor(Math.random() * (companiesPremium.length - 3)));
+    !num && setNum(Math.floor(Math.random() * (companiesPremium.length - 3)));
     // eslint-disable-next-line
   }, [selector]);
   //----------------------------------------------------
@@ -70,7 +77,7 @@ export default function HomeUser() {
       postulatesUser.map((data) => {
         return setPostId([...postId, data.companyPostId]);
       });
-    
+
     // eslint-disable-next-line
   }, [postulatesUser]);
 
@@ -78,7 +85,7 @@ export default function HomeUser() {
     dispatch(getAllPost());
     dispatch(getAllTechnologies());
     dispatch(getAllCompanies());
-    dispatch(getAllProducts("usuario"))
+    dispatch(getAllProducts("usuario"));
     setShowPage(true);
 
     // eslint-disable-next-line
@@ -165,9 +172,9 @@ export default function HomeUser() {
         title: "Oops!",
         text: "You need to bo logged in to Apply for jobs",
         icon: "error",
-        buttons:true
+        buttons: true,
       }).then((data) => {
-        if(data) navigate("/login");
+        if (data) navigate("/login");
       });
     }
     const { name, url, postId, companyId } = val;
@@ -195,12 +202,23 @@ export default function HomeUser() {
     return lengthData;
   };
 
+  const handlerDataFilterUl = (key, value) => {
+    setDataFilterUl((data) => {
+      return {
+        ...data,
+        [key]: value,
+      };
+    });
+  };
   return (
     <div className={style.containerHome}>
       <>
-        <Navbar home={true} />
+        <Navbar home={{ boolean: true, notification: notification.length }} />
         {showPage ? (
           <>
+            {showReport && (
+              <ReportForm props={[setShowReport, "companyPost", showReport]} />
+            )}
             <div className={style.containerActions}>
               <div className={style.filters}>
                 <div className={style.image}>
@@ -213,8 +231,13 @@ export default function HomeUser() {
                     alt="profile_picture"
                     width={"200px"}
                     height={"200px"}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        profileDefaultImage;
+                    }}
                   />
-                  <p>Welcome {logged.error ? "Guest" : logged.name}!</p>
+                  <h1>Welcome {logged.error ? "Guest" : logged.name}!</h1>
                   {buttonClear && (
                     <Button
                       variant="success"
@@ -223,6 +246,7 @@ export default function HomeUser() {
                         setModeExp("");
                         setMode("");
                         setPosts(selector.posts);
+                        setDataFilterUl("");
                       }}
                     >
                       Clear Filter
@@ -245,8 +269,10 @@ export default function HomeUser() {
                             style={{ padding: "2px" }}
                             key={i}
                             onClick={() => {
-                              setButtonClear(true)
-                              filterByCompany(d.name)}}
+                              setButtonClear(true);
+                              filterByCompany(d.name);
+                              handlerDataFilterUl("company", d.name);
+                            }}
                           >
                             {d.name}
                             <hr />
@@ -264,7 +290,9 @@ export default function HomeUser() {
                           key={i}
                           onClick={() => {
                             setButtonClear(true);
-                            getFilterByTechnologies(d.id)}}
+                            getFilterByTechnologies(d.id);
+                            handlerDataFilterUl(`technologies ${i}`, d.name);
+                          }}
                         >
                           <p className={style.lengthDat}>
                             {d.name}
@@ -284,7 +312,9 @@ export default function HomeUser() {
                           key={index}
                           onClick={() => {
                             setButtonClear(true);
-                            filterBySalary(data)}}
+                            filterBySalary(data);
+                            handlerDataFilterUl("salary", data);
+                          }}
                           style={{ cursor: "pointer" }}
                         >
                           {data}
@@ -300,7 +330,9 @@ export default function HomeUser() {
                           key={index}
                           onClick={() => {
                             setButtonClear(true);
-                            filterByModality(data)}}
+                            filterByModality(data);
+                            handlerDataFilterUl("modality", data);
+                          }}
                           style={{ cursor: "pointer" }}
                         >
                           <p className={style.lengthDat}>
@@ -323,7 +355,9 @@ export default function HomeUser() {
                           key={index}
                           onClick={() => {
                             setButtonClear(true);
-                            filterByExperience(data)}}
+                            filterByExperience(data);
+                            handlerDataFilterUl("experience", data);
+                          }}
                           style={{ cursor: "pointer" }}
                         >
                           <p className={style.lengthDat}>
@@ -341,15 +375,20 @@ export default function HomeUser() {
               </div>
               <div className={style.infoPost}>
                 <div className={style.columnInfoRight}>
-                  <h3>Suggestions</h3>
+                  <h1>Suggestions</h1>
                   <>
                     {suggestions.map((data, index) => (
                       <Card
                         bg="secondary"
                         key={index}
                         text="light"
-                        style={{ width: "18rem" }}
+                        style={{ width: "18rem", cursor: "pointer" }}
                         className="mb-2"
+                        onClick={() => {
+                          navigate(
+                            `/company/${data.name}`
+                          );
+                        }}
                       >
                         <Card.Header>
                           <strong>Email:</strong> {data.email}
@@ -363,9 +402,19 @@ export default function HomeUser() {
                       </Card>
                     ))}
                   </>
-                  <div className={style.columInfo}></div>
+                  {/* <div className={style.columInfo}></div> */}
                 </div>
                 <div className={style.columnPost}>
+                  <h1> Job Offers</h1>
+                  {dataFilterUl !== "" && (
+                    <ul className={style.filterBy}>
+                      <p>Filter By: </p>
+                      {Object.keys(dataFilterUl).map((data, i) => {
+                        return <li key={i}>{dataFilterUl[data]}</li>;
+                      })}
+                    </ul>
+                  )}
+
                   {posts.length ? (
                     posts.map((data, index) => {
                       return (
@@ -379,24 +428,39 @@ export default function HomeUser() {
                         >
                           <Card>
                             <Card.Header as="h5">
-                              <label>Job Offer</label> -{" "}
-                              <label
-                                className={style.companyName}
-                                onClick={() => {
-                                  navigate(`/company/${data.company?.name}`);
-                                }}
-                              >
-                                {" "}
-                                {data.company?.name}{" "}
-                                {data.company.premium === 1 ? (
-                                  <AiFillStar />
-                                ) : (
-                                  ""
+                              <div className={style.reportContainer}>
+                                <div>
+                                  <label
+                                    className={style.companyName}
+                                    onClick={() => {
+                                      navigate(
+                                        `/company/${data.company?.name}`,
+                                      );
+                                    }}
+                                  >
+                                    {" "}
+                                    {data.company?.name}{" "}
+                                    {data.company.premium === 1 ? (
+                                      <AiFillStar />
+                                    ) : (
+                                      ""
+                                    )}
+                                  </label>
+                                </div>
+                                {!logged.hasOwnProperty("error") && (
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                      setShowReport(data.id);
+                                    }}
+                                  >
+                                    Report
+                                  </Button>
                                 )}
-                              </label>
+                              </div>
                             </Card.Header>
                             <Card.Body>
-                              <Card.Title>{data.TitlePost}</Card.Title>
+                              <Card.Title>{data.titlePost}</Card.Title>
                               <Card.Text style={{ textAlign: "start" }}>
                                 {data.descripcion}
                                 <br />
@@ -458,6 +522,6 @@ export default function HomeUser() {
           <Loading />
         )}
       </>
-    </div>
+    </div >
   );
 }

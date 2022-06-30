@@ -6,6 +6,13 @@
     height: 99vh;
     padding: 0;
 }
+.ContainerGeneral h1{
+    font-size: 38px;
+    word-spacing: -5px;
+    letter-spacing: -2px;
+    font-weight: bolder;
+
+}
 
 .StyledProducts{
     display: flex;

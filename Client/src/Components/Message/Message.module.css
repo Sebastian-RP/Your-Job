@@ -26,8 +26,10 @@
     margin-top: 10px;
 }
 .messageOwn{
-    /* align-items: flex-end */
-    margin-left: 300px;
+    display: flex;
+    flex-direction:column;
+    margin-right: 200px;
+    align-items: flex-end;
     text-align: center;
 }
 

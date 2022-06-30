@@ -15,9 +15,8 @@ function Success() {
         if(flag === 0){
             emailjs.sendForm('service_db1lpkd', 'template_upt9d5c', form.current, 'F-jlerFc9kQmnHiSA')
             .then((result) => {
-                console.log(result.text);
             }, (error) => {
-                console.log(error.text);
+                console.error(error.text);
             });
             flag = 1
         }
@@ -87,9 +86,10 @@ const Body = styled.div`
     padding: 10px;
     transition: all 300ms;
     h1{
-        margin-bottom: 10px;
-        font-size: 2.5rem;
-        font-weight: bold;
+        font-size: 38px;
+        word-spacing: -5px;
+        letter-spacing: -2px;
+        font-weight: bolder;
     }
     h2{
         margin-bottom: 10px;

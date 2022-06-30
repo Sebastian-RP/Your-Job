@@ -22,7 +22,6 @@ const getPostulates = async (email) => {
         url: email,
       },
     });
-    console.log(allPostulates);
     return allPostulates;
   } catch (error) {
     console.error(error.message);

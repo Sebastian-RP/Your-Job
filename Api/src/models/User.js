@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     employment_status: {
-      type: DataTypes.ENUM(["empleado", "desempleado"]), //tema a consultar sobre el idioma y los valores
+      type: DataTypes.ENUM(["Employee", "Unemployed"]), //tema a consultar sobre el idioma y los valores
     },
     age: {
       type: DataTypes.DATEONLY,
@@ -28,6 +28,10 @@ module.exports = (sequelize) => {
     },
     description: {
       type: DataTypes.TEXT,
+    },
+    ocupation: {
+      type: DataTypes.STRING,
+      defaultValue: "This user works at"
     },
     technologiesName: {
       type: DataTypes.ARRAY(DataTypes.STRING),

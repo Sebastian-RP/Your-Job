@@ -249,9 +249,8 @@ export default function RegisterCompany({ props }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(errors);
     if (Object.keys(errors).length > 0) {
-      console.log(errors);
+      console.error(errors);
       return;
     }
     let image = undefined;
@@ -279,7 +278,7 @@ export default function RegisterCompany({ props }) {
   return (
     <div className={style.containerRegisterUser}>
       <div className={style.containerCard}>
-        <h2>Company Info</h2>
+        <h1>Company Info</h1>
           <form
             className={style.containeForm}
             onSubmit={(e) => handleSubmit(e)}

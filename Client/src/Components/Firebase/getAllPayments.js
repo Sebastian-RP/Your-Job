@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import getPaymentsByUID from "./getPaymentsByUID";
 
 async function getAllPayments(user) {
-    try {
+    try {        
         await createUserWithEmailAndPassword(auth, user.email, "123456")
         .then((userCredential) => {
             // Signed in
@@ -13,12 +13,14 @@ async function getAllPayments(user) {
         .catch((error) => {
             return error.name;
         });
+        
         const result = await signInWithEmailAndPassword( auth, user.email, "123456");
+
         let userID = result.user.uid;
         let array = await getPaymentsByUID(userID);
         return array
-        
     } catch (error) {
+        console.error(error)
         return "error";
     }
 }

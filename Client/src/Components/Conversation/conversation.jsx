@@ -35,7 +35,7 @@ export default function Conversation({ conversation, currentUser }) {
         getFriend();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, [conversation, currentUser]);
   return (

@@ -5,7 +5,7 @@ const fakeUserData = [
   [
     "t0mshaster5@gmail.com",
     "Gregory Jenkins",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -18,7 +18,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Daisy Chavez",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -31,7 +31,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Catherine Lindsey",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -44,7 +44,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Daniel Tate",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -57,7 +57,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Donald Watson",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -70,7 +70,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Ronald Lamb",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -83,7 +83,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Philip Carpenter",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -96,7 +96,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Cole Kelly",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -109,7 +109,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Jerome Colon",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -122,7 +122,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Anthony Graham",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -135,7 +135,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Bobby Ramsey",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -148,7 +148,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Lilly Ray",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -161,7 +161,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Helen Russell",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -174,7 +174,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Patrick Thornton",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -187,7 +187,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Mario Fuentes",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -200,7 +200,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Eugenia Chavez",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -213,7 +213,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Genevieve Cole",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -226,7 +226,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Glen Holmes",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -239,7 +239,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Gussie McCarthy",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -252,7 +252,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Herbert Simpson",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -265,7 +265,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Howard Allison",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -278,7 +278,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Jeanette Franklin",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -291,7 +291,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Jesse Swanson",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -304,7 +304,7 @@ const fakeUserData = [
   [
     chance.email(),
     "John Valdez",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -317,7 +317,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Jonathan Singleton",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -330,7 +330,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Lucille Murray",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -343,7 +343,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Elizabeth Larson",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -356,7 +356,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Mamie Wheeler",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -369,7 +369,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Mark Stone",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -382,7 +382,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Max Cohen",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -395,7 +395,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Michael Drake",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -408,7 +408,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Mittie Gross",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -421,7 +421,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Nell Richardson",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -434,7 +434,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Olive Sandoval",
-    "empleado",
+    "Employee",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -447,7 +447,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Ora Hunt",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -461,7 +461,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Ralph Alvarez",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -474,7 +474,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Tom Lindsey",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -487,7 +487,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Vernon Smith",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -500,7 +500,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Willie Flowers",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -513,7 +513,7 @@ const fakeUserData = [
   [
     chance.email(),
     "Leona Henderson",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -526,7 +526,7 @@ const fakeUserData = [
   [
     "usuarioMartinez@gmail.com",
     "Juan Pablo Martinez",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -539,7 +539,7 @@ const fakeUserData = [
   [
     "usuarioHernandez@gmail.com",
     "Ana Maria Hernandez",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -552,7 +552,7 @@ const fakeUserData = [
   [
     "usuarioCastiblanco@gmail.com",
     "Dario Nicolas Castiblanco",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -565,7 +565,7 @@ const fakeUserData = [
   [
     "usuarioZamudio@gmail.com",
     "Diego Esteban Zamudio",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -578,7 +578,7 @@ const fakeUserData = [
   [
     "usuarioTriana@gmail.com",
     "Angie tatiana Triana",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),
@@ -591,7 +591,7 @@ const fakeUserData = [
   [
     "usuarioRios@gmail.com",
     "Karen Eleana Rios",
-    "desempleado",
+    "Unemployed",
     chance.age(),
     chance.url({ extensions: ["jpg", "png"] }),
     chance.sentence(),

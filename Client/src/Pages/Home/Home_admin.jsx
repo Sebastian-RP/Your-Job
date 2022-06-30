@@ -17,10 +17,16 @@ import {
   deleteTech,
   addTechnology,
   updateUser,
+  getAllReports,
+  getAllForumPost,
+  deleteReport,
+  deleteForumPost,
 } from "../../Redux/Actions/Actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Post from "../../Components/Post/Post";
+import emailjs from "@emailjs/browser";
 
 // const Modality = ["remoto", "presencial"];
 // const Experience = ["trainig", "junior", "semi-senior", "senior"];
@@ -38,12 +44,22 @@ export default function HomeAdmin() {
   const companies = [...selector.companies];
   const users = [...selector.users];
   const posts = [...selector.posts];
+  const forumPosts = [...selector.allForumPost];
+  const reports = useSelector((state) => state.reports);
   const [toBan, setToBan] = useState(false);
+  const [reportId, setReportId] = useState(false);
   const [showTechForm, setShowTechForm] = useState(false);
   const [techName, setTechName] = useState("");
   const [showInfo, setShowInfo] = useState({});
   const [adminView, setAdminView] = useState("user");
+  const [reportView, setReportView] = useState("users");
+  const [postView, setPostView] = useState("user");
   const logged = useSelector((state) => state.myUser);
+  const [toSend, setToSend] = useState({
+    from_name: "",
+    reply_to: "",
+    message: "",
+  });
 
   const postulatesUser = selector.postulatesUser;
 
@@ -51,19 +67,20 @@ export default function HomeAdmin() {
     dispatch(getAllPost());
     dispatch(getAllCompanies());
     dispatch(getAllTechnologies());
+    dispatch(getAllForumPost());
+    dispatch(getAllReports());
     getAllUsers().then((data) => dispatch(data));
     dispatch(getUserByEmail(user?.email));
     // eslint-disable-next-line
   }, [dispatch, toBan]);
 
   useEffect(() => {
-    // console.log(selector);
-    // console.log(user?.email);
-    // console.log(logged);
+    dispatch(getAllReports());
+  }, [reportView, adminView]);
+
+  useEffect(() => {
     dispatch(getUserByEmail(user?.email));
-    getAllProducts("usuario").then((res) => {
-      dispatch(res);
-    });
+
     // eslint-disable-next-line
   }, [user]);
 
@@ -93,12 +110,13 @@ export default function HomeAdmin() {
       await axios.post("/conversation/", conversation);
       navigate("/messenger");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  const banQuestion = (user) => {
+  const banQuestion = (user, report = false) => {
     setToBan(user);
+    setReportId(report);
   };
 
   const setAdmin = (user) => {
@@ -159,17 +177,57 @@ export default function HomeAdmin() {
     }, 1000);
   };
 
+  const sendEmail = () => {
+    emailjs
+      .send("service_db1lpkd", "template_upt9d5c", toSend, "F-jlerFc9kQmnHiSA")
+      .then((response) => {
+      })
+      .catch((err) => {
+        console.error("FAILED...", err);
+      });
+  };
+
   const ban = (veredict) => {
     if (veredict) {
+      dispatch(deleteReport(reportId));
       if (toBan.modality) {
-        dispatch(deletePost(toBan.id));
+        dispatch(deletePost(toBan.id)).then((data) => {
+          setToSend({
+            from_name: toBan.company.name,
+            reply_to: toBan.company.email,
+            message:
+              "Dear Company, your post has been deleted for violating our Terms of Service.",
+          });
+          sendEmail();
+        });
         swal({
           title: "Post deleted",
-          text: `${toBan.titlePost} has been deleted successfully`,
+          text: `${toBan.company.name}'s post has been deleted successfully`,
           icon: "success",
         });
         return setTimeout(() => {
           setToBan(false);
+          setReportId(false);
+        }, 1000);
+      }
+      if (toBan.CommentForumPosts) {
+        dispatch(deleteForumPost(toBan.id)).then((data) => {
+          setToSend({
+            from_name: toBan.company.name,
+            reply_to: toBan.company.email,
+            message:
+              "Dear User, your post has been deleted for violating our Terms of Service.",
+          });
+          sendEmail();
+        });
+        swal({
+          title: "Post deleted",
+          text: `${toBan.user}'s post has been deleted successfully`,
+          icon: "success",
+        });
+        return setTimeout(() => {
+          setToBan(false);
+          setReportId(false);
         }, 1000);
       }
       if (toBan.property && toBan.property === "Technology") {
@@ -183,12 +241,33 @@ export default function HomeAdmin() {
 
         return setTimeout(() => {
           setToBan(false);
+          setReportId(false);
         }, 1000);
       }
       if (toBan.Account && toBan.Account === "User")
-        dispatch(deleteUser(toBan.id));
+        dispatch(deleteUser(toBan.id)).then((data) => {
+          setToSend({
+            from_name: toBan.name,
+            reply_to: toBan.email,
+            message:
+              "Dear User, your account has been banned for violating our Terms of Service.",
+          });
+          sendEmail();
+        });
       if (toBan.Account && toBan.Account === "Company")
-        dispatch(deleteCompany(toBan.id));
+        dispatch(deleteCompany(toBan.id)).then((data) => {
+          let toDelete = posts.filter((post) => post.company.id == toBan.id);
+          for (let post of toDelete) {
+            dispatch(deletePost(post.id));
+          }
+          setToSend({
+            from_name: toBan.name,
+            reply_to: toBan.email,
+            message:
+              "Dear Company, your account has been banned for violating our Terms of Service.",
+          });
+          sendEmail();
+        });
       if (
         toBan.Account &&
         (toBan.Account === "Admin" || toBan.Account === "SuperAdmin")
@@ -203,10 +282,14 @@ export default function HomeAdmin() {
         text: `${toBan.name} has been deleted successfully`,
         icon: "success",
       });
-    }
-    setTimeout(() => {
+      setTimeout(() => {
+        setToBan(false);
+        setReportId(false);
+      }, 1000);
+    } else {
       setToBan(false);
-    }, 1000);
+      setReportId(false);
+    }
   };
 
   return (
@@ -218,8 +301,14 @@ export default function HomeAdmin() {
             {toBan && (
               <div className={style.confirmBan}>
                 <div>
-                  Are you sure you want to ban{" "}
-                  {toBan.name || toBan.company.name + "'s Post"}?
+                  {toBan.Account &&
+                  (toBan.Account === "User" || toBan.Account === "Company")
+                    ? `Are you sure you want to ban ${toBan.name}?`
+                    : toBan.modality || toBan.CommentForumPosts
+                    ? `Are you sure you want to delete ${
+                        toBan.modality ? toBan.company.name : toBan.user
+                      }'s post?`
+                    : `Are you sure you want to delete ${toBan.name}?`}
                 </div>
                 <div className={style.confirmButtons}>
                   <Button onClick={() => ban(false)}>No</Button>{" "}
@@ -253,7 +342,7 @@ export default function HomeAdmin() {
                 </div>
                 <ButtonGroup vertical>
                   <Button
-                    variant="light"
+                    variant={adminView === "user" ? "dark" : "light"}
                     onClick={() => {
                       setAdminView("user");
                     }}
@@ -261,7 +350,7 @@ export default function HomeAdmin() {
                     Users
                   </Button>
                   <Button
-                    variant="light"
+                    variant={adminView === "company" ? "dark" : "light"}
                     onClick={() => {
                       setAdminView("company");
                     }}
@@ -269,7 +358,7 @@ export default function HomeAdmin() {
                     Companies
                   </Button>
                   <Button
-                    variant="light"
+                    variant={adminView === "posts" ? "dark" : "light"}
                     onClick={() => {
                       setAdminView("posts");
                     }}
@@ -277,16 +366,24 @@ export default function HomeAdmin() {
                     Posts
                   </Button>
                   <Button
-                    variant="light"
+                    variant={adminView === "technology" ? "dark" : "light"}
                     onClick={() => {
                       setAdminView("technology");
                     }}
                   >
                     Technologies
                   </Button>
+                  <Button
+                    variant={adminView === "reports" ? "dark" : "light"}
+                    onClick={() => {
+                      setAdminView("reports");
+                    }}
+                  >
+                    Reports - {reports ? reports.flat().length : "?"}
+                  </Button>
                   {logged.Account === "SuperAdmin" && (
                     <Button
-                      variant="light"
+                      variant={adminView === "admin" ? "dark" : "light"}
                       onClick={() => {
                         setAdminView("admin");
                       }}
@@ -382,7 +479,7 @@ export default function HomeAdmin() {
                                 <div className={style.userOptions}>
                                   <Button
                                     onClick={() =>
-                                      navigate(`/users/${company.name}`)
+                                      navigate(`/company/${company.name}`)
                                     }
                                   >
                                     Profile
@@ -411,63 +508,108 @@ export default function HomeAdmin() {
                 )}
                 {adminView === "posts" && (
                   <div className={style.columnPost}>
-                    {posts.length ? (
-                      posts.map((data, index) => {
-                        return (
-                          <div className={style.cardPost} key={index}>
-                            <Card>
-                              <Card.Header as="h5">
-                                <label>Job Offer</label> -{" "}
-                                <label
-                                  className={style.companyName}
-                                  onClick={() => {
-                                    navigate(`/users/${data.company?.name}`);
-                                  }}
-                                >
-                                  {" "}
-                                  {data.company?.name}{" "}
-                                </label>
-                              </Card.Header>
-                              <Card.Body>
-                                <Card.Title>{data.TitlePost}</Card.Title>
-                                <Card.Text style={{ textAlign: "start" }}>
-                                  {data.descripcion}
-                                  <br />
-                                  <strong>Experience:</strong> {data.experience}
-                                  <br />
-                                  <strong>Min-Salary:</strong> {data.min_salary}
-                                  <br />
-                                  <strong>Max-Salary:</strong> {data.max_salary}
-                                  <br />
-                                  <strong>Modality:</strong> {data.modality}
-                                  <br />
-                                  <strong>Technologies:</strong>
-                                  <>
-                                    {data.technologiesId.map((data, i) => {
-                                      let tech = allTechnologies.find(
-                                        // eslint-disable-next-line
-                                        (t) => t.id == data
-                                      );
-                                      return <li key={i}>{tech?.name}</li>;
-                                    })}
-                                  </>
-                                </Card.Text>
+                    <ButtonGroup>
+                      <Button
+                        onClick={() => {
+                          setPostView("company");
+                        }}
+                      >
+                        Company Posts
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setPostView("user");
+                        }}
+                      >
+                        User Posts
+                      </Button>
+                    </ButtonGroup>
+                    {postView === "company" &&
+                      (posts.length ? (
+                        posts.map((data, index) => {
+                          return (
+                            <div className={style.cardPost} key={index}>
+                              <Card>
+                                <Card.Header as="h5">
+                                  <label>Job Offer</label> -{" "}
+                                  <label
+                                    className={style.companyName}
+                                    onClick={() => {
+                                      navigate(`/users/${data.company?.name}`);
+                                    }}
+                                  >
+                                    {" "}
+                                    {data.company?.name}{" "}
+                                  </label>
+                                </Card.Header>
+                                <Card.Body>
+                                  <Card.Title>{data.TitlePost}</Card.Title>
+                                  <Card.Text style={{ textAlign: "start" }}>
+                                    {data.descripcion}
+                                    <br />
+                                    <strong>Experience:</strong>{" "}
+                                    {data.experience}
+                                    <br />
+                                    <strong>Min-Salary:</strong>{" "}
+                                    {data.min_salary}
+                                    <br />
+                                    <strong>Max-Salary:</strong>{" "}
+                                    {data.max_salary}
+                                    <br />
+                                    <strong>Modality:</strong> {data.modality}
+                                    <br />
+                                    <strong>Technologies:</strong>
+                                    <>
+                                      {data.technologiesId.map((data, i) => {
+                                        let tech = allTechnologies.find(
+                                          // eslint-disable-next-line
+                                          (t) => t.id == data
+                                        );
+                                        return <li key={i}>{tech?.name}</li>;
+                                      })}
+                                    </>
+                                  </Card.Text>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                      banQuestion(data);
+                                    }}
+                                  >
+                                    Delete Post
+                                  </Button>
+                                </Card.Body>
+                              </Card>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <h2>No posts available</h2>
+                      ))}
+                    {postView === "user" &&
+                      (forumPosts.length ? (
+                        forumPosts.map((post, index) => {
+                          return (
+                            <>
+                              <Post
+                                key={post?.user + "_" + index}
+                                data={post}
+                              />
+                              <ButtonGroup>
                                 <Button
                                   variant="danger"
                                   onClick={() => {
-                                    banQuestion(data);
+                                    banQuestion(post);
                                   }}
                                 >
-                                  Delete Post
+                                  DeletePost
                                 </Button>
-                              </Card.Body>
-                            </Card>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <h2>No posts available</h2>
-                    )}
+                              </ButtonGroup>
+                            </>
+                          );
+                        })
+                      ) : (
+                        <h2>No posts available</h2>
+                      ))}
                   </div>
                 )}
                 {adminView === "technology" && (
@@ -554,6 +696,303 @@ export default function HomeAdmin() {
                     ) : (
                       <h2>No Users Available</h2>
                     )}
+                  </div>
+                )}
+                {adminView === "reports" && (
+                  <div className={style.columnPost}>
+                    <ButtonGroup>
+                      <Button onClick={() => setReportView("users")}>
+                        Users
+                      </Button>
+                      <Button onClick={() => setReportView("userposts")}>
+                        UserPosts
+                      </Button>
+                      <Button onClick={() => setReportView("companies")}>
+                        Companies
+                      </Button>
+                      <Button onClick={() => setReportView("companyposts")}>
+                        CompanyPosts
+                      </Button>
+                    </ButtonGroup>
+                    {reportView === "users" &&
+                      (reports[0]?.length > 0 ? (
+                        reports[0].map((report, index) => {
+                          let user = users.find(
+                            (user) => user.id == report.contentId
+                          );
+                          if (!user) {
+                            dispatch(deleteReport(report.id));
+                            return <div> Error </div>;
+                          } else {
+                            return (
+                              <div
+                                className={style.cardPost}
+                                key={index}
+                                onMouseOver={() => {
+                                  setShowInfo(user);
+                                }}
+                              >
+                                <Card>
+                                  <Card.Header as="h5">
+                                    {user?.name} - Report Count:{" "}
+                                    {report.reportCount}
+                                  </Card.Header>
+                                  <Card.Body>
+                                    <div className={style.userOptions}>
+                                      <Button
+                                        onClick={() =>
+                                          navigate(`/users/${user.name}`)
+                                        }
+                                      >
+                                        Profile
+                                      </Button>
+                                      <Button
+                                        onClick={() => sendMessage(user.name)}
+                                      >
+                                        Message
+                                      </Button>
+                                      <Button
+                                        variant="danger"
+                                        onClick={() =>
+                                          banQuestion(user, report.id)
+                                        }
+                                      >
+                                        Ban
+                                      </Button>
+                                      Reasons:
+                                      <ul>
+                                        {Object.keys(report.reasons).map(
+                                          (reason, index) => {
+                                            // console.log(report.reasons[reason]);
+                                            // console.log(reason);
+                                            if (report.reasons[reason]) {
+                                              return <li>{reason}</li>;
+                                            }
+                                          }
+                                        )}
+                                      </ul>
+                                    </div>
+                                  </Card.Body>
+                                </Card>
+                              </div>
+                            );
+                          }
+                        })
+                      ) : (
+                        <div>No Users Reported</div>
+                      ))}
+                    {reportView === "userposts" &&
+                      (reports[1]?.length > 0 ? (
+                        reports[1].map((report, index) => {
+                          let post = forumPosts.find(
+                            (post) => post.id == report.contentId
+                          );
+                          if (!post) {
+                            // dispatch(deleteReport(report.id));
+                            return <div> Error </div>;
+                          } else if (post) {
+                            return (
+                              <>
+                                <div>Report Count {report.reportCount}</div>
+                                <Post
+                                  key={post?.user + "_" + index}
+                                  data={post}
+                                />
+                                <ButtonGroup>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                      banQuestion(post, report.id);
+                                    }}
+                                  >
+                                    DeletePost
+                                  </Button>
+                                </ButtonGroup>
+                                Reasons:
+                                <ul>
+                                  {Object.keys(report.reasons).map(
+                                    (reason, index) => {
+                                      // console.log(report.reasons[reason]);
+                                      // console.log(reason);
+                                      if (report.reasons[reason]) {
+                                        return <li>{reason}</li>;
+                                      }
+                                    }
+                                  )}
+                                </ul>
+                              </>
+                            );
+                          } else {
+                            return (
+                              <div>
+                                {" "}
+                                Error getting post, please try again later{" "}
+                              </div>
+                            );
+                          }
+                        })
+                      ) : (
+                        <div>No Forum Post Reports</div>
+                      ))}
+                    {reportView === "companies" &&
+                      (reports[2]?.length > 0 ? (
+                        reports[2].map((report, index) => {
+                          let company = companies.find(
+                            (comp) => comp.id == report.contentId
+                          );
+                          if (!company) {
+                            dispatch(deleteReport(report.id));
+                            return <div> Error </div>;
+                          } else {
+                            return (
+                              <div
+                                className={style.cardPost}
+                                key={index}
+                                onMouseOver={() => {
+                                  setShowInfo(company);
+                                }}
+                              >
+                                <Card>
+                                  <Card.Header as="h5">
+                                    {company?.name} - Report Count:{" "}
+                                    {report.reportCount}
+                                  </Card.Header>
+                                  <Card.Body>
+                                    <div className={style.userOptions}>
+                                      <Button
+                                        onClick={() =>
+                                          navigate(`/users/${company?.name}`)
+                                        }
+                                      >
+                                        Profile
+                                      </Button>
+                                      <Button
+                                        onClick={() =>
+                                          sendMessage(company?.name)
+                                        }
+                                      >
+                                        Message
+                                      </Button>
+                                      <Button
+                                        variant="danger"
+                                        onClick={() =>
+                                          banQuestion(company, report.id)
+                                        }
+                                      >
+                                        Ban
+                                      </Button>
+                                    </div>
+                                    Reasons:
+                                    <ul>
+                                      {Object.keys(report.reasons).map(
+                                        (reason, index) => {
+                                          // console.log(report.reasons[reason]);
+                                          // console.log(reason);
+                                          if (report.reasons[reason]) {
+                                            return <li>{reason}</li>;
+                                          }
+                                        }
+                                      )}
+                                    </ul>
+                                  </Card.Body>
+                                </Card>
+                              </div>
+                            );
+                          }
+                        })
+                      ) : (
+                        <div>No Companies Reported</div>
+                      ))}
+                    {reportView === "companyposts" &&
+                      (reports[3]?.length > 0 ? (
+                        reports[3].map((report, index) => {
+                          let data = posts.find(
+                            (companyPosts) =>
+                              companyPosts.id == report.contentId
+                          );
+                          if (!data) {
+                            dispatch(deleteReport(report.id));
+                            return <div> Error </div>;
+                          } else {
+                            return (
+                              <div className={style.cardPost} key={index}>
+                                <Card>
+                                  <Card.Header as="h5">
+                                    <label>Job Offer</label> -{" "}
+                                    <label
+                                      className={style.companyName}
+                                      onClick={() => {
+                                        navigate(
+                                          `/users/${data.company?.name}`
+                                        );
+                                      }}
+                                    >
+                                      {" "}
+                                      {data.company?.name}
+                                    </label>
+                                    -
+                                    <label>
+                                      {" "}
+                                      Report Count: {report.reportCount}{" "}
+                                    </label>
+                                  </Card.Header>
+                                  <Card.Body>
+                                    <Card.Title>{data.TitlePost}</Card.Title>
+                                    <Card.Text style={{ textAlign: "start" }}>
+                                      {data.descripcion}
+                                      <br />
+                                      <strong>Experience:</strong>{" "}
+                                      {data.experience}
+                                      <br />
+                                      <strong>Min-Salary:</strong>{" "}
+                                      {data.min_salary}
+                                      <br />
+                                      <strong>Max-Salary:</strong>{" "}
+                                      {data.max_salary}
+                                      <br />
+                                      <strong>Modality:</strong> {data.modality}
+                                      <br />
+                                      <strong>Technologies:</strong>
+                                      <>
+                                        {data.technologiesId.map((data, i) => {
+                                          let tech = allTechnologies.find(
+                                            // eslint-disable-next-line
+                                            (t) => t.id == data
+                                          );
+                                          return <li key={i}>{tech?.name}</li>;
+                                        })}
+                                      </>
+                                    </Card.Text>
+                                    <Button
+                                      variant="danger"
+                                      onClick={() => {
+                                        banQuestion(data, report.id);
+                                      }}
+                                    >
+                                      Delete Post
+                                    </Button>
+                                    <br />
+                                    Reasons:
+                                    <ul>
+                                      {Object.keys(report.reasons).map(
+                                        (reason, index) => {
+                                          // console.log(report.reasons[reason]);
+                                          // console.log(reason);
+                                          if (report.reasons[reason]) {
+                                            return <li>{reason}</li>;
+                                          }
+                                        }
+                                      )}
+                                    </ul>
+                                  </Card.Body>
+                                </Card>
+                              </div>
+                            );
+                          }
+                        })
+                      ) : (
+                        <div>No Company Posts Reported</div>
+                      ))}
                   </div>
                 )}
               </div>

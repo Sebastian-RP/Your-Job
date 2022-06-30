@@ -23,6 +23,7 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { AiOutlineDelete } from "react-icons/ai";
 
 import swal from "sweetalert";
+import ReportForm from "../../Components/Report_Form/Report_Form";
 
 export default function Companies() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -37,11 +38,12 @@ export default function Companies() {
   const [ownProfile, setOwnProfile] = useState(false);
   const [showPosts, setShowPosts] = useState(false);
   const [update, setUpdate] = useState(""); //cuando elimino mis suscripciones, cambia estado y renderiza el boton
+  const [showReport, setShowReport] = useState(false);
 
   const posts = useSelector((state) => state.companyPosts);
+  const imgDefault = "https://icon-library.com/images/profile-png-icon/profile-png-icon-24.jpg";
 
   const companyData = useSelector((state) => {
-    // console.log(state);
     return {
       ...state.company,
       postulates: [...state.postulatesUser],
@@ -118,15 +120,19 @@ export default function Companies() {
         navigate("/messenger");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const handlerCanceledSubscription = async (e) => {
     try {
-      if(e === "todo"){
+      if (e === "todo") {
         canceledSubscription(user?.email, e)
         .then((res) => {
+          dispatch(getActivePlans(user));
+          updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then((res) => {
+            dispatch(res);
+          }); 
           swal({
             title: "Success!",
             text: "All the subscription has been canceled",
@@ -137,15 +143,14 @@ export default function Companies() {
               setUpdate("1");
             }
           });
-        }
-        )
-        .catch((err) => {
-          console.log(err);
-        }
-        );
-      } else{
+        })
+      } else {
         canceledSubscription(user?.email, e)
         .then((res) => {
+          dispatch(getActivePlans(user));
+          updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then((res) => {
+            dispatch(res);
+          }); 
           swal({
             title: "Success!",
             text: `The subscription ${e} has been canceled`,
@@ -154,26 +159,10 @@ export default function Companies() {
           }).then((data) => {
             if(data) navigate("/home");
           });
-        }
-        )
-        .catch((err) => {
-          swal({
-            title: "Opps!",
-            text: `Something gones wrong, please try again later`,
-            icon: "error",
-            buttons:true
-          }).then((data) => {
-            if(data) navigate("/home");
-          });        
-        }
-        );
+        })
       }
-      dispatch(getActivePlans(user));
-      updatePremiumPlanCompany(loggedCompany?.id, companyData.plans).then((res) => {
-        dispatch(res);
-      }); 
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -183,8 +172,12 @@ export default function Companies() {
   return (
     <>
       <Navbar />
+      {showReport && (
+        <ReportForm props={[setShowReport, "company", showReport]} />
+      )}
       <div className={style.containerPerfil}>
         <div className={style.header}>
+          <h1>Company Profile</h1>
           <div className={style.picture}>
             <img
               src={
@@ -194,15 +187,15 @@ export default function Companies() {
               }
               alt="perfil"
             />
-            <h3>{companyData?.name}</h3>
+            <h1>{companyData?.name}</h1>
           </div>
           <div className={style.about}>
-            <p>Email: {companyData?.email}</p>
-            <p>Nationality: {companyData?.nationality}</p>
-            <p>Address: {companyData?.address}</p>
-            <p>Phone: {companyData?.phone} </p>
+            <p><strong>Email:</strong>{companyData?.email}</p>
+            <p><strong>Nationality:</strong>{companyData?.nationality}</p>
+            <p><strong>Address:</strong>{companyData?.address}</p>
+            <p><strong>Phone:</strong>{companyData?.phone} </p>
             <p>
-              Linkedin:{" "}
+            <strong>Linkedin:{" "}</strong>
               <a
                 href={"https://" + companyData.url}
                 target="_blank"
@@ -230,10 +223,11 @@ export default function Companies() {
             >
               Message
             </button>
+
             <button
               className={style.Button}
               style={{ display: ownProfile ? "" : "none" }}
-              onClick={() => navigate(`/users/${loggedCompany.name}/edit`)}
+              onClick={() => navigate(`/company/${loggedCompany.name}/edit`)}
             >
               Edit Profile
             </button>
@@ -245,13 +239,25 @@ export default function Companies() {
             >
               {showPosts ? "Company Employees" : "Company Posts"}
             </button>
+            {!ownProfile &&
+              (!loggedCompany.hasOwnProperty("error") ||
+                !loggedUser.hasOwnProperty("error")) && (
+                <button
+                  className={style.ButtonDanger}
+                  onClick={() => {
+                    setShowReport(companyData.id);
+                  }}
+                >
+                  Report
+                </button>
+              )}
           </div>
 
           <div
             style={{ display: showPosts ? "" : "none" }}
             className={style.suggestionsBody}
           >
-            <h2>Company posts</h2>
+            <h1>Company posts</h1>
             {posts &&
               posts.map((data, index) => {
                 // console.log(data);
@@ -309,7 +315,7 @@ export default function Companies() {
             style={{ display: !showPosts ? "" : "none" }}
             className={style.suggestionsBody}
           >
-            <h2>Employees</h2>
+            <h1>Employees</h1>
             {companyData.employees ? (
               companyData.employees.length > 0 ? (
                 companyData.employees.map((employee, index) => {
@@ -325,7 +331,7 @@ export default function Companies() {
                         {employee.name}
                       </Card.Header>
                       <Card.Body>
-                        <img src={employee.image} alt="perfil" />
+                        <img src={employee.image? employee.image: imgDefault} alt="perfil" />
                         <p>{employee.nationality}</p>
                         <p>{employee.description}</p>
                       </Card.Body>
@@ -349,9 +355,9 @@ export default function Companies() {
         </div>
         <div className={style.perfilInfo}>
           <div>
-            <h2>
+            <h1>
               Information <IoMdInformationCircleOutline />
-            </h2>
+            </h1>
             <div className={style.info}>
               <p>{companyData?.description}</p>
             </div>
@@ -364,15 +370,18 @@ export default function Companies() {
                     <p key={i}>{d}</p>
                   </>
 
-                  { (companyData.plans[0] !== "You don't have any plan" &&
-                    companyData.plans[0] !== "To see your plans, please log in") ? (
-                      <div className={style.ButtonX} 
-                      onClick={()=>handlerCanceledSubscription(d)}
-                      >
-                        <AiOutlineDelete/>
-                      </div>) : null}
-              </div>)
-
+                  {companyData.plans[0] !== "You don't have any plan" &&
+                  companyData.plans[0] !==
+                    "To see your plans, please log in" ? (
+                    <div
+                      className={style.ButtonX}
+                      onClick={() => handlerCanceledSubscription(d)}
+                    >
+                      <AiOutlineDelete />
+                    </div>
+                  ) : null}
+                </div>
+              );
             })}
             <button
               className={style.Button}

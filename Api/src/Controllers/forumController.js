@@ -1,4 +1,4 @@
-const { ForumPosts, CommentForumPosts } = require("../db.js");
+const { ForumPosts, CommentForumPosts, NotificationPosts } = require("../db.js");
 const getPosts = async () => {
   return await ForumPosts.findAll({
     include: ["CommentForumPosts"]
@@ -19,7 +19,7 @@ const createPost = async (title, content, user = "Jose", picture) => {
 
 const createComment = async (id, content, user, picture) => {
   try {
-    const data = await CommentForumPosts.create({
+    await CommentForumPosts.create({
       content,
       user,
       picture,
@@ -31,4 +31,47 @@ const createComment = async (id, content, user, picture) => {
   }
 }
 
-module.exports = { getPosts, getPost, createPost, createComment};
+const notificationPost = async (user, title, id) => {
+  try {
+    await NotificationPosts.create({
+      user,
+      title,
+      ForumPostId: id
+    })
+  }
+  catch (error) {
+    return({message: error.message})
+  }
+}
+
+const getNotifications = async (user) => {
+  try {
+    const data = await NotificationPosts.findAll({
+      where: {
+        user
+      },
+      include: {
+        model: ForumPosts,
+        include: ["CommentForumPosts"]
+      }
+    })
+   return data
+  } catch (error) {
+    return ({message: error.message})
+  }
+}
+
+const deleteNotification = async (user) => {
+  try {
+    await NotificationPosts.destroy({
+      where: {
+        user
+      }
+    })
+    return 'ok'
+  } catch (error) {
+    return ({message: error.message});
+  }
+}
+
+module.exports = { getPosts, getPost, createPost, createComment, notificationPost, getNotifications, deleteNotification};

@@ -8,6 +8,12 @@
   flex-direction: column;
   z-index: 0;
 }
+.containeForm h1{
+  font-size: 38px;
+  word-spacing: -5px;
+  letter-spacing: -2px;
+  font-weight: bolder;
+}
 .containerCard {
   margin-bottom: 0px;
   padding: 2px;

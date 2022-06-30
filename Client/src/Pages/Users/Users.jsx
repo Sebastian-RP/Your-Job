@@ -6,16 +6,17 @@ import {
   getUserInfo,
   getActivePlans,
   updatePremiumPlan,
-  allPostulatesUser
+  allPostulatesUser,
 } from "../../Redux/Actions/Actions";
 import { useState } from "react";
 import axios from "axios";
 import Navbar from "../../Components/NavBar/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
 import canceledSubscription from "../../Components/Firebase/canceledSubscription";
-import {AiOutlineDelete} from 'react-icons/ai'
+import { AiOutlineDelete } from "react-icons/ai";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import swal from "sweetalert";
+import ReportForm from "../../Components/Report_Form/Report_Form";
 
 export default function Users() {
   // esto es para poder mokear la info ya que esta action se deberia de hacer
@@ -27,8 +28,13 @@ export default function Users() {
   const loggedUser = useSelector((state) => state.myUser);
   const loggedCompany = useSelector((state) => state.myCompany);
   const [ownProfile, setOwnProfile] = useState(false);
+<<<<<<< HEAD
   const [update, setUpdate] = useState(""); //cuando elimino mis suscripciones, cambia estado y renderiza el boton
   const userPostulates = useSelector(state => state.userPostulates)
+=======
+  const [showReport, setShowReport] = useState(false);
+  const userPostulates = useSelector((state) => state.userPostulates);
+>>>>>>> 78f571ca083ee22019d83cbfb747a7333e71937e
   const userData = useSelector((state) => {
     return {
       ...state.user,
@@ -38,7 +44,7 @@ export default function Users() {
   });
 
   useEffect(() => {
-    dispatch(allPostulatesUser(username))
+    dispatch(allPostulatesUser(username));
     getUserInfo(username).then((action) => {
       dispatch(action);
     });
@@ -54,12 +60,15 @@ export default function Users() {
     //eslint-disable-next-line
   }, []);
 
+<<<<<<< HEAD
   useEffect(() => {
     dispatch(getActivePlans(user));
     setUpdate("");
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update]);
 
+=======
+>>>>>>> 78f571ca083ee22019d83cbfb747a7333e71937e
   //----------------------------------
   const sendMessage = async () => {
     try {
@@ -80,7 +89,7 @@ export default function Users() {
         navigate("/messenger");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -94,8 +103,9 @@ export default function Users() {
 
   const handlerCanceledSubscription = async (e) => {
     try {
-      if(e === "todo"){
+      if (e === "todo") {
         canceledSubscription(user?.email, e)
+<<<<<<< HEAD
         .then((res) => {
           swal({
             title: "Success!",
@@ -106,15 +116,24 @@ export default function Users() {
             if(data) {
               setUpdate("1");
             }
+=======
+          .then((res) => {
+            swal({
+              title: "Success!",
+              text: "All the subscription has been canceled",
+              icon: "success",
+              buttons: true,
+            }).then((data) => {
+              if (data) navigate("/home");
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+>>>>>>> 78f571ca083ee22019d83cbfb747a7333e71937e
           });
-        }
-        )
-        .catch((err) => {
-          console.log(err);
-        }
-        );
-      } else{
+      } else {
         canceledSubscription(user?.email, e)
+<<<<<<< HEAD
         .then((res) => {
           swal({
              title: "Success!",
@@ -123,38 +142,46 @@ export default function Users() {
             buttons:true
           }).then((data) => {
             if(data) navigate("/home");
+=======
+          .then((res) => {
+            swal({
+              title: "Success!",
+              text: `The subscription ${e} has been canceled`,
+              icon: "success",
+              buttons: true,
+            }).then((data) => {
+              if (data) navigate("/home");
+            });
+          })
+          .catch((err) => {
+            swal({
+              title: "Opps!",
+              text: `Something gones wrong, please try again later`,
+              icon: "error",
+              buttons: true,
+            }).then((data) => {
+              if (data) navigate("/home");
+            });
+>>>>>>> 78f571ca083ee22019d83cbfb747a7333e71937e
           });
-        }
-        )
-        .catch((err) => {
-          swal({
-            title: "Opps!",
-            text: `Something gones wrong, please try again later`,
-            icon: "error",
-            buttons:true
-          }).then((data) => {
-            if(data) navigate("/home");
-          });        
-        }
-        );
       }
       dispatch(getActivePlans(user));
       updatePremiumPlan(loggedUser?.id, userData.plans).then((res) => {
         dispatch(res);
-      }); 
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  }
+  };
 
   //----------------------------------
   return (
     <>
       <Navbar />
+      {showReport && <ReportForm props={[setShowReport, "user", showReport]} />}
       <div className={style.containerPerfil}>
         <div className={style.header}>
-          <h2>About</h2>
-          <hr />
+          <h1>User Profile</h1>
           <div className={style.picture}>
             <img
               src={
@@ -164,7 +191,7 @@ export default function Users() {
               }
               alt="perfil"
             />
-            <h2>{userData?.name}</h2>
+            <h1>{userData?.name}</h1>
           </div>
           <div className={style.about}>
             <p>Status: {userData?.employment_status}</p>
@@ -206,6 +233,18 @@ export default function Users() {
             >
               Message
             </button>
+            {!ownProfile &&
+              (!loggedCompany.hasOwnProperty("error") ||
+                !loggedUser.hasOwnProperty("error")) && (
+                <button
+                  className={style.ButtonDanger}
+                  onClick={() => {
+                    setShowReport(userData.id);
+                  }}
+                >
+                  Report
+                </button>
+              )}
             <button
               className={style.Button}
               style={{ display: ownProfile ? "" : "none" }}
@@ -214,30 +253,23 @@ export default function Users() {
               Edit Profile
             </button>
           </div>
-          {userData.plans[0] !== "You don't have any plan" &&
-          userData.plans[0] !== "To see your plans, please log in" ? (
-            <>
-              <h2>My posts</h2>
-              <hr />
-              <button className={style.Button}>Create a Post</button>
-            </>
-          ) : null}
-          {
-            userPostulates?.map((data, index) => {
-              return (
-                <div key={index} className={style.CardPost}>
-                  <strong>{data.titlePost}</strong>
-                  <hr />
-                  <p>Experience: {data.experience}</p>
-                  <p>Modality: {data.modality}</p>
-                </div>
-              )
-            })
-          }
+          <h1>My postulations</h1>
+          {userPostulates.length ?userPostulates.map((data, index) => {
+            return (
+              <div key={index} className={style.CardPost}>
+                <strong>{data.titlePost}</strong>
+                <hr />
+                <p>Experience: {data.experience}</p>
+                <p>Modality: {data.modality}</p>
+              </div>
+            );
+          }): <strong>You have not applied to any offer yet.</strong>}
         </div>
         <div className={style.perfilInfo}>
           <div>
-            <h2>Information <IoMdInformationCircleOutline/></h2>
+            <h1>
+              Information <IoMdInformationCircleOutline />
+            </h1>
             <div className={style.info}>
               <p>{userData?.description}</p>
             </div>
@@ -249,14 +281,17 @@ export default function Users() {
                   <>
                     <p key={i}>{d}</p>
                   </>
-                  { (userData.plans[0] !== "You don't have any plan" &&
-                    userData.plans[0] !== "To see your plans, please log in") ? (
-                      <div className={style.ButtonX} 
+                  {userData.plans[0] !== "You don't have any plan" &&
+                  userData.plans[0] !== "To see your plans, please log in" ? (
+                    <div
+                      className={style.ButtonX}
                       onClick={() => handlerCanceledSubscription(d)}
-                      >
-                        <AiOutlineDelete/>
-                      </div>) : null}
-                </div>);
+                    >
+                      <AiOutlineDelete />
+                    </div>
+                  ) : null}
+                </div>
+              );
             })}
             <button
               className={style.Button}
@@ -276,11 +311,17 @@ export default function Users() {
                 className={style.Button}
                 onClick={() => {
                   window.open(
-                    "https://" + userData.cv,
+                    userData.cv,
                     "_blank",
                     "noopener,noreferrer"
                   );
                 }}
+                disabled={
+                  !userData.cv.match(
+                    // eslint-disable-next-line
+                    /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi
+                  )
+                }
               >
                 Download CV
               </button>

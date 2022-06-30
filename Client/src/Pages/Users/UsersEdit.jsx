@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserInfo, updateUser } from "../../Redux/Actions/Actions";
 import Dropdown from "react-bootstrap/Dropdown";
-import Button from "react-bootstrap/Button";
 import { Widget } from "@uploadcare/react-widget";
 import { useState } from "react";
 import Home from "../Home/home";
@@ -226,15 +225,16 @@ export default function UsersEdit() {
   const [country, setCountry] = useState(userData?.nationality);
   const [uuidImage, setUuidImage] = useState(userData?.image);
   const [uuidCV, setUuidCV] = useState(userData?.cv);
+  const [employ, setEmploy] = useState(userData?.employment_status === "Unemployed" ? false : true);
   const [input, setInput] = useState({
     name: username,
     age: userData?.age,
     linkedin: userData?.url,
     desc: userData?.description,
+    employment: userData?.employment_status,
   });
 
   useEffect(() => {
-    console.log(username);
     getUserInfo(username).then((action) => {
       dispatch(action);
     });
@@ -272,7 +272,6 @@ export default function UsersEdit() {
   const removeTech = (tech) => {
     let aux = selectedTechs.filter((element) => element !== tech);
     setSelected(aux);
-    console.log(aux);
   };
 
   const addCountry = (country) => {
@@ -315,8 +314,8 @@ export default function UsersEdit() {
       image: image,
       technologiesName: selectedTechs,
       nationality: country,
+      employment_status: input.employment,
     };
-
     dispatch(updateUser(userData?.id, update));
     swal({
       title: "Success!",
@@ -336,43 +335,88 @@ export default function UsersEdit() {
         {ownProfile ? (
           <form>
             <div className={style.containerPerfil}>
-              <div className={style.header}>
-                <Widget
-                  publicKey="de7dc23d760e287d1cb0"
-                  clearable
-                  imagesOnly
-                  crop=""
-                  onChange={(file) => {
-                    setUuidImage(file.uuid);
-                  }}
-                />
-                <div className={style.picture}>
+              <div className={style.headerEdit}>
+                <div>
+                  <button className={style.Button} onClick={() => navigate(`/users/${loggedUser.name}`)}>
+                    Back
+                  </button>
+                  <button className={style.Button} type="submit" onClick={(e) => handleUpdate(e)}>
+                    Update
+                  </button>
+                </div>
+                <div className={style.pictureEdit}>
                   <img src={loggedUser.image} alt="" />
-                  <input
-                    defaultValue={username}
-                    name="name"
-                    required
+                  <Widget
+                    publicKey="de7dc23d760e287d1cb0"
+                    clearable
+                    imagesOnly
+                    crop=""
+                    onChange={(file) => {
+                      setUuidImage(file.uuid);
+                    }}
+                  />
+                  <label>Name: {" "}</label>
+                    <input
+                      defaultValue={username}
+                      name="name"
+                      required
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                    />
+                </div>
+
+              </div>
+              <div className={style.sugestionsEdit}>
+                <h1>Edit your profile info</h1>
+                <hr />
+                <label>Description: {" "}</label>
+
+                <div>
+                  <textarea
+                    defaultValue={userData?.description}
+                    cols="50"
+                    rows="10"
+                    name="desc"
                     onChange={(e) => {
                       handleChange(e);
                     }}
                   />
                 </div>
-                <div>
-                  <Button onClick={() => navigate(`/users/${loggedUser.name}`)}>
-                    Back
-                  </Button>
+                <hr />
+                <div style={{ textAlign: "right" }}>
+                  Update CV:
+                  <Widget
+                    publicKey="de7dc23d760e287d1cb0"
+                    clearable
+                    crop=""
+                    onChange={(file) => {
+                      setUuidCV(file.uuid);
+                    }}
+                  />
                 </div>
-              </div>
-              <div className={style.suggestions}>
-                <h2>Suggestions</h2>
-                <Button type="submit" onClick={(e) => handleUpdate(e)}>
-                  Update
-                </Button>
+
               </div>
               <div className={style.perfilInfo}>
                 <div className={style.about}>
-                  <h2>About</h2>
                   <p>Status: {userData?.employment_status}</p>
+                  {/* <div className={style.employ}>
+                    <label>Are you employed now?</label>
+                    <input
+                      type="checkbox"
+                      name="employment"
+                      id=""
+                      onClick={() => setEmploy(!employ)}
+                    />
+                    <input
+                      type="text"
+                      name="employ"
+                      placeholder="Place of employment"
+                      style={{ display: employ ? "" : "none" }}
+                      onChange={(e) => handleChange(e)}
+                      autoComplete="off"
+                    />
+                  </div> */}
                   <label>Linkedin/etc...:</label>{" "}
                   <input
                     defaultValue={userData?.url}
@@ -461,31 +505,6 @@ export default function UsersEdit() {
                       </div>
                     ))}
                   </ul>
-                </div>
-                <div className={style.info}>
-                  <h2>info</h2>
-                  <textarea
-                    defaultValue={userData?.description}
-                    cols="50"
-                    rows="10"
-                    name="desc"
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                  />
-                  <hr />
-
-                  <div style={{ textAlign: "right" }}>
-                    CV:
-                    <Widget
-                      publicKey="de7dc23d760e287d1cb0"
-                      clearable
-                      crop=""
-                      onChange={(file) => {
-                        setUuidCV(file.uuid);
-                      }}
-                    />
-                  </div>
                 </div>
               </div>
             </div>
