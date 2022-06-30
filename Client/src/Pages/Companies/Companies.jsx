@@ -190,10 +190,10 @@ export default function Companies() {
             <h1>{companyData?.name}</h1>
           </div>
           <div className={style.about}>
-            <p><strong>Email:</strong>{companyData?.email}</p>
-            <p><strong>Nationality:</strong>{companyData?.nationality}</p>
-            <p><strong>Address:</strong>{companyData?.address}</p>
-            <p><strong>Phone:</strong>{companyData?.phone} </p>
+            <p><strong>Email: </strong>{companyData?.email}</p>
+            <p><strong>Nationality: </strong>{companyData?.nationality}</p>
+            <p><strong>Address: </strong>{companyData?.address}</p>
+            <p><strong>Phone: </strong>{companyData?.phone} </p>
             <p>
             <strong>Linkedin:{" "}</strong>
               <a
@@ -330,8 +330,8 @@ export default function Companies() {
                       >
                         {employee.name}
                       </Card.Header>
-                      <Card.Body>
-                        <img src={employee.image? employee.image: imgDefault} alt="perfil" />
+                      <Card.Body >
+                        <img src={employee.image? employee.image: imgDefault} alt="perfil" className={style.imgEmployee} />
                         <p>{employee.nationality}</p>
                         <p>{employee.description}</p>
                       </Card.Body>
