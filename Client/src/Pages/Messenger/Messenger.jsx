@@ -20,8 +20,8 @@ export default function Messenger() {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const userId = user.id ? user.id : Company.id
   const scrollRef = useRef();
-  // ----------------------------------------------------------------------------------------------------------//
   const socket = useRef()
+  // ----------------------------------------------------------------------------------------------------------//
   
   
   useEffect(() => {
@@ -46,14 +46,14 @@ export default function Messenger() {
     }
   }, [arrivalMessage, currentChat]);
 
-  // useEffect(() => {
-  //   if (user?.id) {
-  //     socket.current.emit("addUser", user?.id);
-  //   } else if (Company?.id) {
-  //     socket.current.emit("addUser", Company?.id);
-  //   }
-  //   socket.current.on("getUsers", (users) => {});
-  // },[Company, user]);
+  useEffect(() => {
+    if (user?.id) {
+      socket.current.emit("addUser", user?.id);
+    } else if (Company?.id) {
+      socket.current.emit("addUser", Company?.id);
+    }
+    socket.current.on("getUsers", (users) => {});
+  },[Company, user]);
   
   // ----------------------------------------------------------------------------------------------------------//
   useEffect(() => {
