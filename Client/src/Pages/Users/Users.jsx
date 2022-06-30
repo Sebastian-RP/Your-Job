@@ -28,13 +28,11 @@ export default function Users() {
   const loggedUser = useSelector((state) => state.myUser);
   const loggedCompany = useSelector((state) => state.myCompany);
   const [ownProfile, setOwnProfile] = useState(false);
-<<<<<<< HEAD
+
   const [update, setUpdate] = useState(""); //cuando elimino mis suscripciones, cambia estado y renderiza el boton
-  const userPostulates = useSelector(state => state.userPostulates)
-=======
   const [showReport, setShowReport] = useState(false);
   const userPostulates = useSelector((state) => state.userPostulates);
->>>>>>> 78f571ca083ee22019d83cbfb747a7333e71937e
+
   const userData = useSelector((state) => {
     return {
       ...state.user,
@@ -60,15 +58,12 @@ export default function Users() {
     //eslint-disable-next-line
   }, []);
 
-<<<<<<< HEAD
   useEffect(() => {
     dispatch(getActivePlans(user));
     setUpdate("");
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update]);
 
-=======
->>>>>>> 78f571ca083ee22019d83cbfb747a7333e71937e
   //----------------------------------
   const sendMessage = async () => {
     try {
@@ -105,18 +100,7 @@ export default function Users() {
     try {
       if (e === "todo") {
         canceledSubscription(user?.email, e)
-<<<<<<< HEAD
-        .then((res) => {
-          swal({
-            title: "Success!",
-            text: "All the subscription has been canceled",
-            icon: "success",
-            buttons:true
-          }).then((data) => {
-            if(data) {
-              setUpdate("1");
-            }
-=======
+
           .then((res) => {
             swal({
               title: "Success!",
@@ -124,25 +108,14 @@ export default function Users() {
               icon: "success",
               buttons: true,
             }).then((data) => {
-              if (data) navigate("/home");
+              if (data) setUpdate("1");
             });
           })
           .catch((err) => {
             console.error(err);
->>>>>>> 78f571ca083ee22019d83cbfb747a7333e71937e
           });
       } else {
         canceledSubscription(user?.email, e)
-<<<<<<< HEAD
-        .then((res) => {
-          swal({
-             title: "Success!",
-            text: `The subscription ${e} has been canceled`,
-            icon: "success",
-            buttons:true
-          }).then((data) => {
-            if(data) navigate("/home");
-=======
           .then((res) => {
             swal({
               title: "Success!",
@@ -162,7 +135,6 @@ export default function Users() {
             }).then((data) => {
               if (data) navigate("/home");
             });
->>>>>>> 78f571ca083ee22019d83cbfb747a7333e71937e
           });
       }
       dispatch(getActivePlans(user));
