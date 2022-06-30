@@ -28,14 +28,17 @@ export default function Users() {
   const loggedUser = useSelector((state) => state.myUser);
   const loggedCompany = useSelector((state) => state.myCompany);
   const [ownProfile, setOwnProfile] = useState(false);
+
+  const [update, setUpdate] = useState(""); //cuando elimino mis suscripciones, cambia estado y renderiza el boton
   const [showReport, setShowReport] = useState(false);
   const userPostulates = useSelector((state) => state.userPostulates);
+
   const userData = useSelector((state) => {
     return {
       ...state.user,
       postulates: [...state.postulatesUser],
       plans: [...state.activePlans],
-    };
+    };  
   });
 
   useEffect(() => {
@@ -54,6 +57,12 @@ export default function Users() {
     }
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    dispatch(getActivePlans(user));
+    setUpdate("");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [update]);
 
   //----------------------------------
   const sendMessage = async () => {
@@ -91,6 +100,7 @@ export default function Users() {
     try {
       if (e === "todo") {
         canceledSubscription(user?.email, e)
+
           .then((res) => {
             swal({
               title: "Success!",
@@ -98,7 +108,7 @@ export default function Users() {
               icon: "success",
               buttons: true,
             }).then((data) => {
-              if (data) navigate("/home");
+              if (data) setUpdate("1");
             });
           })
           .catch((err) => {

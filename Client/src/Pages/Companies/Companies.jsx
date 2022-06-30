@@ -37,7 +37,9 @@ export default function Companies() {
   const allTechnologies = useSelector((state) => state.technologies);
   const [ownProfile, setOwnProfile] = useState(false);
   const [showPosts, setShowPosts] = useState(false);
+  const [update, setUpdate] = useState(""); //cuando elimino mis suscripciones, cambia estado y renderiza el boton
   const [showReport, setShowReport] = useState(false);
+
   const posts = useSelector((state) => state.companyPosts);
   const imgDefault = "https://icon-library.com/images/profile-png-icon/profile-png-icon-24.jpg";
 
@@ -75,6 +77,12 @@ export default function Companies() {
     );
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    setUpdate("");
+    dispatch(getActivePlans(user));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [update]);
 
   //----------------------------------
 
@@ -131,7 +139,9 @@ export default function Companies() {
             icon: "success",
             buttons:true
           }).then((data) => {
-            if(data) navigate("/home");
+            if(data) {
+              setUpdate("1");
+            }
           });
         })
       } else {
