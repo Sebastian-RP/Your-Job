@@ -55,6 +55,7 @@ export default function HomeUser() {
   const [dataFilterUl, setDataFilterUl] = useState("");
   console.log(companiesPremium)
   console.log(suggestions)
+  console.log(selector.companies)
   useEffect(() => {
     dispatch(getUserByEmail(user?.email));
     dispatch(getActivePlans(user));
