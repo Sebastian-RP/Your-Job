@@ -39,8 +39,8 @@ const getCompanyPosts = async () => {
     });
     Priority = Priority.map((A) => {
       A.sort((a, b) => {
-        if (a.company.premium === 1 || a.user.premium === 3 && b.company.premium !== 1 || b.user.premium === 3) return -1;
-        if (a.company.premium !== 1 || a.user.premium !== 3 && b.company.premium === 1 || b.user.premium !== 3) return 1;
+        if (a.company.premium === 1 || a.company.premium === 3 && b.company.premium !== 1 || b.company.premium !== 3) return -1;
+        if (a.company.premium !== 1 || a.company.premium !== 3 && b.company.premium === 1 || b.company.premium === 3) return 1;
         return 0;
       });
       return A;
