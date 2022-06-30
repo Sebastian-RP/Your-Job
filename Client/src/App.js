@@ -17,37 +17,9 @@ import Companies from "./Pages/Companies/Companies";
 import CompaniesEdit from "./Pages/Companies/CompaniesEdit";
 import { io } from "socket.io-client";
 import React, { useRef } from "react";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-  import {
-    sendNotificationChat,
-  } from "./Redux/Actions/Actions.js";
-
 
 function App() {
-  const socket = useRef()
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.myUser);
-  const Company = useSelector((state) => state.myCompany);
-
-
-
-  useEffect(() => {
-    socket.current = io("https://socket-for-chat.herokuapp.com/");
-    socket.current.on("notification", (data) => {
-      dispatch(sendNotificationChat([data]))
-    })
-  }, [dispatch])
-
-  useEffect(() => {
-    if (user?.id) {
-      socket.current.emit("addUser", user?.id);
-    } else if (Company?.id) {
-      socket.current.emit("addUser", Company?.id);
-    }
-    socket.current.on("getUsers", (users) => {});
-  },[Company, user]);
-
+  
 
   return (
     <Routes>

@@ -8,7 +8,7 @@ import { AiOutlineUser, AiOutlinePoweroff, AiOutlineStar } from "react-icons/ai"
 import swal from "sweetalert";
 import styled from "styled-components";
 import { logOut } from "../../Redux/Actions/Actions";
-import Notifications from "../Notifications/Notifications.jsx"
+// import Notifications from "../Notifications/Notifications.jsx"
 
 export default function Navbar({ home }) {
   const { logout } = useAuth0();
@@ -54,7 +54,6 @@ export default function Navbar({ home }) {
       <SearchBar />
       <div>
         <div className={style.notificacion}>
-        <Notifications />
         </div>
       <Button
             onClick={() => {
