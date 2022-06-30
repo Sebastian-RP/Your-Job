@@ -6,9 +6,10 @@
   height: calc(100vh - 8vh);
   position: sticky;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow-y: auto;
   background-color: #1c5d99;
   color: #fff;
+
 }
 
 .announces > h2 {
