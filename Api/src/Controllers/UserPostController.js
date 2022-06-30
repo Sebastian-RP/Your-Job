@@ -73,9 +73,13 @@ const createPostUser = async (titlePost, userId, descripcion) => {
 };
 
 const deleteUserPost = async (id) => {
-  const userDelete = await UserPost.findByPk(id);
-  await userDelete.update({ status: "disabled" });
-  return userDelete;
+  try {
+    const userDelete = await UserPost.findByPk(id);
+    await userDelete?.update({ status: "disabled" });
+    return userDelete;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const allPostsUser = async (nameUser) => {
