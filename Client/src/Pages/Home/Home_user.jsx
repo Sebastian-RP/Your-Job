@@ -40,7 +40,7 @@ export default function HomeUser() {
   const [showReport, setShowReport] = useState(false);
   const allTechnologies = [...selector.technologies];
   const companiesPremium = [...selector.companies].filter(
-    (data) => data.premium === 2,
+    (data) => data.premium === 2 || data.premium === 3,
   );
   const companies = [...selector.companies];
   const logged = useSelector((state) => state.myUser);

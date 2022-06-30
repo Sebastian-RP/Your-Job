@@ -27,7 +27,7 @@ export default function HomeCompany() {
   const [num, setNum] = useState(0);
   const navigate = useNavigate();
   const usersPremium = [...selector.users].filter(
-    (data) => data.premium === 1,
+    (data) => data.premium === 1 || data.premium === 3,
   );
   const suggestions = usersPremium.slice(num, num + 3);
   const allTechnologies = [...selector.technologies];
