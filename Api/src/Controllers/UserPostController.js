@@ -24,17 +24,15 @@ const getUserPosts = async () => {
     let Priority = [[], [], [], [], []];
 
     allPosts.forEach((A) => {
-      const timeA = Math.floor(
-        Math.abs(Math.random() * A.createdAt.getSeconds())
-      );
-      let diff = now.getSeconds() - timeA;
+      const timeA = A.createdAt.getMinutes()
+      let diff = now.getMinutes() - timeA;
 
-      if (A.user.premium === 1) diff = Math.floor(diff / 2);
-      if (diff < 6) Priority[0].push(A);
-      if (6 <= diff < 10) Priority[1].push(A);
-      if (10 <= diff < 13) Priority[2].push(A);
-      if (13 <= diff < 17) Priority[3].push(A);
-      if (diff >= 17) Priority[4].push(A);
+      if (A.user.premium === 1 || A.user.premium === 3) diff = Math.floor(diff / 2);
+      if (diff < 3) Priority[0].push(A);
+      if (3 <= diff < 6) Priority[1].push(A);
+      if (6 <= diff < 10) Priority[2].push(A);
+      if (10 <= diff < 13) Priority[3].push(A);
+      if (diff >= 13) Priority[4].push(A);
     });
     Priority = Priority.map((A) => {
       A.sort((a, b) => {
